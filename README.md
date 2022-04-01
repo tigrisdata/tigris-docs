@@ -52,9 +52,8 @@ One of the main features of TigrisDB is the ability to perform ACID transactions
 
 {% tabs %}
 {% tab title="CLI" %}
-Fire up the shell and connect to the database and use the TigrisDB APIs to perform CRUD operations on the data.
+Fire up the shell and connect to the database and use the TigrisDB APIs to perform CRUD operations on the data.\
 
-####
 
 #### Apply the data model
 
@@ -63,8 +62,6 @@ Apply the data model using the CLI and TigrisDB ensures ACID guarantees while ap
 ```shell-session
 tigrisdb-cli create database productdb datamodel/
 ```
-
-####
 
 #### Insert some data into the user and product collections
 
@@ -83,16 +80,12 @@ tigrisdb-cli productdb product insert \
 ]'
 ```
 
-####
-
 #### Read the data that was inserted
 
 ```
 tigrisdb-cli productdb user read '{"id": 1}'
 tigrisdb-cli productdb product read '{"id": 3}'
 ```
-
-####
 
 #### Perform a transaction between order, product and user collections
 
@@ -129,4 +122,6 @@ tigrisdb-cli productdb transact \
 
 {% endtab %}
 {% endtabs %}
+
+
 
