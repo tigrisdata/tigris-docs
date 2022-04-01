@@ -31,7 +31,7 @@ go install github.com/tigrisdata/tigrisdb-cli@latest
 
 ### 2. Declare your data models
 
-For this quickstart we will model an app that stores information about products and users.
+For this quickstart we will model an app that stores information about product, user and order.
 
 Download the sample data model
 
@@ -44,22 +44,31 @@ curl -L \
 cd ..
 ```
 
+### 3. Insert and read data
+
+The following example will setup the data model, insert data into _user_ and _product_ collections and read it.
+
+One of the main features of TigrisDB is the ability to perform ACID transactions. We will perform a transaction that involves inserting and updating documents in the _order_, _user_ and _product_ collections.
+
+{% tabs %}
+{% tab title="CLI" %}
+Fire up the shell and connect to the database and use the TigrisDB APIs to perform CRUD operations on the data.
+
+####
+
+#### Apply the data model
+
 Apply the data model using the CLI and TigrisDB ensures ACID guarantees while applying it in a single transaction.
 
 ```shell-session
 tigrisdb-cli create database productdb datamodel/
 ```
 
-### 3. Insert and read data
+####
 
-Fire up the shell and connect to the database and use the TigrisDB APIs to perform CRUD operations on the data.
+#### Insert some data into the user and product collections
 
-Insert some data into the _user_ and _product_ collections
-
-{% tabs %}
-{% tab title="CLI" %}
 ```shell-session
-# Insert some data into the user and product collections
 tigrisdb-cli productdb user insert \
 '[
     {"id": 1, "name": "Jania McGrory", "balance": "6045.7"},
@@ -72,12 +81,22 @@ tigrisdb-cli productdb product insert \
     {"id": 2, "name": "Cheese - Provolone", "quantity": 5726, "price": 16.74},
     {"id": 3, "name": "Cake - Box Window 10x10x2.5", "quantity": 5514, "price": 36.4}
 ]'
+```
 
-# Read the data that was inserted
+####
+
+#### Read the data that was inserted
+
+```
 tigrisdb-cli productdb user read '{"id": 1}'
 tigrisdb-cli productdb product read '{"id": 3}'
+```
 
-# Perform a transaction between order, product and user collections
+####
+
+#### Perform a transaction between order, product and user collections
+
+```
 tigrisdb-cli productdb transact \
 '[
   {
