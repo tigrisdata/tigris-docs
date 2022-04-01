@@ -38,15 +38,15 @@ go install github.com/tigrisdata/tigrisdb-cli@latest
 For this quickstart we will model an app that stores information about products 
 and users.
 
-Download the [sample](https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productapp/datamodel/) 
+Download the [sample](https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/) 
 data model
 
 ```shell
-mkdir -p productapp/datamodel && cd productapp/datamodel
-curl -L -O datamodel/product.json \
-  https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productapp/datamodel/product.json \
-  https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productapp/datamodel/user.json \
-  https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productapp/datamodel/order.json
+mkdir -p productdb/datamodel && cd productdb/datamodel
+curl -L \
+  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/product.json \
+  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/user.json \
+  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/order.json
 cd ..
 ```
 
