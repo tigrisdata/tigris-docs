@@ -43,10 +43,10 @@ data model
 
 ```shell
 mkdir -p productdb/datamodel && cd productdb/datamodel
-curl -L -O datamodel/product.json \
-  https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/product.json \
-  https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/user.json \
-  https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/order.json
+curl -L \
+  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/product.json \
+  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/user.json \
+  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/order.json
 cd ..
 ```
 
