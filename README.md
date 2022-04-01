@@ -52,7 +52,7 @@ while applying it in a single transaction.
 tigrisdb-cli create database productdb datamodel/
 ```
 
-### 3. Insert and read data
+## 3. Insert and read data
 
 Fire up the shell and connect to the database and use the TigrisDB APIs to 
 perform CRUD operations on the data.
