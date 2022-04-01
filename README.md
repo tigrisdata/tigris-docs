@@ -19,10 +19,12 @@ possible by covering the following 3 steps:
 ## 1. Download and run TigrisDB locally via Docker
 
 Open your terminal and use the following command to download the 
-docker-compose file and startup TigrisDB.
+[docker-compose](https://raw.githubusercontent.com/tigrisdata/tigrisdb/main/docker/local/docker-compose.yaml) 
+file and startup TigrisDB.
 
 ```shell
-curl -L https://raw.githubusercontent.com/tigrisdata/tigrisdb/main/docker/local/docker-compose.yaml | docker-compose -f - up -d
+curl -L -O https://raw.githubusercontent.com/tigrisdata/tigrisdb/main/docker/local/docker-compose.yaml
+docker-compose up -d
 ```
 
 Next up install the CLI
@@ -36,13 +38,16 @@ go install github.com/tigrisdata/tigrisdb-cli@latest
 For this quickstart we will model an app that stores information about products 
 and users.
 
-Download the sample data model
+Download the [sample](https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productapp/datamodel/) 
+data model
 
 ```shell
-mkdir -p productapp/datamodel && cd productapp
-curl -L -o datamodel/product.json https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productapp/datamodel/product.json
-curl -L -o datamodel/user.json https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productapp/datamodel/user.json
-curl -L -o datamodel/order.json https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productapp/datamodel/order.json
+mkdir -p productapp/datamodel && cd productapp/datamodel
+curl -L -O datamodel/product.json \
+  https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productapp/datamodel/product.json \
+  https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productapp/datamodel/user.json \
+  https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productapp/datamodel/order.json
+cd ..
 ```
 
 Apply the data model using the CLI and TigrisDB ensures ACID guarantees 
