@@ -1,6 +1,6 @@
 # 🚀 Introduction
 
-## Introduction
+## What is TigrisDB?
 
 [TigrisDB](https://github.com/tigrisdata/tigrisdb) is an open source data platform that makes building modern data-driven apps a breeze. Secure by default, dynamically scalable and zero operational overhead.
 
