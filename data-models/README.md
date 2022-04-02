@@ -2,6 +2,10 @@
 
 ## **Overview**
 
+We do not impose any restrictions on specific data models used by the developers to store the data. We aim to provide the best of both worlds: schema flexibility as seen in document models, while at the same time schema enforcement as seen in traditional relational models.
+
+## Core Concepts
+
 ### Database
 
 A database is a group of collections.
