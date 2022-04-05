@@ -54,6 +54,35 @@ Below is an example of a data model corresponding to an e-commerce application t
     "balance": {
       "description": "User account balance",
       "type": "double"
+    },
+    "languages": {
+      "description": "Languages spoken by the user",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "address": {
+      "description": "Street address of the user",
+      "type": "object",
+      "properties": {
+        "street": {
+          "description": "Street number",
+          "type": "string"
+        },
+        "city": {
+          "description": "Name of the city",
+          "type": "string"
+        },
+        "state": {
+          "description": "Name of the state",
+          "type": "string"
+        },
+        "zip": {
+          "description": "The zip code",
+          "type": "int"
+        }
+      }
     }
   },
   "primary_key": [
