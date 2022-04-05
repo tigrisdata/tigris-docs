@@ -1,4 +1,4 @@
-# Quickstart with CLI
+# Quickstart: CLI
 
 The following guide will get you up and running locally as quickly as 
 possible using the CLI.

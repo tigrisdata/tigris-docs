@@ -1,0 +1,1862 @@
+{
+  "files": [
+    {
+      "name": "server/v1/api.proto",
+      "description": "",
+      "package": "",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": true,
+      "enums": [],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "AlterCollectionRequest",
+          "longName": "AlterCollectionRequest",
+          "fullName": ".AlterCollectionRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Database name of the collection",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "collection",
+              "description": "Collection name to change schema",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "schema",
+              "description": "Schema of the documents in this collection.\nShould be proper JSON object.\nSchema syntax described here: {TBD}",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "CollectionOptions",
+              "longType": "CollectionOptions",
+              "fullType": "CollectionOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AlterCollectionResponse",
+          "longName": "AlterCollectionResponse",
+          "fullName": ".AlterCollectionResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "msg",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "BeginTransactionRequest",
+          "longName": "BeginTransactionRequest",
+          "fullName": ".BeginTransactionRequest",
+          "description": "Start new transaction in database specified by \"db\"",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Database name this transaction belongs to",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "TransactionOptions",
+              "longType": "TransactionOptions",
+              "fullType": "TransactionOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "BeginTransactionResponse",
+          "longName": "BeginTransactionResponse",
+          "fullName": ".BeginTransactionResponse",
+          "description": "Start transaction returns transaction context\n which uniquely identifies the transaction",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "tx_ctx",
+              "description": "",
+              "label": "",
+              "type": "TransactionCtx",
+              "longType": "TransactionCtx",
+              "fullType": "TransactionCtx",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CollectionOptions",
+          "longName": "CollectionOptions",
+          "fullName": ".CollectionOptions",
+          "description": "Collection requests modifying options",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "tx_ctx",
+              "description": "Perform operation in the context of this transaction",
+              "label": "",
+              "type": "TransactionCtx",
+              "longType": "TransactionCtx",
+              "fullType": "TransactionCtx",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CommitTransactionRequest",
+          "longName": "CommitTransactionRequest",
+          "fullName": ".CommitTransactionRequest",
+          "description": "Commit transaction with the given ID",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Database name this transaction belongs to",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "tx_ctx",
+              "description": "Contains unique transaction ID",
+              "label": "",
+              "type": "TransactionCtx",
+              "longType": "TransactionCtx",
+              "fullType": "TransactionCtx",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CommitTransactionResponse",
+          "longName": "CommitTransactionResponse",
+          "fullName": ".CommitTransactionResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "CreateCollectionRequest",
+          "longName": "CreateCollectionRequest",
+          "fullName": ".CreateCollectionRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Database name where to create collection",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "collection",
+              "description": "Collection name to create",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "schema",
+              "description": "Schema of the documents in this collection.\nShould be proper JSON object.\nSchema syntax described here: {TBD}",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "CollectionOptions",
+              "longType": "CollectionOptions",
+              "fullType": "CollectionOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CreateCollectionResponse",
+          "longName": "CreateCollectionResponse",
+          "fullName": ".CreateCollectionResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "msg",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CreateDatabaseRequest",
+          "longName": "CreateDatabaseRequest",
+          "fullName": ".CreateDatabaseRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Create database with this name",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "DatabaseOptions",
+              "longType": "DatabaseOptions",
+              "fullType": "DatabaseOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CreateDatabaseResponse",
+          "longName": "CreateDatabaseResponse",
+          "fullName": ".CreateDatabaseResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "msg",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "DatabaseOptions",
+          "longName": "DatabaseOptions",
+          "fullName": ".DatabaseOptions",
+          "description": "Database requests modifying options",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "DeleteRequest",
+          "longName": "DeleteRequest",
+          "fullName": ".DeleteRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Database name where to insert documents",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "collection",
+              "description": "Collection name where to insert documents",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "filter",
+              "description": "Delete documents which matching specified filter.\nThe filter should proper JSON object.\nFilter syntax described here: {TBD}",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "DeleteRequestOptions",
+              "longType": "DeleteRequestOptions",
+              "fullType": "DeleteRequestOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "DeleteRequestOptions",
+          "longName": "DeleteRequestOptions",
+          "fullName": ".DeleteRequestOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "write_options",
+              "description": "",
+              "label": "",
+              "type": "WriteOptions",
+              "longType": "WriteOptions",
+              "fullType": "WriteOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "DeleteResponse",
+          "longName": "DeleteResponse",
+          "fullName": ".DeleteResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "DropCollectionRequest",
+          "longName": "DropCollectionRequest",
+          "fullName": ".DropCollectionRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Database name of the collection",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "collection",
+              "description": "Collection name to dtop",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "CollectionOptions",
+              "longType": "CollectionOptions",
+              "fullType": "CollectionOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "DropCollectionResponse",
+          "longName": "DropCollectionResponse",
+          "fullName": ".DropCollectionResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "msg",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "DropDatabaseRequest",
+          "longName": "DropDatabaseRequest",
+          "fullName": ".DropDatabaseRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Drop database with this name.\nDeletes all the collections in the database.\nUse with caution.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "DatabaseOptions",
+              "longType": "DatabaseOptions",
+              "fullType": "DatabaseOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "DropDatabaseResponse",
+          "longName": "DropDatabaseResponse",
+          "fullName": ".DropDatabaseResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "msg",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ErrorDetails",
+          "longName": "ErrorDetails",
+          "fullName": ".ErrorDetails",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "code",
+              "description": "",
+              "label": "",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "msg",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "InsertRequest",
+          "longName": "InsertRequest",
+          "fullName": ".InsertRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Database name where to insert documents",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "collection",
+              "description": "Collection name where to insert documents",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "documents",
+              "description": "Array of documents to insert.\nShould be proper JSON object",
+              "label": "repeated",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "InsertRequestOptions",
+              "longType": "InsertRequestOptions",
+              "fullType": "InsertRequestOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "InsertRequestOptions",
+          "longName": "InsertRequestOptions",
+          "fullName": ".InsertRequestOptions",
+          "description": "Insert request options",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "write_options",
+              "description": "",
+              "label": "",
+              "type": "WriteOptions",
+              "longType": "WriteOptions",
+              "fullType": "WriteOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "InsertResponse",
+          "longName": "InsertResponse",
+          "fullName": ".InsertResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "ListCollectionsRequest",
+          "longName": "ListCollectionsRequest",
+          "fullName": ".ListCollectionsRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "List collection in this database",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "CollectionOptions",
+              "longType": "CollectionOptions",
+              "fullType": "CollectionOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListCollectionsResponse",
+          "longName": "ListCollectionsResponse",
+          "fullName": ".ListCollectionsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "collections",
+              "description": "List of the collections in the database",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ListDatabasesRequest",
+          "longName": "ListDatabasesRequest",
+          "fullName": ".ListDatabasesRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "ListDatabasesResponse",
+          "longName": "ListDatabasesResponse",
+          "fullName": ".ListDatabasesResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "dbs",
+              "description": "List of the databases in the namespace",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ReadRequest",
+          "longName": "ReadRequest",
+          "fullName": ".ReadRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Database name to read documents from",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "collection",
+              "description": "Collection name to read documents from",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "filter",
+              "description": "Returns documents matching this filter.\nThe filter should proper JSON object\nFilter syntax described here: {TBD}",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "fields",
+              "description": "Limit fields returned by the read\nby this subset of the fields\nThe fields should proper JSON object",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "ReadRequestOptions",
+              "longType": "ReadRequestOptions",
+              "fullType": "ReadRequestOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ReadRequestOptions",
+          "longName": "ReadRequestOptions",
+          "fullName": ".ReadRequestOptions",
+          "description": "ReadRequestOptions contain read behavior modifying options",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "tx_ctx",
+              "description": "Perform operation in the context of this transaction",
+              "label": "",
+              "type": "TransactionCtx",
+              "longType": "TransactionCtx",
+              "fullType": "TransactionCtx",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "limit",
+              "description": "Limit the number of documents returned by the read operation",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "skip",
+              "description": "Number of documents to skip before starting to return resulting documents",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "offset",
+              "description": "Start returning document start from this primary key",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ReadResponse",
+          "longName": "ReadResponse",
+          "fullName": ".ReadResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "doc",
+              "description": "Doc is the JSON object representing requested fields",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key",
+              "description": "Key is internal key, which uniquely identify the document.\nThis fields is used to",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ReplaceRequest",
+          "longName": "ReplaceRequest",
+          "fullName": ".ReplaceRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Database name where to replace documents.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "collection",
+              "description": "Collection name where to replace documents.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "documents",
+              "description": "Array of documents to be replaced.\nShould be proper JSON object.",
+              "label": "repeated",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "ReplaceRequestOptions",
+              "longType": "ReplaceRequestOptions",
+              "fullType": "ReplaceRequestOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ReplaceRequestOptions",
+          "longName": "ReplaceRequestOptions",
+          "fullName": ".ReplaceRequestOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "write_options",
+              "description": "",
+              "label": "",
+              "type": "WriteOptions",
+              "longType": "WriteOptions",
+              "fullType": "WriteOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ReplaceResponse",
+          "longName": "ReplaceResponse",
+          "fullName": ".ReplaceResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "RollbackTransactionRequest",
+          "longName": "RollbackTransactionRequest",
+          "fullName": ".RollbackTransactionRequest",
+          "description": "Rollback transaction with the given ID",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Database name this transaction belongs to",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "tx_ctx",
+              "description": "Contains unique transaction ID",
+              "label": "",
+              "type": "TransactionCtx",
+              "longType": "TransactionCtx",
+              "fullType": "TransactionCtx",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RollbackTransactionResponse",
+          "longName": "RollbackTransactionResponse",
+          "fullName": ".RollbackTransactionResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "TransactionCtx",
+          "longName": "TransactionCtx",
+          "fullName": ".TransactionCtx",
+          "description": "Contains ID which uniquely identifies transaction.\nThis context is returned by StartTransaction request and\nshould be passed in the options of document modification\nrequests in order to run them in the context of the same\ntransaction",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "id",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "origin",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TransactionOptions",
+          "longName": "TransactionOptions",
+          "fullName": ".TransactionOptions",
+          "description": "Modify start transaction behavior",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "UpdateRequest",
+          "longName": "UpdateRequest",
+          "fullName": ".UpdateRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Database name where to update documents",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "collection",
+              "description": "Collection name where to update documents",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "fields",
+              "description": "Fields contains set of fields\nwith the values which need to be updated.\nShould be proper JSON object.",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "filter",
+              "description": "Update documents which matching specified filter.\nThe filter should proper JSON object\nFilter syntax described here: {TBD}",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "UpdateRequestOptions",
+              "longType": "UpdateRequestOptions",
+              "fullType": "UpdateRequestOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UpdateRequestOptions",
+          "longName": "UpdateRequestOptions",
+          "fullName": ".UpdateRequestOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "write_options",
+              "description": "",
+              "label": "",
+              "type": "WriteOptions",
+              "longType": "WriteOptions",
+              "fullType": "WriteOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UpdateResponse",
+          "longName": "UpdateResponse",
+          "fullName": ".UpdateResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "rc",
+              "description": "",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "WriteOptions",
+          "longName": "WriteOptions",
+          "fullName": ".WriteOptions",
+          "description": "WriteOptions contain write behavior modifying options",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "tx_ctx",
+              "description": "Perform operation in the context of this transaction",
+              "label": "",
+              "type": "TransactionCtx",
+              "longType": "TransactionCtx",
+              "fullType": "TransactionCtx",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": [
+        {
+          "name": "TigrisDB",
+          "longName": "TigrisDB",
+          "fullName": ".TigrisDB",
+          "description": "Transactional APIs",
+          "methods": [
+            {
+              "name": "BeginTransaction",
+              "description": "Starts a new transaction and returns a transactional object.\nAll reads/writes performed within a transaction will run with\nserializable isolation.",
+              "requestType": "BeginTransactionRequest",
+              "requestLongType": ".BeginTransactionRequest",
+              "requestFullType": "BeginTransactionRequest",
+              "requestStreaming": false,
+              "responseType": "BeginTransactionResponse",
+              "responseLongType": ".BeginTransactionResponse",
+              "responseFullType": "BeginTransactionResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "POST",
+                      "pattern": "/api/v1/databases/{db}/transactions/begin",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "CommitTransaction",
+              "description": "Commit transaction atomically commit all the changes\nperformed in the context of the transaction.\nAll the changes committed or none of them committed in\nthe case of error.",
+              "requestType": "CommitTransactionRequest",
+              "requestLongType": ".CommitTransactionRequest",
+              "requestFullType": "CommitTransactionRequest",
+              "requestStreaming": false,
+              "responseType": "CommitTransactionResponse",
+              "responseLongType": ".CommitTransactionResponse",
+              "responseFullType": "CommitTransactionResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "POST",
+                      "pattern": "/api/v1/databases/{db}/transactions/commit",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "RollbackTransaction",
+              "description": "Rollback transaction discards all the changes\nperformed in the transaction",
+              "requestType": "RollbackTransactionRequest",
+              "requestLongType": ".RollbackTransactionRequest",
+              "requestFullType": "RollbackTransactionRequest",
+              "requestStreaming": false,
+              "responseType": "RollbackTransactionResponse",
+              "responseLongType": ".RollbackTransactionResponse",
+              "responseFullType": "RollbackTransactionResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "POST",
+                      "pattern": "/api/v1/databases/{db}/transactions/rollback",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Insert",
+              "description": "Insert inserts new documents in the collection and returns a conflict if any of the document\npassed in the batch already exists. Insert provides idempotency by rejecting request if document\nalready exists. To replace documents, REPLACE API should be used instead of INSERT.",
+              "requestType": "InsertRequest",
+              "requestLongType": ".InsertRequest",
+              "requestFullType": "InsertRequest",
+              "requestStreaming": false,
+              "responseType": "InsertResponse",
+              "responseLongType": ".InsertResponse",
+              "responseFullType": "InsertResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "POST",
+                      "pattern": "/api/v1/databases/{db}/collections/{collection}/documents/insert",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Replace",
+              "description": "Replace inserts the documents or replaces the existing documents in the collections.",
+              "requestType": "ReplaceRequest",
+              "requestLongType": ".ReplaceRequest",
+              "requestFullType": "ReplaceRequest",
+              "requestStreaming": false,
+              "responseType": "ReplaceResponse",
+              "responseLongType": ".ReplaceResponse",
+              "responseFullType": "ReplaceResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "PUT",
+                      "pattern": "/api/v1/databases/{db}/collections/{collection}/documents/replace",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Delete",
+              "description": "Delete documents from the collection according to specified filter",
+              "requestType": "DeleteRequest",
+              "requestLongType": ".DeleteRequest",
+              "requestFullType": "DeleteRequest",
+              "requestStreaming": false,
+              "responseType": "DeleteResponse",
+              "responseLongType": ".DeleteResponse",
+              "responseFullType": "DeleteResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "DELETE",
+                      "pattern": "/api/v1/databases/{db}/collections/{collection}/documents/delete",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Update",
+              "description": "Update range of documents in the collection according to\nthe specified filter and the fields projection",
+              "requestType": "UpdateRequest",
+              "requestLongType": ".UpdateRequest",
+              "requestFullType": "UpdateRequest",
+              "requestStreaming": false,
+              "responseType": "UpdateResponse",
+              "responseLongType": ".UpdateResponse",
+              "responseFullType": "UpdateResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "PUT",
+                      "pattern": "/api/v1/databases/{db}/collections/{collection}/documents/update",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Read",
+              "description": "Read range of documents from the collection according to\n the specified filter",
+              "requestType": "ReadRequest",
+              "requestLongType": ".ReadRequest",
+              "requestFullType": "ReadRequest",
+              "requestStreaming": false,
+              "responseType": "ReadResponse",
+              "responseLongType": ".ReadResponse",
+              "responseFullType": "ReadResponse",
+              "responseStreaming": true,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "POST",
+                      "pattern": "/api/v1/databases/{db}/collections/{collection}/documents/read",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "CreateCollection",
+              "description": "Create new collection of documents in the specified database",
+              "requestType": "CreateCollectionRequest",
+              "requestLongType": ".CreateCollectionRequest",
+              "requestFullType": "CreateCollectionRequest",
+              "requestStreaming": false,
+              "responseType": "CreateCollectionResponse",
+              "responseLongType": ".CreateCollectionResponse",
+              "responseFullType": "CreateCollectionResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "POST",
+                      "pattern": "/api/v1/databases/{db}/collections/{collection}/create",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "AlterCollection",
+              "description": "Change the schema of existing collection",
+              "requestType": "AlterCollectionRequest",
+              "requestLongType": ".AlterCollectionRequest",
+              "requestFullType": "AlterCollectionRequest",
+              "requestStreaming": false,
+              "responseType": "AlterCollectionResponse",
+              "responseLongType": ".AlterCollectionResponse",
+              "responseFullType": "AlterCollectionResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "POST",
+                      "pattern": "/api/v1/databases/{db}/collections/{collection}/alter",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "DropCollection",
+              "description": "Drop the collection",
+              "requestType": "DropCollectionRequest",
+              "requestLongType": ".DropCollectionRequest",
+              "requestFullType": "DropCollectionRequest",
+              "requestStreaming": false,
+              "responseType": "DropCollectionResponse",
+              "responseLongType": ".DropCollectionResponse",
+              "responseFullType": "DropCollectionResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "DELETE",
+                      "pattern": "/api/v1/databases/{db}/collections/{collection}/drop",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "ListDatabases",
+              "description": "List databases in the current namespace",
+              "requestType": "ListDatabasesRequest",
+              "requestLongType": ".ListDatabasesRequest",
+              "requestFullType": "ListDatabasesRequest",
+              "requestStreaming": false,
+              "responseType": "ListDatabasesResponse",
+              "responseLongType": ".ListDatabasesResponse",
+              "responseFullType": "ListDatabasesResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "GET",
+                      "pattern": "/api/v1/databases/list"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "ListCollections",
+              "description": "List collections in the specified database",
+              "requestType": "ListCollectionsRequest",
+              "requestLongType": ".ListCollectionsRequest",
+              "requestFullType": "ListCollectionsRequest",
+              "requestStreaming": false,
+              "responseType": "ListCollectionsResponse",
+              "responseLongType": ".ListCollectionsResponse",
+              "responseFullType": "ListCollectionsResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "POST",
+                      "pattern": "/api/v1/databases/{db}/collections/list",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "CreateDatabase",
+              "description": "Create database in the current namespace",
+              "requestType": "CreateDatabaseRequest",
+              "requestLongType": ".CreateDatabaseRequest",
+              "requestFullType": "CreateDatabaseRequest",
+              "requestStreaming": false,
+              "responseType": "CreateDatabaseResponse",
+              "responseLongType": ".CreateDatabaseResponse",
+              "responseFullType": "CreateDatabaseResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "POST",
+                      "pattern": "/api/v1/databases/{db}/create",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "DropDatabase",
+              "description": "Drop database deletes all the collections in the database\nalong with all it documents",
+              "requestType": "DropDatabaseRequest",
+              "requestLongType": ".DropDatabaseRequest",
+              "requestFullType": "DropDatabaseRequest",
+              "requestStreaming": false,
+              "responseType": "DropDatabaseResponse",
+              "responseLongType": ".DropDatabaseResponse",
+              "responseFullType": "DropDatabaseResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "DELETE",
+                      "pattern": "/api/v1/databases/{db}/drop",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}
