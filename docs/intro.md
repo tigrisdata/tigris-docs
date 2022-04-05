@@ -1,4 +1,8 @@
-# Overview
+---
+id: intro
+slug: /
+---
+# Introduction
 
 ## What is TigrisDB?
 
