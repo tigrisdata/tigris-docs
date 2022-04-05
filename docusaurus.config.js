@@ -47,6 +47,19 @@ const config = {
         }
       }),
     ],
+    [
+      'docusaurus-protobuffet',
+      {
+        protobuffet: {
+          fileDescriptorsPath: './fixtures/proto_workspace.json',
+          protoDocsPath: './protodocs',
+          sidebarPath: './generatedSidebarsProtodocs.js',
+        },
+        docs: {
+          sidebarPath: './sidebarsProtodocs.js',
+        },
+      }
+    ],
   ],
 
   themeConfig:
@@ -76,8 +89,9 @@ const config = {
             position: 'left',
           },
           {
-            label: 'API Reference',
-            to: '/',
+            label: 'Proto Reference',
+            to: 'protodocs/server/v1/api.proto',
+            activeBasePath: 'protodocs',
             position: 'left',
           },
           {
