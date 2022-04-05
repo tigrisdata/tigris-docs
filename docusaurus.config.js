@@ -60,6 +60,23 @@ const config = {
         },
       }
     ],
+    [
+      'redocusaurus',
+      {
+        // Plugin Options for loading OpenAPI files
+        specs: [
+          {
+            spec: 'external/tigrisdb-api/server/v1/api_openapi.yaml',
+            route: '/apidocs/',
+          },
+        ],
+        // Theme Options for modifying how redoc renders them
+        theme: {
+          // Change with your site colors
+          primaryColor: '#fddc7b',
+        },
+      },
+    ],
   ],
 
   themeConfig:
@@ -89,7 +106,12 @@ const config = {
             position: 'left',
           },
           {
-            label: 'Proto Reference',
+            label: 'API Reference',
+            to: 'apidocs/',
+            position: 'left',
+          },
+          {
+            label: 'RPC Reference',
             to: 'protodocs/server/v1/api.proto',
             activeBasePath: 'protodocs',
             position: 'left',
@@ -122,7 +144,7 @@ const config = {
                 to: '/'
               },
               {
-                label: 'Blog',
+                label: 'Careers',
                 to: '/'
               },
             ]
@@ -135,12 +157,12 @@ const config = {
                 to: '/',
               },
               {
-                label: 'Quickstart',
-                to: '/',
+                label: 'API Reference',
+                to: 'apidocs/',
               },
               {
-                label: 'API Reference',
-                to: '/',
+                label: 'RPC Reference',
+                to: 'protodocs/server/v1/api.proto',
               },
             ],
           },
