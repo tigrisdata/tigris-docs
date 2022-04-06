@@ -56,6 +56,7 @@ documentation can be updated using the following steps:
 
 ```shell
 protoc --doc_out=./fixtures --doc_opt=json,proto_workspace.json --proto_path=external/tigrisdb-api/ server/v1/api.proto
+npx docusaurus generate-proto-docs
 ```
 
 # # Code Quality
