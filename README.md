@@ -1,4 +1,6 @@
-# Website
+[![Code Style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
+# docs.tigrisdata.com
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern
 static website generator.
@@ -55,3 +57,17 @@ documentation can be updated using the following steps:
 ```shell
 protoc --doc_out=./fixtures --doc_opt=json,proto_workspace.json --proto_path=external/tigrisdb-api/ server/v1/api.proto
 ```
+
+# # Code Quality
+
+## 1. Linting
+
+The coding style rules are defined by [Prettier](https://prettier.io/) and
+enforced by [Eslint](https://eslint.org)
+
+## 2. Git Hooks
+
+We use [pre-commit](https://pre-commit.com/index.html) to automatically
+setup and run git hooks.
+
+On every `git commit` we check the code quality using prettier and eslint.
