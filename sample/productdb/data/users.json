@@ -1,9 +1,12 @@
-[{
-  "id": 1,
-  "name": "Jania McGrory",
-  "balance": "6045.7"
-}, {
-  "id": 2,
-  "name": "Bunny Instone",
-  "balance": "2948.87"
-}]
+[
+  {
+    "id": 1,
+    "name": "Jania McGrory",
+    "balance": "6045.7"
+  },
+  {
+    "id": 2,
+    "name": "Bunny Instone",
+    "balance": "2948.87"
+  }
+]
