@@ -2,22 +2,22 @@
 
 There are three categories of data types supported:
 
-* **Primitive**: Strings, Numbers, Binary Data, Booleans, UUIDs, DateTime
-* **Complex:** Arrays, Sets
-* **Objects**: A container data type defined by the user that stores fields 
+- **Primitive**: Strings, Numbers, Binary Data, Booleans, UUIDs, DateTime
+- **Complex:** Arrays, Sets
+- **Objects**: A container data type defined by the user that stores fields
   of primitive types, complex types as well as other Objects
 
 :::tip
-For optimal performance and efficient data layout, there are restrictions on 
+For optimal performance and efficient data layout, there are restrictions on
 what data types can be used for primary key fields.
 
 :::
 
-The data types are derived from the types defined in the JSON schema 
+The data types are derived from the types defined in the JSON schema
 specification with extensions that enable support for richer semantics.
 
 | Type Name | Description                                                                                                                                                         | Supported for Key Fields |
-|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
 | int       | The int type is used for 32-bit integral numbers.                                                                                                                   | Yes                      |
 | bigint    | The bigint type is used for 64-bit integral numbers.                                                                                                                | Yes                      |
 | double    | The double type is used for numeric type with floating-point values.                                                                                                | No                       |
@@ -67,7 +67,7 @@ The double type is used for numeric type with floating-point values.
 
 ### bytes
 
-The bytes type stores any kind of binary data in an undifferentiated byte 
+The bytes type stores any kind of binary data in an undifferentiated byte
 stream.
 
 ```json
@@ -91,7 +91,8 @@ The string type is used for strings of text. It may contain Unicode characters.
 ```
 
 ### uuid
-The uuid type stores universally unique identifiers (UUIDs). UUIDs are 
+
+The uuid type stores universally unique identifiers (UUIDs). UUIDs are
 16-byte numbers used to uniquely identify records.
 
 ```json
@@ -104,8 +105,8 @@ The uuid type stores universally unique identifiers (UUIDs). UUIDs are
 
 ### datetime
 
-The datetime type stores an instant in time expressed as a date that is 
-combined with a time of day with fractional seconds that is based on a 
+The datetime type stores an instant in time expressed as a date that is
+combined with a time of day with fractional seconds that is based on a
 24-hour clock.
 
 ```json
@@ -118,8 +119,8 @@ combined with a time of day with fractional seconds that is based on a
 
 ### boolean
 
-The boolean type matches only two special values: true and false. Note that 
-values that evaluate to true or false, such as 1 and 0, are not accepted by 
+The boolean type matches only two special values: true and false. Note that
+values that evaluate to true or false, such as 1 and 0, are not accepted by
 the schema.
 
 ```json
@@ -132,7 +133,7 @@ the schema.
 
 ### array
 
-Arrays are used for ordered elements. Each element in an array may be of a 
+Arrays are used for ordered elements. Each element in an array may be of a
 different type.
 
 ```json
@@ -147,7 +148,7 @@ different type.
 
 ### object
 
-Objects are the mapping type. They map “keys” to “values”. The “keys” must 
+Objects are the mapping type. They map “keys” to “values”. The “keys” must
 always be strings. Each of these pairs is referred to as a “property”.
 
 ```json

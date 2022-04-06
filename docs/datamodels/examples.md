@@ -29,9 +29,7 @@ Below is an example of a data model corresponding to an e-commerce application t
       "type": "double"
     }
   },
-  "primary_key": [
-    "id"
-  ]
+  "primary_key": ["id"]
 }
 ```
 
@@ -85,9 +83,7 @@ Below is an example of a data model corresponding to an e-commerce application t
       }
     }
   },
-  "primary_key": [
-    "id"
-  ]
+  "primary_key": ["id"]
 }
 ```
 
@@ -129,8 +125,6 @@ Below is an example of a data model corresponding to an e-commerce application t
       }
     }
   },
-  "primary_key": [
-    "id"
-  ]
+  "primary_key": ["id"]
 }
 ```

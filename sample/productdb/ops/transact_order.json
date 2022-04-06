@@ -2,19 +2,28 @@
   {
     "insert": {
       "collection": "order",
-      "documents": [{
-          "id": 1, "user_id": 1, "order_total": 53.89, "products": [{"id": 1, "quantity": 1}]
-        }]
+      "documents": [
+        {
+          "id": 1,
+          "user_id": 1,
+          "order_total": 53.89,
+          "products": [{ "id": 1, "quantity": 1 }]
+        }
+      ]
     }
   },
   {
     "update": {
-      "collection": "user", "fields": {"$decr": {"balance": 53.89}}, "filter": {"id": 1}
+      "collection": "user",
+      "fields": { "$decr": { "balance": 53.89 } },
+      "filter": { "id": 1 }
     }
   },
   {
     "update": {
-      "collection": "product", "fields": {"$decr": {"quantity": 1}}, "filter": {"id": 1}
+      "collection": "product",
+      "fields": { "$decr": { "quantity": 1 } },
+      "filter": { "id": 1 }
     }
   }
 ]

@@ -1,12 +1,12 @@
 # Quickstart: CLI
 
-The following guide will get you up and running locally as quickly as 
+The following guide will get you up and running locally as quickly as
 possible using the CLI.
 
 ### 1. Download and run TigrisDB locally via Docker
 
-Open your terminal and use the following command to download the 
-[docker-compose](https://raw.githubusercontent.com/tigrisdata/tigrisdb/main/docker/local/docker-compose.yaml) 
+Open your terminal and use the following command to download the
+[docker-compose](https://raw.githubusercontent.com/tigrisdata/tigrisdb/main/docker/local/docker-compose.yaml)
 file and startup TigrisDB.
 
 ```shell
@@ -37,14 +37,14 @@ cd ..
 
 ### 3. Insert and read data
 
-The following example will set up the data model, insert data into _user_ and 
+The following example will set up the data model, insert data into _user_ and
 _product_ collections and read it.
 
-One of the main features of TigrisDB is the ability to perform ACID 
-transactions. We will perform a transaction that involves inserting and 
+One of the main features of TigrisDB is the ability to perform ACID
+transactions. We will perform a transaction that involves inserting and
 updating documents in the _order_, _user_ and _product_ collections.
 
-Fire up the shell and use the TigrisDB APIs to perform CRUD operations on 
+Fire up the shell and use the TigrisDB APIs to perform CRUD operations on
 the data.
 
 #### 3.1 Apply the data model
