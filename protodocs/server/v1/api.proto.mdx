@@ -7,9 +7,456 @@ import { ProtoMessage, ProtoServiceMethod, ProtoEnum } from "@theme/ProtoFile";
 
 ## `api.proto`
 
-_**path** server/v1/api.proto_
+---
 
-_**package** _
+## Services
+
+### `TigrisDB`
+
+Transactional APIs
+
+#### `BeginTransaction`
+
+<ProtoServiceMethod
+  key={"BeginTransaction-0"}
+  method={{
+    name: "BeginTransaction",
+    description:
+      "Starts a new transaction and returns a transactional object.\nAll reads/writes performed within a transaction will run with\nserializable isolation.",
+    requestType: "BeginTransactionRequest",
+    requestLongType: ".BeginTransactionRequest",
+    requestFullType: "BeginTransactionRequest",
+    requestStreaming: false,
+    responseType: "BeginTransactionResponse",
+    responseLongType: ".BeginTransactionResponse",
+    responseFullType: "BeginTransactionResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "POST",
+            pattern: "/api/v1/databases/{db}/transactions/begin",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `CommitTransaction`
+
+<ProtoServiceMethod
+  key={"CommitTransaction-1"}
+  method={{
+    name: "CommitTransaction",
+    description:
+      "Commit transaction atomically commit all the changes\nperformed in the context of the transaction.\nAll the changes committed or none of them committed in\nthe case of error.",
+    requestType: "CommitTransactionRequest",
+    requestLongType: ".CommitTransactionRequest",
+    requestFullType: "CommitTransactionRequest",
+    requestStreaming: false,
+    responseType: "CommitTransactionResponse",
+    responseLongType: ".CommitTransactionResponse",
+    responseFullType: "CommitTransactionResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "POST",
+            pattern: "/api/v1/databases/{db}/transactions/commit",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `RollbackTransaction`
+
+<ProtoServiceMethod
+  key={"RollbackTransaction-2"}
+  method={{
+    name: "RollbackTransaction",
+    description:
+      "Rollback transaction discards all the changes\nperformed in the transaction",
+    requestType: "RollbackTransactionRequest",
+    requestLongType: ".RollbackTransactionRequest",
+    requestFullType: "RollbackTransactionRequest",
+    requestStreaming: false,
+    responseType: "RollbackTransactionResponse",
+    responseLongType: ".RollbackTransactionResponse",
+    responseFullType: "RollbackTransactionResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "POST",
+            pattern: "/api/v1/databases/{db}/transactions/rollback",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `Insert`
+
+<ProtoServiceMethod
+  key={"Insert-3"}
+  method={{
+    name: "Insert",
+    description:
+      "Insert inserts new documents in the collection and returns a conflict if any of the document\npassed in the batch already exists. Insert provides idempotency by rejecting request if document\nalready exists. To replace documents, REPLACE API should be used instead of INSERT.",
+    requestType: "InsertRequest",
+    requestLongType: ".InsertRequest",
+    requestFullType: "InsertRequest",
+    requestStreaming: false,
+    responseType: "InsertResponse",
+    responseLongType: ".InsertResponse",
+    responseFullType: "InsertResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "POST",
+            pattern:
+              "/api/v1/databases/{db}/collections/{collection}/documents/insert",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `Replace`
+
+<ProtoServiceMethod
+  key={"Replace-4"}
+  method={{
+    name: "Replace",
+    description:
+      "Replace inserts the documents or replaces the existing documents in the collections.",
+    requestType: "ReplaceRequest",
+    requestLongType: ".ReplaceRequest",
+    requestFullType: "ReplaceRequest",
+    requestStreaming: false,
+    responseType: "ReplaceResponse",
+    responseLongType: ".ReplaceResponse",
+    responseFullType: "ReplaceResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "PUT",
+            pattern:
+              "/api/v1/databases/{db}/collections/{collection}/documents/replace",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `Delete`
+
+<ProtoServiceMethod
+  key={"Delete-5"}
+  method={{
+    name: "Delete",
+    description:
+      "Delete documents from the collection according to specified filter",
+    requestType: "DeleteRequest",
+    requestLongType: ".DeleteRequest",
+    requestFullType: "DeleteRequest",
+    requestStreaming: false,
+    responseType: "DeleteResponse",
+    responseLongType: ".DeleteResponse",
+    responseFullType: "DeleteResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "DELETE",
+            pattern:
+              "/api/v1/databases/{db}/collections/{collection}/documents/delete",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `Update`
+
+<ProtoServiceMethod
+  key={"Update-6"}
+  method={{
+    name: "Update",
+    description:
+      "Update range of documents in the collection according to\nthe specified filter and the fields projection",
+    requestType: "UpdateRequest",
+    requestLongType: ".UpdateRequest",
+    requestFullType: "UpdateRequest",
+    requestStreaming: false,
+    responseType: "UpdateResponse",
+    responseLongType: ".UpdateResponse",
+    responseFullType: "UpdateResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "PUT",
+            pattern:
+              "/api/v1/databases/{db}/collections/{collection}/documents/update",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `Read`
+
+<ProtoServiceMethod
+  key={"Read-7"}
+  method={{
+    name: "Read",
+    description:
+      "Read range of documents from the collection according to\n the specified filter",
+    requestType: "ReadRequest",
+    requestLongType: ".ReadRequest",
+    requestFullType: "ReadRequest",
+    requestStreaming: false,
+    responseType: "ReadResponse",
+    responseLongType: ".ReadResponse",
+    responseFullType: "ReadResponse",
+    responseStreaming: true,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "POST",
+            pattern:
+              "/api/v1/databases/{db}/collections/{collection}/documents/read",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `CreateCollection`
+
+<ProtoServiceMethod
+  key={"CreateCollection-8"}
+  method={{
+    name: "CreateCollection",
+    description: "Create new collection of documents in the specified database",
+    requestType: "CreateCollectionRequest",
+    requestLongType: ".CreateCollectionRequest",
+    requestFullType: "CreateCollectionRequest",
+    requestStreaming: false,
+    responseType: "CreateCollectionResponse",
+    responseLongType: ".CreateCollectionResponse",
+    responseFullType: "CreateCollectionResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "POST",
+            pattern: "/api/v1/databases/{db}/collections/{collection}/create",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `AlterCollection`
+
+<ProtoServiceMethod
+  key={"AlterCollection-9"}
+  method={{
+    name: "AlterCollection",
+    description: "Change the schema of existing collection",
+    requestType: "AlterCollectionRequest",
+    requestLongType: ".AlterCollectionRequest",
+    requestFullType: "AlterCollectionRequest",
+    requestStreaming: false,
+    responseType: "AlterCollectionResponse",
+    responseLongType: ".AlterCollectionResponse",
+    responseFullType: "AlterCollectionResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "POST",
+            pattern: "/api/v1/databases/{db}/collections/{collection}/alter",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `DropCollection`
+
+<ProtoServiceMethod
+  key={"DropCollection-10"}
+  method={{
+    name: "DropCollection",
+    description: "Drop the collection",
+    requestType: "DropCollectionRequest",
+    requestLongType: ".DropCollectionRequest",
+    requestFullType: "DropCollectionRequest",
+    requestStreaming: false,
+    responseType: "DropCollectionResponse",
+    responseLongType: ".DropCollectionResponse",
+    responseFullType: "DropCollectionResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "DELETE",
+            pattern: "/api/v1/databases/{db}/collections/{collection}/drop",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `ListDatabases`
+
+<ProtoServiceMethod
+  key={"ListDatabases-11"}
+  method={{
+    name: "ListDatabases",
+    description: "List databases in the current namespace",
+    requestType: "ListDatabasesRequest",
+    requestLongType: ".ListDatabasesRequest",
+    requestFullType: "ListDatabasesRequest",
+    requestStreaming: false,
+    responseType: "ListDatabasesResponse",
+    responseLongType: ".ListDatabasesResponse",
+    responseFullType: "ListDatabasesResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [{ method: "GET", pattern: "/api/v1/databases/list" }],
+      },
+    },
+  }}
+/>
+
+#### `ListCollections`
+
+<ProtoServiceMethod
+  key={"ListCollections-12"}
+  method={{
+    name: "ListCollections",
+    description: "List collections in the specified database",
+    requestType: "ListCollectionsRequest",
+    requestLongType: ".ListCollectionsRequest",
+    requestFullType: "ListCollectionsRequest",
+    requestStreaming: false,
+    responseType: "ListCollectionsResponse",
+    responseLongType: ".ListCollectionsResponse",
+    responseFullType: "ListCollectionsResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "POST",
+            pattern: "/api/v1/databases/{db}/collections/list",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `CreateDatabase`
+
+<ProtoServiceMethod
+  key={"CreateDatabase-13"}
+  method={{
+    name: "CreateDatabase",
+    description: "Create database in the current namespace",
+    requestType: "CreateDatabaseRequest",
+    requestLongType: ".CreateDatabaseRequest",
+    requestFullType: "CreateDatabaseRequest",
+    requestStreaming: false,
+    responseType: "CreateDatabaseResponse",
+    responseLongType: ".CreateDatabaseResponse",
+    responseFullType: "CreateDatabaseResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "POST",
+            pattern: "/api/v1/databases/{db}/create",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `DropDatabase`
+
+<ProtoServiceMethod
+  key={"DropDatabase-14"}
+  method={{
+    name: "DropDatabase",
+    description:
+      "Drop database deletes all the collections in the database\nalong with all it documents",
+    requestType: "DropDatabaseRequest",
+    requestLongType: ".DropDatabaseRequest",
+    requestFullType: "DropDatabaseRequest",
+    requestStreaming: false,
+    responseType: "DropDatabaseResponse",
+    responseLongType: ".DropDatabaseResponse",
+    responseFullType: "DropDatabaseResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "DELETE",
+            pattern: "/api/v1/databases/{db}/drop",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
 
 ---
 
@@ -1597,457 +2044,6 @@ _**package** _
         defaultValue: "",
       },
     ],
-  }}
-/>
-
----
-
-## Services
-
-### `TigrisDB`
-
-Transactional APIs
-
-#### `BeginTransaction`
-
-<ProtoServiceMethod
-  key={"BeginTransaction-0"}
-  method={{
-    name: "BeginTransaction",
-    description:
-      "Starts a new transaction and returns a transactional object.\nAll reads/writes performed within a transaction will run with\nserializable isolation.",
-    requestType: "BeginTransactionRequest",
-    requestLongType: ".BeginTransactionRequest",
-    requestFullType: "BeginTransactionRequest",
-    requestStreaming: false,
-    responseType: "BeginTransactionResponse",
-    responseLongType: ".BeginTransactionResponse",
-    responseFullType: "BeginTransactionResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/transactions/begin",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `CommitTransaction`
-
-<ProtoServiceMethod
-  key={"CommitTransaction-1"}
-  method={{
-    name: "CommitTransaction",
-    description:
-      "Commit transaction atomically commit all the changes\nperformed in the context of the transaction.\nAll the changes committed or none of them committed in\nthe case of error.",
-    requestType: "CommitTransactionRequest",
-    requestLongType: ".CommitTransactionRequest",
-    requestFullType: "CommitTransactionRequest",
-    requestStreaming: false,
-    responseType: "CommitTransactionResponse",
-    responseLongType: ".CommitTransactionResponse",
-    responseFullType: "CommitTransactionResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/transactions/commit",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `RollbackTransaction`
-
-<ProtoServiceMethod
-  key={"RollbackTransaction-2"}
-  method={{
-    name: "RollbackTransaction",
-    description:
-      "Rollback transaction discards all the changes\nperformed in the transaction",
-    requestType: "RollbackTransactionRequest",
-    requestLongType: ".RollbackTransactionRequest",
-    requestFullType: "RollbackTransactionRequest",
-    requestStreaming: false,
-    responseType: "RollbackTransactionResponse",
-    responseLongType: ".RollbackTransactionResponse",
-    responseFullType: "RollbackTransactionResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/transactions/rollback",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `Insert`
-
-<ProtoServiceMethod
-  key={"Insert-3"}
-  method={{
-    name: "Insert",
-    description:
-      "Insert inserts new documents in the collection and returns a conflict if any of the document\npassed in the batch already exists. Insert provides idempotency by rejecting request if document\nalready exists. To replace documents, REPLACE API should be used instead of INSERT.",
-    requestType: "InsertRequest",
-    requestLongType: ".InsertRequest",
-    requestFullType: "InsertRequest",
-    requestStreaming: false,
-    responseType: "InsertResponse",
-    responseLongType: ".InsertResponse",
-    responseFullType: "InsertResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern:
-              "/api/v1/databases/{db}/collections/{collection}/documents/insert",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `Replace`
-
-<ProtoServiceMethod
-  key={"Replace-4"}
-  method={{
-    name: "Replace",
-    description:
-      "Replace inserts the documents or replaces the existing documents in the collections.",
-    requestType: "ReplaceRequest",
-    requestLongType: ".ReplaceRequest",
-    requestFullType: "ReplaceRequest",
-    requestStreaming: false,
-    responseType: "ReplaceResponse",
-    responseLongType: ".ReplaceResponse",
-    responseFullType: "ReplaceResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "PUT",
-            pattern:
-              "/api/v1/databases/{db}/collections/{collection}/documents/replace",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `Delete`
-
-<ProtoServiceMethod
-  key={"Delete-5"}
-  method={{
-    name: "Delete",
-    description:
-      "Delete documents from the collection according to specified filter",
-    requestType: "DeleteRequest",
-    requestLongType: ".DeleteRequest",
-    requestFullType: "DeleteRequest",
-    requestStreaming: false,
-    responseType: "DeleteResponse",
-    responseLongType: ".DeleteResponse",
-    responseFullType: "DeleteResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "DELETE",
-            pattern:
-              "/api/v1/databases/{db}/collections/{collection}/documents/delete",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `Update`
-
-<ProtoServiceMethod
-  key={"Update-6"}
-  method={{
-    name: "Update",
-    description:
-      "Update range of documents in the collection according to\nthe specified filter and the fields projection",
-    requestType: "UpdateRequest",
-    requestLongType: ".UpdateRequest",
-    requestFullType: "UpdateRequest",
-    requestStreaming: false,
-    responseType: "UpdateResponse",
-    responseLongType: ".UpdateResponse",
-    responseFullType: "UpdateResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "PUT",
-            pattern:
-              "/api/v1/databases/{db}/collections/{collection}/documents/update",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `Read`
-
-<ProtoServiceMethod
-  key={"Read-7"}
-  method={{
-    name: "Read",
-    description:
-      "Read range of documents from the collection according to\n the specified filter",
-    requestType: "ReadRequest",
-    requestLongType: ".ReadRequest",
-    requestFullType: "ReadRequest",
-    requestStreaming: false,
-    responseType: "ReadResponse",
-    responseLongType: ".ReadResponse",
-    responseFullType: "ReadResponse",
-    responseStreaming: true,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern:
-              "/api/v1/databases/{db}/collections/{collection}/documents/read",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `CreateCollection`
-
-<ProtoServiceMethod
-  key={"CreateCollection-8"}
-  method={{
-    name: "CreateCollection",
-    description: "Create new collection of documents in the specified database",
-    requestType: "CreateCollectionRequest",
-    requestLongType: ".CreateCollectionRequest",
-    requestFullType: "CreateCollectionRequest",
-    requestStreaming: false,
-    responseType: "CreateCollectionResponse",
-    responseLongType: ".CreateCollectionResponse",
-    responseFullType: "CreateCollectionResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/collections/{collection}/create",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `AlterCollection`
-
-<ProtoServiceMethod
-  key={"AlterCollection-9"}
-  method={{
-    name: "AlterCollection",
-    description: "Change the schema of existing collection",
-    requestType: "AlterCollectionRequest",
-    requestLongType: ".AlterCollectionRequest",
-    requestFullType: "AlterCollectionRequest",
-    requestStreaming: false,
-    responseType: "AlterCollectionResponse",
-    responseLongType: ".AlterCollectionResponse",
-    responseFullType: "AlterCollectionResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/collections/{collection}/alter",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `DropCollection`
-
-<ProtoServiceMethod
-  key={"DropCollection-10"}
-  method={{
-    name: "DropCollection",
-    description: "Drop the collection",
-    requestType: "DropCollectionRequest",
-    requestLongType: ".DropCollectionRequest",
-    requestFullType: "DropCollectionRequest",
-    requestStreaming: false,
-    responseType: "DropCollectionResponse",
-    responseLongType: ".DropCollectionResponse",
-    responseFullType: "DropCollectionResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "DELETE",
-            pattern: "/api/v1/databases/{db}/collections/{collection}/drop",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `ListDatabases`
-
-<ProtoServiceMethod
-  key={"ListDatabases-11"}
-  method={{
-    name: "ListDatabases",
-    description: "List databases in the current namespace",
-    requestType: "ListDatabasesRequest",
-    requestLongType: ".ListDatabasesRequest",
-    requestFullType: "ListDatabasesRequest",
-    requestStreaming: false,
-    responseType: "ListDatabasesResponse",
-    responseLongType: ".ListDatabasesResponse",
-    responseFullType: "ListDatabasesResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [{ method: "GET", pattern: "/api/v1/databases/list" }],
-      },
-    },
-  }}
-/>
-
-#### `ListCollections`
-
-<ProtoServiceMethod
-  key={"ListCollections-12"}
-  method={{
-    name: "ListCollections",
-    description: "List collections in the specified database",
-    requestType: "ListCollectionsRequest",
-    requestLongType: ".ListCollectionsRequest",
-    requestFullType: "ListCollectionsRequest",
-    requestStreaming: false,
-    responseType: "ListCollectionsResponse",
-    responseLongType: ".ListCollectionsResponse",
-    responseFullType: "ListCollectionsResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/collections/list",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `CreateDatabase`
-
-<ProtoServiceMethod
-  key={"CreateDatabase-13"}
-  method={{
-    name: "CreateDatabase",
-    description: "Create database in the current namespace",
-    requestType: "CreateDatabaseRequest",
-    requestLongType: ".CreateDatabaseRequest",
-    requestFullType: "CreateDatabaseRequest",
-    requestStreaming: false,
-    responseType: "CreateDatabaseResponse",
-    responseLongType: ".CreateDatabaseResponse",
-    responseFullType: "CreateDatabaseResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/create",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `DropDatabase`
-
-<ProtoServiceMethod
-  key={"DropDatabase-14"}
-  method={{
-    name: "DropDatabase",
-    description:
-      "Drop database deletes all the collections in the database\nalong with all it documents",
-    requestType: "DropDatabaseRequest",
-    requestLongType: ".DropDatabaseRequest",
-    requestFullType: "DropDatabaseRequest",
-    requestStreaming: false,
-    responseType: "DropDatabaseResponse",
-    responseLongType: ".DropDatabaseResponse",
-    responseFullType: "DropDatabaseResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "DELETE",
-            pattern: "/api/v1/databases/{db}/drop",
-            body: "*",
-          },
-        ],
-      },
-    },
   }}
 />
 
