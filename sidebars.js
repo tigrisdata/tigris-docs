@@ -32,7 +32,7 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "Data Models",
+      label: "Data Modeling",
       link: {
         type: "generated-index",
       },

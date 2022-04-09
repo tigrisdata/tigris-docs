@@ -1,8 +1,6 @@
 # Overview
 
-There are no restrictions on specific data models used by the developers to
-store the data. The goal is to provide the best of both worlds: schema
-flexibility of document models, schema enforcement of relational models.
+TigrisDB is a document-oriented database with flexible data modeling capabilities and configurable schema enforcement policies. Specifically, TigrisDB tries to maintain the flexibility of document models while still supporting strict schema enforcement for applications that need it.
 
 ## Core Concepts
 
@@ -12,11 +10,10 @@ A database is a group of collections.
 
 ### Collections
 
-Collection is the core entity which is used by developers to model their
-entities. A collection is analogous to a relational table - collection of
+A collection is the core entity which is used by developers to model their
+entities. A collection is analogous to a table in other systems - a collection of
 structured records called documents that all follow a specific schema and
-data is strongly typed. Schema can evolve and a collection can have records
-with different schema versions.
+whose fields are strongly typed.
 
 ### Documents
 
@@ -28,6 +25,11 @@ field-value pairs. The value of the field can be any of the JSON data types.
   "field1": 1,
   "field2": "string",
   "field3": { "field1": "value1", "field2": "value2" },
+  "field4": [
+    {
+      "field5": [{"field6": 100}]
+    }
+  ],
   "fieldN": "valueN"
 }
 ```

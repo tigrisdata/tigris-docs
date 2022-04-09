@@ -7,12 +7,19 @@ possible using the CLI.
 
 Open your terminal and use the following command to download the
 [docker-compose](https://raw.githubusercontent.com/tigrisdata/tigrisdb/main/docker/local/docker-compose.yaml)
-file and startup TigrisDB.
+file and startup TigrisDB. Note that you'll need to have [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/) installed already.
 
 ```shell
 curl -L -O https://raw.githubusercontent.com/tigrisdata/tigrisdb/main/docker/local/docker-compose.yaml
 docker-compose up -d
 ```
+
+The docker compose setup will start two containers:
+
+1. A stateless TigrisDB server running on port `8081`.
+2. A single-node stateful FoundationDB server running on port `4500`.
+
+Note that this docker compose file is for local development only and should **not** be used in production as the FoundationDB cluster it creates is not run in a highly available or replicated manner.
 
 Next up install the CLI
 
@@ -20,31 +27,41 @@ Next up install the CLI
 go install github.com/tigrisdata/tigrisdb-cli@latest
 ```
 
+If you don't have Go installed on your system, you can download a prebuilt binary [here] and add it to your path like this:
+
+```shell
+tar -xf $DIR/$RELEASE.tar.gz && cp $DIR/tigrisdb-cli /usr/local/bin/
+```
+
 ### 2. Declare your data models
 
 For this quickstart we will model an app that stores information about product, user and order.
 
-Download the sample data model
+Download the sample data model. These files contain TigrisDB schemas for three different collections:
+
+1. products
+2. users
+3. orders
 
 ```shell
 mkdir -p productdb/datamodel && cd productdb/datamodel
 curl -L \
-  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/product.json \
-  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/user.json \
-  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/order.json
+  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/products.json \
+  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/users.json \
+  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/orders.json
 cd ..
 ```
 
 ### 3. Insert and read data
 
-The following example will set up the data model, insert data into _user_ and
-_product_ collections and read it.
+The following example will set up the data model, insert data into the _users_ and
+_products_ collections and then read it back.
 
-One of the main features of TigrisDB is the ability to perform ACID
-transactions. We will perform a transaction that involves inserting and
-updating documents in the _order_, _user_ and _product_ collections.
+One of the main features of TigrisDB is the ability to perform strictly serializable
+ACID transactions. We will perform a transaction that involves inserting and
+updating documents in the _orders_, _users_ and _products_ collections.
 
-Fire up the shell and use the TigrisDB APIs to perform CRUD operations on
+Now lets fire up the CLI and use the TigrisDB APIs to perform CRUD operations on
 the data.
 
 #### 3.1 Apply the data model
@@ -79,7 +96,7 @@ tigrisdb-cli productdb user read '{"id": 1}'
 tigrisdb-cli productdb product read '{"id": 3}'
 ```
 
-#### 3.4 Perform a transaction between order, product and user collections
+#### 3.4 Perform a transaction that modifies all three collections
 
 ```shell
 tigrisdb-cli productdb transact \
@@ -104,3 +121,5 @@ tigrisdb-cli productdb transact \
   }
 ]'
 ```
+
+The transaction we just executed updates three different collections in a single atomic transaction, all while running at an isolation level of strict serialiability! Note that because we're using the CLI the transaction doesn't appear interactive. However, if we were using a real TigrisDB client the transaction would be interactive and we could enforce constraints within our application, like ensuring the user has enough balance or that there is enough available product. See the [Go quick start](with-go.md) section for an example of how we can leverage TigrisDB's transactions to easily and automatically ensure that no customer is ever allowed to purchase goods worth more than their available balance, and that we never create orders that exceed the amount of available product, even if thousands of customers are all trying to purchase the same product at the same time!

@@ -2,13 +2,13 @@
 
 ## Simple e-commerce data model
 
-Below is an example of a data model corresponding to an e-commerce application that stores the data on users, products and orders.
+Below is an example of a data model corresponding to an e-commerce application that stores data in three different collections: `users`, `products`, and `orders`.
 
 ### Example 1.0 - A collection of products
 
 ```json
 {
-  "name": "product",
+  "name": "products",
   "description": "Collection of documents with details of products available",
   "properties": {
     "id": {
@@ -37,7 +37,7 @@ Below is an example of a data model corresponding to an e-commerce application t
 
 ```json
 {
-  "name": "user",
+  "name": "users",
   "description": "Collection of documents with details of users",
   "properties": {
     "id": {
@@ -91,7 +91,7 @@ Below is an example of a data model corresponding to an e-commerce application t
 
 ```json
 {
-  "name": "order",
+  "name": "orders",
   "description": "Collection of documents with details of an order",
   "properties": {
     "id": {

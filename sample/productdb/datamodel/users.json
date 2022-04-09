@@ -1,5 +1,5 @@
 {
-  "name": "user",
+  "name": "users",
   "description": "Collection of documents with details of users",
   "properties": {
     "id": {

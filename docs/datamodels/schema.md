@@ -1,10 +1,9 @@
 # Schema
 
-The applications that work with the data usually assume some kind of
-structure. We facilitate this by enforcing schema on the data.
+Most applications expect the data they store to conform to some kind of schema.
 
-The schema is enforced on write operations. This ensures that the schema is
-explicit and the database guarantees schema conformity of the data.
+TigrisDB enforces that all documents stored in a collection conform to the
+collection's schema.
 
 :::tip
 We offer schema flexibility by having the ability to evolve the schema in a
@@ -25,11 +24,11 @@ has the following fields:
 - The name of the user which can have a maximum length of 100 characters: `name`
 - The user's account balance: `balance`
 
-The schema would then look as follows:
+Sample schema:
 
 ```json
 {
-  "name": "user",
+  "name": "users",
   "description": "Collection of documents with details of users",
   "properties": {
     "id": {
@@ -52,10 +51,10 @@ The schema would then look as follows:
 
 Every schema has three required keywords which are expressed as JSON keys:
 
-- **name**: This keyword states the name of the collection
-- **description**: This keyword states the purpose of the collection
+- **name**: This keyword states the name of the collection.
+- **description**: This keyword states the purpose of the collection.
 - **properties**: This keyword states the fields that make up the document
-  stored in the collection
+  stored in the collection.
 
 ## Defining the properties
 
@@ -64,7 +63,7 @@ document. These fields are defined as part of the properties.
 
 The fields must all have the following keywords expressed as JSON keys:
 
-- **type**: This keyword states the data type
+- **type**: This keyword states the data [type](types.md).
 - **description**: This keyword describes the purpose of the field
 
 The array and object data types have additional items that must be specified.
@@ -131,7 +130,7 @@ fields `languages` and `address`
 
 ```json
 {
-  "name": "user",
+  "name": "users",
   "description": "Collection of documents with details of users",
   "properties": {
     "id": {
