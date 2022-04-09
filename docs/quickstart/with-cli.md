@@ -27,6 +27,8 @@ Next up install the CLI
 go install github.com/tigrisdata/tigrisdb-cli@latest
 ```
 
+Note that if `tigrisdb-cli` is not available in your shell after that completes, you may need to run `go env` and sure that the values of `GOBIN` (if set) and `GOPATH` are available as part of your `$PATH`. 
+
 If you don't have Go installed on your system, you can download a prebuilt binary [here] and add it to your path like this:
 
 ```shell
