@@ -19,7 +19,7 @@ The docker compose setup will start two containers:
 1. A stateless TigrisDB server running on port `8081`.
 2. A single-node stateful FoundationDB server running on port `4500`.
 
-Note that this docker compose file is for local development only and should **not** be used in production as the FoundationDB cluster it creates is not run in a highly available or replicated manner.
+Note that this docker compose file is for local development only and should **not** be used in production as the FoundationDB cluster it creates does not run in a highly available or replicated manner.
 
 Next up install the CLI
 
@@ -48,9 +48,9 @@ Download the sample data model. These files contain TigrisDB schemas for three d
 ```shell
 mkdir -p productdb/datamodel && cd productdb/datamodel
 curl -L \
-  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/products.json \
-  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/users.json \
-  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs-gitbook/main/sample/productdb/datamodel/orders.json
+  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs/main/sample/productdb/datamodel/products.json \
+  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs/main/sample/productdb/datamodel/users.json \
+  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs/main/sample/productdb/datamodel/orders.json
 cd ..
 ```
 
