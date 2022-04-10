@@ -14,12 +14,11 @@
       "description": "The total cost of the order",
       "type": "double"
     },
-    "products": {
+    "product_item": {
       "description": "The list of products that are part of this order",
       "type": "array",
       "items": {
         "type": "object",
-        "name": "product_item",
         "properties": {
           "id": {
             "description": "The product identifier",

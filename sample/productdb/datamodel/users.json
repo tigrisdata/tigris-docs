@@ -9,7 +9,7 @@
     "name": {
       "description": "Name of the user",
       "type": "string",
-      "max_length": 100
+      "maxLength": 100
     },
     "balance": {
       "description": "User account balance",
