@@ -88,7 +88,7 @@ tigrisdb-cli productdb transact \
     "insert": {
       "collection": "order",
       "documents": [{
-          "id": 1, "user_id": 1, "order_total": 53.89, "products": [{"id": 1, "quantity": 1}]
+          "id": 1, "user_id": 1, "order_total": 53.89, "product_item": [{"id": 1, "quantity": 1}]
         }]
     }
   },
