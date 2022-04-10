@@ -26,11 +26,11 @@ field-value pairs. The value of the field can be any of the JSON data types.
   "field2": "string",
   "field3": {
     "field1": "value1",
-    "field2": "value2",
+    "field2": "value2"
   },
   "field4": [
     {
-      "field5": [{"field6": 100}]
+      "field5": [{ "field6": 100 }]
     }
   ],
   "fieldN": "valueN"
