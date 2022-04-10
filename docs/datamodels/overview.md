@@ -10,7 +10,7 @@ A database is a group of collections.
 
 ### Collections
 
-Collections are the core entity used by developers to model their entities.
+Collections are the core abstraction used by developers to model their entities.
 Collections are analogous to tables or column families in other systems: they
 represent an ordered set of structured records called documents that all follow
 a specific schema and whose fields are strongly typed.
