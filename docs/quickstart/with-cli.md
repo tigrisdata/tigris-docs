@@ -7,7 +7,9 @@ possible using the CLI.
 
 Open your terminal and use the following command to download the
 [docker-compose](https://raw.githubusercontent.com/tigrisdata/tigrisdb/main/docker/local/docker-compose.yaml)
-file and startup TigrisDB. Note that you'll need to have [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/) installed already.
+file and startup TigrisDB. Note that you'll need to have
+[docker](https://docs.docker.com/get-docker/) and
+[docker compose](https://docs.docker.com/compose/install/) installed already.
 
 ```shell
 curl -L -O https://raw.githubusercontent.com/tigrisdata/tigrisdb/main/docker/local/docker-compose.yaml
@@ -19,7 +21,9 @@ The docker compose setup will start two containers:
 1. A stateless TigrisDB server running on port `8081`.
 2. A single-node stateful FoundationDB server running on port `4500`.
 
-Note that this docker compose file is for local development only and should **not** be used in production as the FoundationDB cluster it creates does not run in a highly available or replicated manner.
+Note that this docker-compose file is for local development only and should
+**not** be used in production as the FoundationDB cluster it creates does
+not run in a highly available or replicated manner.
 
 Next up install the CLI
 
@@ -56,11 +60,11 @@ cd ..
 
 ### 3. Insert and read data
 
-The following example will set up the data model, insert data into the _users_ and
-_products_ collections and then read it back.
+The following example will set up the data model, insert data into the _users_
+and _products_ collections and then read it back.
 
-One of the main features of TigrisDB is the ability to perform strictly serializable
-ACID transactions. We will perform a transaction that involves inserting and
+One of the main features of TigrisDB is the ability to perform ACID
+transactions. We will perform a transaction that involves inserting and
 updating documents in the _orders_, _users_ and _products_ collections.
 
 Now lets fire up the CLI and use the TigrisDB APIs to perform CRUD operations on
@@ -124,4 +128,22 @@ tigrisdb-cli productdb transact \
 ]'
 ```
 
-The transaction we just executed updates three different collections in a single atomic transaction, all while running at an isolation level of strict serialiability! Note that because we're using the CLI the transaction doesn't appear interactive. However, if we were using a real TigrisDB client the transaction would be interactive and we could enforce constraints within our application, like ensuring the user has enough balance or that there is enough available product. See the [Go quick start](with-go.md) section for an example of how we can leverage TigrisDB's transactions to easily and automatically ensure that no customer is ever allowed to purchase goods worth more than their available balance, and that we never create orders that exceed the amount of available product, even if thousands of customers are all trying to purchase the same product at the same time!
+The transaction we just executed updates three different collections in a
+single atomic transaction, all while running at an isolation level of strict
+serializability.
+
+:::info
+Note that because we're using the CLI, the transaction doesn't appear to be
+interactive. When using the TigrisDB client library the transaction would be
+interactive, and we could enforce constraints within our application. Such as,
+ensuring that the user has enough balance or that there is enough available
+product.
+
+See the [Go quick start](with-go.md) section for an example of how we can
+leverage TigrisDB's transactions to easily and automatically ensure that no
+user is ever allowed to purchase products worth more than their available
+balance, and that we never create orders that exceed the amount of available
+product, even if thousands of users are all trying to purchase the same
+product at the same time!
+
+:::
