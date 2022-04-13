@@ -68,17 +68,22 @@ Open the project in your favorite IDE and add the following method to
 ```java title="OrderController.java"
 @PostMapping("{user_id}/{product_id}/{qty}")
 public ResponseEntity<String> purchase(
-    @RequestParam("user_id") long userId,
-    @RequestParam("product_id") long productId,
-    @RequestParam("qty") int quantity)
-    throws TigrisDBException {
+        @RequestParam("user_id") int userId,
+        @RequestParam("product_id") int productId,
+        @RequestParam("qty") int quantity)
+        throws TigrisDBException {
 
   // Begin the transaction and perform all operations below in the context of
   // this transaction
   TransactionSession transactionSession =
-      tigrisStarterDatabase.beginTransaction(new TransactionOptions());
+          tigrisStarterDatabase.beginTransaction(new TransactionOptions());
 
   try {
+    // retrieve session aware collection
+    TransactionTigrisCollection<User> userCollection = transactionSession.getCollection(User.class);
+    TransactionTigrisCollection<Product> productCollection = transactionSession.getCollection(Product.class);
+    TransactionTigrisCollection<Order> orderCollection = transactionSession.getCollection(Order.class);
+
     // read the user and product documents
     User user = userCollection.readOne(Filters.eq("id", userId)).get();
     Product product = productCollection.readOne(Filters.eq("id", productId)).get();
@@ -91,24 +96,24 @@ public ResponseEntity<String> purchase(
       double newUserBalance = user.getBalance() - orderTotal;
       int newProductQuantity = product.getQuantity() - quantity;
       userCollection.update(
-          Filters.eq("id", userId),
-          UpdateFields.newBuilder()
-              .set(UpdateFields.SetFields.newBuilder().set("balance", newUserBalance).build())
-              .build());
+              Filters.eq("id", userId),
+              UpdateFields.newBuilder()
+                      .set(UpdateFields.SetFields.newBuilder().set("balance", newUserBalance).build())
+                      .build());
 
       productCollection.update(
-          Filters.eq("id", productId),
-          UpdateFields.newBuilder()
-              .set(
-                  UpdateFields.SetFields.newBuilder().set("quantity", newProductQuantity).build())
-              .build());
+              Filters.eq("id", productId),
+              UpdateFields.newBuilder()
+                      .set(
+                              UpdateFields.SetFields.newBuilder().set("quantity", newProductQuantity).build())
+                      .build());
 
       orderCollection.insert(
-          new Order()
-              .withId(orderIdSequence.incrementAndGet())
-              .withOrderTotal(orderTotal)
-              .withUserId(userId)
-              .withProductId(productId));
+              new Order()
+                      .withId(orderIdSequence.incrementAndGet())
+                      .withOrderTotal(orderTotal)
+                      .withUserId(userId)
+                      .withProductId(productId));
 
       // commit the transaction to persist all the changes
       transactionSession.commit();
