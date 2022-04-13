@@ -45,7 +45,7 @@ also generate the models with the schema packaged as part of the started
 project.
 
 ```shell
-cd tigrisdb-starter-java-1.0.0-alpha.2
+cd tigrisdb-starter-java-1.0.0-alpha.3
 mvn clean install
 ```
 
