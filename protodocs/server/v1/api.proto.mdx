@@ -7,13 +7,15 @@ import { ProtoMessage, ProtoServiceMethod, ProtoEnum } from "@theme/ProtoFile";
 
 ## `api.proto`
 
+_**path** server/v1/api.proto_
+
+_**package** _
+
 ---
 
 ## Services
 
 ### `TigrisDB`
-
-Transactional APIs
 
 #### `BeginTransaction`
 
@@ -22,7 +24,7 @@ Transactional APIs
   method={{
     name: "BeginTransaction",
     description:
-      "Starts a new transaction and returns a transactional object.\nAll reads/writes performed within a transaction will run with\nserializable isolation.",
+      "Starts a new transaction and returns a transactional object. All reads/writes performed\nwithin a transaction will run with serializable isolation.",
     requestType: "BeginTransactionRequest",
     requestLongType: ".BeginTransactionRequest",
     requestFullType: "BeginTransactionRequest",
@@ -52,7 +54,7 @@ Transactional APIs
   method={{
     name: "CommitTransaction",
     description:
-      "Commit transaction atomically commit all the changes\nperformed in the context of the transaction.\nAll the changes committed or none of them committed in\nthe case of error.",
+      "Atomically commit all the changes performed in the context of the transaction. Commit provides all\nor nothing semantics by ensuring no partial updates are in the database due to a transaction failure.",
     requestType: "CommitTransactionRequest",
     requestLongType: ".CommitTransactionRequest",
     requestFullType: "CommitTransactionRequest",
@@ -112,7 +114,7 @@ Transactional APIs
   method={{
     name: "Insert",
     description:
-      "Insert inserts new documents in the collection and returns a conflict if any of the document\npassed in the batch already exists. Insert provides idempotency by rejecting request if document\nalready exists. To replace documents, REPLACE API should be used instead of INSERT.",
+      "Inserts new documents in the collection and returns an AlreadyExists error if any of the documents\nin the request already exists. Insert provides idempotency by returning an error if the document\nalready exists. To replace documents, use REPLACE API instead of INSERT.",
     requestType: "InsertRequest",
     requestLongType: ".InsertRequest",
     requestFullType: "InsertRequest",
@@ -143,7 +145,7 @@ Transactional APIs
   method={{
     name: "Replace",
     description:
-      "Replace inserts the documents or replaces the existing documents in the collections.",
+      "Inserts the documents or replaces the existing documents in the collections.",
     requestType: "ReplaceRequest",
     requestLongType: ".ReplaceRequest",
     requestFullType: "ReplaceRequest",
@@ -174,7 +176,7 @@ Transactional APIs
   method={{
     name: "Delete",
     description:
-      "Delete documents from the collection according to specified filter",
+      "Delete a range of documents in the collection using the condition provided in the filter.",
     requestType: "DeleteRequest",
     requestLongType: ".DeleteRequest",
     requestFullType: "DeleteRequest",
@@ -205,7 +207,7 @@ Transactional APIs
   method={{
     name: "Update",
     description:
-      "Update range of documents in the collection according to\nthe specified filter and the fields projection",
+      "Update a range of documents in the collection using the condition provided in the filter.",
     requestType: "UpdateRequest",
     requestLongType: ".UpdateRequest",
     requestFullType: "UpdateRequest",
@@ -236,7 +238,7 @@ Transactional APIs
   method={{
     name: "Read",
     description:
-      "Read range of documents from the collection according to\n the specified filter",
+      "Reads range of documents from the collection using the condition in the filter.",
     requestType: "ReadRequest",
     requestLongType: ".ReadRequest",
     requestFullType: "ReadRequest",
@@ -260,56 +262,29 @@ Transactional APIs
   }}
 />
 
-#### `CreateCollection`
+#### `CreateOrUpdateCollection`
 
 <ProtoServiceMethod
-  key={"CreateCollection-8"}
+  key={"CreateOrUpdateCollection-8"}
   method={{
-    name: "CreateCollection",
-    description: "Create new collection of documents in the specified database",
-    requestType: "CreateCollectionRequest",
-    requestLongType: ".CreateCollectionRequest",
-    requestFullType: "CreateCollectionRequest",
+    name: "CreateOrUpdateCollection",
+    description:
+      "Creates a new collection or atomically upgrades the collection to the new schema changes in the database\npassed in the request.",
+    requestType: "CreateOrUpdateCollectionRequest",
+    requestLongType: ".CreateOrUpdateCollectionRequest",
+    requestFullType: "CreateOrUpdateCollectionRequest",
     requestStreaming: false,
-    responseType: "CreateCollectionResponse",
-    responseLongType: ".CreateCollectionResponse",
-    responseFullType: "CreateCollectionResponse",
+    responseType: "CreateOrUpdateCollectionResponse",
+    responseLongType: ".CreateOrUpdateCollectionResponse",
+    responseFullType: "CreateOrUpdateCollectionResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
         rules: [
           {
             method: "POST",
-            pattern: "/api/v1/databases/{db}/collections/{collection}/create",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `AlterCollection`
-
-<ProtoServiceMethod
-  key={"AlterCollection-9"}
-  method={{
-    name: "AlterCollection",
-    description: "Change the schema of existing collection",
-    requestType: "AlterCollectionRequest",
-    requestLongType: ".AlterCollectionRequest",
-    requestFullType: "AlterCollectionRequest",
-    requestStreaming: false,
-    responseType: "AlterCollectionResponse",
-    responseLongType: ".AlterCollectionResponse",
-    responseFullType: "AlterCollectionResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/collections/{collection}/alter",
+            pattern:
+              "/api/v1/databases/{db}/collections/{collection}/createOrUpdate",
             body: "*",
           },
         ],
@@ -321,10 +296,11 @@ Transactional APIs
 #### `DropCollection`
 
 <ProtoServiceMethod
-  key={"DropCollection-10"}
+  key={"DropCollection-9"}
   method={{
     name: "DropCollection",
-    description: "Drop the collection",
+    description:
+      "Drop the collection and all its documents in the database passed in the request.",
     requestType: "DropCollectionRequest",
     requestLongType: ".DropCollectionRequest",
     requestFullType: "DropCollectionRequest",
@@ -350,10 +326,10 @@ Transactional APIs
 #### `ListDatabases`
 
 <ProtoServiceMethod
-  key={"ListDatabases-11"}
+  key={"ListDatabases-10"}
   method={{
     name: "ListDatabases",
-    description: "List databases in the current namespace",
+    description: "List returns all the databases.",
     requestType: "ListDatabasesRequest",
     requestLongType: ".ListDatabasesRequest",
     requestFullType: "ListDatabasesRequest",
@@ -364,7 +340,7 @@ Transactional APIs
     responseStreaming: false,
     options: {
       "google.api.http": {
-        rules: [{ method: "GET", pattern: "/api/v1/databases/list" }],
+        rules: [{ method: "POST", pattern: "/api/v1/databases/list" }],
       },
     },
   }}
@@ -373,10 +349,10 @@ Transactional APIs
 #### `ListCollections`
 
 <ProtoServiceMethod
-  key={"ListCollections-12"}
+  key={"ListCollections-11"}
   method={{
     name: "ListCollections",
-    description: "List collections in the specified database",
+    description: "List all collections in the database passed in the request.",
     requestType: "ListCollectionsRequest",
     requestLongType: ".ListCollectionsRequest",
     requestFullType: "ListCollectionsRequest",
@@ -402,10 +378,11 @@ Transactional APIs
 #### `CreateDatabase`
 
 <ProtoServiceMethod
-  key={"CreateDatabase-13"}
+  key={"CreateDatabase-12"}
   method={{
     name: "CreateDatabase",
-    description: "Create database in the current namespace",
+    description:
+      "Creates a new database and returns a AlreadyExists error if the database already exists.",
     requestType: "CreateDatabaseRequest",
     requestLongType: ".CreateDatabaseRequest",
     requestFullType: "CreateDatabaseRequest",
@@ -431,11 +408,11 @@ Transactional APIs
 #### `DropDatabase`
 
 <ProtoServiceMethod
-  key={"DropDatabase-14"}
+  key={"DropDatabase-13"}
   method={{
     name: "DropDatabase",
     description:
-      "Drop database deletes all the collections in the database\nalong with all it documents",
+      "Drop database deletes all the collections in the database along with all it documents.",
     requestType: "DropDatabaseRequest",
     requestLongType: ".DropDatabaseRequest",
     requestFullType: "DropDatabaseRequest",
@@ -462,107 +439,10 @@ Transactional APIs
 
 ## Messages
 
-### `AlterCollectionRequest`
-
-<ProtoMessage
-  key={0}
-  message={{
-    name: "AlterCollectionRequest",
-    longName: "AlterCollectionRequest",
-    fullName: ".AlterCollectionRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Database name of the collection",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "collection",
-        description: "Collection name to change schema",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "schema",
-        description:
-          "Schema of the documents in this collection.\nShould be proper JSON object.\nSchema syntax described here: {TBD}",
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "",
-        label: "",
-        type: "CollectionOptions",
-        longType: "CollectionOptions",
-        fullType: "CollectionOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
-
-### `AlterCollectionResponse`
-
-<ProtoMessage
-  key={1}
-  message={{
-    name: "AlterCollectionResponse",
-    longName: "AlterCollectionResponse",
-    fullName: ".AlterCollectionResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "msg",
-        description: "",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
-
 ### `BeginTransactionRequest`
 
 <ProtoMessage
-  key={2}
+  key={0}
   message={{
     name: "BeginTransactionRequest",
     longName: "BeginTransactionRequest",
@@ -604,7 +484,7 @@ Transactional APIs
 ### `BeginTransactionResponse`
 
 <ProtoMessage
-  key={3}
+  key={1}
   message={{
     name: "BeginTransactionResponse",
     longName: "BeginTransactionResponse",
@@ -632,10 +512,40 @@ Transactional APIs
   }}
 />
 
+### `CollectionInfo`
+
+<ProtoMessage
+  key={2}
+  message={{
+    name: "CollectionInfo",
+    longName: "CollectionInfo",
+    fullName: ".CollectionInfo",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "name",
+        description: "",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
 ### `CollectionOptions`
 
 <ProtoMessage
-  key={4}
+  key={3}
   message={{
     name: "CollectionOptions",
     longName: "CollectionOptions",
@@ -665,7 +575,7 @@ Transactional APIs
 ### `CommitTransactionRequest`
 
 <ProtoMessage
-  key={5}
+  key={4}
   message={{
     name: "CommitTransactionRequest",
     longName: "CommitTransactionRequest",
@@ -707,7 +617,7 @@ Transactional APIs
 ### `CommitTransactionResponse`
 
 <ProtoMessage
-  key={6}
+  key={5}
   message={{
     name: "CommitTransactionResponse",
     longName: "CommitTransactionResponse",
@@ -721,107 +631,10 @@ Transactional APIs
   }}
 />
 
-### `CreateCollectionRequest`
-
-<ProtoMessage
-  key={7}
-  message={{
-    name: "CreateCollectionRequest",
-    longName: "CreateCollectionRequest",
-    fullName: ".CreateCollectionRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Database name where to create collection",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "collection",
-        description: "Collection name to create",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "schema",
-        description:
-          "Schema of the documents in this collection.\nShould be proper JSON object.\nSchema syntax described here: {TBD}",
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "",
-        label: "",
-        type: "CollectionOptions",
-        longType: "CollectionOptions",
-        fullType: "CollectionOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
-
-### `CreateCollectionResponse`
-
-<ProtoMessage
-  key={8}
-  message={{
-    name: "CreateCollectionResponse",
-    longName: "CreateCollectionResponse",
-    fullName: ".CreateCollectionResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "msg",
-        description: "",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
-
 ### `CreateDatabaseRequest`
 
 <ProtoMessage
-  key={9}
+  key={6}
   message={{
     name: "CreateDatabaseRequest",
     longName: "CreateDatabaseRequest",
@@ -863,7 +676,7 @@ Transactional APIs
 ### `CreateDatabaseResponse`
 
 <ProtoMessage
-  key={10}
+  key={7}
   message={{
     name: "CreateDatabaseResponse",
     longName: "CreateDatabaseResponse",
@@ -876,6 +689,145 @@ Transactional APIs
     fields: [
       {
         name: "msg",
+        description: "",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `CreateOrUpdateCollectionRequest`
+
+<ProtoMessage
+  key={8}
+  message={{
+    name: "CreateOrUpdateCollectionRequest",
+    longName: "CreateOrUpdateCollectionRequest",
+    fullName: ".CreateOrUpdateCollectionRequest",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "db",
+        description: "Database name where to create collection",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "collection",
+        description: "Collection name to create",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "schema",
+        description:
+          'Schema of the documents in this collection. The schema specifications are same as\nJSON schema specification defined here(https://json-schema.org/specification.html).\nAs an example, the schema looks like below,\n{\n "name": "user",\n "description": "Collection of documents with details of users",\n "properties": {\n   "id": {\n     "description": "A unique identifier for the user",\n     "type": "bigint"\n   },\n   "name": {\n     "description": "Name of the user",\n     "type": "string",\n     "maxLength": 100\n   },\n   "balance": {\n     "description": "User account balance",\n     "type": "double"\n   }\n },\n "primary_key": ["id"]\n}',
+        label: "",
+        type: "bytes",
+        longType: "bytes",
+        fullType: "bytes",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "only_create",
+        description: "",
+        label: "",
+        type: "bool",
+        longType: "bool",
+        fullType: "bool",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "options",
+        description: "",
+        label: "",
+        type: "CollectionOptions",
+        longType: "CollectionOptions",
+        fullType: "CollectionOptions",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `CreateOrUpdateCollectionResponse`
+
+<ProtoMessage
+  key={9}
+  message={{
+    name: "CreateOrUpdateCollectionResponse",
+    longName: "CreateOrUpdateCollectionResponse",
+    fullName: ".CreateOrUpdateCollectionResponse",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "msg",
+        description: "",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `DatabaseInfo`
+
+<ProtoMessage
+  key={10}
+  message={{
+    name: "DatabaseInfo",
+    longName: "DatabaseInfo",
+    fullName: ".DatabaseInfo",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "name",
         description: "",
         label: "",
         type: "string",
@@ -1049,7 +1001,7 @@ Transactional APIs
       },
       {
         name: "collection",
-        description: "Collection name to dtop",
+        description: "Collection name to drop",
         label: "",
         type: "string",
         longType: "string",
@@ -1394,9 +1346,9 @@ Transactional APIs
         name: "collections",
         description: "List of the collections in the database",
         label: "repeated",
-        type: "string",
-        longType: "string",
-        fullType: "string",
+        type: "CollectionInfo",
+        longType: "CollectionInfo",
+        fullType: "CollectionInfo",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1438,12 +1390,12 @@ Transactional APIs
     extensions: [],
     fields: [
       {
-        name: "dbs",
-        description: "List of the databases in the namespace",
+        name: "databases",
+        description: "List of the databases.",
         label: "repeated",
-        type: "string",
-        longType: "string",
-        fullType: "string",
+        type: "DatabaseInfo",
+        longType: "DatabaseInfo",
+        fullType: "DatabaseInfo",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
