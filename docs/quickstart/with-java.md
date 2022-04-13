@@ -30,7 +30,7 @@ not run in a highly available or replicated manner.
 Open your terminal and use the following command to download the started project
 
 ```shell
-curl -L https://github.com/tigrisdata/tigrisdb-starter-java/archive/refs/tags/1.0.0-alpha.3.tar.gz  | tar -xz
+curl -L https://github.com/tigrisdata/tigrisdb-starter-java/archive/refs/tags/1.0.0-alpha.2.tar.gz  | tar -xz
 ```
 
 ### 3. Build the project and generate the models
@@ -45,7 +45,7 @@ also generate the models with the schema packaged as part of the started
 project.
 
 ```shell
-cd tigrisdb-starter-java-1.0.0-alpha.3
+cd tigrisdb-starter-java-1.0.0-alpha.2
 mvn clean install
 ```
 
