@@ -48,7 +48,7 @@ npm run build
 This command generates static content into the `build` directory and can be
 served using any static contents hosting service.
 
-## Updating Proto documentation
+## Updating API documentation
 
 [tigrisdb-api](https://github.com/tigrisdata/tigrisdb-api) is included as a
 submodule. After updating the submodule to pull in new proto changes, the

@@ -12,90 +12,6 @@
       "extensions": [],
       "messages": [
         {
-          "name": "AlterCollectionRequest",
-          "longName": "AlterCollectionRequest",
-          "fullName": ".AlterCollectionRequest",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "db",
-              "description": "Database name of the collection",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "collection",
-              "description": "Collection name to change schema",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "schema",
-              "description": "Schema of the documents in this collection.\nShould be proper JSON object.\nSchema syntax described here: {TBD}",
-              "label": "",
-              "type": "bytes",
-              "longType": "bytes",
-              "fullType": "bytes",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "options",
-              "description": "",
-              "label": "",
-              "type": "CollectionOptions",
-              "longType": "CollectionOptions",
-              "fullType": "CollectionOptions",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "AlterCollectionResponse",
-          "longName": "AlterCollectionResponse",
-          "fullName": ".AlterCollectionResponse",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "msg",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
           "name": "BeginTransactionRequest",
           "longName": "BeginTransactionRequest",
           "fullName": ".BeginTransactionRequest",
@@ -148,6 +64,30 @@
               "type": "TransactionCtx",
               "longType": "TransactionCtx",
               "fullType": "TransactionCtx",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CollectionInfo",
+          "longName": "CollectionInfo",
+          "fullName": ".CollectionInfo",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -227,90 +167,6 @@
           "fields": []
         },
         {
-          "name": "CreateCollectionRequest",
-          "longName": "CreateCollectionRequest",
-          "fullName": ".CreateCollectionRequest",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "db",
-              "description": "Database name where to create collection",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "collection",
-              "description": "Collection name to create",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "schema",
-              "description": "Schema of the documents in this collection.\nShould be proper JSON object.\nSchema syntax described here: {TBD}",
-              "label": "",
-              "type": "bytes",
-              "longType": "bytes",
-              "fullType": "bytes",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "options",
-              "description": "",
-              "label": "",
-              "type": "CollectionOptions",
-              "longType": "CollectionOptions",
-              "fullType": "CollectionOptions",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "CreateCollectionResponse",
-          "longName": "CreateCollectionResponse",
-          "fullName": ".CreateCollectionResponse",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": true,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": [
-            {
-              "name": "msg",
-              "description": "",
-              "label": "",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
           "name": "CreateDatabaseRequest",
           "longName": "CreateDatabaseRequest",
           "fullName": ".CreateDatabaseRequest",
@@ -358,6 +214,126 @@
           "fields": [
             {
               "name": "msg",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CreateOrUpdateCollectionRequest",
+          "longName": "CreateOrUpdateCollectionRequest",
+          "fullName": ".CreateOrUpdateCollectionRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Database name where to create collection",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "collection",
+              "description": "Collection name to create",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "schema",
+              "description": "Schema of the documents in this collection. The schema specifications are same as\nJSON schema specification defined here(https://json-schema.org/specification.html).\nAs an example, the schema looks like below,\n{\n \"name\": \"user\",\n \"description\": \"Collection of documents with details of users\",\n \"properties\": {\n   \"id\": {\n     \"description\": \"A unique identifier for the user\",\n     \"type\": \"bigint\"\n   },\n   \"name\": {\n     \"description\": \"Name of the user\",\n     \"type\": \"string\",\n     \"maxLength\": 100\n   },\n   \"balance\": {\n     \"description\": \"User account balance\",\n     \"type\": \"double\"\n   }\n },\n \"primary_key\": [\"id\"]\n}",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "only_create",
+              "description": "",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "CollectionOptions",
+              "longType": "CollectionOptions",
+              "fullType": "CollectionOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CreateOrUpdateCollectionResponse",
+          "longName": "CreateOrUpdateCollectionResponse",
+          "fullName": ".CreateOrUpdateCollectionResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "msg",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "DatabaseInfo",
+          "longName": "DatabaseInfo",
+          "fullName": ".DatabaseInfo",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "name",
               "description": "",
               "label": "",
               "type": "string",
@@ -500,7 +476,7 @@
             },
             {
               "name": "collection",
-              "description": "Collection name to dtop",
+              "description": "Collection name to drop",
               "label": "",
               "type": "string",
               "longType": "string",
@@ -789,9 +765,9 @@
               "name": "collections",
               "description": "List of the collections in the database",
               "label": "repeated",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
+              "type": "CollectionInfo",
+              "longType": "CollectionInfo",
+              "fullType": "CollectionInfo",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -821,12 +797,12 @@
           "extensions": [],
           "fields": [
             {
-              "name": "dbs",
-              "description": "List of the databases in the namespace",
+              "name": "databases",
+              "description": "List of the databases.",
               "label": "repeated",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
+              "type": "DatabaseInfo",
+              "longType": "DatabaseInfo",
+              "fullType": "DatabaseInfo",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -1341,11 +1317,11 @@
           "name": "TigrisDB",
           "longName": "TigrisDB",
           "fullName": ".TigrisDB",
-          "description": "Transactional APIs",
+          "description": "",
           "methods": [
             {
               "name": "BeginTransaction",
-              "description": "Starts a new transaction and returns a transactional object.\nAll reads/writes performed within a transaction will run with\nserializable isolation.",
+              "description": "Starts a new transaction and returns a transactional object. All reads/writes performed\nwithin a transaction will run with serializable isolation.",
               "requestType": "BeginTransactionRequest",
               "requestLongType": ".BeginTransactionRequest",
               "requestFullType": "BeginTransactionRequest",
@@ -1368,7 +1344,7 @@
             },
             {
               "name": "CommitTransaction",
-              "description": "Commit transaction atomically commit all the changes\nperformed in the context of the transaction.\nAll the changes committed or none of them committed in\nthe case of error.",
+              "description": "Atomically commit all the changes performed in the context of the transaction. Commit provides all\nor nothing semantics by ensuring no partial updates are in the database due to a transaction failure.",
               "requestType": "CommitTransactionRequest",
               "requestLongType": ".CommitTransactionRequest",
               "requestFullType": "CommitTransactionRequest",
@@ -1414,7 +1390,7 @@
             },
             {
               "name": "Insert",
-              "description": "Insert inserts new documents in the collection and returns a conflict if any of the document\npassed in the batch already exists. Insert provides idempotency by rejecting request if document\nalready exists. To replace documents, REPLACE API should be used instead of INSERT.",
+              "description": "Inserts new documents in the collection and returns an AlreadyExists error if any of the documents\nin the request already exists. Insert provides idempotency by returning an error if the document\nalready exists. To replace documents, use REPLACE API instead of INSERT.",
               "requestType": "InsertRequest",
               "requestLongType": ".InsertRequest",
               "requestFullType": "InsertRequest",
@@ -1437,7 +1413,7 @@
             },
             {
               "name": "Replace",
-              "description": "Replace inserts the documents or replaces the existing documents in the collections.",
+              "description": "Inserts the documents or replaces the existing documents in the collections.",
               "requestType": "ReplaceRequest",
               "requestLongType": ".ReplaceRequest",
               "requestFullType": "ReplaceRequest",
@@ -1460,7 +1436,7 @@
             },
             {
               "name": "Delete",
-              "description": "Delete documents from the collection according to specified filter",
+              "description": "Delete a range of documents in the collection using the condition provided in the filter.",
               "requestType": "DeleteRequest",
               "requestLongType": ".DeleteRequest",
               "requestFullType": "DeleteRequest",
@@ -1483,7 +1459,7 @@
             },
             {
               "name": "Update",
-              "description": "Update range of documents in the collection according to\nthe specified filter and the fields projection",
+              "description": "Update a range of documents in the collection using the condition provided in the filter.",
               "requestType": "UpdateRequest",
               "requestLongType": ".UpdateRequest",
               "requestFullType": "UpdateRequest",
@@ -1506,7 +1482,7 @@
             },
             {
               "name": "Read",
-              "description": "Read range of documents from the collection according to\n the specified filter",
+              "description": "Reads range of documents from the collection using the condition in the filter.",
               "requestType": "ReadRequest",
               "requestLongType": ".ReadRequest",
               "requestFullType": "ReadRequest",
@@ -1528,45 +1504,22 @@
               }
             },
             {
-              "name": "CreateCollection",
-              "description": "Create new collection of documents in the specified database",
-              "requestType": "CreateCollectionRequest",
-              "requestLongType": ".CreateCollectionRequest",
-              "requestFullType": "CreateCollectionRequest",
+              "name": "CreateOrUpdateCollection",
+              "description": "Creates a new collection or atomically upgrades the collection to the new schema changes in the database\npassed in the request.",
+              "requestType": "CreateOrUpdateCollectionRequest",
+              "requestLongType": ".CreateOrUpdateCollectionRequest",
+              "requestFullType": "CreateOrUpdateCollectionRequest",
               "requestStreaming": false,
-              "responseType": "CreateCollectionResponse",
-              "responseLongType": ".CreateCollectionResponse",
-              "responseFullType": "CreateCollectionResponse",
+              "responseType": "CreateOrUpdateCollectionResponse",
+              "responseLongType": ".CreateOrUpdateCollectionResponse",
+              "responseFullType": "CreateOrUpdateCollectionResponse",
               "responseStreaming": false,
               "options": {
                 "google.api.http": {
                   "rules": [
                     {
                       "method": "POST",
-                      "pattern": "/api/v1/databases/{db}/collections/{collection}/create",
-                      "body": "*"
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "name": "AlterCollection",
-              "description": "Change the schema of existing collection",
-              "requestType": "AlterCollectionRequest",
-              "requestLongType": ".AlterCollectionRequest",
-              "requestFullType": "AlterCollectionRequest",
-              "requestStreaming": false,
-              "responseType": "AlterCollectionResponse",
-              "responseLongType": ".AlterCollectionResponse",
-              "responseFullType": "AlterCollectionResponse",
-              "responseStreaming": false,
-              "options": {
-                "google.api.http": {
-                  "rules": [
-                    {
-                      "method": "POST",
-                      "pattern": "/api/v1/databases/{db}/collections/{collection}/alter",
+                      "pattern": "/api/v1/databases/{db}/collections/{collection}/createOrUpdate",
                       "body": "*"
                     }
                   ]
@@ -1575,7 +1528,7 @@
             },
             {
               "name": "DropCollection",
-              "description": "Drop the collection",
+              "description": "Drop the collection and all its documents in the database passed in the request.",
               "requestType": "DropCollectionRequest",
               "requestLongType": ".DropCollectionRequest",
               "requestFullType": "DropCollectionRequest",
@@ -1598,7 +1551,7 @@
             },
             {
               "name": "ListDatabases",
-              "description": "List databases in the current namespace",
+              "description": "List returns all the databases.",
               "requestType": "ListDatabasesRequest",
               "requestLongType": ".ListDatabasesRequest",
               "requestFullType": "ListDatabasesRequest",
@@ -1611,7 +1564,7 @@
                 "google.api.http": {
                   "rules": [
                     {
-                      "method": "GET",
+                      "method": "POST",
                       "pattern": "/api/v1/databases/list"
                     }
                   ]
@@ -1620,7 +1573,7 @@
             },
             {
               "name": "ListCollections",
-              "description": "List collections in the specified database",
+              "description": "List all collections in the database passed in the request.",
               "requestType": "ListCollectionsRequest",
               "requestLongType": ".ListCollectionsRequest",
               "requestFullType": "ListCollectionsRequest",
@@ -1643,7 +1596,7 @@
             },
             {
               "name": "CreateDatabase",
-              "description": "Create database in the current namespace",
+              "description": "Creates a new database and returns a AlreadyExists error if the database already exists.",
               "requestType": "CreateDatabaseRequest",
               "requestLongType": ".CreateDatabaseRequest",
               "requestFullType": "CreateDatabaseRequest",
@@ -1666,7 +1619,7 @@
             },
             {
               "name": "DropDatabase",
-              "description": "Drop database deletes all the collections in the database\nalong with all it documents",
+              "description": "Drop database deletes all the collections in the database along with all it documents.",
               "requestType": "DropDatabaseRequest",
               "requestLongType": ".DropDatabaseRequest",
               "requestFullType": "DropDatabaseRequest",
