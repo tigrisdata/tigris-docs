@@ -43,6 +43,27 @@ const sidebars = {
         "datamodels/examples",
       ],
     },
+    {
+      type: "category",
+      label: "Client Libraries",
+      items: [
+        "client-libraries/go",
+        {
+          type: "category",
+          label: "Client Library: Java",
+          link: {
+            type: "doc",
+            id: "client-libraries/java/overview",
+          },
+          collapsed: false,
+          items: [
+            "client-libraries/java/code-generator",
+            "client-libraries/java/sync-client",
+            "client-libraries/java/async-client",
+          ],
+        },
+      ],
+    },
   ],
 };
 
