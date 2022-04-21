@@ -26,7 +26,7 @@ specification with extensions that enable support for richer semantics.
 | uuid      | The uuid type stores universally unique identifiers (UUIDs). UUIDs are 16-byte numbers used to uniquely identify records.                                           | Yes                      |
 | datetime  | The datetime type stores an instant in time expressed as a date that is combined with a time of day with fractional seconds that is based on a 24-hour clock.       | Yes                      |
 | boolean   | The boolean type matches only two special values: true and false. Note that values that evaluate to true or false, such as 1 and 0, are not accepted by the schema. | No                       |
-| array     | Arrays are used for ordered elements. Each element in an array may be of a different type.                                                                          | No                       |
+| array     | Arrays are used for ordered elements.                                                                                                                               | No                       |
 | object    | Objects are the mapping type. They map “keys” to “values”. The “keys” must always be strings. Each of these pairs is referred to as a “property”.                   | No                       |
 
 ### int

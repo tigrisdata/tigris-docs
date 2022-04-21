@@ -33,7 +33,7 @@ Sample schema:
   "properties": {
     "id": {
       "description": "A unique identifier for the user",
-      "type": "bigint"
+      "type": "integer"
     },
     "name": {
       "description": "Name of the user",
@@ -42,7 +42,7 @@ Sample schema:
     },
     "balance": {
       "description": "User account balance",
-      "type": "double"
+      "type": "number"
     }
   },
   "primary_key": ["id"]
@@ -135,7 +135,7 @@ fields `languages` and `address`
   "properties": {
     "id": {
       "description": "A unique identifier for the user",
-      "type": "bigint"
+      "type": "integer"
     },
     "name": {
       "description": "Name of the user",
@@ -144,7 +144,7 @@ fields `languages` and `address`
     },
     "balance": {
       "description": "User account balance",
-      "type": "double"
+      "type": "number"
     },
     "languages": {
       "description": "Languages spoken by the user",
