@@ -32,11 +32,11 @@ TigrisDatabase myDatabase = client.getDatabase("my-db");
 ## Create collections
 
 ```java
-myDatabase.createCollectionsInTransaction(new File("src/main/resources/tigrisdb-schema"));
+// note: User, Product and Order are of TigrisCollectionType classes
+myDatabase.createOrUpdateCollections(User.class, Product.class, Order.class);
 ```
 
-This will read all the schema files in this directory and register
-collections per schema file.
+This will introspect these models and register collections per class.
 
 ## Retrieve collection
 

@@ -30,7 +30,7 @@ not run in a highly available or replicated manner.
 Open your terminal and use the following command to download the started project
 
 ```shell
-curl -L https://github.com/tigrisdata/tigrisdb-starter-java/archive/refs/tags/1.0.0-alpha.2.tar.gz  | tar -xz
+curl -L https://github.com/tigrisdata/tigrisdb-starter-java/archive/refs/tags/1.0.0-alpha.6.tar.gz  | tar -xz
 ```
 
 ### 3. Build the project and generate the models
@@ -45,7 +45,7 @@ also generate the models with the schema packaged as part of the started
 project.
 
 ```shell
-cd tigrisdb-starter-java-1.0.0-alpha.2
+cd tigrisdb-starter-java-1.0.0-alpha.6
 mvn clean install
 ```
 
@@ -109,11 +109,9 @@ public ResponseEntity<String> purchase(
                       .build());
 
       orderCollection.insert(
-              new Order()
-                      .withId(orderIdSequence.incrementAndGet())
-                      .withOrderTotal(orderTotal)
-                      .withUserId(userId)
-                      .withProductId(productId));
+          new Order(
+              orderIdSequence.incrementAndGet(), userId, orderTotal,
+                  Collections.singletonList(new Order.ProductItem(productId, quantity))));
 
       // commit the transaction to persist all the changes
       transactionSession.commit();
@@ -127,6 +125,23 @@ public ResponseEntity<String> purchase(
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to shop");
   }
 }
+```
+
+with these additional imports
+
+```java
+import org.springframework.web.bind.annotation.RequestParam;
+import com.tigrisdata.db.client.TransactionOptions;
+import com.tigrisdata.db.client.TransactionSession;
+import com.tigrisdata.db.client.TransactionTigrisCollection;
+import com.tigrisdata.db.client.UpdateFields;
+import com.tigrisdata.starter.collections.Product;
+import com.tigrisdata.starter.collections.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import java.util.Collections;
 ```
 
 Now launch the application from the IDE.
@@ -143,13 +158,12 @@ backend. Take a look at the REST API at
 
 ### Understanding what just happened
 
-The downloaded starter project included the data model definition consisting
-of three collections `users`, `products` and `orders` located at
-`src/main/resources/tigrisdb-schema`.
+The downloaded starter project included the data model Java classes consisting
+of three collections `users`, `products` and `orders` located in
+`com.tigrisdata.starter.collections` Java package.
 
-When you built the project, the Maven build configuration invoked the TigrisDB
-model generator maven plugin that read the data model definition and generated
-corresponding Java models.
+When you launched the application. Code located in `com.tigrisdata.starter. spring.TigrisDBInitializer#run` created the database and registered the
+schema based on these 3 collection models.
 
 You wrote a new HTTP handler that used TigrisDB transaction feature. The
 transaction involved reading data, validating that certain conditions around
