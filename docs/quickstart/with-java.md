@@ -30,22 +30,20 @@ not run in a highly available or replicated manner.
 Open your terminal and use the following command to download the started project
 
 ```shell
-curl -L https://github.com/tigrisdata/tigrisdb-starter-java/archive/refs/tags/1.0.0-alpha.2.tar.gz  | tar -xz
+curl -L https://github.com/tigrisdata/tigrisdb-starter-java/archive/refs/tags/1.0.0-alpha.7.tar.gz  | tar -xz
 ```
 
-### 3. Build the project and generate the models
+### 3. Build the project
 
 The following prerequisites are needed for this step:
 
 - JDK setup at version 8 / 11 / 17
 - Apache maven
 
-From your terminal move into the starter project and build it. This will
-also generate the models with the schema packaged as part of the started
-project.
+From your terminal move into the starter project and build it.
 
 ```shell
-cd tigrisdb-starter-java-1.0.0-alpha.2
+cd tigrisdb-starter-java-1.0.0-alpha.7
 mvn clean install
 ```
 
@@ -68,21 +66,24 @@ Open the project in your favorite IDE and add the following method to
 ```java title="OrderController.java"
 @PostMapping("{user_id}/{product_id}/{qty}")
 public ResponseEntity<String> purchase(
-        @RequestParam("user_id") int userId,
-        @RequestParam("product_id") int productId,
-        @RequestParam("qty") int quantity)
-        throws TigrisDBException {
+    @RequestParam("user_id") int userId,
+    @RequestParam("product_id") int productId,
+    @RequestParam("qty") int quantity)
+    throws TigrisException {
 
   // Begin the transaction and perform all operations below in the context of
   // this transaction
   TransactionSession transactionSession =
-          tigrisStarterDatabase.beginTransaction(new TransactionOptions());
+      tigrisStarterDatabase.beginTransaction(new TransactionOptions());
 
   try {
     // retrieve session aware collection
-    TransactionTigrisCollection<User> userCollection = transactionSession.getCollection(User.class);
-    TransactionTigrisCollection<Product> productCollection = transactionSession.getCollection(Product.class);
-    TransactionTigrisCollection<Order> orderCollection = transactionSession.getCollection(Order.class);
+    TransactionTigrisCollection<User> userCollection =
+        transactionSession.getCollection(User.class);
+    TransactionTigrisCollection<Product> productCollection =
+        transactionSession.getCollection(Product.class);
+    TransactionTigrisCollection<Order> orderCollection =
+        transactionSession.getCollection(Order.class);
 
     // read the user and product documents
     User user = userCollection.readOne(Filters.eq("id", userId)).get();
@@ -96,24 +97,19 @@ public ResponseEntity<String> purchase(
       double newUserBalance = user.getBalance() - orderTotal;
       int newProductQuantity = product.getQuantity() - quantity;
       userCollection.update(
-              Filters.eq("id", userId),
-              UpdateFields.newBuilder()
-                      .set(UpdateFields.SetFields.newBuilder().set("balance", newUserBalance).build())
-                      .build());
+          Filters.eq("id", userId),
+          UpdateFields.newBuilder().set("balance", newUserBalance).build());
 
       productCollection.update(
-              Filters.eq("id", productId),
-              UpdateFields.newBuilder()
-                      .set(
-                              UpdateFields.SetFields.newBuilder().set("quantity", newProductQuantity).build())
-                      .build());
+          Filters.eq("id", productId),
+          UpdateFields.newBuilder().set("quantity", newProductQuantity).build());
 
       orderCollection.insert(
-              new Order()
-                      .withId(orderIdSequence.incrementAndGet())
-                      .withOrderTotal(orderTotal)
-                      .withUserId(userId)
-                      .withProductId(productId));
+          new Order(
+              orderIdSequence.incrementAndGet(),
+              userId,
+              orderTotal,
+              Collections.singletonList(new Order.ProductItem(productId, quantity))));
 
       // commit the transaction to persist all the changes
       transactionSession.commit();
@@ -127,6 +123,22 @@ public ResponseEntity<String> purchase(
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to shop");
   }
 }
+```
+
+with these additional imports
+
+```java
+import com.tigrisdata.db.client.TransactionOptions;
+import com.tigrisdata.db.client.TransactionSession;
+import com.tigrisdata.db.client.TransactionTigrisCollection;
+import com.tigrisdata.db.client.UpdateFields;
+import com.tigrisdata.starter.collections.Product;
+import com.tigrisdata.starter.collections.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import java.util.Collections;
 ```
 
 Now launch the application from the IDE.
@@ -143,13 +155,12 @@ backend. Take a look at the REST API at
 
 ### Understanding what just happened
 
-The downloaded starter project included the data model definition consisting
-of three collections `users`, `products` and `orders` located at
-`src/main/resources/tigrisdb-schema`.
+The downloaded starter project includes the data model Java classes consisting
+of three collections `users`, `products` and `orders` located in
+`com.tigrisdata.starter.collections` Java package.
 
-When you built the project, the Maven build configuration invoked the TigrisDB
-model generator maven plugin that read the data model definition and generated
-corresponding Java models.
+When you launched the application, code located in `com.tigrisdata.starter.spring.TigrisDBInitializer#run` created the database and registered the
+schema based on these 3 collection models.
 
 You wrote a new HTTP handler that used TigrisDB transaction feature. The
 transaction involved reading data, validating that certain conditions around

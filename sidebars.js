@@ -57,7 +57,6 @@ const sidebars = {
           },
           collapsed: false,
           items: [
-            "client-libraries/java/code-generator",
             "client-libraries/java/sync-client",
             "client-libraries/java/async-client",
           ],

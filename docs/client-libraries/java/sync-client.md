@@ -7,20 +7,22 @@ walk through of how to use sync client.
 
 ```java
 // configuration
-TigrtisDBConfiguration tigrisDBConfiguration = TigrisDBConfiguration.
-        newBuilder(baseUrl).build();
+TigrisConfiguration configuration = TigrisConfiguration.newBuilder("server-url").build();
 
 // client
-TigrisDBClient client = StandardTigrisDBClient.getInstance(
-                            new TigrisAuthorizationToken(token),
-                            tigrisDBConfiguration
-                        );
+TigrisClient client = StandardTigrisClient.getInstance
+        (tigrisConfiguration);
 ```
+
+:::info
+server-url here is composed of host/ip:port for example: `localhost:8081`
+
+:::
 
 ## Create database
 
 ```java
-client.createDatabaseIfNotExists("my-db", DatabaseOptions.DEFAULT_INSTANCE);
+TigrisDatabase myDatabase = client.createDatabaseIfNotExists("my-db");
 ```
 
 ## Retrieve database
@@ -32,11 +34,13 @@ TigrisDatabase myDatabase = client.getDatabase("my-db");
 ## Create collections
 
 ```java
-myDatabase.createCollectionsInTransaction(new File("src/main/resources/tigrisdb-schema"));
+// note: User, Product and Order are of TigrisCollectionType classes and
+// these are user defined database collection model classes
+
+myDatabase.createOrUpdateCollections(User.class, Product.class, Order.class);
 ```
 
-This will read all the schema files in this directory and register
-collections per schema file.
+This will introspect these models and register a collection per class.
 
 ## Retrieve collection
 
@@ -44,35 +48,28 @@ collections per schema file.
 TigrisCollection<User> userCollection = myDatabase.getCollection(User.class);
 ```
 
-:::info
-Note that `User` is generated model and it automatically implements `com. tigrisdata.db.client.model.TigrisCollectionType`. This was automatically
-generated from schema using TigrisDB maven-plugin.
-:::
-
 ## CRUD
 
 ```java
-// insert 3 users (alice, lucy & emma) into user collection
-User alice = new User().withId(1).withName("Alice").withBalance(100);
-User lucy = new User().withId(2).withName("Lucy").withBalance(85);
-User emma = new User().withId(3).withName("Emma").withBalance(105);
+// insert 3 users (alice, lucy & emma) into the user collection
+User alice = new User(1, "Alice", 100);
+User lucy = new User(2, "Lucy", 85);
+User emma = new User(3, "Emma", 105);
 
 userCollection.insert(alice);
 userCollection.insert(lucy);
 userCollection.insert(emma);
 
-// read alice from user collection
+// read alice from the user collection
 User alice = userCollection.readOne(Filters.eq("id", 1)).get();
 
-// update emma's name in user collection
+// update emma's name in the user collection
 userCollection.update(
-        Filters.eq("id", emma.getId()),
-        UpdateFields.newBuilder().set(
-            UpdateFields.SetFields.newBuilder().set("name", "Dr. Emma").build()
-        ).build()
+            Filters.eq("id", emma.getId()),
+            UpdateFields.newBuilder().set("name", "Dr. Emma").build()
 );
 
-// delete lucy from user collection
+// delete lucy from the user collection
 userCollection.delete(Filters.eq("id", lucy.getId()));
 ```
 
@@ -80,37 +77,30 @@ userCollection.delete(Filters.eq("id", lucy.getId()));
 
 ```java
 TigrisDatabase myDatabase = client.getDatabase(dbName);
-TransactionOption transactionOptions = new TransactionOption();
-TransactionSession session = myDatabase.beginTransaction(transactionOptions);
+TransactionSession session = myDatabase.beginTransaction(new TransactionOptions());
 try {
     // retrieve transaction aware collection
     TransactionTigrisCollection<User> userCollection = session.getCollection(User.class);
     User emma = userCollection.readOne(Filters.eq("id", emma.getId()));
     User lucy = userCollection.readOne(Filters.eq("id", lucy.getId()));
 
-    // substract emma's balance by 10
+    // reduce emma's balance by 10
     userCollection.update(
         Filters.eq("id", emma.getId()),
-        UpdateFields.newBuilder().set(
-            UpdateFields.SetFields
-                .newBuilder()
-                .set(
-                    "balance",
-                    emma.getBalance() - 10
-                ).build()
+        UpdateFields.newBuilder()
+        .set(
+             "balance",
+             emma.getBalance() - 10
         ).build()
     );
 
-    // add lucy's balance by 10
+    // increment lucy's balance by 10
     userCollection.update(
         Filters.eq("id", lucy.getId()),
-        UpdateFields.newBuilder().set(
-            UpdateFields.SetFields
-                .newBuilder()
-                .set(
-                    "balance",
-                    lucy.getBalance() + 10
-                ).build()
+        UpdateFields.newBuilder()
+        .set(
+            "balance",
+            lucy.getBalance() + 10
         ).build()
     );
     // commit transaction
