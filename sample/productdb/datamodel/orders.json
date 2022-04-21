@@ -4,15 +4,15 @@
   "properties": {
     "id": {
       "description": "A unique identifier for the order",
-      "type": "bigint"
+      "type": "integer"
     },
     "user_id": {
       "description": "The identifier of the user that placed the order",
-      "type": "bigint"
+      "type": "integer"
     },
     "order_total": {
       "description": "The total cost of the order",
-      "type": "double"
+      "type": "number"
     },
     "product_item": {
       "description": "The list of products that are part of this order",
@@ -22,11 +22,11 @@
         "properties": {
           "id": {
             "description": "The product identifier",
-            "type": "bigint"
+            "type": "integer"
           },
           "quantity": {
             "description": "The quantity of this product in this order",
-            "type": "int"
+            "type": "integer"
           }
         }
       }
