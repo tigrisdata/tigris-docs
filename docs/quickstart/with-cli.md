@@ -3,59 +3,43 @@
 The following guide will get you up and running locally as quickly as
 possible using the CLI.
 
-### 1. Download and run TigrisDB locally via Docker
+### 1. Startup TigrisDB locally via Docker
 
-Open your terminal and use the following command to download the
-[docker-compose](https://raw.githubusercontent.com/tigrisdata/tigrisdb/main/docker/local/docker-compose.yaml)
-file and startup TigrisDB. Note that you'll need to have
-[docker](https://docs.docker.com/get-docker/) and
-[docker compose](https://docs.docker.com/compose/install/) installed already.
+The first step is to install the CLI
 
-```shell
-curl -L -O https://raw.githubusercontent.com/tigrisdata/tigrisdb/main/docker/local/docker-compose.yaml
-docker-compose up -d
+```shell title=macOS
+curl -sSL https://github.com/tigrisdata/tigrisdb-cli/releases/download/v1.0.0-alpha.4/tigris-v1.0.0-alpha.4-darwin-amd64.tar.gz | sudo tar -xz -C /usr/local/bin
 ```
 
-The docker compose setup will start two containers:
-
-1. A stateless TigrisDB server running on port `8081`.
-2. A single-node stateful FoundationDB server running on port `4500`.
-
-Note that this docker-compose file is for local development only and should
-**not** be used in production as the FoundationDB cluster it creates does
-not run in a highly available or replicated manner.
-
-Next up install the CLI
-
-```shell
-go install github.com/tigrisdata/tigrisdb-cli@latest
+```shell title=Linux
+curl -sSL https://github.com/tigrisdata/tigrisdb-cli/releases/download/v1.0.0-alpha.4/tigris-v1.0.0-alpha.4-linux-amd64.tar.gz | sudo tar -xz -C /usr/local/bin
 ```
 
-Note that if `tigrisdb-cli` is not available in your shell after that completes, you may need to run `go env` and sure that the values of `GOBIN` (if set) and `GOPATH` are available as part of your `$PATH`.
+Note that you'll need to have [docker](https://docs.docker.com/get-docker/)
+installed already.
 
-If you don't have Go installed on your system, you can download a prebuilt binary [here] and add it to your path like this:
+Next we start up TigrisDB locally using the _tigris_ cli
 
 ```shell
-tar -xf $DIR/$RELEASE.tar.gz && cp $DIR/tigrisdb-cli /usr/local/bin/
+tigris db local up
 ```
+
+Once this command has completed, TigrisDB server will be available on port
+`8081`.
 
 ### 2. Declare your data models
 
-For this quickstart we will model an app that stores information about product, user and order.
+For this quickstart we will model a simple ecommerce app. The data would be
+stored in three collections _products_, _users_ and _orders_.
 
-Download the sample data model. These files contain TigrisDB schemas for three different collections:
-
-1. products
-2. users
-3. orders
+Download the sample data model which contains the schema.
 
 ```shell
-mkdir -p productdb/datamodel && cd productdb/datamodel
+mkdir -p productdb && cd productdb
 curl -L \
   -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs/main/sample/productdb/datamodel/products.json \
   -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs/main/sample/productdb/datamodel/users.json \
   -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs/main/sample/productdb/datamodel/orders.json
-cd ..
 ```
 
 ### 3. Insert and read data
@@ -72,22 +56,24 @@ the data.
 
 #### 3.1 Apply the data model
 
-Apply the data model using the CLI and TigrisDB ensures ACID guarantees while applying it in a single transaction.
+Apply the data model using the CLI and TigrisDB ensures ACID guarantees
+while applying it in a transaction.
 
 ```shell
-tigrisdb-cli create database productdb datamodel/
+tigris db create database productdb
+tigris db create collection productdb - < products.json users.json orders.json
 ```
 
 #### 3.2 Insert some data into the user and product collections
 
 ```shell
-tigrisdb-cli productdb user insert \
+tigris db insert productdb users \
 '[
     {"id": 1, "name": "Jania McGrory", "balance": "6045.7"},
     {"id": 2, "name": "Bunny Instone", "balance": "2948.87"}
 ]'
 
-tigrisdb-cli productdb product insert \
+tigris db insert productdb products \
 '[
     {"id": 1, "name": "Vanilla Beans", "quantity": 6358, "price": 4.39},
     {"id": 2, "name": "Cheese - Provolone", "quantity": 5726, "price": 16.74},
@@ -98,14 +84,14 @@ tigrisdb-cli productdb product insert \
 #### 3.3 Read the data that was inserted
 
 ```shell
-tigrisdb-cli productdb user read '{"id": 1}'
-tigrisdb-cli productdb product read '{"id": 3}'
+tigris db read productdb users '{"id": 1}'
+tigris db read productdb products '{"id": 3}'
 ```
 
 #### 3.4 Perform a transaction that modifies all three collections
 
 ```shell
-tigrisdb-cli productdb transact \
+tigris db transact productdb \
 '[
   {
     "insert": {
