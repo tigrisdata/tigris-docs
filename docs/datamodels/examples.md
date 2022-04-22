@@ -2,31 +2,33 @@
 
 ## Simple e-commerce data model
 
-Below is an example of a data model corresponding to an e-commerce application that stores data in three different collections: `users`, `products`, and `orders`.
+Below is an example of a data model corresponding to an e-commerce
+application that stores data in three different collections: _users_,
+_products_, and _orders_.
 
 ### Example 1.0 - A collection of products
 
 ```json
 {
-  "name": "products",
+  "title": "products",
   "description": "Collection of documents with details of products available",
   "properties": {
     "id": {
       "description": "A unique identifier for the product",
-      "type": "bigint"
+      "type": "integer"
     },
     "name": {
       "description": "Name of the product",
       "type": "string",
-      "max_length": 100
+      "maxLength": 100
     },
     "quantity": {
       "description": "Number of products available in the store",
-      "type": "int"
+      "type": "integer"
     },
     "price": {
       "description": "Price of the product",
-      "type": "double"
+      "type": "number"
     }
   },
   "primary_key": ["id"]
@@ -37,21 +39,21 @@ Below is an example of a data model corresponding to an e-commerce application t
 
 ```json
 {
-  "name": "users",
+  "title": "users",
   "description": "Collection of documents with details of users",
   "properties": {
     "id": {
       "description": "A unique identifier for the user",
-      "type": "bigint"
+      "type": "integer"
     },
     "name": {
       "description": "Name of the user",
       "type": "string",
-      "max_length": 100
+      "maxLength": 100
     },
     "balance": {
       "description": "User account balance",
-      "type": "double"
+      "type": "number"
     },
     "languages": {
       "description": "Languages spoken by the user",
@@ -78,7 +80,7 @@ Below is an example of a data model corresponding to an e-commerce application t
         },
         "zip": {
           "description": "The zip code",
-          "type": "int"
+          "type": "integer"
         }
       }
     }
@@ -91,20 +93,20 @@ Below is an example of a data model corresponding to an e-commerce application t
 
 ```json
 {
-  "name": "orders",
+  "title": "orders",
   "description": "Collection of documents with details of an order",
   "properties": {
     "id": {
       "description": "A unique identifier for the order",
-      "type": "bigint"
+      "type": "integer"
     },
     "user_id": {
       "description": "The identifier of the user that placed the order",
-      "type": "bigint"
+      "type": "integer"
     },
     "order_total": {
       "description": "The total cost of the order",
-      "type": "double"
+      "type": "number"
     },
     "products": {
       "description": "The list of products that are part of this order",
@@ -115,11 +117,11 @@ Below is an example of a data model corresponding to an e-commerce application t
         "properties": {
           "id": {
             "description": "The product identifier",
-            "type": "bigint"
+            "type": "integer"
           },
           "quantity": {
             "description": "The quantity of this product in this order",
-            "type": "int"
+            "type": "integer"
           }
         }
       }

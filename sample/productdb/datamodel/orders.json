@@ -1,5 +1,5 @@
 {
-  "name": "orders",
+  "title": "orders",
   "description": "Collection of documents with details of an order",
   "properties": {
     "id": {

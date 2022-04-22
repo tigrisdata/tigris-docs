@@ -95,7 +95,7 @@ tigris db transact productdb \
 '[
   {
     "insert": {
-      "collection": "order",
+      "collection": "orders",
       "documents": [{
           "id": 1, "user_id": 1, "order_total": 53.89, "product_item": [{"id": 1, "quantity": 1}]
         }]
@@ -103,12 +103,12 @@ tigris db transact productdb \
   },
   {
     "update": {
-      "collection": "user", "fields": {"$decr": {"balance": 53.89}}, "filter": {"id": 1}
+      "collection": "users", "fields": {"$decr": {"balance": 53.89}}, "filter": {"id": 1}
     }
   },
   {
     "update": {
-      "collection": "product", "fields": {"$decr": {"quantity": 1}}, "filter": {"id": 1}
+      "collection": "products", "fields": {"$decr": {"quantity": 1}}, "filter": {"id": 1}
     }
   }
 ]'
