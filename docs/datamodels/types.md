@@ -18,10 +18,10 @@ specification with extensions that enable support for richer semantics.
 
 | Type Name | Description                                                                                                                                                         | Supported for Key Fields |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
-| int       | The int type is used for 32-bit integral numbers.                                                                                                                   | Yes                      |
-| bigint    | The bigint type is used for 64-bit integral numbers.                                                                                                                | Yes                      |
-| double    | The double type is used for numeric type with floating-point values.                                                                                                | No                       |
-| bytes     | The bytes type stores any kind of binary data in an undifferentiated byte stream.                                                                                   | Yes                      |
+| int32     | The int32 type is used for 32-bit integral numbers.                                                                                                                 | Yes                      |
+| int64     | The int64 type is used for 64-bit integral numbers.                                                                                                                 | Yes                      |
+| number    | The number type is used for numeric type with floating-point values.                                                                                                | No                       |
+| byte      | The byte type stores any kind of binary data in an undifferentiated byte stream.                                                                                    | Yes                      |
 | string    | The string type is used for strings of text. It may contain Unicode characters.                                                                                     | Yes                      |
 | uuid      | The uuid type stores universally unique identifiers (UUIDs). UUIDs are 16-byte numbers used to uniquely identify records.                                           | Yes                      |
 | datetime  | The datetime type stores an instant in time expressed as a date that is combined with a time of day with fractional seconds that is based on a 24-hour clock.       | Yes                      |
@@ -29,43 +29,44 @@ specification with extensions that enable support for richer semantics.
 | array     | Arrays are used for ordered elements.                                                                                                                               | No                       |
 | object    | Objects are the mapping type. They map “keys” to “values”. The “keys” must always be strings. Each of these pairs is referred to as a “property”.                   | No                       |
 
-### int
+### int32
 
 The int type is used for 32-bit integral numbers.
 
 ```json
 {
   "age": {
-    "type": "int"
+    "type": "integer",
+    "format": "int32"
   }
 }
 ```
 
-### bigint
+### int64
 
-The bigint type is used for 64-bit integral numbers.
+The int64 type is used for 64-bit integral numbers.
 
 ```json
 {
   "age": {
-    "type": "bigint"
+    "type": "integer"
   }
 }
 ```
 
-### double
+### number
 
-The double type is used for numeric type with floating-point values.
+The number type is used for numeric type with floating-point values.
 
 ```json
 {
   "balance": {
-    "type": "double"
+    "type": "number"
   }
 }
 ```
 
-### bytes
+### byte
 
 The bytes type stores any kind of binary data in an undifferentiated byte
 stream.
@@ -73,7 +74,8 @@ stream.
 ```json
 {
   "data": {
-    "type": "bytes"
+    "type": "string",
+    "format": "byte"
   }
 }
 ```
@@ -98,7 +100,8 @@ The uuid type stores universally unique identifiers (UUIDs). UUIDs are
 ```json
 {
   "cart_id": {
-    "type": "uuid"
+    "type": "string",
+    "format": "uuid"
   }
 }
 ```
@@ -112,7 +115,8 @@ combined with a time of day with fractional seconds that is based on a
 ```json
 {
   "order_date": {
-    "type": "datetime"
+    "type": "string",
+    "format": "date-time"
   }
 }
 ```
@@ -170,7 +174,7 @@ always be strings. Each of these pairs is referred to as a “property”.
     },
     "zip": {
       "description": "The zip code",
-      "type": "int"
+      "type": "integer"
     }
   }
 }

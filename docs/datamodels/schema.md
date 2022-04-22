@@ -28,7 +28,7 @@ Sample schema:
 
 ```json
 {
-  "name": "users",
+  "title": "users",
   "description": "Collection of documents with details of users",
   "properties": {
     "id": {
@@ -38,7 +38,7 @@ Sample schema:
     "name": {
       "description": "Name of the user",
       "type": "string",
-      "max_length": 100
+      "maxLength": 100
     },
     "balance": {
       "description": "User account balance",
@@ -51,7 +51,7 @@ Sample schema:
 
 Every schema has three required keywords which are expressed as JSON keys:
 
-- **name**: This keyword states the name of the collection.
+- **title**: This keyword states the name of the collection.
 - **description**: This keyword states the purpose of the collection.
 - **properties**: This keyword states the fields that make up the document
   stored in the collection.
@@ -79,7 +79,7 @@ Data of type array requires the **items** keyword to be expressed as JSON key.
 This defines the type of items that will be in the array.
 
 The example below extends the schema for the user collection by adding the
-field `languages`
+field _languages_
 
 ```json
 "languages": {
@@ -98,7 +98,7 @@ key. This is similar to the top-level **properties** key and specifies the
 fields that make up the object.
 
 The example below extends the schema for the user collection by adding the field
-`address`
+_address_
 
 ```json
 "address": {
@@ -119,18 +119,18 @@ The example below extends the schema for the user collection by adding the field
     },
     "zip": {
       "description": "The zip code",
-      "type": "int"
+      "type": "integer"
     }
   }
 }
 ```
 
 Below is what the complete schema looks like with the addition of the two new
-fields `languages` and `address`
+fields _languages_ and _address_
 
 ```json
 {
-  "name": "users",
+  "title": "users",
   "description": "Collection of documents with details of users",
   "properties": {
     "id": {
@@ -140,7 +140,7 @@ fields `languages` and `address`
     "name": {
       "description": "Name of the user",
       "type": "string",
-      "max_length": 100
+      "maxLength": 100
     },
     "balance": {
       "description": "User account balance",
@@ -171,7 +171,7 @@ fields `languages` and `address`
         },
         "zip": {
           "description": "The zip code",
-          "type": "int"
+          "type": "integer"
         }
       }
     }

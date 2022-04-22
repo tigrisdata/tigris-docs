@@ -1,5 +1,5 @@
 {
-  "name": "products",
+  "title": "products",
   "description": "Collection of documents with details of products available",
   "properties": {
     "id": {
