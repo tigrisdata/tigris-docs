@@ -12,8 +12,7 @@ const TwitterSvg =
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "TigrisDB",
-  tagline:
-    "ZeroOps globally distributed database for real-time websites and apps",
+  tagline: "Zero-Ops Data Platform for Real-time Websites and Apps",
   url: "https://docs.tigrisdata.com",
   baseUrl: "/",
   favicon: "img/favicon.ico",
@@ -86,7 +85,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       colorMode: {
-        defaultMode: "dark",
+        defaultMode: "light",
         respectPrefersColorScheme: true,
       },
       announcementBar: {
@@ -96,11 +95,12 @@ const config = {
         textColor: "#262b31",
       },
       navbar: {
-        hideOnScroll: true,
+        hideOnScroll: false,
         title: "TigrisDB",
         logo: {
           alt: "TigrisDB Logo",
           src: "img/logo.svg",
+          href: "https://www.tigrisdata.com/",
         },
         items: [
           {
@@ -118,6 +118,11 @@ const config = {
             to: "protodocs/server/v1/api.proto",
             activeBasePath: "protodocs",
             position: "left",
+          },
+          {
+            href: "https://jobs.lever.co/tigris",
+            label: "Careers",
+            position: "right",
           },
           {
             href: "https://join.slack.com/t/tigrisdatacommunity/shared_invite/zt-16fn5ogio-OjxJlgttJIV0ZDywcBItJQ",
@@ -138,59 +143,7 @@ const config = {
       },
       footer: {
         style: "dark",
-        links: [
-          {
-            title: "Company",
-            items: [
-              {
-                label: "About",
-                to: "/",
-              },
-              {
-                label: "Careers",
-                to: "/",
-              },
-            ],
-          },
-          {
-            title: "Resources",
-            items: [
-              {
-                label: "Docs",
-                to: "/",
-              },
-              {
-                label: "API Reference",
-                to: "apidocs/",
-              },
-              {
-                label: "RPC Reference",
-                to: "protodocs/server/v1/api.proto",
-              },
-            ],
-          },
-          {
-            title: "Community",
-            items: [
-              {
-                label: "GitHub",
-                href: "https://github.com/tigrisdata/tigrisdb",
-              },
-              {
-                label: "Slack",
-                href: "https://join.slack.com/t/tigrisdatacommunity/shared_invite/zt-16fn5ogio-OjxJlgttJIV0ZDywcBItJQ",
-              },
-              {
-                label: "Twitter",
-                href: "https://twitter.com/TigrisData",
-              },
-              {
-                label: "LinkedIn",
-                href: "https://www.linkedin.com/company/tigrisdata/",
-              },
-            ],
-          },
-        ],
+        links: [],
         copyright: `Copyright © ${new Date().getFullYear()} Tigris Data, Inc.`,
       },
       prism: {
