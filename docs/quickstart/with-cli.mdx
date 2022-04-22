@@ -7,13 +7,25 @@ possible using the CLI.
 
 The first step is to install the CLI
 
-```shell title=macOS
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+<Tabs>
+<TabItem value="macOS" label="macOS">
+
+```shell
 curl -sSL https://github.com/tigrisdata/tigrisdb-cli/releases/download/v1.0.0-alpha.4/tigris-v1.0.0-alpha.4-darwin-amd64.tar.gz | sudo tar -xz -C /usr/local/bin
 ```
 
-```shell title=Linux
+</TabItem>
+<TabItem value="Linux" label="Linux">
+
+```shell
 curl -sSL https://github.com/tigrisdata/tigrisdb-cli/releases/download/v1.0.0-alpha.4/tigris-v1.0.0-alpha.4-linux-amd64.tar.gz | sudo tar -xz -C /usr/local/bin
 ```
+
+</TabItem>
+</Tabs>
 
 Note that you'll need to have [docker](https://docs.docker.com/get-docker/)
 installed already.
@@ -56,12 +68,13 @@ the data.
 
 #### 3.1 Apply the data model
 
-Apply the data model using the CLI and TigrisDB ensures ACID guarantees
-while applying it in a transaction.
+Apply the data model using the CLI.
 
 ```shell
 tigris db create database productdb
-tigris db create collection productdb - < products.json users.json orders.json
+tigris db create collection productdb < products.json
+tigris db create collection productdb < users.json
+tigris db create collection productdb < orders.json
 ```
 
 #### 3.2 Insert some data into the user and product collections
