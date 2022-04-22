@@ -61,7 +61,9 @@ while applying it in a transaction.
 
 ```shell
 tigris db create database productdb
-tigris db create collection productdb - < products.json users.json orders.json
+tigris db create collection productdb < products.json
+tigris db create collection productdb < users.json
+tigris db create collection productdb < orders.json
 ```
 
 #### 3.2 Insert some data into the user and product collections
