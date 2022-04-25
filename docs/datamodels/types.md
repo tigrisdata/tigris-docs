@@ -7,23 +7,31 @@ There are three categories of data types supported:
 - **Objects**: A container data type defined by the user that stores fields
   of primitive types, complex types as well as other Objects
 
-:::tip
-For optimal performance and efficient data layout, there are restrictions on
-what data types can be used for primary key fields.
-
-:::
+## Type and Format
 
 The data types are derived from the types defined in the JSON schema
-[specification](https://json-schema.org/specification.html) with extensions
-that enable support for richer semantics.
-
-## Type and Format
+[specification](https://json-schema.org/specification.html).
 
 The `type` and `format` properties in schemas are used to determine the
 data type of the field. The `type` property indicates the type of the field.
 The `format` property provides additional information about the underlying type.
 Fields will always have a `type` property, but some may also have a `format`
-property.
+property. The JSON schema
+[specification](https://json-schema.org/specification.html) already defines
+a set of common formats. We support these formats and define others as well.
+
+For optimal performance and efficient data layout, we also impose some
+restrictions on what data types can be used for primary key fields.
+
+The full list of supported `type` and `format` are listed below.
+
+:::tip
+Note that the [client libraries](/category/client-libraries) that we provide
+use language-idiomatic types for the types and formats below. For example,
+while a 64-bit integer is represented as type _integer_ in JSON requests and
+responses, but our Java client library uses the Java _long_ type.
+
+:::
 
 | Type    | Format    | Description                                                                                                                      | Supported for Key Fields |
 | ------- | --------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |

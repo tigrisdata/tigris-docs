@@ -36,6 +36,7 @@ const sidebars = {
       link: {
         type: "generated-index",
       },
+      collapsed: false,
       items: [
         "datamodels/overview",
         "datamodels/schema",
@@ -46,6 +47,10 @@ const sidebars = {
     {
       type: "category",
       label: "Client Libraries",
+      link: {
+        type: "generated-index",
+      },
+      collapsed: false,
       items: [
         "client-libraries/go",
         {
@@ -55,7 +60,6 @@ const sidebars = {
             type: "doc",
             id: "client-libraries/java/overview",
           },
-          collapsed: false,
           items: [
             "client-libraries/java/code-generator",
             "client-libraries/java/sync-client",
