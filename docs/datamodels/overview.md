@@ -1,7 +1,7 @@
 # Overview
 
-Tigris is a data platform for real-time websites and apps. At the core is a
-document-oriented database with strict schema enforcement policies.
+Tigris is a zeroops data platform for real-time websites and apps. At the
+core is a document-oriented database with strict schema enforcement policies.
 Specifically, Tigris tries to maintain the flexibility of the document data
 modeling approach, while still enforcing schemas so that users can be
 confident in the integrity of their data.
