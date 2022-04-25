@@ -3,7 +3,7 @@
 There are three categories of data types supported:
 
 - **Primitive**: Strings, Numbers, Binary Data, Booleans, UUIDs, DateTime
-- **Complex:** Arrays, Sets
+- **Complex:** Arrays
 - **Objects**: A container data type defined by the user that stores fields
   of primitive types, complex types as well as other Objects
 
