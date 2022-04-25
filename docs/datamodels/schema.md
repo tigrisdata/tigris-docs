@@ -2,7 +2,7 @@
 
 Most applications expect the data they store to conform to some kind of schema.
 
-TigrisDB enforces that all documents stored in a collection conform to the
+Tigris enforces that all documents stored in a collection conform to the
 collection's schema.
 
 :::tip
@@ -14,7 +14,7 @@ co-exist. Schema changes are instant and do not require a full table rebuild.
 
 ## JSON schema
 
-Schema is specified following the JSON schema
+The schema is specified following the JSON schema
 [specification](https://json-schema.org/specification.html).
 
 Let's take the example of a collection of user documents. A user document
@@ -79,7 +79,7 @@ Data of type array requires the **items** keyword to be expressed as JSON key.
 This defines the type of items that will be in the array.
 
 The example below extends the schema for the user collection by adding the
-field _languages_
+field `languages`
 
 ```json
 "languages": {
@@ -98,7 +98,7 @@ key. This is similar to the top-level **properties** key and specifies the
 fields that make up the object.
 
 The example below extends the schema for the user collection by adding the field
-_address_
+`address`
 
 ```json
 "address": {
