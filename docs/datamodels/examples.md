@@ -2,7 +2,7 @@
 
 ## Simple e-commerce data model
 
-Below is an example of a data model corresponding to an e-commerce
+Below is an example of a simple data model corresponding to an e-commerce
 application that stores data in three different collections: _users_,
 _products_, and _orders_.
 
