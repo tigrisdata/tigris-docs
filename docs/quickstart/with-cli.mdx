@@ -39,19 +39,16 @@ tigris db local up
 Once this command has completed, TigrisDB server will be available on port
 `8081`.
 
-### 2. Declare your data models
+### 2. Create sample schema
 
 For this quickstart we will model a simple ecommerce app. The data would be
 stored in three collections _products_, _users_ and _orders_.
 
-Download the sample data model which contains the schema.
+Let's use the CLI to generate the sample schema and create the three
+collections in the database named _sampledb_.
 
 ```shell
-mkdir -p productdb && cd productdb
-curl -L \
-  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs/main/sample/productdb/datamodel/products.json \
-  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs/main/sample/productdb/datamodel/users.json \
-  -O https://raw.githubusercontent.com/tigrisdata/tigrisdb-docs/main/sample/productdb/datamodel/orders.json
+tigris db generate sample-schema --create
 ```
 
 ### 3. Insert and read data
@@ -66,18 +63,7 @@ updating documents in the _orders_, _users_ and _products_ collections.
 Now lets fire up the CLI and use the TigrisDB APIs to perform CRUD operations on
 the data.
 
-#### 3.1 Apply the data model
-
-Apply the data model using the CLI.
-
-```shell
-tigris db create database productdb
-tigris db create collection productdb < products.json
-tigris db create collection productdb < users.json
-tigris db create collection productdb < orders.json
-```
-
-#### 3.2 Insert some data into the user and product collections
+#### 3.1 Insert some data into the user and product collections
 
 ```shell
 tigris db insert productdb users \
@@ -94,14 +80,14 @@ tigris db insert productdb products \
 ]'
 ```
 
-#### 3.3 Read the data that was inserted
+#### 3.2 Read the data that was inserted
 
 ```shell
 tigris db read productdb users '{"id": 1}'
 tigris db read productdb products '{"id": 3}'
 ```
 
-#### 3.4 Perform a transaction that modifies all three collections
+#### 3.3 Perform a transaction that modifies all three collections
 
 ```shell
 tigris db transact productdb \
