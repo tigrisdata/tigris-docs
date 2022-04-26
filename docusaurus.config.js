@@ -11,13 +11,13 @@ const TwitterSvg =
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "TigrisDB",
+  title: "Tigris Data Platform",
   tagline: "Zero-Ops Data Platform for Real-time Websites and Apps",
   url: "https://docs.tigrisdata.com",
   baseUrl: "/",
   favicon: "img/favicon.ico",
   organizationName: "tigrisdata",
-  projectName: "tigrisdb-docs",
+  projectName: "tigris-docs",
   onBrokenLinks: "ignore",
   onBrokenMarkdownLinks: "warn",
 
@@ -29,7 +29,7 @@ const config = {
         docs: {
           routeBasePath: "/",
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://github.com/tigrisdata/tigrisdb-docs/blob/main",
+          editUrl: "https://github.com/tigrisdata/tigris-docs/blob/main",
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
         },
@@ -37,7 +37,7 @@ const config = {
           routeBasePath: "blog",
           path: "blog",
           postsPerPage: 10,
-          editUrl: "https://github.com/tigrisdata/tigrisdb-docs/blob/main",
+          editUrl: "https://github.com/tigrisdata/tigris-docs/blob/main",
           blogTitle: "Tigris Data Blog",
         },
         theme: {
@@ -96,9 +96,9 @@ const config = {
       },
       navbar: {
         hideOnScroll: false,
-        title: "TigrisDB",
+        title: "Tigris Data Platform",
         logo: {
-          alt: "TigrisDB Logo",
+          alt: "Tigris Logo",
           src: "img/logo.svg",
           href: "https://www.tigrisdata.com/",
         },
