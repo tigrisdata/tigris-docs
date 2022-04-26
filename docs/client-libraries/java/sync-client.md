@@ -1,7 +1,6 @@
 # Java: Client
 
-TigrisDB provides sync and async client. In this section we will do code
-walk through of how to use sync client.
+In this section we will do code walk through of how to use the sync client.
 
 ## Client initialization
 
@@ -22,13 +21,13 @@ server-url here is composed of host/ip:port for example: `localhost:8081`
 ## Create database
 
 ```java
-TigrisDatabase myDatabase = client.createDatabaseIfNotExists("my-db");
+TigrisDatabase myDatabase = client.createDatabaseIfNotExists("sampledb");
 ```
 
 ## Retrieve database
 
 ```java
-TigrisDatabase myDatabase = client.getDatabase("my-db");
+TigrisDatabase myDatabase = client.getDatabase("sampledb");
 ```
 
 ## Create collections

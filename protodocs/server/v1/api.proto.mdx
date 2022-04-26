@@ -17,8 +17,6 @@ _**package** _
 
 ### `TigrisDB`
 
-Transactional APIs
-
 #### `BeginTransaction`
 
 <ProtoServiceMethod
@@ -26,7 +24,7 @@ Transactional APIs
   method={{
     name: "BeginTransaction",
     description:
-      "Starts a new transaction and returns a transactional object.\nAll reads/writes performed within a transaction will run with\nserializable isolation.",
+      "Starts a new transaction and returns a transactional object. All reads/writes performed\nwithin a transaction will run with serializable isolation.",
     requestType: "BeginTransactionRequest",
     requestLongType: ".BeginTransactionRequest",
     requestFullType: "BeginTransactionRequest",
@@ -56,7 +54,7 @@ Transactional APIs
   method={{
     name: "CommitTransaction",
     description:
-      "Commit transaction atomically commit all the changes\nperformed in the context of the transaction.\nAll the changes committed or none of them committed in\nthe case of error.",
+      "Atomically commit all the changes performed in the context of the transaction. Commit provides all\nor nothing semantics by ensuring no partial updates are in the database due to a transaction failure.",
     requestType: "CommitTransactionRequest",
     requestLongType: ".CommitTransactionRequest",
     requestFullType: "CommitTransactionRequest",
@@ -116,7 +114,7 @@ Transactional APIs
   method={{
     name: "Insert",
     description:
-      "Insert inserts new documents in the collection and returns a conflict if any of the document\npassed in the batch already exists. Insert provides idempotency by rejecting request if document\nalready exists. To replace documents, REPLACE API should be used instead of INSERT.",
+      "Inserts new documents in the collection and returns an AlreadyExists error if any of the documents\nin the request already exists. Insert provides idempotency by returning an error if the document\nalready exists. To replace documents, use REPLACE API instead of INSERT.",
     requestType: "InsertRequest",
     requestLongType: ".InsertRequest",
     requestFullType: "InsertRequest",
@@ -147,7 +145,7 @@ Transactional APIs
   method={{
     name: "Replace",
     description:
-      "Replace inserts the documents or replaces the existing documents in the collections.",
+      "Inserts the documents or replaces the existing documents in the collections.",
     requestType: "ReplaceRequest",
     requestLongType: ".ReplaceRequest",
     requestFullType: "ReplaceRequest",
@@ -178,7 +176,7 @@ Transactional APIs
   method={{
     name: "Delete",
     description:
-      "Delete documents from the collection according to specified filter",
+      "Delete a range of documents in the collection using the condition provided in the filter.",
     requestType: "DeleteRequest",
     requestLongType: ".DeleteRequest",
     requestFullType: "DeleteRequest",
@@ -209,7 +207,7 @@ Transactional APIs
   method={{
     name: "Update",
     description:
-      "Update range of documents in the collection according to\nthe specified filter and the fields projection",
+      "Update a range of documents in the collection using the condition provided in the filter.",
     requestType: "UpdateRequest",
     requestLongType: ".UpdateRequest",
     requestFullType: "UpdateRequest",
@@ -240,7 +238,7 @@ Transactional APIs
   method={{
     name: "Read",
     description:
-      "Read range of documents from the collection according to\n the specified filter",
+      "Reads range of documents from the collection using the condition in the filter.",
     requestType: "ReadRequest",
     requestLongType: ".ReadRequest",
     requestFullType: "ReadRequest",
@@ -264,56 +262,29 @@ Transactional APIs
   }}
 />
 
-#### `CreateCollection`
+#### `CreateOrUpdateCollection`
 
 <ProtoServiceMethod
-  key={"CreateCollection-8"}
+  key={"CreateOrUpdateCollection-8"}
   method={{
-    name: "CreateCollection",
-    description: "Create new collection of documents in the specified database",
-    requestType: "CreateCollectionRequest",
-    requestLongType: ".CreateCollectionRequest",
-    requestFullType: "CreateCollectionRequest",
+    name: "CreateOrUpdateCollection",
+    description:
+      "Creates a new collection or atomically upgrades the collection to the new schema changes in the database\npassed in the request.",
+    requestType: "CreateOrUpdateCollectionRequest",
+    requestLongType: ".CreateOrUpdateCollectionRequest",
+    requestFullType: "CreateOrUpdateCollectionRequest",
     requestStreaming: false,
-    responseType: "CreateCollectionResponse",
-    responseLongType: ".CreateCollectionResponse",
-    responseFullType: "CreateCollectionResponse",
+    responseType: "CreateOrUpdateCollectionResponse",
+    responseLongType: ".CreateOrUpdateCollectionResponse",
+    responseFullType: "CreateOrUpdateCollectionResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
         rules: [
           {
             method: "POST",
-            pattern: "/api/v1/databases/{db}/collections/{collection}/create",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
-
-#### `AlterCollection`
-
-<ProtoServiceMethod
-  key={"AlterCollection-9"}
-  method={{
-    name: "AlterCollection",
-    description: "Change the schema of existing collection",
-    requestType: "AlterCollectionRequest",
-    requestLongType: ".AlterCollectionRequest",
-    requestFullType: "AlterCollectionRequest",
-    requestStreaming: false,
-    responseType: "AlterCollectionResponse",
-    responseLongType: ".AlterCollectionResponse",
-    responseFullType: "AlterCollectionResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/collections/{collection}/alter",
+            pattern:
+              "/api/v1/databases/{db}/collections/{collection}/createOrUpdate",
             body: "*",
           },
         ],
@@ -325,10 +296,11 @@ Transactional APIs
 #### `DropCollection`
 
 <ProtoServiceMethod
-  key={"DropCollection-10"}
+  key={"DropCollection-9"}
   method={{
     name: "DropCollection",
-    description: "Drop the collection",
+    description:
+      "Drop the collection and all its documents in the database passed in the request.",
     requestType: "DropCollectionRequest",
     requestLongType: ".DropCollectionRequest",
     requestFullType: "DropCollectionRequest",
@@ -354,10 +326,10 @@ Transactional APIs
 #### `ListDatabases`
 
 <ProtoServiceMethod
-  key={"ListDatabases-11"}
+  key={"ListDatabases-10"}
   method={{
     name: "ListDatabases",
-    description: "List databases in the current namespace",
+    description: "List returns all the databases.",
     requestType: "ListDatabasesRequest",
     requestLongType: ".ListDatabasesRequest",
     requestFullType: "ListDatabasesRequest",
@@ -368,7 +340,7 @@ Transactional APIs
     responseStreaming: false,
     options: {
       "google.api.http": {
-        rules: [{ method: "GET", pattern: "/api/v1/databases/list" }],
+        rules: [{ method: "POST", pattern: "/api/v1/databases/list" }],
       },
     },
   }}
@@ -377,10 +349,10 @@ Transactional APIs
 #### `ListCollections`
 
 <ProtoServiceMethod
-  key={"ListCollections-12"}
+  key={"ListCollections-11"}
   method={{
     name: "ListCollections",
-    description: "List collections in the specified database",
+    description: "List all collections in the database passed in the request.",
     requestType: "ListCollectionsRequest",
     requestLongType: ".ListCollectionsRequest",
     requestFullType: "ListCollectionsRequest",
@@ -406,10 +378,11 @@ Transactional APIs
 #### `CreateDatabase`
 
 <ProtoServiceMethod
-  key={"CreateDatabase-13"}
+  key={"CreateDatabase-12"}
   method={{
     name: "CreateDatabase",
-    description: "Create database in the current namespace",
+    description:
+      "Creates a new database and returns a AlreadyExists error if the database already exists.",
     requestType: "CreateDatabaseRequest",
     requestLongType: ".CreateDatabaseRequest",
     requestFullType: "CreateDatabaseRequest",
@@ -435,11 +408,11 @@ Transactional APIs
 #### `DropDatabase`
 
 <ProtoServiceMethod
-  key={"DropDatabase-14"}
+  key={"DropDatabase-13"}
   method={{
     name: "DropDatabase",
     description:
-      "Drop database deletes all the collections in the database\nalong with all it documents",
+      "Drop database deletes all the collections in the database along with all it documents.",
     requestType: "DropDatabaseRequest",
     requestLongType: ".DropDatabaseRequest",
     requestFullType: "DropDatabaseRequest",
@@ -462,116 +435,108 @@ Transactional APIs
   }}
 />
 
+#### `DescribeDatabase`
+
+<ProtoServiceMethod
+  key={"DescribeDatabase-14"}
+  method={{
+    name: "DescribeDatabase",
+    description:
+      "Describe database describes the information related to database along\nwith all the collections inside database.",
+    requestType: "DescribeDatabaseRequest",
+    requestLongType: ".DescribeDatabaseRequest",
+    requestFullType: "DescribeDatabaseRequest",
+    requestStreaming: false,
+    responseType: "DescribeDatabaseResponse",
+    responseLongType: ".DescribeDatabaseResponse",
+    responseFullType: "DescribeDatabaseResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "POST",
+            pattern: "/api/v1/databases/{db}/describe",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `DescribeCollection`
+
+<ProtoServiceMethod
+  key={"DescribeCollection-15"}
+  method={{
+    name: "DescribeCollection",
+    description:
+      "Describe collection describes the information related to collection.",
+    requestType: "DescribeCollectionRequest",
+    requestLongType: ".DescribeCollectionRequest",
+    requestFullType: "DescribeCollectionRequest",
+    requestStreaming: false,
+    responseType: "DescribeCollectionResponse",
+    responseLongType: ".DescribeCollectionResponse",
+    responseFullType: "DescribeCollectionResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "POST",
+            pattern: "/api/v1/databases/{db}/collections/{collection}/describe",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
+#### `Stream`
+
+<ProtoServiceMethod
+  key={"Stream-16"}
+  method={{
+    name: "Stream",
+    description: "",
+    requestType: "StreamRequest",
+    requestLongType: ".StreamRequest",
+    requestFullType: "StreamRequest",
+    requestStreaming: false,
+    responseType: "StreamResponse",
+    responseLongType: ".StreamResponse",
+    responseFullType: "StreamResponse",
+    responseStreaming: true,
+    options: {
+      "google.api.http": {
+        rules: [
+          {
+            method: "POST",
+            pattern: "/api/v1/databases/{db}/stream",
+            body: "*",
+          },
+        ],
+      },
+    },
+  }}
+/>
+
 ---
 
 ## Messages
 
-### `AlterCollectionRequest`
+### `BeginTransactionRequest`
 
 <ProtoMessage
   key={0}
   message={{
-    name: "AlterCollectionRequest",
-    longName: "AlterCollectionRequest",
-    fullName: ".AlterCollectionRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Database name of the collection",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "collection",
-        description: "Collection name to change schema",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "schema",
-        description:
-          "Schema of the documents in this collection.\nShould be proper JSON object.\nSchema syntax described here: {TBD}",
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "",
-        label: "",
-        type: "CollectionOptions",
-        longType: "CollectionOptions",
-        fullType: "CollectionOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
-
-### `AlterCollectionResponse`
-
-<ProtoMessage
-  key={1}
-  message={{
-    name: "AlterCollectionResponse",
-    longName: "AlterCollectionResponse",
-    fullName: ".AlterCollectionResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "msg",
-        description: "",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
-
-### `BeginTransactionRequest`
-
-<ProtoMessage
-  key={2}
-  message={{
     name: "BeginTransactionRequest",
     longName: "BeginTransactionRequest",
     fullName: ".BeginTransactionRequest",
-    description: 'Start new transaction in database specified by "db"',
+    description: 'Start new transaction in database specified by "db".',
     hasExtensions: false,
     hasFields: true,
     hasOneofs: false,
@@ -579,7 +544,7 @@ Transactional APIs
     fields: [
       {
         name: "db",
-        description: "Database name this transaction belongs to",
+        description: "Database name this transaction belongs to.",
         label: "",
         type: "string",
         longType: "string",
@@ -591,7 +556,7 @@ Transactional APIs
       },
       {
         name: "options",
-        description: "",
+        description: "The transaction options.",
         label: "",
         type: "TransactionOptions",
         longType: "TransactionOptions",
@@ -608,7 +573,7 @@ Transactional APIs
 ### `BeginTransactionResponse`
 
 <ProtoMessage
-  key={3}
+  key={1}
   message={{
     name: "BeginTransactionResponse",
     longName: "BeginTransactionResponse",
@@ -622,7 +587,8 @@ Transactional APIs
     fields: [
       {
         name: "tx_ctx",
-        description: "",
+        description:
+          "Returns a tigris transactional context with details about the transactions.",
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
@@ -636,15 +602,128 @@ Transactional APIs
   }}
 />
 
-### `CollectionOptions`
+### `CollectionDescription`
+
+<ProtoMessage
+  key={2}
+  message={{
+    name: "CollectionDescription",
+    longName: "CollectionDescription",
+    fullName: ".CollectionDescription",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "collection",
+        description: "Name of the collection.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "metadata",
+        description: "Metadata about the collection.",
+        label: "",
+        type: "CollectionMetadata",
+        longType: "CollectionMetadata",
+        fullType: "CollectionMetadata",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "schema",
+        description: "Collections schema",
+        label: "",
+        type: "bytes",
+        longType: "bytes",
+        fullType: "bytes",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `CollectionInfo`
+
+<ProtoMessage
+  key={3}
+  message={{
+    name: "CollectionInfo",
+    longName: "CollectionInfo",
+    fullName: ".CollectionInfo",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "collection",
+        description: "Collection name.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "metadata",
+        description: "Metadata about the collection.",
+        label: "",
+        type: "CollectionMetadata",
+        longType: "CollectionMetadata",
+        fullType: "CollectionMetadata",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `CollectionMetadata`
 
 <ProtoMessage
   key={4}
   message={{
+    name: "CollectionMetadata",
+    longName: "CollectionMetadata",
+    fullName: ".CollectionMetadata",
+    description: "",
+    hasExtensions: false,
+    hasFields: false,
+    hasOneofs: false,
+    extensions: [],
+    fields: [],
+  }}
+/>
+
+### `CollectionOptions`
+
+<ProtoMessage
+  key={5}
+  message={{
     name: "CollectionOptions",
     longName: "CollectionOptions",
     fullName: ".CollectionOptions",
-    description: "Collection requests modifying options",
+    description: "Collection requests modifying options.",
     hasExtensions: false,
     hasFields: true,
     hasOneofs: false,
@@ -652,7 +731,7 @@ Transactional APIs
     fields: [
       {
         name: "tx_ctx",
-        description: "Perform operation in the context of this transaction",
+        description: "Perform operation in the context of this transaction.",
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
@@ -669,7 +748,7 @@ Transactional APIs
 ### `CommitTransactionRequest`
 
 <ProtoMessage
-  key={5}
+  key={6}
   message={{
     name: "CommitTransactionRequest",
     longName: "CommitTransactionRequest",
@@ -682,7 +761,7 @@ Transactional APIs
     fields: [
       {
         name: "db",
-        description: "Database name this transaction belongs to",
+        description: "Database name this transaction belongs to.",
         label: "",
         type: "string",
         longType: "string",
@@ -694,7 +773,8 @@ Transactional APIs
       },
       {
         name: "tx_ctx",
-        description: "Contains unique transaction ID",
+        description:
+          "Tigris transactional context with details about the transactions.",
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
@@ -711,104 +791,20 @@ Transactional APIs
 ### `CommitTransactionResponse`
 
 <ProtoMessage
-  key={6}
+  key={7}
   message={{
     name: "CommitTransactionResponse",
     longName: "CommitTransactionResponse",
     fullName: ".CommitTransactionResponse",
     description: "",
     hasExtensions: false,
-    hasFields: false,
-    hasOneofs: false,
-    extensions: [],
-    fields: [],
-  }}
-/>
-
-### `CreateCollectionRequest`
-
-<ProtoMessage
-  key={7}
-  message={{
-    name: "CreateCollectionRequest",
-    longName: "CreateCollectionRequest",
-    fullName: ".CreateCollectionRequest",
-    description: "",
-    hasExtensions: false,
     hasFields: true,
     hasOneofs: false,
     extensions: [],
     fields: [
       {
-        name: "db",
-        description: "Database name where to create collection",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "collection",
-        description: "Collection name to create",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "schema",
-        description:
-          "Schema of the documents in this collection.\nShould be proper JSON object.\nSchema syntax described here: {TBD}",
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "",
-        label: "",
-        type: "CollectionOptions",
-        longType: "CollectionOptions",
-        fullType: "CollectionOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
-
-### `CreateCollectionResponse`
-
-<ProtoMessage
-  key={8}
-  message={{
-    name: "CreateCollectionResponse",
-    longName: "CreateCollectionResponse",
-    fullName: ".CreateCollectionResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "msg",
-        description: "",
+        name: "status",
+        description: "Status of commit transaction operation.",
         label: "",
         type: "string",
         longType: "string",
@@ -825,7 +821,7 @@ Transactional APIs
 ### `CreateDatabaseRequest`
 
 <ProtoMessage
-  key={9}
+  key={8}
   message={{
     name: "CreateDatabaseRequest",
     longName: "CreateDatabaseRequest",
@@ -838,7 +834,7 @@ Transactional APIs
     fields: [
       {
         name: "db",
-        description: "Create database with this name",
+        description: "Create database with this name.",
         label: "",
         type: "string",
         longType: "string",
@@ -867,7 +863,7 @@ Transactional APIs
 ### `CreateDatabaseResponse`
 
 <ProtoMessage
-  key={10}
+  key={9}
   message={{
     name: "CreateDatabaseResponse",
     longName: "CreateDatabaseResponse",
@@ -879,8 +875,20 @@ Transactional APIs
     extensions: [],
     fields: [
       {
-        name: "msg",
-        description: "",
+        name: "message",
+        description: "A detailed response message.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "status",
+        description: 'An enum with value set as "created".',
         label: "",
         type: "string",
         longType: "string",
@@ -894,15 +902,212 @@ Transactional APIs
   }}
 />
 
-### `DatabaseOptions`
+### `CreateOrUpdateCollectionRequest`
+
+<ProtoMessage
+  key={10}
+  message={{
+    name: "CreateOrUpdateCollectionRequest",
+    longName: "CreateOrUpdateCollectionRequest",
+    fullName: ".CreateOrUpdateCollectionRequest",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "db",
+        description: "Database name where to create collection.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "collection",
+        description: "Collection name to create.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "schema",
+        description:
+          'Schema of the documents in this collection. The schema specifications are same as\nJSON schema specification defined <a href="https://json-schema.org/specification.html" title="here">here</a>.\n<p></p>The following is an schema example:\n`{\n "name": "user",\n "description": "Collection of documents with details of users",\n "properties": {\n   "id": {\n     "description": "A unique identifier for the user",\n     "type": "integer"\n   },\n   "name": {\n     "description": "Name of the user",\n     "type": "string",\n     "maxLength": 100\n   },\n   "balance": {\n     "description": "User account balance",\n     "type": "number"\n   }\n },\n "primary_key": ["id"]\n}`',
+        label: "",
+        type: "bytes",
+        longType: "bytes",
+        fullType: "bytes",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "only_create",
+        description: "",
+        label: "",
+        type: "bool",
+        longType: "bool",
+        fullType: "bool",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "options",
+        description: "",
+        label: "",
+        type: "CollectionOptions",
+        longType: "CollectionOptions",
+        fullType: "CollectionOptions",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `CreateOrUpdateCollectionResponse`
 
 <ProtoMessage
   key={11}
   message={{
+    name: "CreateOrUpdateCollectionResponse",
+    longName: "CreateOrUpdateCollectionResponse",
+    fullName: ".CreateOrUpdateCollectionResponse",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "message",
+        description: "A detailed response message.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "status",
+        description: 'An enum with value set as "created" or "updated"',
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `DatabaseDescription`
+
+<ProtoMessage
+  key={12}
+  message={{
+    name: "DatabaseDescription",
+    longName: "DatabaseDescription",
+    fullName: ".DatabaseDescription",
+    description: "",
+    hasExtensions: false,
+    hasFields: false,
+    hasOneofs: false,
+    extensions: [],
+    fields: [],
+  }}
+/>
+
+### `DatabaseInfo`
+
+<ProtoMessage
+  key={13}
+  message={{
+    name: "DatabaseInfo",
+    longName: "DatabaseInfo",
+    fullName: ".DatabaseInfo",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "db",
+        description: "Database name.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "metadata",
+        description: "Metadata about the database. (ex. ...)",
+        label: "",
+        type: "DatabaseMetadata",
+        longType: "DatabaseMetadata",
+        fullType: "DatabaseMetadata",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `DatabaseMetadata`
+
+<ProtoMessage
+  key={14}
+  message={{
+    name: "DatabaseMetadata",
+    longName: "DatabaseMetadata",
+    fullName: ".DatabaseMetadata",
+    description: "",
+    hasExtensions: false,
+    hasFields: false,
+    hasOneofs: false,
+    extensions: [],
+    fields: [],
+  }}
+/>
+
+### `DatabaseOptions`
+
+<ProtoMessage
+  key={15}
+  message={{
     name: "DatabaseOptions",
     longName: "DatabaseOptions",
     fullName: ".DatabaseOptions",
-    description: "Database requests modifying options",
+    description: "Database requests modifying options.",
     hasExtensions: false,
     hasFields: false,
     hasOneofs: false,
@@ -914,7 +1119,7 @@ Transactional APIs
 ### `DeleteRequest`
 
 <ProtoMessage
-  key={12}
+  key={16}
   message={{
     name: "DeleteRequest",
     longName: "DeleteRequest",
@@ -927,7 +1132,7 @@ Transactional APIs
     fields: [
       {
         name: "db",
-        description: "Database name where to insert documents",
+        description: "Database name where to insert documents.",
         label: "",
         type: "string",
         longType: "string",
@@ -939,7 +1144,7 @@ Transactional APIs
       },
       {
         name: "collection",
-        description: "Collection name where to insert documents",
+        description: "Collection name where to insert documents.",
         label: "",
         type: "string",
         longType: "string",
@@ -952,7 +1157,7 @@ Transactional APIs
       {
         name: "filter",
         description:
-          "Delete documents which matching specified filter.\nThe filter should proper JSON object.\nFilter syntax described here: {TBD}",
+          'Delete documents which matching specified filter.\nA filter can simply be key, value where key\nis the field name and value would be the value for this field. Or a filter can be logical where\ntwo or more fields can be logically joined using $or and $and. A few examples of filter:\n<li> To delete a user document where the id has a value 1: ```{"id": 1 }```\n<li> To delete all the user documents where the key "id" has a value 1 or 2 or 3: `{"$or": [{"id": 1}, {"id": 2}, {"id": 3}]}`',
         label: "",
         type: "bytes",
         longType: "bytes",
@@ -981,12 +1186,12 @@ Transactional APIs
 ### `DeleteRequestOptions`
 
 <ProtoMessage
-  key={13}
+  key={17}
   message={{
     name: "DeleteRequestOptions",
     longName: "DeleteRequestOptions",
     fullName: ".DeleteRequestOptions",
-    description: "",
+    description: "Additional options for deleted requests.",
     hasExtensions: false,
     hasFields: true,
     hasOneofs: false,
@@ -1011,24 +1216,244 @@ Transactional APIs
 ### `DeleteResponse`
 
 <ProtoMessage
-  key={14}
+  key={18}
   message={{
     name: "DeleteResponse",
     longName: "DeleteResponse",
     fullName: ".DeleteResponse",
     description: "",
     hasExtensions: false,
-    hasFields: false,
+    hasFields: true,
     hasOneofs: false,
     extensions: [],
-    fields: [],
+    fields: [
+      {
+        name: "metadata",
+        description: "Has metadata related to the documents stored.",
+        label: "",
+        type: "ResponseMetadata",
+        longType: "ResponseMetadata",
+        fullType: "ResponseMetadata",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "status",
+        description: 'an enum with value set as "deleted"',
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `DescribeCollectionRequest`
+
+<ProtoMessage
+  key={19}
+  message={{
+    name: "DescribeCollectionRequest",
+    longName: "DescribeCollectionRequest",
+    fullName: ".DescribeCollectionRequest",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "db",
+        description: "Name of the database.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "collection",
+        description: "Name of the collection.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "options",
+        description: "Collection options.",
+        label: "",
+        type: "CollectionOptions",
+        longType: "CollectionOptions",
+        fullType: "CollectionOptions",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `DescribeCollectionResponse`
+
+<ProtoMessage
+  key={20}
+  message={{
+    name: "DescribeCollectionResponse",
+    longName: "DescribeCollectionResponse",
+    fullName: ".DescribeCollectionResponse",
+    description:
+      "A detailed description about the collection.\nThe description returns collection metadata and the schema.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "collection",
+        description: "Name of the collection.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "metadata",
+        description: "Metadata about the collection.",
+        label: "",
+        type: "CollectionMetadata",
+        longType: "CollectionMetadata",
+        fullType: "CollectionMetadata",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "schema",
+        description: "Collections schema",
+        label: "",
+        type: "bytes",
+        longType: "bytes",
+        fullType: "bytes",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `DescribeDatabaseRequest`
+
+<ProtoMessage
+  key={21}
+  message={{
+    name: "DescribeDatabaseRequest",
+    longName: "DescribeDatabaseRequest",
+    fullName: ".DescribeDatabaseRequest",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "db",
+        description: "Name of the database.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `DescribeDatabaseResponse`
+
+<ProtoMessage
+  key={22}
+  message={{
+    name: "DescribeDatabaseResponse",
+    longName: "DescribeDatabaseResponse",
+    fullName: ".DescribeDatabaseResponse",
+    description:
+      "A detailed description about the database and all associated collections.\nDescription of the collection includes schema details as well.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "db",
+        description: "Name of the database.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "metadata",
+        description: "Metadata about the database.",
+        label: "",
+        type: "DatabaseMetadata",
+        longType: "DatabaseMetadata",
+        fullType: "DatabaseMetadata",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "collections",
+        description:
+          "A detailed description about all the collections.\nThe description returns collection metadata and the schema.",
+        label: "repeated",
+        type: "CollectionDescription",
+        longType: "CollectionDescription",
+        fullType: "CollectionDescription",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
   }}
 />
 
 ### `DropCollectionRequest`
 
 <ProtoMessage
-  key={15}
+  key={23}
   message={{
     name: "DropCollectionRequest",
     longName: "DropCollectionRequest",
@@ -1041,7 +1466,7 @@ Transactional APIs
     fields: [
       {
         name: "db",
-        description: "Database name of the collection",
+        description: "Database name of the collection.",
         label: "",
         type: "string",
         longType: "string",
@@ -1053,7 +1478,7 @@ Transactional APIs
       },
       {
         name: "collection",
-        description: "Collection name to dtop",
+        description: "Collection name to drop.",
         label: "",
         type: "string",
         longType: "string",
@@ -1082,7 +1507,7 @@ Transactional APIs
 ### `DropCollectionResponse`
 
 <ProtoMessage
-  key={16}
+  key={24}
   message={{
     name: "DropCollectionResponse",
     longName: "DropCollectionResponse",
@@ -1094,8 +1519,20 @@ Transactional APIs
     extensions: [],
     fields: [
       {
-        name: "msg",
-        description: "",
+        name: "message",
+        description: "A detailed response message.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "status",
+        description: 'An enum with value set as "dropped".',
         label: "",
         type: "string",
         longType: "string",
@@ -1112,7 +1549,7 @@ Transactional APIs
 ### `DropDatabaseRequest`
 
 <ProtoMessage
-  key={17}
+  key={25}
   message={{
     name: "DropDatabaseRequest",
     longName: "DropDatabaseRequest",
@@ -1126,7 +1563,7 @@ Transactional APIs
       {
         name: "db",
         description:
-          "Drop database with this name.\nDeletes all the collections in the database.\nUse with caution.",
+          "Drop database with this name. **Note**: Deletes all the collections in the database.\nUse with caution.",
         label: "",
         type: "string",
         longType: "string",
@@ -1155,7 +1592,7 @@ Transactional APIs
 ### `DropDatabaseResponse`
 
 <ProtoMessage
-  key={18}
+  key={26}
   message={{
     name: "DropDatabaseResponse",
     longName: "DropDatabaseResponse",
@@ -1167,8 +1604,20 @@ Transactional APIs
     extensions: [],
     fields: [
       {
-        name: "msg",
-        description: "",
+        name: "message",
+        description: "A detailed response message.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "status",
+        description: 'An enum with value set as "dropped".',
         label: "",
         type: "string",
         longType: "string",
@@ -1185,7 +1634,7 @@ Transactional APIs
 ### `ErrorDetails`
 
 <ProtoMessage
-  key={19}
+  key={27}
   message={{
     name: "ErrorDetails",
     longName: "ErrorDetails",
@@ -1227,7 +1676,7 @@ Transactional APIs
 ### `InsertRequest`
 
 <ProtoMessage
-  key={20}
+  key={28}
   message={{
     name: "InsertRequest",
     longName: "InsertRequest",
@@ -1240,7 +1689,7 @@ Transactional APIs
     fields: [
       {
         name: "db",
-        description: "Database name where to insert documents",
+        description: "Database name where to insert documents.",
         label: "",
         type: "string",
         longType: "string",
@@ -1252,7 +1701,7 @@ Transactional APIs
       },
       {
         name: "collection",
-        description: "Collection name where to insert documents",
+        description: "Collection name where to insert documents.",
         label: "",
         type: "string",
         longType: "string",
@@ -1265,7 +1714,7 @@ Transactional APIs
       {
         name: "documents",
         description:
-          "Array of documents to insert.\nShould be proper JSON object",
+          "Array of documents to insert. Each document is a JSON object.",
         label: "repeated",
         type: "bytes",
         longType: "bytes",
@@ -1294,12 +1743,12 @@ Transactional APIs
 ### `InsertRequestOptions`
 
 <ProtoMessage
-  key={21}
+  key={29}
   message={{
     name: "InsertRequestOptions",
     longName: "InsertRequestOptions",
     fullName: ".InsertRequestOptions",
-    description: "Insert request options",
+    description: "additional options for insert requests.",
     hasExtensions: false,
     hasFields: true,
     hasOneofs: false,
@@ -1324,24 +1773,49 @@ Transactional APIs
 ### `InsertResponse`
 
 <ProtoMessage
-  key={22}
+  key={30}
   message={{
     name: "InsertResponse",
     longName: "InsertResponse",
     fullName: ".InsertResponse",
     description: "",
     hasExtensions: false,
-    hasFields: false,
+    hasFields: true,
     hasOneofs: false,
     extensions: [],
-    fields: [],
+    fields: [
+      {
+        name: "metadata",
+        description: "Has metadata related to the documents stored.",
+        label: "",
+        type: "ResponseMetadata",
+        longType: "ResponseMetadata",
+        fullType: "ResponseMetadata",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "status",
+        description: 'An enum with value set as "inserted"',
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
   }}
 />
 
 ### `ListCollectionsRequest`
 
 <ProtoMessage
-  key={23}
+  key={31}
   message={{
     name: "ListCollectionsRequest",
     longName: "ListCollectionsRequest",
@@ -1354,7 +1828,7 @@ Transactional APIs
     fields: [
       {
         name: "db",
-        description: "List collection in this database",
+        description: "List collection in this database.",
         label: "",
         type: "string",
         longType: "string",
@@ -1383,7 +1857,7 @@ Transactional APIs
 ### `ListCollectionsResponse`
 
 <ProtoMessage
-  key={24}
+  key={32}
   message={{
     name: "ListCollectionsResponse",
     longName: "ListCollectionsResponse",
@@ -1395,12 +1869,24 @@ Transactional APIs
     extensions: [],
     fields: [
       {
-        name: "collections",
-        description: "List of the collections in the database",
-        label: "repeated",
+        name: "db",
+        description: "Name of the database.",
+        label: "",
         type: "string",
         longType: "string",
         fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "collections",
+        description: "List of the collections info in the database.",
+        label: "repeated",
+        type: "CollectionInfo",
+        longType: "CollectionInfo",
+        fullType: "CollectionInfo",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1413,7 +1899,7 @@ Transactional APIs
 ### `ListDatabasesRequest`
 
 <ProtoMessage
-  key={25}
+  key={33}
   message={{
     name: "ListDatabasesRequest",
     longName: "ListDatabasesRequest",
@@ -1430,7 +1916,7 @@ Transactional APIs
 ### `ListDatabasesResponse`
 
 <ProtoMessage
-  key={26}
+  key={34}
   message={{
     name: "ListDatabasesResponse",
     longName: "ListDatabasesResponse",
@@ -1442,12 +1928,12 @@ Transactional APIs
     extensions: [],
     fields: [
       {
-        name: "dbs",
-        description: "List of the databases in the namespace",
+        name: "databases",
+        description: "List of the databases.",
         label: "repeated",
-        type: "string",
-        longType: "string",
-        fullType: "string",
+        type: "DatabaseInfo",
+        longType: "DatabaseInfo",
+        fullType: "DatabaseInfo",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1460,7 +1946,7 @@ Transactional APIs
 ### `ReadRequest`
 
 <ProtoMessage
-  key={27}
+  key={35}
   message={{
     name: "ReadRequest",
     longName: "ReadRequest",
@@ -1473,7 +1959,7 @@ Transactional APIs
     fields: [
       {
         name: "db",
-        description: "Database name to read documents from",
+        description: "Database name to read documents from.",
         label: "",
         type: "string",
         longType: "string",
@@ -1485,7 +1971,7 @@ Transactional APIs
       },
       {
         name: "collection",
-        description: "Collection name to read documents from",
+        description: "Collection name to read documents from.",
         label: "",
         type: "string",
         longType: "string",
@@ -1498,7 +1984,7 @@ Transactional APIs
       {
         name: "filter",
         description:
-          "Returns documents matching this filter.\nThe filter should proper JSON object\nFilter syntax described here: {TBD}",
+          'Returns documents matching this filter.\nA filter can simply be key, value where key\nis the field name and value would be the value for this field. Or a filter can be logical where\ntwo or more fields can be logically joined using $or and $and. A few examples of filter:\n<li> To read a user document where the id has a value 1: ```{"id": 1 }```\n<li> To read all the user documents where the key "id" has a value 1 or 2 or 3: `{"$or": [{"id": 1}, {"id": 2}, {"id": 3}]}`',
         label: "",
         type: "bytes",
         longType: "bytes",
@@ -1510,8 +1996,7 @@ Transactional APIs
       },
       {
         name: "fields",
-        description:
-          "Limit fields returned by the read\nby this subset of the fields\nThe fields should proper JSON object",
+        description: "To read specific fields from a document. Default is all.",
         label: "",
         type: "bytes",
         longType: "bytes",
@@ -1523,7 +2008,8 @@ Transactional APIs
       },
       {
         name: "options",
-        description: "",
+        description:
+          'Options that can be used to modify the results, for example "limit" to control the number of documents\nreturned by the server.',
         label: "",
         type: "ReadRequestOptions",
         longType: "ReadRequestOptions",
@@ -1540,12 +2026,13 @@ Transactional APIs
 ### `ReadRequestOptions`
 
 <ProtoMessage
-  key={28}
+  key={36}
   message={{
     name: "ReadRequestOptions",
     longName: "ReadRequestOptions",
     fullName: ".ReadRequestOptions",
-    description: "ReadRequestOptions contain read behavior modifying options",
+    description:
+      'Options that can be used to modify the results, for example "limit" to control the number of documents\nreturned by the server.',
     hasExtensions: false,
     hasFields: true,
     hasOneofs: false,
@@ -1553,7 +2040,7 @@ Transactional APIs
     fields: [
       {
         name: "tx_ctx",
-        description: "Perform operation in the context of this transaction",
+        description: "Perform operation in the context of this transaction.",
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
@@ -1566,7 +2053,7 @@ Transactional APIs
       {
         name: "limit",
         description:
-          "Limit the number of documents returned by the read operation",
+          "Limit the number of documents returned by the read operation.",
         label: "",
         type: "int64",
         longType: "int64",
@@ -1579,7 +2066,7 @@ Transactional APIs
       {
         name: "skip",
         description:
-          "Number of documents to skip before starting to return resulting documents",
+          "Number of documents to skip before starting to return resulting documents.",
         label: "",
         type: "int64",
         longType: "int64",
@@ -1591,7 +2078,8 @@ Transactional APIs
       },
       {
         name: "offset",
-        description: "Start returning document start from this primary key",
+        description:
+          "A cursor for use in pagination. The next streams will return documents after this offset.",
         label: "",
         type: "bytes",
         longType: "bytes",
@@ -1608,7 +2096,7 @@ Transactional APIs
 ### `ReadResponse`
 
 <ProtoMessage
-  key={29}
+  key={37}
   message={{
     name: "ReadResponse",
     longName: "ReadResponse",
@@ -1620,8 +2108,8 @@ Transactional APIs
     extensions: [],
     fields: [
       {
-        name: "doc",
-        description: "Doc is the JSON object representing requested fields",
+        name: "data",
+        description: "Object containing the collection document.",
         label: "",
         type: "bytes",
         longType: "bytes",
@@ -1632,13 +2120,24 @@ Transactional APIs
         defaultValue: "",
       },
       {
-        name: "key",
-        description:
-          "Key is internal key, which uniquely identify the document.\nThis fields is used to",
+        name: "resume_token",
+        description: "An internal key, used for pagination.",
         label: "",
         type: "bytes",
         longType: "bytes",
         fullType: "bytes",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "metadata",
+        description: "Has metadata related to the documents stored.",
+        label: "",
+        type: "ResponseMetadata",
+        longType: "ResponseMetadata",
+        fullType: "ResponseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1651,7 +2150,7 @@ Transactional APIs
 ### `ReplaceRequest`
 
 <ProtoMessage
-  key={30}
+  key={38}
   message={{
     name: "ReplaceRequest",
     longName: "ReplaceRequest",
@@ -1689,7 +2188,7 @@ Transactional APIs
       {
         name: "documents",
         description:
-          "Array of documents to be replaced.\nShould be proper JSON object.",
+          "Array of documents to be replaced. Each document is a JSON object.",
         label: "repeated",
         type: "bytes",
         longType: "bytes",
@@ -1718,12 +2217,12 @@ Transactional APIs
 ### `ReplaceRequestOptions`
 
 <ProtoMessage
-  key={31}
+  key={39}
   message={{
     name: "ReplaceRequestOptions",
     longName: "ReplaceRequestOptions",
     fullName: ".ReplaceRequestOptions",
-    description: "",
+    description: "Additional options for replace requests.",
     hasExtensions: false,
     hasFields: true,
     hasOneofs: false,
@@ -1748,24 +2247,93 @@ Transactional APIs
 ### `ReplaceResponse`
 
 <ProtoMessage
-  key={32}
+  key={40}
   message={{
     name: "ReplaceResponse",
     longName: "ReplaceResponse",
     fullName: ".ReplaceResponse",
     description: "",
     hasExtensions: false,
-    hasFields: false,
+    hasFields: true,
     hasOneofs: false,
     extensions: [],
-    fields: [],
+    fields: [
+      {
+        name: "metadata",
+        description: "Has metadata related to the documents stored.",
+        label: "",
+        type: "ResponseMetadata",
+        longType: "ResponseMetadata",
+        fullType: "ResponseMetadata",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "status",
+        description: 'an enum with value set as "replaced"',
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `ResponseMetadata`
+
+<ProtoMessage
+  key={41}
+  message={{
+    name: "ResponseMetadata",
+    longName: "ResponseMetadata",
+    fullName: ".ResponseMetadata",
+    description: "Has metadata related to the documents stored.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "created_at",
+        description:
+          "Time at which the document was inserted/replaced. Measured in nano-seconds since the Unix epoch.",
+        label: "",
+        type: "Timestamp",
+        longType: "google.protobuf.Timestamp",
+        fullType: "google.protobuf.Timestamp",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "updated_at",
+        description:
+          "Time at which the document was updated. Measured in nano-seconds since the Unix epoch.",
+        label: "",
+        type: "Timestamp",
+        longType: "google.protobuf.Timestamp",
+        fullType: "google.protobuf.Timestamp",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
   }}
 />
 
 ### `RollbackTransactionRequest`
 
 <ProtoMessage
-  key={33}
+  key={42}
   message={{
     name: "RollbackTransactionRequest",
     longName: "RollbackTransactionRequest",
@@ -1778,7 +2346,7 @@ Transactional APIs
     fields: [
       {
         name: "db",
-        description: "Database name this transaction belongs to",
+        description: "Database name this transaction belongs to.",
         label: "",
         type: "string",
         longType: "string",
@@ -1790,7 +2358,8 @@ Transactional APIs
       },
       {
         name: "tx_ctx",
-        description: "Contains unique transaction ID",
+        description:
+          "Tigris transactional context with details about the transactions.",
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
@@ -1807,37 +2376,49 @@ Transactional APIs
 ### `RollbackTransactionResponse`
 
 <ProtoMessage
-  key={34}
+  key={43}
   message={{
     name: "RollbackTransactionResponse",
     longName: "RollbackTransactionResponse",
     fullName: ".RollbackTransactionResponse",
     description: "",
     hasExtensions: false,
-    hasFields: false,
+    hasFields: true,
     hasOneofs: false,
     extensions: [],
-    fields: [],
+    fields: [
+      {
+        name: "status",
+        description: "Status of rollback transaction operation.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
   }}
 />
 
-### `TransactionCtx`
+### `StreamChange`
 
 <ProtoMessage
-  key={35}
+  key={44}
   message={{
-    name: "TransactionCtx",
-    longName: "TransactionCtx",
-    fullName: ".TransactionCtx",
-    description:
-      "Contains ID which uniquely identifies transaction.\nThis context is returned by StartTransaction request and\nshould be passed in the options of document modification\nrequests in order to run them in the context of the same\ntransaction",
+    name: "StreamChange",
+    longName: "StreamChange",
+    fullName: ".StreamChange",
+    description: "",
     hasExtensions: false,
     hasFields: true,
     hasOneofs: false,
     extensions: [],
     fields: [
       {
-        name: "id",
+        name: "collection_name",
         description: "",
         label: "",
         type: "string",
@@ -1849,8 +2430,111 @@ Transactional APIs
         defaultValue: "",
       },
       {
-        name: "origin",
+        name: "data",
         description: "",
+        label: "",
+        type: "bytes",
+        longType: "bytes",
+        fullType: "bytes",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `StreamRequest`
+
+<ProtoMessage
+  key={45}
+  message={{
+    name: "StreamRequest",
+    longName: "StreamRequest",
+    fullName: ".StreamRequest",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "db",
+        description: "",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `StreamResponse`
+
+<ProtoMessage
+  key={46}
+  message={{
+    name: "StreamResponse",
+    longName: "StreamResponse",
+    fullName: ".StreamResponse",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "changes",
+        description: "",
+        label: "repeated",
+        type: "StreamChange",
+        longType: "StreamChange",
+        fullType: "StreamChange",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `TransactionCtx`
+
+<ProtoMessage
+  key={47}
+  message={{
+    name: "TransactionCtx",
+    longName: "TransactionCtx",
+    fullName: ".TransactionCtx",
+    description:
+      "Contains ID which uniquely identifies transaction\nThis context is returned by BeginTransaction request and\nshould be passed in the subsequent requests in order to run\nthem in the context of the same transaction.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "id",
+        description: "Unique for a single transactional request.",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "origin",
+        description: "Serves as an internal identifier.",
         label: "",
         type: "string",
         longType: "string",
@@ -1867,12 +2551,13 @@ Transactional APIs
 ### `TransactionOptions`
 
 <ProtoMessage
-  key={36}
+  key={48}
   message={{
     name: "TransactionOptions",
     longName: "TransactionOptions",
     fullName: ".TransactionOptions",
-    description: "Modify start transaction behavior",
+    description:
+      "Options that can be used to modify the transaction semantics.",
     hasExtensions: false,
     hasFields: false,
     hasOneofs: false,
@@ -1884,7 +2569,7 @@ Transactional APIs
 ### `UpdateRequest`
 
 <ProtoMessage
-  key={37}
+  key={49}
   message={{
     name: "UpdateRequest",
     longName: "UpdateRequest",
@@ -1935,7 +2620,7 @@ Transactional APIs
       {
         name: "filter",
         description:
-          "Update documents which matching specified filter.\nThe filter should proper JSON object\nFilter syntax described here: {TBD}",
+          'Update documents which matching specified filter.\nA filter can simply be key, value where key\nis the field name and value would be the value for this field. Or a filter can be logical where\ntwo or more fields can be logically joined using $or and $and. A few examples of filter:\n<li> To update a user document where the id has a value 1: ```{"id": 1 }```\n<li> To update all the user documents where the key "id" has a value 1 or 2 or 3: `{"$or": [{"id": 1}, {"id": 2}, {"id": 3}]}`',
         label: "",
         type: "bytes",
         longType: "bytes",
@@ -1964,12 +2649,12 @@ Transactional APIs
 ### `UpdateRequestOptions`
 
 <ProtoMessage
-  key={38}
+  key={50}
   message={{
     name: "UpdateRequestOptions",
     longName: "UpdateRequestOptions",
     fullName: ".UpdateRequestOptions",
-    description: "",
+    description: "Additional options for update requests.",
     hasExtensions: false,
     hasFields: true,
     hasOneofs: false,
@@ -1994,7 +2679,7 @@ Transactional APIs
 ### `UpdateResponse`
 
 <ProtoMessage
-  key={39}
+  key={51}
   message={{
     name: "UpdateResponse",
     longName: "UpdateResponse",
@@ -2006,12 +2691,36 @@ Transactional APIs
     extensions: [],
     fields: [
       {
-        name: "rc",
-        description: "",
+        name: "metadata",
+        description: "Has metadata related to the documents stored.",
+        label: "",
+        type: "ResponseMetadata",
+        longType: "ResponseMetadata",
+        fullType: "ResponseMetadata",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "modified_count",
+        description: "Returns the number of documents modified.",
         label: "",
         type: "int32",
         longType: "int32",
         fullType: "int32",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "status",
+        description: 'an enum with value set as "updated".',
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -2024,12 +2733,12 @@ Transactional APIs
 ### `WriteOptions`
 
 <ProtoMessage
-  key={40}
+  key={52}
   message={{
     name: "WriteOptions",
     longName: "WriteOptions",
     fullName: ".WriteOptions",
-    description: "WriteOptions contain write behavior modifying options",
+    description: "Additional options to modify write requests.",
     hasExtensions: false,
     hasFields: true,
     hasOneofs: false,
@@ -2037,7 +2746,7 @@ Transactional APIs
     fields: [
       {
         name: "tx_ctx",
-        description: "Perform operation in the context of this transaction",
+        description: "Perform operation in the context of this transaction.",
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",

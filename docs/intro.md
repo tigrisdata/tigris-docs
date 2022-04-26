@@ -5,9 +5,9 @@ slug: /
 
 # Introduction
 
-## What is TigrisDB?
+## What is Tigris?
 
-[TigrisDB](https://github.com/tigrisdata/tigrisdb) is a zeroops data platform
+[Tigris](https://github.com/tigrisdata/tigrisdb) is a zeroops data platform
 for real-time websites and apps.
 It makes building modern data-driven apps a breeze. Open source and
 multi-cloud enabled from day one.
@@ -15,5 +15,5 @@ multi-cloud enabled from day one.
 We are fully committed to open source and embrace the open exchange of
 information, collaborative development and transparency.
 
-TigrisDB is licensed under the terms of the
+Tigris is licensed under the terms of the
 [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0)

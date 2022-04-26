@@ -3,7 +3,7 @@
 The following guide will get you up and running locally as quickly as
 possible using the CLI.
 
-### 1. Startup TigrisDB locally via Docker
+### 1. Startup Tigris locally via Docker
 
 The first step is to install the CLI
 
@@ -30,13 +30,13 @@ curl -sSL https://tigris.dev/cli-linux | sudo tar -xz -C /usr/local/bin
 Note that you'll need to have [docker](https://docs.docker.com/get-docker/)
 installed already.
 
-Next we start up TigrisDB locally using the _tigris_ cli
+Next we start up Tigris locally using the _tigris_ cli
 
 ```shell
-tigris db local up
+tigris local up
 ```
 
-Once this command has completed, TigrisDB server will be available on port
+Once this command has completed, Tigris server will be available on port
 `8081`.
 
 ### 2. Create sample schema
@@ -48,7 +48,13 @@ Let's use the CLI to generate the sample schema and create the three
 collections in the database named _sampledb_.
 
 ```shell
-tigris db generate sample-schema --create
+tigris generate sample-schema --create
+```
+
+The schema of the collections created can be fetched as follows
+
+```shell
+tigris describe collection sampledb orders
 ```
 
 ### 3. Insert and read data
@@ -56,23 +62,23 @@ tigris db generate sample-schema --create
 The following example will set up the data model, insert data into the _users_
 and _products_ collections and then read it back.
 
-One of the main features of TigrisDB is the ability to perform ACID
+One of the main features of Tigris is the ability to perform ACID
 transactions. We will perform a transaction that involves inserting and
 updating documents in the _orders_, _users_ and _products_ collections.
 
-Now lets fire up the CLI and use the TigrisDB APIs to perform CRUD operations on
+Now lets fire up the CLI and use the Tigris APIs to perform CRUD operations on
 the data.
 
 #### 3.1 Insert some data into the user and product collections
 
 ```shell
-tigris db insert productdb users \
+tigris insert sampledb users \
 '[
-    {"id": 1, "name": "Jania McGrory", "balance": "6045.7"},
-    {"id": 2, "name": "Bunny Instone", "balance": "2948.87"}
+    {"id": 1, "name": "Jania McGrory", "balance": 6045.7},
+    {"id": 2, "name": "Bunny Instone", "balance": 2948.87}
 ]'
 
-tigris db insert productdb products \
+tigris insert sampledb products \
 '[
     {"id": 1, "name": "Vanilla Beans", "quantity": 6358, "price": 4.39},
     {"id": 2, "name": "Cheese - Provolone", "quantity": 5726, "price": 16.74},
@@ -83,31 +89,31 @@ tigris db insert productdb products \
 #### 3.2 Read the data that was inserted
 
 ```shell
-tigris db read productdb users '{"id": 1}'
-tigris db read productdb products '{"id": 3}'
+tigris read sampledb users '{"id": 1}'
+tigris read sampledb products '{"id": 3}'
 ```
 
 #### 3.3 Perform a transaction that modifies all three collections
 
 ```shell
-tigris db transact productdb \
+tigris transact sampledb \
 '[
   {
     "insert": {
       "collection": "orders",
       "documents": [{
-          "id": 1, "user_id": 1, "order_total": 53.89, "product_item": [{"id": 1, "quantity": 1}]
+          "id": 1, "user_id": 1, "order_total": 53.89, "products": [{"id": 1, "quantity": 1}]
         }]
     }
   },
   {
     "update": {
-      "collection": "users", "fields": {"$decr": {"balance": 53.89}}, "filter": {"id": 1}
+      "collection": "users", "fields": {"$set": {"balance": 5991.81}}, "filter": {"id": 1}
     }
   },
   {
     "update": {
-      "collection": "products", "fields": {"$decr": {"quantity": 1}}, "filter": {"id": 1}
+      "collection": "products", "fields": {"$set": {"quantity": 6357}}, "filter": {"id": 1}
     }
   }
 ]'
@@ -119,13 +125,13 @@ serializability.
 
 :::info
 Note that because we're using the CLI, the transaction doesn't appear to be
-interactive. When using the TigrisDB client library the transaction would be
+interactive. When using the Tigris client library the transaction would be
 interactive, and we could enforce constraints within our application. Such as,
 ensuring that the user has enough balance or that there is enough available
 product.
 
 See the [Go quick start](with-go.md) section for an example of how we can
-leverage TigrisDB's transactions to easily and automatically ensure that no
+leverage Tigris' transactions to easily and automatically ensure that no
 user is ever allowed to purchase products worth more than their available
 balance, and that we never create orders that exceed the amount of available
 product, even if thousands of users are all trying to purchase the same
