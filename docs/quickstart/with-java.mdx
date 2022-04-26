@@ -45,7 +45,7 @@ Fire up the terminal and use the following command to download the starter
 project
 
 ```shell
-curl -L https://github.com/tigrisdata/tigrisdb-starter-java/archive/refs/tags/1.0.0-alpha.7.tar.gz  | tar -xz
+curl -L https://github.com/tigrisdata/tigris-starter-java/archive/refs/tags/1.0.0-alpha.8.tar.gz  | tar -xz
 ```
 
 ### 3. Build the project
@@ -58,7 +58,7 @@ The following prerequisites are needed for this step:
 From your terminal move into the starter project and build it.
 
 ```shell
-cd tigrisdb-starter-java-1.0.0-alpha.7
+cd tigris-starter-java-1.0.0-alpha.8
 mvn clean install
 ```
 
@@ -164,7 +164,7 @@ An example using IntelliJ IDEA is shown below
 ![launcher window image](/img/screenshots/launcher_window.png)
 
 A successful launch of the application will end with the log entry
-`[main] INFO c.t.s.spring.TigrisDBInitializer - Finished initializing TigrisDB`
+`[main] INFO c.t.s.spring.TigrisInitializer - Finished initializing Tigris`
 
 Congratulations, you just wrote a REST service which uses Tigris as the
 backend. Take a look at the REST API at
@@ -177,7 +177,7 @@ of three collections `users`, `products` and `orders` located in
 `com.tigrisdata.starter.collections` Java package.
 
 When you launched the application, code located in
-`com.tigrisdata.starter.spring.TigrisDBInitializer#run` created the database
+`com.tigrisdata.starter.spring.TigrisInitializer#run` created the database
 and registered the schema based on the 3 collection models.
 
 You wrote a new HTTP handler that used Tigris' transaction feature. The
