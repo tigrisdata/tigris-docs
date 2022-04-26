@@ -3,31 +3,46 @@
 The following guide will get you up and running locally as quickly as possible
 using Java.
 
-### 1. Download and run TigrisDB locally via Docker
+### 1. Startup Tigris locally via Docker
 
-Open your terminal and use the following command to download the
-[docker-compose](https://raw.githubusercontent.com/tigrisdata/tigrisdb/main/docker/local/docker-compose.yaml)
-file and startup TigrisDB. Note that you'll need to have
-[docker](https://docs.docker.com/get-docker/) and
-[docker compose](https://docs.docker.com/compose/install/) installed already.
+The first step is to install the CLI
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+<Tabs>
+<TabItem value="macOS" label="macOS">
 
 ```shell
-curl -L -O https://raw.githubusercontent.com/tigrisdata/tigrisdb/main/docker/local/docker-compose.yaml
-docker-compose up -d
+curl -sSL https://tigris.dev/cli-macos | sudo tar -xz -C /usr/local/bin
 ```
 
-The docker compose setup will start two containers:
+</TabItem>
+<TabItem value="Linux" label="Linux">
 
-1. A stateless TigrisDB server running on port `8081`.
-2. A single-node stateful FoundationDB server running on port `4500`.
+```shell
+curl -sSL https://tigris.dev/cli-linux | sudo tar -xz -C /usr/local/bin
+```
 
-Note that this docker-compose file is for local development only and should
-**not** be used in production as the FoundationDB cluster it creates does
-not run in a highly available or replicated manner.
+</TabItem>
+</Tabs>
+
+Note that you'll need to have [docker](https://docs.docker.com/get-docker/)
+installed already.
+
+Next we start up Tigris locally using the _tigris_ cli
+
+```shell
+tigris local up
+```
+
+Once this command has completed, Tigris server will be available on port
+`8081`.
 
 ### 2. Download the starter project
 
-Open your terminal and use the following command to download the started project
+Fire up the terminal and use the following command to download the starter
+project
 
 ```shell
 curl -L https://github.com/tigrisdata/tigrisdb-starter-java/archive/refs/tags/1.0.0-alpha.7.tar.gz  | tar -xz
@@ -49,19 +64,37 @@ mvn clean install
 
 ### 4. Insert and read data
 
-The following code will set up a HTTP handler that will leverage TigrisDB to
-insert data into the _orders_ collection while updating the data in _users_ and
-_products_ collections.
+The following code will set up a HTTP handler that will leverage Tigris to
+insert data into the _orders_ collection while updating the data in the
+_users_ and _products_ collections.
 
 :::info
-One of the main features of TigrisDB is the ability to perform ACID
+One of the main features of Tigris is the ability to perform ACID
 transactions. We will perform the insert and update operations in a
 transaction ensuring that the collections are consistently updated.
 
 :::
 
-Open the project in your favorite IDE and add the following method to
+Open the project in your favorite IDE and add the following to
 `com.tigrisdata.starter.controller.OrderController`
+
+**Additional Imports**
+
+```java title="OrderController.java"
+import com.tigrisdata.db.client.TransactionOptions;
+import com.tigrisdata.db.client.TransactionSession;
+import com.tigrisdata.db.client.TransactionTigrisCollection;
+import com.tigrisdata.db.client.UpdateFields;
+import com.tigrisdata.starter.collections.Product;
+import com.tigrisdata.starter.collections.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import java.util.Collections;
+```
+
+**HTTP handler**
 
 ```java title="OrderController.java"
 @PostMapping("{user_id}/{product_id}/{qty}")
@@ -125,22 +158,6 @@ public ResponseEntity<String> purchase(
 }
 ```
 
-with these additional imports
-
-```java
-import com.tigrisdata.db.client.TransactionOptions;
-import com.tigrisdata.db.client.TransactionSession;
-import com.tigrisdata.db.client.TransactionTigrisCollection;
-import com.tigrisdata.db.client.UpdateFields;
-import com.tigrisdata.starter.collections.Product;
-import com.tigrisdata.starter.collections.User;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import java.util.Collections;
-```
-
 Now launch the application from the IDE.
 
 An example using IntelliJ IDEA is shown below
@@ -149,7 +166,7 @@ An example using IntelliJ IDEA is shown below
 A successful launch of the application will end with the log entry
 `[main] INFO c.t.s.spring.TigrisDBInitializer - Finished initializing TigrisDB`
 
-Congratulations, you just wrote a REST service which uses TigrisDB as the
+Congratulations, you just wrote a REST service which uses Tigris as the
 backend. Take a look at the REST API at
 [http://localhost:8080/swagger.html](http://localhost:8080/swagger.html).
 
@@ -159,10 +176,11 @@ The downloaded starter project includes the data model Java classes consisting
 of three collections `users`, `products` and `orders` located in
 `com.tigrisdata.starter.collections` Java package.
 
-When you launched the application, code located in `com.tigrisdata.starter.spring.TigrisDBInitializer#run` created the database and registered the
-schema based on these 3 collection models.
+When you launched the application, code located in
+`com.tigrisdata.starter.spring.TigrisDBInitializer#run` created the database
+and registered the schema based on the 3 collection models.
 
-You wrote a new HTTP handler that used TigrisDB transaction feature. The
+You wrote a new HTTP handler that used Tigris' transaction feature. The
 transaction involved reading data, validating that certain conditions around
 the product quantity and user's balance are met, and finally inserting a new
 order together with updating the users and products collections.
