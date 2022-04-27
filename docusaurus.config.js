@@ -86,7 +86,7 @@ const config = {
     ({
       colorMode: {
         defaultMode: "light",
-        respectPrefersColorScheme: true,
+        respectPrefersColorScheme: false,
       },
       announcementBar: {
         id: "announcementBar-1", // increment on change

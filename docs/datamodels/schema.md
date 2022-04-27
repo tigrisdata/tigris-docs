@@ -17,6 +17,13 @@ co-exist. Schema changes are instant and do not require a full table rebuild.
 The schema is specified following the JSON schema
 [specification](https://json-schema.org/specification.html).
 
+Every schema has three required keywords which are expressed as JSON keys:
+
+- **title**: This keyword states the name of the collection.
+- **description**: This keyword states the purpose of the collection.
+- **properties**: This keyword states the fields that make up the document
+  stored in the collection.
+
 Let's take the example of a collection of user documents. A user document
 has the following fields:
 
@@ -48,13 +55,6 @@ Sample schema:
   "primary_key": ["id"]
 }
 ```
-
-Every schema has three required keywords which are expressed as JSON keys:
-
-- **title**: This keyword states the name of the collection.
-- **description**: This keyword states the purpose of the collection.
-- **properties**: This keyword states the fields that make up the document
-  stored in the collection.
 
 ## Defining the properties
 
