@@ -3,2761 +3,309 @@ title: api.proto
 hide_title: true
 ---
 
-import { ProtoMessage, ProtoServiceMethod, ProtoEnum } from "@theme/ProtoFile";
+import { ProtoMessage, ProtoServiceMethod, ProtoEnum } from '@theme/ProtoFile';
 
 ## `api.proto`
-
 _**path** server/v1/api.proto_
 
 _**package** _
 
----
 
+---
 ## Services
 
-### `TigrisDB`
+
+### `Tigris`
+
+
+
 
 #### `BeginTransaction`
+<ProtoServiceMethod key={'BeginTransaction-0'} method={{"name":"BeginTransaction","description":"Starts a new transaction and returns a transactional object. All reads/writes performed\nwithin a transaction will run with serializable isolation.","requestType":"BeginTransactionRequest","requestLongType":".BeginTransactionRequest","requestFullType":"BeginTransactionRequest","requestStreaming":false,"responseType":"BeginTransactionResponse","responseLongType":".BeginTransactionResponse","responseFullType":"BeginTransactionResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"POST","pattern":"/api/v1/databases/{db}/transactions/begin","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"BeginTransaction-0"}
-  method={{
-    name: "BeginTransaction",
-    description:
-      "Starts a new transaction and returns a transactional object. All reads/writes performed\nwithin a transaction will run with serializable isolation.",
-    requestType: "BeginTransactionRequest",
-    requestLongType: ".BeginTransactionRequest",
-    requestFullType: "BeginTransactionRequest",
-    requestStreaming: false,
-    responseType: "BeginTransactionResponse",
-    responseLongType: ".BeginTransactionResponse",
-    responseFullType: "BeginTransactionResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/transactions/begin",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `CommitTransaction`
+<ProtoServiceMethod key={'CommitTransaction-1'} method={{"name":"CommitTransaction","description":"Atomically commit all the changes performed in the context of the transaction. Commit provides all\nor nothing semantics by ensuring no partial updates are in the database due to a transaction failure.","requestType":"CommitTransactionRequest","requestLongType":".CommitTransactionRequest","requestFullType":"CommitTransactionRequest","requestStreaming":false,"responseType":"CommitTransactionResponse","responseLongType":".CommitTransactionResponse","responseFullType":"CommitTransactionResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"POST","pattern":"/api/v1/databases/{db}/transactions/commit","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"CommitTransaction-1"}
-  method={{
-    name: "CommitTransaction",
-    description:
-      "Atomically commit all the changes performed in the context of the transaction. Commit provides all\nor nothing semantics by ensuring no partial updates are in the database due to a transaction failure.",
-    requestType: "CommitTransactionRequest",
-    requestLongType: ".CommitTransactionRequest",
-    requestFullType: "CommitTransactionRequest",
-    requestStreaming: false,
-    responseType: "CommitTransactionResponse",
-    responseLongType: ".CommitTransactionResponse",
-    responseFullType: "CommitTransactionResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/transactions/commit",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `RollbackTransaction`
+<ProtoServiceMethod key={'RollbackTransaction-2'} method={{"name":"RollbackTransaction","description":"Rollback transaction discards all the changes\nperformed in the transaction","requestType":"RollbackTransactionRequest","requestLongType":".RollbackTransactionRequest","requestFullType":"RollbackTransactionRequest","requestStreaming":false,"responseType":"RollbackTransactionResponse","responseLongType":".RollbackTransactionResponse","responseFullType":"RollbackTransactionResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"POST","pattern":"/api/v1/databases/{db}/transactions/rollback","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"RollbackTransaction-2"}
-  method={{
-    name: "RollbackTransaction",
-    description:
-      "Rollback transaction discards all the changes\nperformed in the transaction",
-    requestType: "RollbackTransactionRequest",
-    requestLongType: ".RollbackTransactionRequest",
-    requestFullType: "RollbackTransactionRequest",
-    requestStreaming: false,
-    responseType: "RollbackTransactionResponse",
-    responseLongType: ".RollbackTransactionResponse",
-    responseFullType: "RollbackTransactionResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/transactions/rollback",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `Insert`
+<ProtoServiceMethod key={'Insert-3'} method={{"name":"Insert","description":"Inserts new documents in the collection and returns an AlreadyExists error if any of the documents\nin the request already exists. Insert provides idempotency by returning an error if the document\nalready exists. To replace documents, use REPLACE API instead of INSERT.","requestType":"InsertRequest","requestLongType":".InsertRequest","requestFullType":"InsertRequest","requestStreaming":false,"responseType":"InsertResponse","responseLongType":".InsertResponse","responseFullType":"InsertResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"POST","pattern":"/api/v1/databases/{db}/collections/{collection}/documents/insert","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"Insert-3"}
-  method={{
-    name: "Insert",
-    description:
-      "Inserts new documents in the collection and returns an AlreadyExists error if any of the documents\nin the request already exists. Insert provides idempotency by returning an error if the document\nalready exists. To replace documents, use REPLACE API instead of INSERT.",
-    requestType: "InsertRequest",
-    requestLongType: ".InsertRequest",
-    requestFullType: "InsertRequest",
-    requestStreaming: false,
-    responseType: "InsertResponse",
-    responseLongType: ".InsertResponse",
-    responseFullType: "InsertResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern:
-              "/api/v1/databases/{db}/collections/{collection}/documents/insert",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `Replace`
+<ProtoServiceMethod key={'Replace-4'} method={{"name":"Replace","description":"Inserts the documents or replaces the existing documents in the collections.","requestType":"ReplaceRequest","requestLongType":".ReplaceRequest","requestFullType":"ReplaceRequest","requestStreaming":false,"responseType":"ReplaceResponse","responseLongType":".ReplaceResponse","responseFullType":"ReplaceResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"PUT","pattern":"/api/v1/databases/{db}/collections/{collection}/documents/replace","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"Replace-4"}
-  method={{
-    name: "Replace",
-    description:
-      "Inserts the documents or replaces the existing documents in the collections.",
-    requestType: "ReplaceRequest",
-    requestLongType: ".ReplaceRequest",
-    requestFullType: "ReplaceRequest",
-    requestStreaming: false,
-    responseType: "ReplaceResponse",
-    responseLongType: ".ReplaceResponse",
-    responseFullType: "ReplaceResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "PUT",
-            pattern:
-              "/api/v1/databases/{db}/collections/{collection}/documents/replace",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `Delete`
+<ProtoServiceMethod key={'Delete-5'} method={{"name":"Delete","description":"Delete a range of documents in the collection using the condition provided in the filter.","requestType":"DeleteRequest","requestLongType":".DeleteRequest","requestFullType":"DeleteRequest","requestStreaming":false,"responseType":"DeleteResponse","responseLongType":".DeleteResponse","responseFullType":"DeleteResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"DELETE","pattern":"/api/v1/databases/{db}/collections/{collection}/documents/delete","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"Delete-5"}
-  method={{
-    name: "Delete",
-    description:
-      "Delete a range of documents in the collection using the condition provided in the filter.",
-    requestType: "DeleteRequest",
-    requestLongType: ".DeleteRequest",
-    requestFullType: "DeleteRequest",
-    requestStreaming: false,
-    responseType: "DeleteResponse",
-    responseLongType: ".DeleteResponse",
-    responseFullType: "DeleteResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "DELETE",
-            pattern:
-              "/api/v1/databases/{db}/collections/{collection}/documents/delete",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `Update`
+<ProtoServiceMethod key={'Update-6'} method={{"name":"Update","description":"Update a range of documents in the collection using the condition provided in the filter.","requestType":"UpdateRequest","requestLongType":".UpdateRequest","requestFullType":"UpdateRequest","requestStreaming":false,"responseType":"UpdateResponse","responseLongType":".UpdateResponse","responseFullType":"UpdateResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"PUT","pattern":"/api/v1/databases/{db}/collections/{collection}/documents/update","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"Update-6"}
-  method={{
-    name: "Update",
-    description:
-      "Update a range of documents in the collection using the condition provided in the filter.",
-    requestType: "UpdateRequest",
-    requestLongType: ".UpdateRequest",
-    requestFullType: "UpdateRequest",
-    requestStreaming: false,
-    responseType: "UpdateResponse",
-    responseLongType: ".UpdateResponse",
-    responseFullType: "UpdateResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "PUT",
-            pattern:
-              "/api/v1/databases/{db}/collections/{collection}/documents/update",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `Read`
+<ProtoServiceMethod key={'Read-7'} method={{"name":"Read","description":"Reads range of documents from the collection using the condition in the filter.","requestType":"ReadRequest","requestLongType":".ReadRequest","requestFullType":"ReadRequest","requestStreaming":false,"responseType":"ReadResponse","responseLongType":".ReadResponse","responseFullType":"ReadResponse","responseStreaming":true,"options":{"google.api.http":{"rules":[{"method":"POST","pattern":"/api/v1/databases/{db}/collections/{collection}/documents/read","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"Read-7"}
-  method={{
-    name: "Read",
-    description:
-      "Reads range of documents from the collection using the condition in the filter.",
-    requestType: "ReadRequest",
-    requestLongType: ".ReadRequest",
-    requestFullType: "ReadRequest",
-    requestStreaming: false,
-    responseType: "ReadResponse",
-    responseLongType: ".ReadResponse",
-    responseFullType: "ReadResponse",
-    responseStreaming: true,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern:
-              "/api/v1/databases/{db}/collections/{collection}/documents/read",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `CreateOrUpdateCollection`
+<ProtoServiceMethod key={'CreateOrUpdateCollection-8'} method={{"name":"CreateOrUpdateCollection","description":"Creates a new collection or atomically upgrades the collection to the new schema changes in the database\npassed in the request.","requestType":"CreateOrUpdateCollectionRequest","requestLongType":".CreateOrUpdateCollectionRequest","requestFullType":"CreateOrUpdateCollectionRequest","requestStreaming":false,"responseType":"CreateOrUpdateCollectionResponse","responseLongType":".CreateOrUpdateCollectionResponse","responseFullType":"CreateOrUpdateCollectionResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"POST","pattern":"/api/v1/databases/{db}/collections/{collection}/createOrUpdate","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"CreateOrUpdateCollection-8"}
-  method={{
-    name: "CreateOrUpdateCollection",
-    description:
-      "Creates a new collection or atomically upgrades the collection to the new schema changes in the database\npassed in the request.",
-    requestType: "CreateOrUpdateCollectionRequest",
-    requestLongType: ".CreateOrUpdateCollectionRequest",
-    requestFullType: "CreateOrUpdateCollectionRequest",
-    requestStreaming: false,
-    responseType: "CreateOrUpdateCollectionResponse",
-    responseLongType: ".CreateOrUpdateCollectionResponse",
-    responseFullType: "CreateOrUpdateCollectionResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern:
-              "/api/v1/databases/{db}/collections/{collection}/createOrUpdate",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `DropCollection`
+<ProtoServiceMethod key={'DropCollection-9'} method={{"name":"DropCollection","description":"Drop the collection and all its documents in the database passed in the request.","requestType":"DropCollectionRequest","requestLongType":".DropCollectionRequest","requestFullType":"DropCollectionRequest","requestStreaming":false,"responseType":"DropCollectionResponse","responseLongType":".DropCollectionResponse","responseFullType":"DropCollectionResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"DELETE","pattern":"/api/v1/databases/{db}/collections/{collection}/drop","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"DropCollection-9"}
-  method={{
-    name: "DropCollection",
-    description:
-      "Drop the collection and all its documents in the database passed in the request.",
-    requestType: "DropCollectionRequest",
-    requestLongType: ".DropCollectionRequest",
-    requestFullType: "DropCollectionRequest",
-    requestStreaming: false,
-    responseType: "DropCollectionResponse",
-    responseLongType: ".DropCollectionResponse",
-    responseFullType: "DropCollectionResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "DELETE",
-            pattern: "/api/v1/databases/{db}/collections/{collection}/drop",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `ListDatabases`
+<ProtoServiceMethod key={'ListDatabases-10'} method={{"name":"ListDatabases","description":"List returns all the databases.","requestType":"ListDatabasesRequest","requestLongType":".ListDatabasesRequest","requestFullType":"ListDatabasesRequest","requestStreaming":false,"responseType":"ListDatabasesResponse","responseLongType":".ListDatabasesResponse","responseFullType":"ListDatabasesResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"POST","pattern":"/api/v1/databases/list"}]}}}} />
 
-<ProtoServiceMethod
-  key={"ListDatabases-10"}
-  method={{
-    name: "ListDatabases",
-    description: "List returns all the databases.",
-    requestType: "ListDatabasesRequest",
-    requestLongType: ".ListDatabasesRequest",
-    requestFullType: "ListDatabasesRequest",
-    requestStreaming: false,
-    responseType: "ListDatabasesResponse",
-    responseLongType: ".ListDatabasesResponse",
-    responseFullType: "ListDatabasesResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [{ method: "POST", pattern: "/api/v1/databases/list" }],
-      },
-    },
-  }}
-/>
 
 #### `ListCollections`
+<ProtoServiceMethod key={'ListCollections-11'} method={{"name":"ListCollections","description":"List all collections in the database passed in the request.","requestType":"ListCollectionsRequest","requestLongType":".ListCollectionsRequest","requestFullType":"ListCollectionsRequest","requestStreaming":false,"responseType":"ListCollectionsResponse","responseLongType":".ListCollectionsResponse","responseFullType":"ListCollectionsResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"POST","pattern":"/api/v1/databases/{db}/collections/list","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"ListCollections-11"}
-  method={{
-    name: "ListCollections",
-    description: "List all collections in the database passed in the request.",
-    requestType: "ListCollectionsRequest",
-    requestLongType: ".ListCollectionsRequest",
-    requestFullType: "ListCollectionsRequest",
-    requestStreaming: false,
-    responseType: "ListCollectionsResponse",
-    responseLongType: ".ListCollectionsResponse",
-    responseFullType: "ListCollectionsResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/collections/list",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `CreateDatabase`
+<ProtoServiceMethod key={'CreateDatabase-12'} method={{"name":"CreateDatabase","description":"Creates a new database and returns a AlreadyExists error if the database already exists.","requestType":"CreateDatabaseRequest","requestLongType":".CreateDatabaseRequest","requestFullType":"CreateDatabaseRequest","requestStreaming":false,"responseType":"CreateDatabaseResponse","responseLongType":".CreateDatabaseResponse","responseFullType":"CreateDatabaseResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"POST","pattern":"/api/v1/databases/{db}/create","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"CreateDatabase-12"}
-  method={{
-    name: "CreateDatabase",
-    description:
-      "Creates a new database and returns a AlreadyExists error if the database already exists.",
-    requestType: "CreateDatabaseRequest",
-    requestLongType: ".CreateDatabaseRequest",
-    requestFullType: "CreateDatabaseRequest",
-    requestStreaming: false,
-    responseType: "CreateDatabaseResponse",
-    responseLongType: ".CreateDatabaseResponse",
-    responseFullType: "CreateDatabaseResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/create",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `DropDatabase`
+<ProtoServiceMethod key={'DropDatabase-13'} method={{"name":"DropDatabase","description":"Drop database deletes all the collections in the database along with all it documents.","requestType":"DropDatabaseRequest","requestLongType":".DropDatabaseRequest","requestFullType":"DropDatabaseRequest","requestStreaming":false,"responseType":"DropDatabaseResponse","responseLongType":".DropDatabaseResponse","responseFullType":"DropDatabaseResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"DELETE","pattern":"/api/v1/databases/{db}/drop","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"DropDatabase-13"}
-  method={{
-    name: "DropDatabase",
-    description:
-      "Drop database deletes all the collections in the database along with all it documents.",
-    requestType: "DropDatabaseRequest",
-    requestLongType: ".DropDatabaseRequest",
-    requestFullType: "DropDatabaseRequest",
-    requestStreaming: false,
-    responseType: "DropDatabaseResponse",
-    responseLongType: ".DropDatabaseResponse",
-    responseFullType: "DropDatabaseResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "DELETE",
-            pattern: "/api/v1/databases/{db}/drop",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `DescribeDatabase`
+<ProtoServiceMethod key={'DescribeDatabase-14'} method={{"name":"DescribeDatabase","description":"Describe database describes the information related to database along\nwith all the collections inside database.","requestType":"DescribeDatabaseRequest","requestLongType":".DescribeDatabaseRequest","requestFullType":"DescribeDatabaseRequest","requestStreaming":false,"responseType":"DescribeDatabaseResponse","responseLongType":".DescribeDatabaseResponse","responseFullType":"DescribeDatabaseResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"POST","pattern":"/api/v1/databases/{db}/describe","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"DescribeDatabase-14"}
-  method={{
-    name: "DescribeDatabase",
-    description:
-      "Describe database describes the information related to database along\nwith all the collections inside database.",
-    requestType: "DescribeDatabaseRequest",
-    requestLongType: ".DescribeDatabaseRequest",
-    requestFullType: "DescribeDatabaseRequest",
-    requestStreaming: false,
-    responseType: "DescribeDatabaseResponse",
-    responseLongType: ".DescribeDatabaseResponse",
-    responseFullType: "DescribeDatabaseResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/describe",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `DescribeCollection`
+<ProtoServiceMethod key={'DescribeCollection-15'} method={{"name":"DescribeCollection","description":"Describe collection describes the information related to collection.","requestType":"DescribeCollectionRequest","requestLongType":".DescribeCollectionRequest","requestFullType":"DescribeCollectionRequest","requestStreaming":false,"responseType":"DescribeCollectionResponse","responseLongType":".DescribeCollectionResponse","responseFullType":"DescribeCollectionResponse","responseStreaming":false,"options":{"google.api.http":{"rules":[{"method":"POST","pattern":"/api/v1/databases/{db}/collections/{collection}/describe","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"DescribeCollection-15"}
-  method={{
-    name: "DescribeCollection",
-    description:
-      "Describe collection describes the information related to collection.",
-    requestType: "DescribeCollectionRequest",
-    requestLongType: ".DescribeCollectionRequest",
-    requestFullType: "DescribeCollectionRequest",
-    requestStreaming: false,
-    responseType: "DescribeCollectionResponse",
-    responseLongType: ".DescribeCollectionResponse",
-    responseFullType: "DescribeCollectionResponse",
-    responseStreaming: false,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/collections/{collection}/describe",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 #### `Stream`
+<ProtoServiceMethod key={'Stream-16'} method={{"name":"Stream","description":"","requestType":"StreamRequest","requestLongType":".StreamRequest","requestFullType":"StreamRequest","requestStreaming":false,"responseType":"StreamResponse","responseLongType":".StreamResponse","responseFullType":"StreamResponse","responseStreaming":true,"options":{"google.api.http":{"rules":[{"method":"POST","pattern":"/api/v1/databases/{db}/stream","body":"*"}]}}}} />
 
-<ProtoServiceMethod
-  key={"Stream-16"}
-  method={{
-    name: "Stream",
-    description: "",
-    requestType: "StreamRequest",
-    requestLongType: ".StreamRequest",
-    requestFullType: "StreamRequest",
-    requestStreaming: false,
-    responseType: "StreamResponse",
-    responseLongType: ".StreamResponse",
-    responseFullType: "StreamResponse",
-    responseStreaming: true,
-    options: {
-      "google.api.http": {
-        rules: [
-          {
-            method: "POST",
-            pattern: "/api/v1/databases/{db}/stream",
-            body: "*",
-          },
-        ],
-      },
-    },
-  }}
-/>
 
 ---
 
 ## Messages
 
-### `BeginTransactionRequest`
 
-<ProtoMessage
-  key={0}
-  message={{
-    name: "BeginTransactionRequest",
-    longName: "BeginTransactionRequest",
-    fullName: ".BeginTransactionRequest",
-    description: 'Start new transaction in database specified by "db".',
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Database name this transaction belongs to.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "The transaction options.",
-        label: "",
-        type: "TransactionOptions",
-        longType: "TransactionOptions",
-        fullType: "TransactionOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
+### `BeginTransactionRequest`
+<ProtoMessage key={0} message={{"name":"BeginTransactionRequest","longName":"BeginTransactionRequest","fullName":".BeginTransactionRequest","description":"Start new transaction in database specified by \"db\".","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Database name this transaction belongs to.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"options","description":"The transaction options.","label":"","type":"TransactionOptions","longType":"TransactionOptions","fullType":"TransactionOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
+
 
 ### `BeginTransactionResponse`
+<ProtoMessage key={1} message={{"name":"BeginTransactionResponse","longName":"BeginTransactionResponse","fullName":".BeginTransactionResponse","description":"Start transaction returns transaction context\n which uniquely identifies the transaction","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"tx_ctx","description":"Returns a tigris transactional context with details about the transactions.","label":"","type":"TransactionCtx","longType":"TransactionCtx","fullType":"TransactionCtx","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={1}
-  message={{
-    name: "BeginTransactionResponse",
-    longName: "BeginTransactionResponse",
-    fullName: ".BeginTransactionResponse",
-    description:
-      "Start transaction returns transaction context\n which uniquely identifies the transaction",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "tx_ctx",
-        description:
-          "Returns a tigris transactional context with details about the transactions.",
-        label: "",
-        type: "TransactionCtx",
-        longType: "TransactionCtx",
-        fullType: "TransactionCtx",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `CollectionDescription`
+<ProtoMessage key={2} message={{"name":"CollectionDescription","longName":"CollectionDescription","fullName":".CollectionDescription","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"collection","description":"Name of the collection.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"metadata","description":"Metadata about the collection.","label":"","type":"CollectionMetadata","longType":"CollectionMetadata","fullType":"CollectionMetadata","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"schema","description":"Collections schema","label":"","type":"bytes","longType":"bytes","fullType":"bytes","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={2}
-  message={{
-    name: "CollectionDescription",
-    longName: "CollectionDescription",
-    fullName: ".CollectionDescription",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "collection",
-        description: "Name of the collection.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "metadata",
-        description: "Metadata about the collection.",
-        label: "",
-        type: "CollectionMetadata",
-        longType: "CollectionMetadata",
-        fullType: "CollectionMetadata",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "schema",
-        description: "Collections schema",
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `CollectionInfo`
+<ProtoMessage key={3} message={{"name":"CollectionInfo","longName":"CollectionInfo","fullName":".CollectionInfo","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"collection","description":"Collection name.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"metadata","description":"Metadata about the collection.","label":"","type":"CollectionMetadata","longType":"CollectionMetadata","fullType":"CollectionMetadata","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={3}
-  message={{
-    name: "CollectionInfo",
-    longName: "CollectionInfo",
-    fullName: ".CollectionInfo",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "collection",
-        description: "Collection name.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "metadata",
-        description: "Metadata about the collection.",
-        label: "",
-        type: "CollectionMetadata",
-        longType: "CollectionMetadata",
-        fullType: "CollectionMetadata",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `CollectionMetadata`
+<ProtoMessage key={4} message={{"name":"CollectionMetadata","longName":"CollectionMetadata","fullName":".CollectionMetadata","description":"","hasExtensions":false,"hasFields":false,"hasOneofs":false,"extensions":[],"fields":[]}} />
 
-<ProtoMessage
-  key={4}
-  message={{
-    name: "CollectionMetadata",
-    longName: "CollectionMetadata",
-    fullName: ".CollectionMetadata",
-    description: "",
-    hasExtensions: false,
-    hasFields: false,
-    hasOneofs: false,
-    extensions: [],
-    fields: [],
-  }}
-/>
 
 ### `CollectionOptions`
+<ProtoMessage key={5} message={{"name":"CollectionOptions","longName":"CollectionOptions","fullName":".CollectionOptions","description":"Collection requests modifying options.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"tx_ctx","description":"Perform operation in the context of this transaction.","label":"","type":"TransactionCtx","longType":"TransactionCtx","fullType":"TransactionCtx","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={5}
-  message={{
-    name: "CollectionOptions",
-    longName: "CollectionOptions",
-    fullName: ".CollectionOptions",
-    description: "Collection requests modifying options.",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "tx_ctx",
-        description: "Perform operation in the context of this transaction.",
-        label: "",
-        type: "TransactionCtx",
-        longType: "TransactionCtx",
-        fullType: "TransactionCtx",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `CommitTransactionRequest`
+<ProtoMessage key={6} message={{"name":"CommitTransactionRequest","longName":"CommitTransactionRequest","fullName":".CommitTransactionRequest","description":"Commit transaction with the given ID","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Database name this transaction belongs to.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"tx_ctx","description":"Tigris transactional context with details about the transactions.","label":"","type":"TransactionCtx","longType":"TransactionCtx","fullType":"TransactionCtx","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={6}
-  message={{
-    name: "CommitTransactionRequest",
-    longName: "CommitTransactionRequest",
-    fullName: ".CommitTransactionRequest",
-    description: "Commit transaction with the given ID",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Database name this transaction belongs to.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "tx_ctx",
-        description:
-          "Tigris transactional context with details about the transactions.",
-        label: "",
-        type: "TransactionCtx",
-        longType: "TransactionCtx",
-        fullType: "TransactionCtx",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `CommitTransactionResponse`
+<ProtoMessage key={7} message={{"name":"CommitTransactionResponse","longName":"CommitTransactionResponse","fullName":".CommitTransactionResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"status","description":"Status of commit transaction operation.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={7}
-  message={{
-    name: "CommitTransactionResponse",
-    longName: "CommitTransactionResponse",
-    fullName: ".CommitTransactionResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "status",
-        description: "Status of commit transaction operation.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `CreateDatabaseRequest`
+<ProtoMessage key={8} message={{"name":"CreateDatabaseRequest","longName":"CreateDatabaseRequest","fullName":".CreateDatabaseRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Create database with this name.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"options","description":"","label":"","type":"DatabaseOptions","longType":"DatabaseOptions","fullType":"DatabaseOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={8}
-  message={{
-    name: "CreateDatabaseRequest",
-    longName: "CreateDatabaseRequest",
-    fullName: ".CreateDatabaseRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Create database with this name.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "",
-        label: "",
-        type: "DatabaseOptions",
-        longType: "DatabaseOptions",
-        fullType: "DatabaseOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `CreateDatabaseResponse`
+<ProtoMessage key={9} message={{"name":"CreateDatabaseResponse","longName":"CreateDatabaseResponse","fullName":".CreateDatabaseResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"message","description":"A detailed response message.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"An enum with value set as \"created\".","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={9}
-  message={{
-    name: "CreateDatabaseResponse",
-    longName: "CreateDatabaseResponse",
-    fullName: ".CreateDatabaseResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "message",
-        description: "A detailed response message.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "status",
-        description: 'An enum with value set as "created".',
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `CreateOrUpdateCollectionRequest`
+<ProtoMessage key={10} message={{"name":"CreateOrUpdateCollectionRequest","longName":"CreateOrUpdateCollectionRequest","fullName":".CreateOrUpdateCollectionRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Database name where to create collection.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"collection","description":"Collection name to create.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"schema","description":"Schema of the documents in this collection. The schema specifications are same as\nJSON schema specification defined <a href=\"https://json-schema.org/specification.html\" title=\"here\">here</a>.\n<p></p>The following is an schema example:\n`{\n \"name\": \"user\",\n \"description\": \"Collection of documents with details of users\",\n \"properties\": {\n   \"id\": {\n     \"description\": \"A unique identifier for the user\",\n     \"type\": \"integer\"\n   },\n   \"name\": {\n     \"description\": \"Name of the user\",\n     \"type\": \"string\",\n     \"maxLength\": 100\n   },\n   \"balance\": {\n     \"description\": \"User account balance\",\n     \"type\": \"number\"\n   }\n },\n \"primary_key\": [\"id\"]\n}`","label":"","type":"bytes","longType":"bytes","fullType":"bytes","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"only_create","description":"","label":"","type":"bool","longType":"bool","fullType":"bool","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"options","description":"","label":"","type":"CollectionOptions","longType":"CollectionOptions","fullType":"CollectionOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={10}
-  message={{
-    name: "CreateOrUpdateCollectionRequest",
-    longName: "CreateOrUpdateCollectionRequest",
-    fullName: ".CreateOrUpdateCollectionRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Database name where to create collection.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "collection",
-        description: "Collection name to create.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "schema",
-        description:
-          'Schema of the documents in this collection. The schema specifications are same as\nJSON schema specification defined <a href="https://json-schema.org/specification.html" title="here">here</a>.\n<p></p>The following is an schema example:\n`{\n "name": "user",\n "description": "Collection of documents with details of users",\n "properties": {\n   "id": {\n     "description": "A unique identifier for the user",\n     "type": "integer"\n   },\n   "name": {\n     "description": "Name of the user",\n     "type": "string",\n     "maxLength": 100\n   },\n   "balance": {\n     "description": "User account balance",\n     "type": "number"\n   }\n },\n "primary_key": ["id"]\n}`',
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "only_create",
-        description: "",
-        label: "",
-        type: "bool",
-        longType: "bool",
-        fullType: "bool",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "",
-        label: "",
-        type: "CollectionOptions",
-        longType: "CollectionOptions",
-        fullType: "CollectionOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `CreateOrUpdateCollectionResponse`
+<ProtoMessage key={11} message={{"name":"CreateOrUpdateCollectionResponse","longName":"CreateOrUpdateCollectionResponse","fullName":".CreateOrUpdateCollectionResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"message","description":"A detailed response message.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"An enum with value set as \"created\" or \"updated\"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={11}
-  message={{
-    name: "CreateOrUpdateCollectionResponse",
-    longName: "CreateOrUpdateCollectionResponse",
-    fullName: ".CreateOrUpdateCollectionResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "message",
-        description: "A detailed response message.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "status",
-        description: 'An enum with value set as "created" or "updated"',
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `DatabaseDescription`
+<ProtoMessage key={12} message={{"name":"DatabaseDescription","longName":"DatabaseDescription","fullName":".DatabaseDescription","description":"","hasExtensions":false,"hasFields":false,"hasOneofs":false,"extensions":[],"fields":[]}} />
 
-<ProtoMessage
-  key={12}
-  message={{
-    name: "DatabaseDescription",
-    longName: "DatabaseDescription",
-    fullName: ".DatabaseDescription",
-    description: "",
-    hasExtensions: false,
-    hasFields: false,
-    hasOneofs: false,
-    extensions: [],
-    fields: [],
-  }}
-/>
 
 ### `DatabaseInfo`
+<ProtoMessage key={13} message={{"name":"DatabaseInfo","longName":"DatabaseInfo","fullName":".DatabaseInfo","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Database name.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"metadata","description":"Metadata about the database. (ex. ...)","label":"","type":"DatabaseMetadata","longType":"DatabaseMetadata","fullType":"DatabaseMetadata","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={13}
-  message={{
-    name: "DatabaseInfo",
-    longName: "DatabaseInfo",
-    fullName: ".DatabaseInfo",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Database name.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "metadata",
-        description: "Metadata about the database. (ex. ...)",
-        label: "",
-        type: "DatabaseMetadata",
-        longType: "DatabaseMetadata",
-        fullType: "DatabaseMetadata",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `DatabaseMetadata`
+<ProtoMessage key={14} message={{"name":"DatabaseMetadata","longName":"DatabaseMetadata","fullName":".DatabaseMetadata","description":"","hasExtensions":false,"hasFields":false,"hasOneofs":false,"extensions":[],"fields":[]}} />
 
-<ProtoMessage
-  key={14}
-  message={{
-    name: "DatabaseMetadata",
-    longName: "DatabaseMetadata",
-    fullName: ".DatabaseMetadata",
-    description: "",
-    hasExtensions: false,
-    hasFields: false,
-    hasOneofs: false,
-    extensions: [],
-    fields: [],
-  }}
-/>
 
 ### `DatabaseOptions`
+<ProtoMessage key={15} message={{"name":"DatabaseOptions","longName":"DatabaseOptions","fullName":".DatabaseOptions","description":"Database requests modifying options.","hasExtensions":false,"hasFields":false,"hasOneofs":false,"extensions":[],"fields":[]}} />
 
-<ProtoMessage
-  key={15}
-  message={{
-    name: "DatabaseOptions",
-    longName: "DatabaseOptions",
-    fullName: ".DatabaseOptions",
-    description: "Database requests modifying options.",
-    hasExtensions: false,
-    hasFields: false,
-    hasOneofs: false,
-    extensions: [],
-    fields: [],
-  }}
-/>
 
 ### `DeleteRequest`
+<ProtoMessage key={16} message={{"name":"DeleteRequest","longName":"DeleteRequest","fullName":".DeleteRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Database name where to insert documents.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"collection","description":"Collection name where to insert documents.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"filter","description":"Delete documents which matching specified filter.\nA filter can simply be key, value where key\nis the field name and value would be the value for this field. Or a filter can be logical where\ntwo or more fields can be logically joined using $or and $and. A few examples of filter:\n<li> To delete a user document where the id has a value 1: ```{\"id\": 1 }```\n<li> To delete all the user documents where the key \"id\" has a value 1 or 2 or 3: `{\"$or\": [{\"id\": 1}, {\"id\": 2}, {\"id\": 3}]}`","label":"","type":"bytes","longType":"bytes","fullType":"bytes","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"options","description":"","label":"","type":"DeleteRequestOptions","longType":"DeleteRequestOptions","fullType":"DeleteRequestOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={16}
-  message={{
-    name: "DeleteRequest",
-    longName: "DeleteRequest",
-    fullName: ".DeleteRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Database name where to insert documents.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "collection",
-        description: "Collection name where to insert documents.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "filter",
-        description:
-          'Delete documents which matching specified filter.\nA filter can simply be key, value where key\nis the field name and value would be the value for this field. Or a filter can be logical where\ntwo or more fields can be logically joined using $or and $and. A few examples of filter:\n<li> To delete a user document where the id has a value 1: ```{"id": 1 }```\n<li> To delete all the user documents where the key "id" has a value 1 or 2 or 3: `{"$or": [{"id": 1}, {"id": 2}, {"id": 3}]}`',
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "",
-        label: "",
-        type: "DeleteRequestOptions",
-        longType: "DeleteRequestOptions",
-        fullType: "DeleteRequestOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `DeleteRequestOptions`
+<ProtoMessage key={17} message={{"name":"DeleteRequestOptions","longName":"DeleteRequestOptions","fullName":".DeleteRequestOptions","description":"Additional options for deleted requests.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"write_options","description":"","label":"","type":"WriteOptions","longType":"WriteOptions","fullType":"WriteOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={17}
-  message={{
-    name: "DeleteRequestOptions",
-    longName: "DeleteRequestOptions",
-    fullName: ".DeleteRequestOptions",
-    description: "Additional options for deleted requests.",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "write_options",
-        description: "",
-        label: "",
-        type: "WriteOptions",
-        longType: "WriteOptions",
-        fullType: "WriteOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `DeleteResponse`
+<ProtoMessage key={18} message={{"name":"DeleteResponse","longName":"DeleteResponse","fullName":".DeleteResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"metadata","description":"Has metadata related to the documents stored.","label":"","type":"ResponseMetadata","longType":"ResponseMetadata","fullType":"ResponseMetadata","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"an enum with value set as \"deleted\"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={18}
-  message={{
-    name: "DeleteResponse",
-    longName: "DeleteResponse",
-    fullName: ".DeleteResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "metadata",
-        description: "Has metadata related to the documents stored.",
-        label: "",
-        type: "ResponseMetadata",
-        longType: "ResponseMetadata",
-        fullType: "ResponseMetadata",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "status",
-        description: 'an enum with value set as "deleted"',
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `DescribeCollectionRequest`
+<ProtoMessage key={19} message={{"name":"DescribeCollectionRequest","longName":"DescribeCollectionRequest","fullName":".DescribeCollectionRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Name of the database.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"collection","description":"Name of the collection.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"options","description":"Collection options.","label":"","type":"CollectionOptions","longType":"CollectionOptions","fullType":"CollectionOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={19}
-  message={{
-    name: "DescribeCollectionRequest",
-    longName: "DescribeCollectionRequest",
-    fullName: ".DescribeCollectionRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Name of the database.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "collection",
-        description: "Name of the collection.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "Collection options.",
-        label: "",
-        type: "CollectionOptions",
-        longType: "CollectionOptions",
-        fullType: "CollectionOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `DescribeCollectionResponse`
+<ProtoMessage key={20} message={{"name":"DescribeCollectionResponse","longName":"DescribeCollectionResponse","fullName":".DescribeCollectionResponse","description":"A detailed description about the collection.\nThe description returns collection metadata and the schema.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"collection","description":"Name of the collection.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"metadata","description":"Metadata about the collection.","label":"","type":"CollectionMetadata","longType":"CollectionMetadata","fullType":"CollectionMetadata","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"schema","description":"Collections schema","label":"","type":"bytes","longType":"bytes","fullType":"bytes","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={20}
-  message={{
-    name: "DescribeCollectionResponse",
-    longName: "DescribeCollectionResponse",
-    fullName: ".DescribeCollectionResponse",
-    description:
-      "A detailed description about the collection.\nThe description returns collection metadata and the schema.",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "collection",
-        description: "Name of the collection.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "metadata",
-        description: "Metadata about the collection.",
-        label: "",
-        type: "CollectionMetadata",
-        longType: "CollectionMetadata",
-        fullType: "CollectionMetadata",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "schema",
-        description: "Collections schema",
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `DescribeDatabaseRequest`
+<ProtoMessage key={21} message={{"name":"DescribeDatabaseRequest","longName":"DescribeDatabaseRequest","fullName":".DescribeDatabaseRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Name of the database.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={21}
-  message={{
-    name: "DescribeDatabaseRequest",
-    longName: "DescribeDatabaseRequest",
-    fullName: ".DescribeDatabaseRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Name of the database.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `DescribeDatabaseResponse`
+<ProtoMessage key={22} message={{"name":"DescribeDatabaseResponse","longName":"DescribeDatabaseResponse","fullName":".DescribeDatabaseResponse","description":"A detailed description about the database and all associated collections.\nDescription of the collection includes schema details as well.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Name of the database.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"metadata","description":"Metadata about the database.","label":"","type":"DatabaseMetadata","longType":"DatabaseMetadata","fullType":"DatabaseMetadata","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"collections","description":"A detailed description about all the collections.\nThe description returns collection metadata and the schema.","label":"repeated","type":"CollectionDescription","longType":"CollectionDescription","fullType":"CollectionDescription","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={22}
-  message={{
-    name: "DescribeDatabaseResponse",
-    longName: "DescribeDatabaseResponse",
-    fullName: ".DescribeDatabaseResponse",
-    description:
-      "A detailed description about the database and all associated collections.\nDescription of the collection includes schema details as well.",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Name of the database.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "metadata",
-        description: "Metadata about the database.",
-        label: "",
-        type: "DatabaseMetadata",
-        longType: "DatabaseMetadata",
-        fullType: "DatabaseMetadata",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "collections",
-        description:
-          "A detailed description about all the collections.\nThe description returns collection metadata and the schema.",
-        label: "repeated",
-        type: "CollectionDescription",
-        longType: "CollectionDescription",
-        fullType: "CollectionDescription",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `DropCollectionRequest`
+<ProtoMessage key={23} message={{"name":"DropCollectionRequest","longName":"DropCollectionRequest","fullName":".DropCollectionRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Database name of the collection.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"collection","description":"Collection name to drop.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"options","description":"","label":"","type":"CollectionOptions","longType":"CollectionOptions","fullType":"CollectionOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={23}
-  message={{
-    name: "DropCollectionRequest",
-    longName: "DropCollectionRequest",
-    fullName: ".DropCollectionRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Database name of the collection.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "collection",
-        description: "Collection name to drop.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "",
-        label: "",
-        type: "CollectionOptions",
-        longType: "CollectionOptions",
-        fullType: "CollectionOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `DropCollectionResponse`
+<ProtoMessage key={24} message={{"name":"DropCollectionResponse","longName":"DropCollectionResponse","fullName":".DropCollectionResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"message","description":"A detailed response message.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"An enum with value set as \"dropped\".","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={24}
-  message={{
-    name: "DropCollectionResponse",
-    longName: "DropCollectionResponse",
-    fullName: ".DropCollectionResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "message",
-        description: "A detailed response message.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "status",
-        description: 'An enum with value set as "dropped".',
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `DropDatabaseRequest`
+<ProtoMessage key={25} message={{"name":"DropDatabaseRequest","longName":"DropDatabaseRequest","fullName":".DropDatabaseRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Drop database with this name. **Note**: Deletes all the collections in the database.\nUse with caution.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"options","description":"","label":"","type":"DatabaseOptions","longType":"DatabaseOptions","fullType":"DatabaseOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={25}
-  message={{
-    name: "DropDatabaseRequest",
-    longName: "DropDatabaseRequest",
-    fullName: ".DropDatabaseRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description:
-          "Drop database with this name. **Note**: Deletes all the collections in the database.\nUse with caution.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "",
-        label: "",
-        type: "DatabaseOptions",
-        longType: "DatabaseOptions",
-        fullType: "DatabaseOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `DropDatabaseResponse`
+<ProtoMessage key={26} message={{"name":"DropDatabaseResponse","longName":"DropDatabaseResponse","fullName":".DropDatabaseResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"message","description":"A detailed response message.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"An enum with value set as \"dropped\".","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={26}
-  message={{
-    name: "DropDatabaseResponse",
-    longName: "DropDatabaseResponse",
-    fullName: ".DropDatabaseResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "message",
-        description: "A detailed response message.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "status",
-        description: 'An enum with value set as "dropped".',
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `ErrorDetails`
+<ProtoMessage key={27} message={{"name":"ErrorDetails","longName":"ErrorDetails","fullName":".ErrorDetails","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"code","description":"","label":"","type":"uint32","longType":"uint32","fullType":"uint32","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"msg","description":"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={27}
-  message={{
-    name: "ErrorDetails",
-    longName: "ErrorDetails",
-    fullName: ".ErrorDetails",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "code",
-        description: "",
-        label: "",
-        type: "uint32",
-        longType: "uint32",
-        fullType: "uint32",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "msg",
-        description: "",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `InsertRequest`
+<ProtoMessage key={28} message={{"name":"InsertRequest","longName":"InsertRequest","fullName":".InsertRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Database name where to insert documents.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"collection","description":"Collection name where to insert documents.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"documents","description":"Array of documents to insert. Each document is a JSON object.","label":"repeated","type":"bytes","longType":"bytes","fullType":"bytes","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"options","description":"","label":"","type":"InsertRequestOptions","longType":"InsertRequestOptions","fullType":"InsertRequestOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={28}
-  message={{
-    name: "InsertRequest",
-    longName: "InsertRequest",
-    fullName: ".InsertRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Database name where to insert documents.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "collection",
-        description: "Collection name where to insert documents.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "documents",
-        description:
-          "Array of documents to insert. Each document is a JSON object.",
-        label: "repeated",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "",
-        label: "",
-        type: "InsertRequestOptions",
-        longType: "InsertRequestOptions",
-        fullType: "InsertRequestOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `InsertRequestOptions`
+<ProtoMessage key={29} message={{"name":"InsertRequestOptions","longName":"InsertRequestOptions","fullName":".InsertRequestOptions","description":"additional options for insert requests.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"write_options","description":"","label":"","type":"WriteOptions","longType":"WriteOptions","fullType":"WriteOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={29}
-  message={{
-    name: "InsertRequestOptions",
-    longName: "InsertRequestOptions",
-    fullName: ".InsertRequestOptions",
-    description: "additional options for insert requests.",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "write_options",
-        description: "",
-        label: "",
-        type: "WriteOptions",
-        longType: "WriteOptions",
-        fullType: "WriteOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `InsertResponse`
+<ProtoMessage key={30} message={{"name":"InsertResponse","longName":"InsertResponse","fullName":".InsertResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"metadata","description":"Has metadata related to the documents stored.","label":"","type":"ResponseMetadata","longType":"ResponseMetadata","fullType":"ResponseMetadata","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"An enum with value set as \"inserted\"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={30}
-  message={{
-    name: "InsertResponse",
-    longName: "InsertResponse",
-    fullName: ".InsertResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "metadata",
-        description: "Has metadata related to the documents stored.",
-        label: "",
-        type: "ResponseMetadata",
-        longType: "ResponseMetadata",
-        fullType: "ResponseMetadata",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "status",
-        description: 'An enum with value set as "inserted"',
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `ListCollectionsRequest`
+<ProtoMessage key={31} message={{"name":"ListCollectionsRequest","longName":"ListCollectionsRequest","fullName":".ListCollectionsRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"List collection in this database.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"options","description":"","label":"","type":"CollectionOptions","longType":"CollectionOptions","fullType":"CollectionOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={31}
-  message={{
-    name: "ListCollectionsRequest",
-    longName: "ListCollectionsRequest",
-    fullName: ".ListCollectionsRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "List collection in this database.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "",
-        label: "",
-        type: "CollectionOptions",
-        longType: "CollectionOptions",
-        fullType: "CollectionOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `ListCollectionsResponse`
+<ProtoMessage key={32} message={{"name":"ListCollectionsResponse","longName":"ListCollectionsResponse","fullName":".ListCollectionsResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Name of the database.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"collections","description":"List of the collections info in the database.","label":"repeated","type":"CollectionInfo","longType":"CollectionInfo","fullType":"CollectionInfo","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={32}
-  message={{
-    name: "ListCollectionsResponse",
-    longName: "ListCollectionsResponse",
-    fullName: ".ListCollectionsResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Name of the database.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "collections",
-        description: "List of the collections info in the database.",
-        label: "repeated",
-        type: "CollectionInfo",
-        longType: "CollectionInfo",
-        fullType: "CollectionInfo",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `ListDatabasesRequest`
+<ProtoMessage key={33} message={{"name":"ListDatabasesRequest","longName":"ListDatabasesRequest","fullName":".ListDatabasesRequest","description":"","hasExtensions":false,"hasFields":false,"hasOneofs":false,"extensions":[],"fields":[]}} />
 
-<ProtoMessage
-  key={33}
-  message={{
-    name: "ListDatabasesRequest",
-    longName: "ListDatabasesRequest",
-    fullName: ".ListDatabasesRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: false,
-    hasOneofs: false,
-    extensions: [],
-    fields: [],
-  }}
-/>
 
 ### `ListDatabasesResponse`
+<ProtoMessage key={34} message={{"name":"ListDatabasesResponse","longName":"ListDatabasesResponse","fullName":".ListDatabasesResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"databases","description":"List of the databases.","label":"repeated","type":"DatabaseInfo","longType":"DatabaseInfo","fullType":"DatabaseInfo","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={34}
-  message={{
-    name: "ListDatabasesResponse",
-    longName: "ListDatabasesResponse",
-    fullName: ".ListDatabasesResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "databases",
-        description: "List of the databases.",
-        label: "repeated",
-        type: "DatabaseInfo",
-        longType: "DatabaseInfo",
-        fullType: "DatabaseInfo",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `ReadRequest`
+<ProtoMessage key={35} message={{"name":"ReadRequest","longName":"ReadRequest","fullName":".ReadRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Database name to read documents from.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"collection","description":"Collection name to read documents from.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"filter","description":"Returns documents matching this filter.\nA filter can simply be key, value where key\nis the field name and value would be the value for this field. Or a filter can be logical where\ntwo or more fields can be logically joined using $or and $and. A few examples of filter:\n<li> To read a user document where the id has a value 1: ```{\"id\": 1 }```\n<li> To read all the user documents where the key \"id\" has a value 1 or 2 or 3: `{\"$or\": [{\"id\": 1}, {\"id\": 2}, {\"id\": 3}]}`","label":"","type":"bytes","longType":"bytes","fullType":"bytes","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"fields","description":"To read specific fields from a document. Default is all.","label":"","type":"bytes","longType":"bytes","fullType":"bytes","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"options","description":"Options that can be used to modify the results, for example \"limit\" to control the number of documents\nreturned by the server.","label":"","type":"ReadRequestOptions","longType":"ReadRequestOptions","fullType":"ReadRequestOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={35}
-  message={{
-    name: "ReadRequest",
-    longName: "ReadRequest",
-    fullName: ".ReadRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Database name to read documents from.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "collection",
-        description: "Collection name to read documents from.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "filter",
-        description:
-          'Returns documents matching this filter.\nA filter can simply be key, value where key\nis the field name and value would be the value for this field. Or a filter can be logical where\ntwo or more fields can be logically joined using $or and $and. A few examples of filter:\n<li> To read a user document where the id has a value 1: ```{"id": 1 }```\n<li> To read all the user documents where the key "id" has a value 1 or 2 or 3: `{"$or": [{"id": 1}, {"id": 2}, {"id": 3}]}`',
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "fields",
-        description: "To read specific fields from a document. Default is all.",
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description:
-          'Options that can be used to modify the results, for example "limit" to control the number of documents\nreturned by the server.',
-        label: "",
-        type: "ReadRequestOptions",
-        longType: "ReadRequestOptions",
-        fullType: "ReadRequestOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `ReadRequestOptions`
+<ProtoMessage key={36} message={{"name":"ReadRequestOptions","longName":"ReadRequestOptions","fullName":".ReadRequestOptions","description":"Options that can be used to modify the results, for example \"limit\" to control the number of documents\nreturned by the server.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"tx_ctx","description":"Perform operation in the context of this transaction.","label":"","type":"TransactionCtx","longType":"TransactionCtx","fullType":"TransactionCtx","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"limit","description":"Limit the number of documents returned by the read operation.","label":"","type":"int64","longType":"int64","fullType":"int64","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"skip","description":"Number of documents to skip before starting to return resulting documents.","label":"","type":"int64","longType":"int64","fullType":"int64","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"offset","description":"A cursor for use in pagination. The next streams will return documents after this offset.","label":"","type":"bytes","longType":"bytes","fullType":"bytes","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={36}
-  message={{
-    name: "ReadRequestOptions",
-    longName: "ReadRequestOptions",
-    fullName: ".ReadRequestOptions",
-    description:
-      'Options that can be used to modify the results, for example "limit" to control the number of documents\nreturned by the server.',
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "tx_ctx",
-        description: "Perform operation in the context of this transaction.",
-        label: "",
-        type: "TransactionCtx",
-        longType: "TransactionCtx",
-        fullType: "TransactionCtx",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "limit",
-        description:
-          "Limit the number of documents returned by the read operation.",
-        label: "",
-        type: "int64",
-        longType: "int64",
-        fullType: "int64",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "skip",
-        description:
-          "Number of documents to skip before starting to return resulting documents.",
-        label: "",
-        type: "int64",
-        longType: "int64",
-        fullType: "int64",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "offset",
-        description:
-          "A cursor for use in pagination. The next streams will return documents after this offset.",
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `ReadResponse`
+<ProtoMessage key={37} message={{"name":"ReadResponse","longName":"ReadResponse","fullName":".ReadResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"data","description":"Object containing the collection document.","label":"","type":"bytes","longType":"bytes","fullType":"bytes","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"resume_token","description":"An internal key, used for pagination.","label":"","type":"bytes","longType":"bytes","fullType":"bytes","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"metadata","description":"Has metadata related to the documents stored.","label":"","type":"ResponseMetadata","longType":"ResponseMetadata","fullType":"ResponseMetadata","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={37}
-  message={{
-    name: "ReadResponse",
-    longName: "ReadResponse",
-    fullName: ".ReadResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "data",
-        description: "Object containing the collection document.",
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "resume_token",
-        description: "An internal key, used for pagination.",
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "metadata",
-        description: "Has metadata related to the documents stored.",
-        label: "",
-        type: "ResponseMetadata",
-        longType: "ResponseMetadata",
-        fullType: "ResponseMetadata",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `ReplaceRequest`
+<ProtoMessage key={38} message={{"name":"ReplaceRequest","longName":"ReplaceRequest","fullName":".ReplaceRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Database name where to replace documents.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"collection","description":"Collection name where to replace documents.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"documents","description":"Array of documents to be replaced. Each document is a JSON object.","label":"repeated","type":"bytes","longType":"bytes","fullType":"bytes","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"options","description":"","label":"","type":"ReplaceRequestOptions","longType":"ReplaceRequestOptions","fullType":"ReplaceRequestOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={38}
-  message={{
-    name: "ReplaceRequest",
-    longName: "ReplaceRequest",
-    fullName: ".ReplaceRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Database name where to replace documents.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "collection",
-        description: "Collection name where to replace documents.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "documents",
-        description:
-          "Array of documents to be replaced. Each document is a JSON object.",
-        label: "repeated",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "",
-        label: "",
-        type: "ReplaceRequestOptions",
-        longType: "ReplaceRequestOptions",
-        fullType: "ReplaceRequestOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `ReplaceRequestOptions`
+<ProtoMessage key={39} message={{"name":"ReplaceRequestOptions","longName":"ReplaceRequestOptions","fullName":".ReplaceRequestOptions","description":"Additional options for replace requests.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"write_options","description":"","label":"","type":"WriteOptions","longType":"WriteOptions","fullType":"WriteOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={39}
-  message={{
-    name: "ReplaceRequestOptions",
-    longName: "ReplaceRequestOptions",
-    fullName: ".ReplaceRequestOptions",
-    description: "Additional options for replace requests.",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "write_options",
-        description: "",
-        label: "",
-        type: "WriteOptions",
-        longType: "WriteOptions",
-        fullType: "WriteOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `ReplaceResponse`
+<ProtoMessage key={40} message={{"name":"ReplaceResponse","longName":"ReplaceResponse","fullName":".ReplaceResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"metadata","description":"Has metadata related to the documents stored.","label":"","type":"ResponseMetadata","longType":"ResponseMetadata","fullType":"ResponseMetadata","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"an enum with value set as \"replaced\"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={40}
-  message={{
-    name: "ReplaceResponse",
-    longName: "ReplaceResponse",
-    fullName: ".ReplaceResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "metadata",
-        description: "Has metadata related to the documents stored.",
-        label: "",
-        type: "ResponseMetadata",
-        longType: "ResponseMetadata",
-        fullType: "ResponseMetadata",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "status",
-        description: 'an enum with value set as "replaced"',
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `ResponseMetadata`
+<ProtoMessage key={41} message={{"name":"ResponseMetadata","longName":"ResponseMetadata","fullName":".ResponseMetadata","description":"Has metadata related to the documents stored.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"created_at","description":"Time at which the document was inserted/replaced. Measured in nano-seconds since the Unix epoch.","label":"","type":"Timestamp","longType":"google.protobuf.Timestamp","fullType":"google.protobuf.Timestamp","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"updated_at","description":"Time at which the document was updated. Measured in nano-seconds since the Unix epoch.","label":"","type":"Timestamp","longType":"google.protobuf.Timestamp","fullType":"google.protobuf.Timestamp","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={41}
-  message={{
-    name: "ResponseMetadata",
-    longName: "ResponseMetadata",
-    fullName: ".ResponseMetadata",
-    description: "Has metadata related to the documents stored.",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "created_at",
-        description:
-          "Time at which the document was inserted/replaced. Measured in nano-seconds since the Unix epoch.",
-        label: "",
-        type: "Timestamp",
-        longType: "google.protobuf.Timestamp",
-        fullType: "google.protobuf.Timestamp",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "updated_at",
-        description:
-          "Time at which the document was updated. Measured in nano-seconds since the Unix epoch.",
-        label: "",
-        type: "Timestamp",
-        longType: "google.protobuf.Timestamp",
-        fullType: "google.protobuf.Timestamp",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `RollbackTransactionRequest`
+<ProtoMessage key={42} message={{"name":"RollbackTransactionRequest","longName":"RollbackTransactionRequest","fullName":".RollbackTransactionRequest","description":"Rollback transaction with the given ID","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Database name this transaction belongs to.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"tx_ctx","description":"Tigris transactional context with details about the transactions.","label":"","type":"TransactionCtx","longType":"TransactionCtx","fullType":"TransactionCtx","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={42}
-  message={{
-    name: "RollbackTransactionRequest",
-    longName: "RollbackTransactionRequest",
-    fullName: ".RollbackTransactionRequest",
-    description: "Rollback transaction with the given ID",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Database name this transaction belongs to.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "tx_ctx",
-        description:
-          "Tigris transactional context with details about the transactions.",
-        label: "",
-        type: "TransactionCtx",
-        longType: "TransactionCtx",
-        fullType: "TransactionCtx",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `RollbackTransactionResponse`
+<ProtoMessage key={43} message={{"name":"RollbackTransactionResponse","longName":"RollbackTransactionResponse","fullName":".RollbackTransactionResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"status","description":"Status of rollback transaction operation.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={43}
-  message={{
-    name: "RollbackTransactionResponse",
-    longName: "RollbackTransactionResponse",
-    fullName: ".RollbackTransactionResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "status",
-        description: "Status of rollback transaction operation.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `StreamChange`
+<ProtoMessage key={44} message={{"name":"StreamChange","longName":"StreamChange","fullName":".StreamChange","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"collection_name","description":"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"data","description":"","label":"","type":"bytes","longType":"bytes","fullType":"bytes","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={44}
-  message={{
-    name: "StreamChange",
-    longName: "StreamChange",
-    fullName: ".StreamChange",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "collection_name",
-        description: "",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "data",
-        description: "",
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `StreamRequest`
+<ProtoMessage key={45} message={{"name":"StreamRequest","longName":"StreamRequest","fullName":".StreamRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={45}
-  message={{
-    name: "StreamRequest",
-    longName: "StreamRequest",
-    fullName: ".StreamRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `StreamResponse`
+<ProtoMessage key={46} message={{"name":"StreamResponse","longName":"StreamResponse","fullName":".StreamResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"changes","description":"","label":"repeated","type":"StreamChange","longType":"StreamChange","fullType":"StreamChange","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={46}
-  message={{
-    name: "StreamResponse",
-    longName: "StreamResponse",
-    fullName: ".StreamResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "changes",
-        description: "",
-        label: "repeated",
-        type: "StreamChange",
-        longType: "StreamChange",
-        fullType: "StreamChange",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `TransactionCtx`
+<ProtoMessage key={47} message={{"name":"TransactionCtx","longName":"TransactionCtx","fullName":".TransactionCtx","description":"Contains ID which uniquely identifies transaction\nThis context is returned by BeginTransaction request and\nshould be passed in the subsequent requests in order to run\nthem in the context of the same transaction.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"id","description":"Unique for a single transactional request.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"origin","description":"Serves as an internal identifier.","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={47}
-  message={{
-    name: "TransactionCtx",
-    longName: "TransactionCtx",
-    fullName: ".TransactionCtx",
-    description:
-      "Contains ID which uniquely identifies transaction\nThis context is returned by BeginTransaction request and\nshould be passed in the subsequent requests in order to run\nthem in the context of the same transaction.",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "id",
-        description: "Unique for a single transactional request.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "origin",
-        description: "Serves as an internal identifier.",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `TransactionOptions`
+<ProtoMessage key={48} message={{"name":"TransactionOptions","longName":"TransactionOptions","fullName":".TransactionOptions","description":"Options that can be used to modify the transaction semantics.","hasExtensions":false,"hasFields":false,"hasOneofs":false,"extensions":[],"fields":[]}} />
 
-<ProtoMessage
-  key={48}
-  message={{
-    name: "TransactionOptions",
-    longName: "TransactionOptions",
-    fullName: ".TransactionOptions",
-    description:
-      "Options that can be used to modify the transaction semantics.",
-    hasExtensions: false,
-    hasFields: false,
-    hasOneofs: false,
-    extensions: [],
-    fields: [],
-  }}
-/>
 
 ### `UpdateRequest`
+<ProtoMessage key={49} message={{"name":"UpdateRequest","longName":"UpdateRequest","fullName":".UpdateRequest","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"db","description":"Database name where to update documents","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"collection","description":"Collection name where to update documents","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"fields","description":"Fields contains set of fields\nwith the values which need to be updated.\nShould be proper JSON object.","label":"","type":"bytes","longType":"bytes","fullType":"bytes","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"filter","description":"Update documents which matching specified filter.\nA filter can simply be key, value where key\nis the field name and value would be the value for this field. Or a filter can be logical where\ntwo or more fields can be logically joined using $or and $and. A few examples of filter:\n<li> To update a user document where the id has a value 1: ```{\"id\": 1 }```\n<li> To update all the user documents where the key \"id\" has a value 1 or 2 or 3: `{\"$or\": [{\"id\": 1}, {\"id\": 2}, {\"id\": 3}]}`","label":"","type":"bytes","longType":"bytes","fullType":"bytes","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"options","description":"","label":"","type":"UpdateRequestOptions","longType":"UpdateRequestOptions","fullType":"UpdateRequestOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={49}
-  message={{
-    name: "UpdateRequest",
-    longName: "UpdateRequest",
-    fullName: ".UpdateRequest",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "db",
-        description: "Database name where to update documents",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "collection",
-        description: "Collection name where to update documents",
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "fields",
-        description:
-          "Fields contains set of fields\nwith the values which need to be updated.\nShould be proper JSON object.",
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "filter",
-        description:
-          'Update documents which matching specified filter.\nA filter can simply be key, value where key\nis the field name and value would be the value for this field. Or a filter can be logical where\ntwo or more fields can be logically joined using $or and $and. A few examples of filter:\n<li> To update a user document where the id has a value 1: ```{"id": 1 }```\n<li> To update all the user documents where the key "id" has a value 1 or 2 or 3: `{"$or": [{"id": 1}, {"id": 2}, {"id": 3}]}`',
-        label: "",
-        type: "bytes",
-        longType: "bytes",
-        fullType: "bytes",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "options",
-        description: "",
-        label: "",
-        type: "UpdateRequestOptions",
-        longType: "UpdateRequestOptions",
-        fullType: "UpdateRequestOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `UpdateRequestOptions`
+<ProtoMessage key={50} message={{"name":"UpdateRequestOptions","longName":"UpdateRequestOptions","fullName":".UpdateRequestOptions","description":"Additional options for update requests.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"write_options","description":"","label":"","type":"WriteOptions","longType":"WriteOptions","fullType":"WriteOptions","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={50}
-  message={{
-    name: "UpdateRequestOptions",
-    longName: "UpdateRequestOptions",
-    fullName: ".UpdateRequestOptions",
-    description: "Additional options for update requests.",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "write_options",
-        description: "",
-        label: "",
-        type: "WriteOptions",
-        longType: "WriteOptions",
-        fullType: "WriteOptions",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `UpdateResponse`
+<ProtoMessage key={51} message={{"name":"UpdateResponse","longName":"UpdateResponse","fullName":".UpdateResponse","description":"","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"metadata","description":"Has metadata related to the documents stored.","label":"","type":"ResponseMetadata","longType":"ResponseMetadata","fullType":"ResponseMetadata","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"modified_count","description":"Returns the number of documents modified.","label":"","type":"int32","longType":"int32","fullType":"int32","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""},{"name":"status","description":"an enum with value set as \"updated\".","label":"","type":"string","longType":"string","fullType":"string","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={51}
-  message={{
-    name: "UpdateResponse",
-    longName: "UpdateResponse",
-    fullName: ".UpdateResponse",
-    description: "",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "metadata",
-        description: "Has metadata related to the documents stored.",
-        label: "",
-        type: "ResponseMetadata",
-        longType: "ResponseMetadata",
-        fullType: "ResponseMetadata",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "modified_count",
-        description: "Returns the number of documents modified.",
-        label: "",
-        type: "int32",
-        longType: "int32",
-        fullType: "int32",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-      {
-        name: "status",
-        description: 'an enum with value set as "updated".',
-        label: "",
-        type: "string",
-        longType: "string",
-        fullType: "string",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ### `WriteOptions`
+<ProtoMessage key={52} message={{"name":"WriteOptions","longName":"WriteOptions","fullName":".WriteOptions","description":"Additional options to modify write requests.","hasExtensions":false,"hasFields":true,"hasOneofs":false,"extensions":[],"fields":[{"name":"tx_ctx","description":"Perform operation in the context of this transaction.","label":"","type":"TransactionCtx","longType":"TransactionCtx","fullType":"TransactionCtx","ismap":false,"isoneof":false,"oneofdecl":"","defaultValue":""}]}} />
 
-<ProtoMessage
-  key={52}
-  message={{
-    name: "WriteOptions",
-    longName: "WriteOptions",
-    fullName: ".WriteOptions",
-    description: "Additional options to modify write requests.",
-    hasExtensions: false,
-    hasFields: true,
-    hasOneofs: false,
-    extensions: [],
-    fields: [
-      {
-        name: "tx_ctx",
-        description: "Perform operation in the context of this transaction.",
-        label: "",
-        type: "TransactionCtx",
-        longType: "TransactionCtx",
-        fullType: "TransactionCtx",
-        ismap: false,
-        isoneof: false,
-        oneofdecl: "",
-        defaultValue: "",
-      },
-    ],
-  }}
-/>
 
 ---
+
+
+  

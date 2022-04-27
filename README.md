@@ -50,12 +50,12 @@ served using any static contents hosting service.
 
 ## Updating API documentation
 
-[tigrisdb-api](https://github.com/tigrisdata/tigrisdb-api) is included as a
+[tigris-api](https://github.com/tigrisdata/tigris-api) is included as a
 submodule. After updating the submodule to pull in new proto changes, the
 documentation can be updated using the following steps:
 
 ```shell
-protoc --doc_out=./fixtures --doc_opt=json,proto_workspace.json --proto_path=external/tigrisdb-api/ server/v1/api.proto
+protoc --doc_out=./fixtures --doc_opt=json,proto_workspace.json --proto_path=external/tigris-api/ server/v1/api.proto
 npx docusaurus generate-proto-docs
 ```
 

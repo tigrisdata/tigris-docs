@@ -1,4 +1,3 @@
-[submodule "external/tigrisdb-api"]
-	path = external/tigrisdb-api
-	url = https://github.com/tigrisdata/tigrisdb-api.git
-	branch = main
+[submodule "external/tigris-api"]
+	path = external/tigris-api
+	url = https://github.com/tigrisdata/tigris-api.git

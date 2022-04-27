@@ -1904,9 +1904,9 @@
       ],
       "services": [
         {
-          "name": "TigrisDB",
-          "longName": "TigrisDB",
-          "fullName": ".TigrisDB",
+          "name": "Tigris",
+          "longName": "Tigris",
+          "fullName": ".Tigris",
           "description": "",
           "methods": [
             {

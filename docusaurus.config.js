@@ -68,7 +68,7 @@ const config = {
         // Plugin Options for loading OpenAPI files
         specs: [
           {
-            spec: "external/tigrisdb-api/server/v1/api_openapi.yaml",
+            spec: "external/tigris-api/server/v1/api_openapi.yaml",
             route: "/apidocs/",
           },
         ],
