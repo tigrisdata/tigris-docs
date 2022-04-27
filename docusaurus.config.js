@@ -90,7 +90,7 @@ const config = {
       },
       announcementBar: {
         id: "announcementBar-1", // increment on change
-        content: `⭐️ Give us a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/tigrisdata/tigrisdb">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/TigrisData" >Twitter</a> ${TwitterSvg}`,
+        content: `⭐️ Give us a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/tigrisdata/tigris">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/TigrisData" >Twitter</a> ${TwitterSvg}`,
         backgroundColor: "#5ecbad",
         textColor: "#262b31",
       },
@@ -130,7 +130,7 @@ const config = {
             position: "right",
           },
           {
-            href: "https://github.com/tigrisdata/tigrisdb",
+            href: "https://github.com/tigrisdata/tigris",
             className: "navbar-item-github",
             position: "right",
           },

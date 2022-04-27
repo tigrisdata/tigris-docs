@@ -7,7 +7,7 @@ slug: /
 
 ## What is Tigris?
 
-[Tigris](https://github.com/tigrisdata/tigrisdb) is a zeroops data platform
+[Tigris](https://github.com/tigrisdata/tigris) is a zeroops data platform
 for real-time websites and apps.
 It makes building modern data-driven apps a breeze. Open source and
 multi-cloud enabled from day one.
