@@ -77,7 +77,9 @@ tigris insert sampledb users \
     {"id": 1, "name": "Jania McGrory", "balance": 6045.7},
     {"id": 2, "name": "Bunny Instone", "balance": 2948.87}
 ]'
+```
 
+```shell
 tigris insert sampledb products \
 '[
     {"id": 1, "name": "Vanilla Beans", "quantity": 6358, "price": 4.39},
@@ -90,6 +92,9 @@ tigris insert sampledb products \
 
 ```shell
 tigris read sampledb users '{"id": 1}'
+```
+
+```shell
 tigris read sampledb products '{"id": 3}'
 ```
 
