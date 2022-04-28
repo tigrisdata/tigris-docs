@@ -5,17 +5,13 @@ hide_title: true
 
 import { ProtoMessage, ProtoServiceMethod, ProtoEnum } from "@theme/ProtoFile";
 
-## `api.proto`
+**Package**: _tigrisdata.tigris.v1_
 
-_**path** server/v1/api.proto_
+## Tigris
 
-_**package** _
+The Tigris Data service.
 
 ---
-
-## Services
-
-### `Tigris`
 
 #### `BeginTransaction`
 
@@ -26,12 +22,12 @@ _**package** _
     description:
       "Starts a new transaction and returns a transactional object. All reads/writes performed\nwithin a transaction will run with serializable isolation.",
     requestType: "BeginTransactionRequest",
-    requestLongType: ".BeginTransactionRequest",
-    requestFullType: "BeginTransactionRequest",
+    requestLongType: "BeginTransactionRequest",
+    requestFullType: "tigrisdata.tigris.v1.BeginTransactionRequest",
     requestStreaming: false,
     responseType: "BeginTransactionResponse",
-    responseLongType: ".BeginTransactionResponse",
-    responseFullType: "BeginTransactionResponse",
+    responseLongType: "BeginTransactionResponse",
+    responseFullType: "tigrisdata.tigris.v1.BeginTransactionResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -44,6 +40,8 @@ _**package** _
         ],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#begintransactionrequest",
+    responseTypeLink: "/protodocs/server/v1/api.proto#begintransactionresponse",
   }}
 />
 
@@ -56,12 +54,12 @@ _**package** _
     description:
       "Atomically commit all the changes performed in the context of the transaction. Commit provides all\nor nothing semantics by ensuring no partial updates are in the database due to a transaction failure.",
     requestType: "CommitTransactionRequest",
-    requestLongType: ".CommitTransactionRequest",
-    requestFullType: "CommitTransactionRequest",
+    requestLongType: "CommitTransactionRequest",
+    requestFullType: "tigrisdata.tigris.v1.CommitTransactionRequest",
     requestStreaming: false,
     responseType: "CommitTransactionResponse",
-    responseLongType: ".CommitTransactionResponse",
-    responseFullType: "CommitTransactionResponse",
+    responseLongType: "CommitTransactionResponse",
+    responseFullType: "tigrisdata.tigris.v1.CommitTransactionResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -74,6 +72,9 @@ _**package** _
         ],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#committransactionrequest",
+    responseTypeLink:
+      "/protodocs/server/v1/api.proto#committransactionresponse",
   }}
 />
 
@@ -86,12 +87,12 @@ _**package** _
     description:
       "Rollback transaction discards all the changes\nperformed in the transaction",
     requestType: "RollbackTransactionRequest",
-    requestLongType: ".RollbackTransactionRequest",
-    requestFullType: "RollbackTransactionRequest",
+    requestLongType: "RollbackTransactionRequest",
+    requestFullType: "tigrisdata.tigris.v1.RollbackTransactionRequest",
     requestStreaming: false,
     responseType: "RollbackTransactionResponse",
-    responseLongType: ".RollbackTransactionResponse",
-    responseFullType: "RollbackTransactionResponse",
+    responseLongType: "RollbackTransactionResponse",
+    responseFullType: "tigrisdata.tigris.v1.RollbackTransactionResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -104,6 +105,10 @@ _**package** _
         ],
       },
     },
+    requestTypeLink:
+      "/protodocs/server/v1/api.proto#rollbacktransactionrequest",
+    responseTypeLink:
+      "/protodocs/server/v1/api.proto#rollbacktransactionresponse",
   }}
 />
 
@@ -116,12 +121,12 @@ _**package** _
     description:
       "Inserts new documents in the collection and returns an AlreadyExists error if any of the documents\nin the request already exists. Insert provides idempotency by returning an error if the document\nalready exists. To replace documents, use REPLACE API instead of INSERT.",
     requestType: "InsertRequest",
-    requestLongType: ".InsertRequest",
-    requestFullType: "InsertRequest",
+    requestLongType: "InsertRequest",
+    requestFullType: "tigrisdata.tigris.v1.InsertRequest",
     requestStreaming: false,
     responseType: "InsertResponse",
-    responseLongType: ".InsertResponse",
-    responseFullType: "InsertResponse",
+    responseLongType: "InsertResponse",
+    responseFullType: "tigrisdata.tigris.v1.InsertResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -135,6 +140,8 @@ _**package** _
         ],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#insertrequest",
+    responseTypeLink: "/protodocs/server/v1/api.proto#insertresponse",
   }}
 />
 
@@ -147,12 +154,12 @@ _**package** _
     description:
       "Inserts the documents or replaces the existing documents in the collections.",
     requestType: "ReplaceRequest",
-    requestLongType: ".ReplaceRequest",
-    requestFullType: "ReplaceRequest",
+    requestLongType: "ReplaceRequest",
+    requestFullType: "tigrisdata.tigris.v1.ReplaceRequest",
     requestStreaming: false,
     responseType: "ReplaceResponse",
-    responseLongType: ".ReplaceResponse",
-    responseFullType: "ReplaceResponse",
+    responseLongType: "ReplaceResponse",
+    responseFullType: "tigrisdata.tigris.v1.ReplaceResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -166,6 +173,8 @@ _**package** _
         ],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#replacerequest",
+    responseTypeLink: "/protodocs/server/v1/api.proto#replaceresponse",
   }}
 />
 
@@ -178,12 +187,12 @@ _**package** _
     description:
       "Delete a range of documents in the collection using the condition provided in the filter.",
     requestType: "DeleteRequest",
-    requestLongType: ".DeleteRequest",
-    requestFullType: "DeleteRequest",
+    requestLongType: "DeleteRequest",
+    requestFullType: "tigrisdata.tigris.v1.DeleteRequest",
     requestStreaming: false,
     responseType: "DeleteResponse",
-    responseLongType: ".DeleteResponse",
-    responseFullType: "DeleteResponse",
+    responseLongType: "DeleteResponse",
+    responseFullType: "tigrisdata.tigris.v1.DeleteResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -197,6 +206,8 @@ _**package** _
         ],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#deleterequest",
+    responseTypeLink: "/protodocs/server/v1/api.proto#deleteresponse",
   }}
 />
 
@@ -209,12 +220,12 @@ _**package** _
     description:
       "Update a range of documents in the collection using the condition provided in the filter.",
     requestType: "UpdateRequest",
-    requestLongType: ".UpdateRequest",
-    requestFullType: "UpdateRequest",
+    requestLongType: "UpdateRequest",
+    requestFullType: "tigrisdata.tigris.v1.UpdateRequest",
     requestStreaming: false,
     responseType: "UpdateResponse",
-    responseLongType: ".UpdateResponse",
-    responseFullType: "UpdateResponse",
+    responseLongType: "UpdateResponse",
+    responseFullType: "tigrisdata.tigris.v1.UpdateResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -228,6 +239,8 @@ _**package** _
         ],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#updaterequest",
+    responseTypeLink: "/protodocs/server/v1/api.proto#updateresponse",
   }}
 />
 
@@ -240,12 +253,12 @@ _**package** _
     description:
       "Reads range of documents from the collection using the condition in the filter.",
     requestType: "ReadRequest",
-    requestLongType: ".ReadRequest",
-    requestFullType: "ReadRequest",
+    requestLongType: "ReadRequest",
+    requestFullType: "tigrisdata.tigris.v1.ReadRequest",
     requestStreaming: false,
     responseType: "ReadResponse",
-    responseLongType: ".ReadResponse",
-    responseFullType: "ReadResponse",
+    responseLongType: "ReadResponse",
+    responseFullType: "tigrisdata.tigris.v1.ReadResponse",
     responseStreaming: true,
     options: {
       "google.api.http": {
@@ -259,6 +272,8 @@ _**package** _
         ],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#readrequest",
+    responseTypeLink: "/protodocs/server/v1/api.proto#readresponse",
   }}
 />
 
@@ -271,12 +286,12 @@ _**package** _
     description:
       "Creates a new collection or atomically upgrades the collection to the new schema changes in the database\npassed in the request.",
     requestType: "CreateOrUpdateCollectionRequest",
-    requestLongType: ".CreateOrUpdateCollectionRequest",
-    requestFullType: "CreateOrUpdateCollectionRequest",
+    requestLongType: "CreateOrUpdateCollectionRequest",
+    requestFullType: "tigrisdata.tigris.v1.CreateOrUpdateCollectionRequest",
     requestStreaming: false,
     responseType: "CreateOrUpdateCollectionResponse",
-    responseLongType: ".CreateOrUpdateCollectionResponse",
-    responseFullType: "CreateOrUpdateCollectionResponse",
+    responseLongType: "CreateOrUpdateCollectionResponse",
+    responseFullType: "tigrisdata.tigris.v1.CreateOrUpdateCollectionResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -290,6 +305,10 @@ _**package** _
         ],
       },
     },
+    requestTypeLink:
+      "/protodocs/server/v1/api.proto#createorupdatecollectionrequest",
+    responseTypeLink:
+      "/protodocs/server/v1/api.proto#createorupdatecollectionresponse",
   }}
 />
 
@@ -302,12 +321,12 @@ _**package** _
     description:
       "Drop the collection and all its documents in the database passed in the request.",
     requestType: "DropCollectionRequest",
-    requestLongType: ".DropCollectionRequest",
-    requestFullType: "DropCollectionRequest",
+    requestLongType: "DropCollectionRequest",
+    requestFullType: "tigrisdata.tigris.v1.DropCollectionRequest",
     requestStreaming: false,
     responseType: "DropCollectionResponse",
-    responseLongType: ".DropCollectionResponse",
-    responseFullType: "DropCollectionResponse",
+    responseLongType: "DropCollectionResponse",
+    responseFullType: "tigrisdata.tigris.v1.DropCollectionResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -320,6 +339,8 @@ _**package** _
         ],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#dropcollectionrequest",
+    responseTypeLink: "/protodocs/server/v1/api.proto#dropcollectionresponse",
   }}
 />
 
@@ -331,18 +352,20 @@ _**package** _
     name: "ListDatabases",
     description: "List returns all the databases.",
     requestType: "ListDatabasesRequest",
-    requestLongType: ".ListDatabasesRequest",
-    requestFullType: "ListDatabasesRequest",
+    requestLongType: "ListDatabasesRequest",
+    requestFullType: "tigrisdata.tigris.v1.ListDatabasesRequest",
     requestStreaming: false,
     responseType: "ListDatabasesResponse",
-    responseLongType: ".ListDatabasesResponse",
-    responseFullType: "ListDatabasesResponse",
+    responseLongType: "ListDatabasesResponse",
+    responseFullType: "tigrisdata.tigris.v1.ListDatabasesResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
         rules: [{ method: "POST", pattern: "/api/v1/databases/list" }],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#listdatabasesrequest",
+    responseTypeLink: "/protodocs/server/v1/api.proto#listdatabasesresponse",
   }}
 />
 
@@ -354,12 +377,12 @@ _**package** _
     name: "ListCollections",
     description: "List all collections in the database passed in the request.",
     requestType: "ListCollectionsRequest",
-    requestLongType: ".ListCollectionsRequest",
-    requestFullType: "ListCollectionsRequest",
+    requestLongType: "ListCollectionsRequest",
+    requestFullType: "tigrisdata.tigris.v1.ListCollectionsRequest",
     requestStreaming: false,
     responseType: "ListCollectionsResponse",
-    responseLongType: ".ListCollectionsResponse",
-    responseFullType: "ListCollectionsResponse",
+    responseLongType: "ListCollectionsResponse",
+    responseFullType: "tigrisdata.tigris.v1.ListCollectionsResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -372,6 +395,8 @@ _**package** _
         ],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#listcollectionsrequest",
+    responseTypeLink: "/protodocs/server/v1/api.proto#listcollectionsresponse",
   }}
 />
 
@@ -384,12 +409,12 @@ _**package** _
     description:
       "Creates a new database and returns a AlreadyExists error if the database already exists.",
     requestType: "CreateDatabaseRequest",
-    requestLongType: ".CreateDatabaseRequest",
-    requestFullType: "CreateDatabaseRequest",
+    requestLongType: "CreateDatabaseRequest",
+    requestFullType: "tigrisdata.tigris.v1.CreateDatabaseRequest",
     requestStreaming: false,
     responseType: "CreateDatabaseResponse",
-    responseLongType: ".CreateDatabaseResponse",
-    responseFullType: "CreateDatabaseResponse",
+    responseLongType: "CreateDatabaseResponse",
+    responseFullType: "tigrisdata.tigris.v1.CreateDatabaseResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -402,6 +427,8 @@ _**package** _
         ],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#createdatabaserequest",
+    responseTypeLink: "/protodocs/server/v1/api.proto#createdatabaseresponse",
   }}
 />
 
@@ -414,12 +441,12 @@ _**package** _
     description:
       "Drop database deletes all the collections in the database along with all it documents.",
     requestType: "DropDatabaseRequest",
-    requestLongType: ".DropDatabaseRequest",
-    requestFullType: "DropDatabaseRequest",
+    requestLongType: "DropDatabaseRequest",
+    requestFullType: "tigrisdata.tigris.v1.DropDatabaseRequest",
     requestStreaming: false,
     responseType: "DropDatabaseResponse",
-    responseLongType: ".DropDatabaseResponse",
-    responseFullType: "DropDatabaseResponse",
+    responseLongType: "DropDatabaseResponse",
+    responseFullType: "tigrisdata.tigris.v1.DropDatabaseResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -432,6 +459,8 @@ _**package** _
         ],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#dropdatabaserequest",
+    responseTypeLink: "/protodocs/server/v1/api.proto#dropdatabaseresponse",
   }}
 />
 
@@ -444,12 +473,12 @@ _**package** _
     description:
       "Describe database describes the information related to database along\nwith all the collections inside database.",
     requestType: "DescribeDatabaseRequest",
-    requestLongType: ".DescribeDatabaseRequest",
-    requestFullType: "DescribeDatabaseRequest",
+    requestLongType: "DescribeDatabaseRequest",
+    requestFullType: "tigrisdata.tigris.v1.DescribeDatabaseRequest",
     requestStreaming: false,
     responseType: "DescribeDatabaseResponse",
-    responseLongType: ".DescribeDatabaseResponse",
-    responseFullType: "DescribeDatabaseResponse",
+    responseLongType: "DescribeDatabaseResponse",
+    responseFullType: "tigrisdata.tigris.v1.DescribeDatabaseResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -462,6 +491,8 @@ _**package** _
         ],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#describedatabaserequest",
+    responseTypeLink: "/protodocs/server/v1/api.proto#describedatabaseresponse",
   }}
 />
 
@@ -474,12 +505,12 @@ _**package** _
     description:
       "Describe collection describes the information related to collection.",
     requestType: "DescribeCollectionRequest",
-    requestLongType: ".DescribeCollectionRequest",
-    requestFullType: "DescribeCollectionRequest",
+    requestLongType: "DescribeCollectionRequest",
+    requestFullType: "tigrisdata.tigris.v1.DescribeCollectionRequest",
     requestStreaming: false,
     responseType: "DescribeCollectionResponse",
-    responseLongType: ".DescribeCollectionResponse",
-    responseFullType: "DescribeCollectionResponse",
+    responseLongType: "DescribeCollectionResponse",
+    responseFullType: "tigrisdata.tigris.v1.DescribeCollectionResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -492,6 +523,9 @@ _**package** _
         ],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#describecollectionrequest",
+    responseTypeLink:
+      "/protodocs/server/v1/api.proto#describecollectionresponse",
   }}
 />
 
@@ -503,12 +537,12 @@ _**package** _
     name: "Stream",
     description: "",
     requestType: "StreamRequest",
-    requestLongType: ".StreamRequest",
-    requestFullType: "StreamRequest",
+    requestLongType: "StreamRequest",
+    requestFullType: "tigrisdata.tigris.v1.StreamRequest",
     requestStreaming: false,
     responseType: "StreamResponse",
-    responseLongType: ".StreamResponse",
-    responseFullType: "StreamResponse",
+    responseLongType: "StreamResponse",
+    responseFullType: "tigrisdata.tigris.v1.StreamResponse",
     responseStreaming: true,
     options: {
       "google.api.http": {
@@ -521,12 +555,14 @@ _**package** _
         ],
       },
     },
+    requestTypeLink: "/protodocs/server/v1/api.proto#streamrequest",
+    responseTypeLink: "/protodocs/server/v1/api.proto#streamresponse",
   }}
 />
 
 ---
 
-## Messages
+#### Messages
 
 ### `BeginTransactionRequest`
 
@@ -535,7 +571,7 @@ _**package** _
   message={{
     name: "BeginTransactionRequest",
     longName: "BeginTransactionRequest",
-    fullName: ".BeginTransactionRequest",
+    fullName: "tigrisdata.tigris.v1.BeginTransactionRequest",
     description: 'Start new transaction in database specified by "db".',
     hasExtensions: false,
     hasFields: true,
@@ -560,11 +596,12 @@ _**package** _
         label: "",
         type: "TransactionOptions",
         longType: "TransactionOptions",
-        fullType: "TransactionOptions",
+        fullType: "tigrisdata.tigris.v1.TransactionOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#transactionoptions",
       },
     ],
   }}
@@ -577,7 +614,7 @@ _**package** _
   message={{
     name: "BeginTransactionResponse",
     longName: "BeginTransactionResponse",
-    fullName: ".BeginTransactionResponse",
+    fullName: "tigrisdata.tigris.v1.BeginTransactionResponse",
     description:
       "Start transaction returns transaction context\n which uniquely identifies the transaction",
     hasExtensions: false,
@@ -592,11 +629,12 @@ _**package** _
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
-        fullType: "TransactionCtx",
+        fullType: "tigrisdata.tigris.v1.TransactionCtx",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#transactionctx",
       },
     ],
   }}
@@ -609,7 +647,7 @@ _**package** _
   message={{
     name: "CollectionDescription",
     longName: "CollectionDescription",
-    fullName: ".CollectionDescription",
+    fullName: "tigrisdata.tigris.v1.CollectionDescription",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -634,11 +672,12 @@ _**package** _
         label: "",
         type: "CollectionMetadata",
         longType: "CollectionMetadata",
-        fullType: "CollectionMetadata",
+        fullType: "tigrisdata.tigris.v1.CollectionMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#collectionmetadata",
       },
       {
         name: "schema",
@@ -663,7 +702,7 @@ _**package** _
   message={{
     name: "CollectionInfo",
     longName: "CollectionInfo",
-    fullName: ".CollectionInfo",
+    fullName: "tigrisdata.tigris.v1.CollectionInfo",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -688,11 +727,12 @@ _**package** _
         label: "",
         type: "CollectionMetadata",
         longType: "CollectionMetadata",
-        fullType: "CollectionMetadata",
+        fullType: "tigrisdata.tigris.v1.CollectionMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#collectionmetadata",
       },
     ],
   }}
@@ -705,7 +745,7 @@ _**package** _
   message={{
     name: "CollectionMetadata",
     longName: "CollectionMetadata",
-    fullName: ".CollectionMetadata",
+    fullName: "tigrisdata.tigris.v1.CollectionMetadata",
     description: "",
     hasExtensions: false,
     hasFields: false,
@@ -722,7 +762,7 @@ _**package** _
   message={{
     name: "CollectionOptions",
     longName: "CollectionOptions",
-    fullName: ".CollectionOptions",
+    fullName: "tigrisdata.tigris.v1.CollectionOptions",
     description: "Collection requests modifying options.",
     hasExtensions: false,
     hasFields: true,
@@ -735,11 +775,12 @@ _**package** _
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
-        fullType: "TransactionCtx",
+        fullType: "tigrisdata.tigris.v1.TransactionCtx",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#transactionctx",
       },
     ],
   }}
@@ -752,7 +793,7 @@ _**package** _
   message={{
     name: "CommitTransactionRequest",
     longName: "CommitTransactionRequest",
-    fullName: ".CommitTransactionRequest",
+    fullName: "tigrisdata.tigris.v1.CommitTransactionRequest",
     description: "Commit transaction with the given ID",
     hasExtensions: false,
     hasFields: true,
@@ -778,11 +819,12 @@ _**package** _
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
-        fullType: "TransactionCtx",
+        fullType: "tigrisdata.tigris.v1.TransactionCtx",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#transactionctx",
       },
     ],
   }}
@@ -795,7 +837,7 @@ _**package** _
   message={{
     name: "CommitTransactionResponse",
     longName: "CommitTransactionResponse",
-    fullName: ".CommitTransactionResponse",
+    fullName: "tigrisdata.tigris.v1.CommitTransactionResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -825,7 +867,7 @@ _**package** _
   message={{
     name: "CreateDatabaseRequest",
     longName: "CreateDatabaseRequest",
-    fullName: ".CreateDatabaseRequest",
+    fullName: "tigrisdata.tigris.v1.CreateDatabaseRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -850,11 +892,12 @@ _**package** _
         label: "",
         type: "DatabaseOptions",
         longType: "DatabaseOptions",
-        fullType: "DatabaseOptions",
+        fullType: "tigrisdata.tigris.v1.DatabaseOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#databaseoptions",
       },
     ],
   }}
@@ -867,7 +910,7 @@ _**package** _
   message={{
     name: "CreateDatabaseResponse",
     longName: "CreateDatabaseResponse",
-    fullName: ".CreateDatabaseResponse",
+    fullName: "tigrisdata.tigris.v1.CreateDatabaseResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -909,7 +952,7 @@ _**package** _
   message={{
     name: "CreateOrUpdateCollectionRequest",
     longName: "CreateOrUpdateCollectionRequest",
-    fullName: ".CreateOrUpdateCollectionRequest",
+    fullName: "tigrisdata.tigris.v1.CreateOrUpdateCollectionRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -971,11 +1014,12 @@ _**package** _
         label: "",
         type: "CollectionOptions",
         longType: "CollectionOptions",
-        fullType: "CollectionOptions",
+        fullType: "tigrisdata.tigris.v1.CollectionOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#collectionoptions",
       },
     ],
   }}
@@ -988,7 +1032,7 @@ _**package** _
   message={{
     name: "CreateOrUpdateCollectionResponse",
     longName: "CreateOrUpdateCollectionResponse",
-    fullName: ".CreateOrUpdateCollectionResponse",
+    fullName: "tigrisdata.tigris.v1.CreateOrUpdateCollectionResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1030,7 +1074,7 @@ _**package** _
   message={{
     name: "DatabaseDescription",
     longName: "DatabaseDescription",
-    fullName: ".DatabaseDescription",
+    fullName: "tigrisdata.tigris.v1.DatabaseDescription",
     description: "",
     hasExtensions: false,
     hasFields: false,
@@ -1047,7 +1091,7 @@ _**package** _
   message={{
     name: "DatabaseInfo",
     longName: "DatabaseInfo",
-    fullName: ".DatabaseInfo",
+    fullName: "tigrisdata.tigris.v1.DatabaseInfo",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1072,11 +1116,12 @@ _**package** _
         label: "",
         type: "DatabaseMetadata",
         longType: "DatabaseMetadata",
-        fullType: "DatabaseMetadata",
+        fullType: "tigrisdata.tigris.v1.DatabaseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#databasemetadata",
       },
     ],
   }}
@@ -1089,7 +1134,7 @@ _**package** _
   message={{
     name: "DatabaseMetadata",
     longName: "DatabaseMetadata",
-    fullName: ".DatabaseMetadata",
+    fullName: "tigrisdata.tigris.v1.DatabaseMetadata",
     description: "",
     hasExtensions: false,
     hasFields: false,
@@ -1106,7 +1151,7 @@ _**package** _
   message={{
     name: "DatabaseOptions",
     longName: "DatabaseOptions",
-    fullName: ".DatabaseOptions",
+    fullName: "tigrisdata.tigris.v1.DatabaseOptions",
     description: "Database requests modifying options.",
     hasExtensions: false,
     hasFields: false,
@@ -1123,7 +1168,7 @@ _**package** _
   message={{
     name: "DeleteRequest",
     longName: "DeleteRequest",
-    fullName: ".DeleteRequest",
+    fullName: "tigrisdata.tigris.v1.DeleteRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1173,11 +1218,12 @@ _**package** _
         label: "",
         type: "DeleteRequestOptions",
         longType: "DeleteRequestOptions",
-        fullType: "DeleteRequestOptions",
+        fullType: "tigrisdata.tigris.v1.DeleteRequestOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#deleterequestoptions",
       },
     ],
   }}
@@ -1190,7 +1236,7 @@ _**package** _
   message={{
     name: "DeleteRequestOptions",
     longName: "DeleteRequestOptions",
-    fullName: ".DeleteRequestOptions",
+    fullName: "tigrisdata.tigris.v1.DeleteRequestOptions",
     description: "Additional options for deleted requests.",
     hasExtensions: false,
     hasFields: true,
@@ -1203,11 +1249,12 @@ _**package** _
         label: "",
         type: "WriteOptions",
         longType: "WriteOptions",
-        fullType: "WriteOptions",
+        fullType: "tigrisdata.tigris.v1.WriteOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#writeoptions",
       },
     ],
   }}
@@ -1220,7 +1267,7 @@ _**package** _
   message={{
     name: "DeleteResponse",
     longName: "DeleteResponse",
-    fullName: ".DeleteResponse",
+    fullName: "tigrisdata.tigris.v1.DeleteResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1233,11 +1280,12 @@ _**package** _
         label: "",
         type: "ResponseMetadata",
         longType: "ResponseMetadata",
-        fullType: "ResponseMetadata",
+        fullType: "tigrisdata.tigris.v1.ResponseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#responsemetadata",
       },
       {
         name: "status",
@@ -1262,7 +1310,7 @@ _**package** _
   message={{
     name: "DescribeCollectionRequest",
     longName: "DescribeCollectionRequest",
-    fullName: ".DescribeCollectionRequest",
+    fullName: "tigrisdata.tigris.v1.DescribeCollectionRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1299,11 +1347,12 @@ _**package** _
         label: "",
         type: "CollectionOptions",
         longType: "CollectionOptions",
-        fullType: "CollectionOptions",
+        fullType: "tigrisdata.tigris.v1.CollectionOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#collectionoptions",
       },
     ],
   }}
@@ -1316,7 +1365,7 @@ _**package** _
   message={{
     name: "DescribeCollectionResponse",
     longName: "DescribeCollectionResponse",
-    fullName: ".DescribeCollectionResponse",
+    fullName: "tigrisdata.tigris.v1.DescribeCollectionResponse",
     description:
       "A detailed description about the collection.\nThe description returns collection metadata and the schema.",
     hasExtensions: false,
@@ -1342,11 +1391,12 @@ _**package** _
         label: "",
         type: "CollectionMetadata",
         longType: "CollectionMetadata",
-        fullType: "CollectionMetadata",
+        fullType: "tigrisdata.tigris.v1.CollectionMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#collectionmetadata",
       },
       {
         name: "schema",
@@ -1371,7 +1421,7 @@ _**package** _
   message={{
     name: "DescribeDatabaseRequest",
     longName: "DescribeDatabaseRequest",
-    fullName: ".DescribeDatabaseRequest",
+    fullName: "tigrisdata.tigris.v1.DescribeDatabaseRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1401,7 +1451,7 @@ _**package** _
   message={{
     name: "DescribeDatabaseResponse",
     longName: "DescribeDatabaseResponse",
-    fullName: ".DescribeDatabaseResponse",
+    fullName: "tigrisdata.tigris.v1.DescribeDatabaseResponse",
     description:
       "A detailed description about the database and all associated collections.\nDescription of the collection includes schema details as well.",
     hasExtensions: false,
@@ -1427,11 +1477,12 @@ _**package** _
         label: "",
         type: "DatabaseMetadata",
         longType: "DatabaseMetadata",
-        fullType: "DatabaseMetadata",
+        fullType: "tigrisdata.tigris.v1.DatabaseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#databasemetadata",
       },
       {
         name: "collections",
@@ -1440,11 +1491,12 @@ _**package** _
         label: "repeated",
         type: "CollectionDescription",
         longType: "CollectionDescription",
-        fullType: "CollectionDescription",
+        fullType: "tigrisdata.tigris.v1.CollectionDescription",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#collectiondescription",
       },
     ],
   }}
@@ -1457,7 +1509,7 @@ _**package** _
   message={{
     name: "DropCollectionRequest",
     longName: "DropCollectionRequest",
-    fullName: ".DropCollectionRequest",
+    fullName: "tigrisdata.tigris.v1.DropCollectionRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1494,11 +1546,12 @@ _**package** _
         label: "",
         type: "CollectionOptions",
         longType: "CollectionOptions",
-        fullType: "CollectionOptions",
+        fullType: "tigrisdata.tigris.v1.CollectionOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#collectionoptions",
       },
     ],
   }}
@@ -1511,7 +1564,7 @@ _**package** _
   message={{
     name: "DropCollectionResponse",
     longName: "DropCollectionResponse",
-    fullName: ".DropCollectionResponse",
+    fullName: "tigrisdata.tigris.v1.DropCollectionResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1553,7 +1606,7 @@ _**package** _
   message={{
     name: "DropDatabaseRequest",
     longName: "DropDatabaseRequest",
-    fullName: ".DropDatabaseRequest",
+    fullName: "tigrisdata.tigris.v1.DropDatabaseRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1579,11 +1632,12 @@ _**package** _
         label: "",
         type: "DatabaseOptions",
         longType: "DatabaseOptions",
-        fullType: "DatabaseOptions",
+        fullType: "tigrisdata.tigris.v1.DatabaseOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#databaseoptions",
       },
     ],
   }}
@@ -1596,7 +1650,7 @@ _**package** _
   message={{
     name: "DropDatabaseResponse",
     longName: "DropDatabaseResponse",
-    fullName: ".DropDatabaseResponse",
+    fullName: "tigrisdata.tigris.v1.DropDatabaseResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1638,7 +1692,7 @@ _**package** _
   message={{
     name: "ErrorDetails",
     longName: "ErrorDetails",
-    fullName: ".ErrorDetails",
+    fullName: "tigrisdata.tigris.v1.ErrorDetails",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1680,7 +1734,7 @@ _**package** _
   message={{
     name: "InsertRequest",
     longName: "InsertRequest",
-    fullName: ".InsertRequest",
+    fullName: "tigrisdata.tigris.v1.InsertRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1730,11 +1784,12 @@ _**package** _
         label: "",
         type: "InsertRequestOptions",
         longType: "InsertRequestOptions",
-        fullType: "InsertRequestOptions",
+        fullType: "tigrisdata.tigris.v1.InsertRequestOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#insertrequestoptions",
       },
     ],
   }}
@@ -1747,7 +1802,7 @@ _**package** _
   message={{
     name: "InsertRequestOptions",
     longName: "InsertRequestOptions",
-    fullName: ".InsertRequestOptions",
+    fullName: "tigrisdata.tigris.v1.InsertRequestOptions",
     description: "additional options for insert requests.",
     hasExtensions: false,
     hasFields: true,
@@ -1760,11 +1815,12 @@ _**package** _
         label: "",
         type: "WriteOptions",
         longType: "WriteOptions",
-        fullType: "WriteOptions",
+        fullType: "tigrisdata.tigris.v1.WriteOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#writeoptions",
       },
     ],
   }}
@@ -1777,7 +1833,7 @@ _**package** _
   message={{
     name: "InsertResponse",
     longName: "InsertResponse",
-    fullName: ".InsertResponse",
+    fullName: "tigrisdata.tigris.v1.InsertResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1790,11 +1846,12 @@ _**package** _
         label: "",
         type: "ResponseMetadata",
         longType: "ResponseMetadata",
-        fullType: "ResponseMetadata",
+        fullType: "tigrisdata.tigris.v1.ResponseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#responsemetadata",
       },
       {
         name: "status",
@@ -1819,7 +1876,7 @@ _**package** _
   message={{
     name: "ListCollectionsRequest",
     longName: "ListCollectionsRequest",
-    fullName: ".ListCollectionsRequest",
+    fullName: "tigrisdata.tigris.v1.ListCollectionsRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1844,11 +1901,12 @@ _**package** _
         label: "",
         type: "CollectionOptions",
         longType: "CollectionOptions",
-        fullType: "CollectionOptions",
+        fullType: "tigrisdata.tigris.v1.CollectionOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#collectionoptions",
       },
     ],
   }}
@@ -1861,7 +1919,7 @@ _**package** _
   message={{
     name: "ListCollectionsResponse",
     longName: "ListCollectionsResponse",
-    fullName: ".ListCollectionsResponse",
+    fullName: "tigrisdata.tigris.v1.ListCollectionsResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1886,11 +1944,12 @@ _**package** _
         label: "repeated",
         type: "CollectionInfo",
         longType: "CollectionInfo",
-        fullType: "CollectionInfo",
+        fullType: "tigrisdata.tigris.v1.CollectionInfo",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#collectioninfo",
       },
     ],
   }}
@@ -1903,7 +1962,7 @@ _**package** _
   message={{
     name: "ListDatabasesRequest",
     longName: "ListDatabasesRequest",
-    fullName: ".ListDatabasesRequest",
+    fullName: "tigrisdata.tigris.v1.ListDatabasesRequest",
     description: "",
     hasExtensions: false,
     hasFields: false,
@@ -1920,7 +1979,7 @@ _**package** _
   message={{
     name: "ListDatabasesResponse",
     longName: "ListDatabasesResponse",
-    fullName: ".ListDatabasesResponse",
+    fullName: "tigrisdata.tigris.v1.ListDatabasesResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1933,11 +1992,12 @@ _**package** _
         label: "repeated",
         type: "DatabaseInfo",
         longType: "DatabaseInfo",
-        fullType: "DatabaseInfo",
+        fullType: "tigrisdata.tigris.v1.DatabaseInfo",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#databaseinfo",
       },
     ],
   }}
@@ -1950,7 +2010,7 @@ _**package** _
   message={{
     name: "ReadRequest",
     longName: "ReadRequest",
-    fullName: ".ReadRequest",
+    fullName: "tigrisdata.tigris.v1.ReadRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2013,11 +2073,12 @@ _**package** _
         label: "",
         type: "ReadRequestOptions",
         longType: "ReadRequestOptions",
-        fullType: "ReadRequestOptions",
+        fullType: "tigrisdata.tigris.v1.ReadRequestOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#readrequestoptions",
       },
     ],
   }}
@@ -2030,7 +2091,7 @@ _**package** _
   message={{
     name: "ReadRequestOptions",
     longName: "ReadRequestOptions",
-    fullName: ".ReadRequestOptions",
+    fullName: "tigrisdata.tigris.v1.ReadRequestOptions",
     description:
       'Options that can be used to modify the results, for example "limit" to control the number of documents\nreturned by the server.',
     hasExtensions: false,
@@ -2044,11 +2105,12 @@ _**package** _
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
-        fullType: "TransactionCtx",
+        fullType: "tigrisdata.tigris.v1.TransactionCtx",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#transactionctx",
       },
       {
         name: "limit",
@@ -2100,7 +2162,7 @@ _**package** _
   message={{
     name: "ReadResponse",
     longName: "ReadResponse",
-    fullName: ".ReadResponse",
+    fullName: "tigrisdata.tigris.v1.ReadResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2137,11 +2199,12 @@ _**package** _
         label: "",
         type: "ResponseMetadata",
         longType: "ResponseMetadata",
-        fullType: "ResponseMetadata",
+        fullType: "tigrisdata.tigris.v1.ResponseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#responsemetadata",
       },
     ],
   }}
@@ -2154,7 +2217,7 @@ _**package** _
   message={{
     name: "ReplaceRequest",
     longName: "ReplaceRequest",
-    fullName: ".ReplaceRequest",
+    fullName: "tigrisdata.tigris.v1.ReplaceRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2204,11 +2267,12 @@ _**package** _
         label: "",
         type: "ReplaceRequestOptions",
         longType: "ReplaceRequestOptions",
-        fullType: "ReplaceRequestOptions",
+        fullType: "tigrisdata.tigris.v1.ReplaceRequestOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#replacerequestoptions",
       },
     ],
   }}
@@ -2221,7 +2285,7 @@ _**package** _
   message={{
     name: "ReplaceRequestOptions",
     longName: "ReplaceRequestOptions",
-    fullName: ".ReplaceRequestOptions",
+    fullName: "tigrisdata.tigris.v1.ReplaceRequestOptions",
     description: "Additional options for replace requests.",
     hasExtensions: false,
     hasFields: true,
@@ -2234,11 +2298,12 @@ _**package** _
         label: "",
         type: "WriteOptions",
         longType: "WriteOptions",
-        fullType: "WriteOptions",
+        fullType: "tigrisdata.tigris.v1.WriteOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#writeoptions",
       },
     ],
   }}
@@ -2251,7 +2316,7 @@ _**package** _
   message={{
     name: "ReplaceResponse",
     longName: "ReplaceResponse",
-    fullName: ".ReplaceResponse",
+    fullName: "tigrisdata.tigris.v1.ReplaceResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2264,11 +2329,12 @@ _**package** _
         label: "",
         type: "ResponseMetadata",
         longType: "ResponseMetadata",
-        fullType: "ResponseMetadata",
+        fullType: "tigrisdata.tigris.v1.ResponseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#responsemetadata",
       },
       {
         name: "status",
@@ -2293,7 +2359,7 @@ _**package** _
   message={{
     name: "ResponseMetadata",
     longName: "ResponseMetadata",
-    fullName: ".ResponseMetadata",
+    fullName: "tigrisdata.tigris.v1.ResponseMetadata",
     description: "Has metadata related to the documents stored.",
     hasExtensions: false,
     hasFields: true,
@@ -2337,7 +2403,7 @@ _**package** _
   message={{
     name: "RollbackTransactionRequest",
     longName: "RollbackTransactionRequest",
-    fullName: ".RollbackTransactionRequest",
+    fullName: "tigrisdata.tigris.v1.RollbackTransactionRequest",
     description: "Rollback transaction with the given ID",
     hasExtensions: false,
     hasFields: true,
@@ -2363,11 +2429,12 @@ _**package** _
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
-        fullType: "TransactionCtx",
+        fullType: "tigrisdata.tigris.v1.TransactionCtx",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#transactionctx",
       },
     ],
   }}
@@ -2380,7 +2447,7 @@ _**package** _
   message={{
     name: "RollbackTransactionResponse",
     longName: "RollbackTransactionResponse",
-    fullName: ".RollbackTransactionResponse",
+    fullName: "tigrisdata.tigris.v1.RollbackTransactionResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2410,7 +2477,7 @@ _**package** _
   message={{
     name: "StreamChange",
     longName: "StreamChange",
-    fullName: ".StreamChange",
+    fullName: "tigrisdata.tigris.v1.StreamChange",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2452,7 +2519,7 @@ _**package** _
   message={{
     name: "StreamRequest",
     longName: "StreamRequest",
-    fullName: ".StreamRequest",
+    fullName: "tigrisdata.tigris.v1.StreamRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2482,7 +2549,7 @@ _**package** _
   message={{
     name: "StreamResponse",
     longName: "StreamResponse",
-    fullName: ".StreamResponse",
+    fullName: "tigrisdata.tigris.v1.StreamResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2495,11 +2562,12 @@ _**package** _
         label: "repeated",
         type: "StreamChange",
         longType: "StreamChange",
-        fullType: "StreamChange",
+        fullType: "tigrisdata.tigris.v1.StreamChange",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#streamchange",
       },
     ],
   }}
@@ -2512,7 +2580,7 @@ _**package** _
   message={{
     name: "TransactionCtx",
     longName: "TransactionCtx",
-    fullName: ".TransactionCtx",
+    fullName: "tigrisdata.tigris.v1.TransactionCtx",
     description:
       "Contains ID which uniquely identifies transaction\nThis context is returned by BeginTransaction request and\nshould be passed in the subsequent requests in order to run\nthem in the context of the same transaction.",
     hasExtensions: false,
@@ -2555,7 +2623,7 @@ _**package** _
   message={{
     name: "TransactionOptions",
     longName: "TransactionOptions",
-    fullName: ".TransactionOptions",
+    fullName: "tigrisdata.tigris.v1.TransactionOptions",
     description:
       "Options that can be used to modify the transaction semantics.",
     hasExtensions: false,
@@ -2573,7 +2641,7 @@ _**package** _
   message={{
     name: "UpdateRequest",
     longName: "UpdateRequest",
-    fullName: ".UpdateRequest",
+    fullName: "tigrisdata.tigris.v1.UpdateRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2636,11 +2704,12 @@ _**package** _
         label: "",
         type: "UpdateRequestOptions",
         longType: "UpdateRequestOptions",
-        fullType: "UpdateRequestOptions",
+        fullType: "tigrisdata.tigris.v1.UpdateRequestOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#updaterequestoptions",
       },
     ],
   }}
@@ -2653,7 +2722,7 @@ _**package** _
   message={{
     name: "UpdateRequestOptions",
     longName: "UpdateRequestOptions",
-    fullName: ".UpdateRequestOptions",
+    fullName: "tigrisdata.tigris.v1.UpdateRequestOptions",
     description: "Additional options for update requests.",
     hasExtensions: false,
     hasFields: true,
@@ -2666,11 +2735,12 @@ _**package** _
         label: "",
         type: "WriteOptions",
         longType: "WriteOptions",
-        fullType: "WriteOptions",
+        fullType: "tigrisdata.tigris.v1.WriteOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#writeoptions",
       },
     ],
   }}
@@ -2683,7 +2753,7 @@ _**package** _
   message={{
     name: "UpdateResponse",
     longName: "UpdateResponse",
-    fullName: ".UpdateResponse",
+    fullName: "tigrisdata.tigris.v1.UpdateResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2696,11 +2766,12 @@ _**package** _
         label: "",
         type: "ResponseMetadata",
         longType: "ResponseMetadata",
-        fullType: "ResponseMetadata",
+        fullType: "tigrisdata.tigris.v1.ResponseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#responsemetadata",
       },
       {
         name: "modified_count",
@@ -2737,7 +2808,7 @@ _**package** _
   message={{
     name: "WriteOptions",
     longName: "WriteOptions",
-    fullName: ".WriteOptions",
+    fullName: "tigrisdata.tigris.v1.WriteOptions",
     description: "Additional options to modify write requests.",
     hasExtensions: false,
     hasFields: true,
@@ -2750,11 +2821,12 @@ _**package** _
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
-        fullType: "TransactionCtx",
+        fullType: "tigrisdata.tigris.v1.TransactionCtx",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#transactionctx",
       },
     ],
   }}
