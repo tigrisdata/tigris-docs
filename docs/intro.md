@@ -3,7 +3,13 @@ id: intro
 slug: /
 ---
 
-# Introduction
+# Welcome to Tigris!
+
+Here you'll find ways to get started, understand core concepts, and explore
+a variety of resources to help you get the most from Tigris data platform. We
+also recommend joining our
+[Slack Community](https://join.slack.com/t/tigrisdatacommunity/shared_invite/zt-16fn5ogio-OjxJlgttJIV0ZDywcBItJQ)
+for help along the way.
 
 ## What is Tigris?
 

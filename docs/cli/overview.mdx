@@ -1,0 +1,67 @@
+---
+id: overview
+title: Command Line Interface
+slug: /cli
+---
+
+Create databases and collections, read and write data, perform transactions,
+stream events and setup Tigris locally, all from the command line.
+
+## tigris
+
+The tigris CLI tool can be installed as follows:
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+<Tabs>
+<TabItem value="macOS" label="macOS">
+
+```shell
+curl -sSL https://tigris.dev/cli-macos | sudo tar -xz -C /usr/local/bin
+```
+
+</TabItem>
+<TabItem value="Linux" label="Linux">
+
+```shell
+curl -sSL https://tigris.dev/cli-linux | sudo tar -xz -C /usr/local/bin
+```
+
+</TabItem>
+</Tabs>
+
+Note that you'll need to have [docker](https://docs.docker.com/get-docker/)
+installed already.
+
+### Usage
+
+```shell
+Usage:
+  tigris [command]
+
+Available Commands:
+  alter       alter collection
+  completion  Generate completion script
+  create      creates database or collection
+  delete      delete documents
+  describe    describe database or collection
+  docs        Generates CLI's documentation in Markdown format
+  drop        drop database or collection
+  generate    Generating helper assets such as sample schema
+  help        Help about any command
+  insert      insert document
+  list        list databases of the project or list database collections
+  local       Starting and stopping local Tigris server
+  ping        Check connection to Tigris
+  read        read documents
+  replace     replace document
+  transact    run a set of operations in a transaction
+  update      update documents
+  version     show tigris cli version
+
+Flags:
+  -h, --help   help for tigris
+
+Use "tigris [command] --help" for more information about a command.
+```

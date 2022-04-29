@@ -1,7 +1,23 @@
 # Quickstart: CLI
 
-The following guide will get you up and running locally as quickly as
-possible using the CLI.
+:::tip
+⏱ This guide should require less than 5 minutes
+
+:::
+
+Getting started with Tigris is extremely fast and simple. The following
+guide will get you up and running using the CLI.
+
+First let's review what you need to get going.
+
+## Prerequisites
+
+All you'll need is any computer running macOS or Linux, with
+[docker](https://docs.docker.com/get-docker/) installed.
+
+## Working locally
+
+Now let's get started locally with Tigris in three easy steps:
 
 ### 1. Startup Tigris locally via Docker
 
@@ -69,7 +85,7 @@ updating documents in the _orders_, _users_ and _products_ collections.
 Now lets fire up the CLI and use the Tigris APIs to perform CRUD operations on
 the data.
 
-#### 3.1 Insert some data into the user and product collections
+#### Insert some data into the user and product collections
 
 ```shell
 tigris insert sampledb users \
@@ -88,7 +104,7 @@ tigris insert sampledb products \
 ]'
 ```
 
-#### 3.2 Read the data that was inserted
+#### Read the data that was inserted
 
 ```shell
 tigris read sampledb users '{"id": 1}'
@@ -98,7 +114,7 @@ tigris read sampledb users '{"id": 1}'
 tigris read sampledb products '{"id": 3}'
 ```
 
-#### 3.3 Perform a transaction that modifies all three collections
+#### Perform a transaction that modifies all three collections
 
 ```shell
 tigris transact sampledb \

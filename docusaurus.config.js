@@ -109,15 +109,20 @@ const config = {
             position: "left",
           },
           {
+            type: "dropdown",
             label: "API Reference",
-            to: "apidocs/",
             position: "left",
-          },
-          {
-            label: "RPC Reference",
-            to: "protodocs/server/v1/api.proto",
-            activeBasePath: "protodocs",
-            position: "left",
+            items: [
+              {
+                label: "HTTP API",
+                to: "apidocs/",
+              },
+              {
+                label: "RPC",
+                to: "protodocs/server/v1/api.proto",
+                activeBasePath: "protodocs",
+              },
+            ],
           },
           {
             href: "https://jobs.lever.co/tigris",
