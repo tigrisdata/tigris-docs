@@ -75,7 +75,7 @@ const config = {
         // Theme Options for modifying how redoc renders them
         theme: {
           // Change with your site colors
-          primaryColor: "#fddc7b",
+          primaryColor: "#38ac8c",
         },
       },
     ],
