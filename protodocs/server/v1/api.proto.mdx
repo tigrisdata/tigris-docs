@@ -5,7 +5,7 @@ hide_title: true
 
 import { ProtoMessage, ProtoServiceMethod, ProtoEnum } from "@theme/ProtoFile";
 
-**Package**: _tigrisdata.tigris.v1_
+**Package:** _tigrisdata.v1_
 
 ## Tigris
 
@@ -23,11 +23,11 @@ The Tigris Data service.
       "Starts a new transaction and returns a transactional object. All reads/writes performed\nwithin a transaction will run with serializable isolation.",
     requestType: "BeginTransactionRequest",
     requestLongType: "BeginTransactionRequest",
-    requestFullType: "tigrisdata.tigris.v1.BeginTransactionRequest",
+    requestFullType: "tigrisdata.v1.BeginTransactionRequest",
     requestStreaming: false,
     responseType: "BeginTransactionResponse",
     responseLongType: "BeginTransactionResponse",
-    responseFullType: "tigrisdata.tigris.v1.BeginTransactionResponse",
+    responseFullType: "tigrisdata.v1.BeginTransactionResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -55,11 +55,11 @@ The Tigris Data service.
       "Atomically commit all the changes performed in the context of the transaction. Commit provides all\nor nothing semantics by ensuring no partial updates are in the database due to a transaction failure.",
     requestType: "CommitTransactionRequest",
     requestLongType: "CommitTransactionRequest",
-    requestFullType: "tigrisdata.tigris.v1.CommitTransactionRequest",
+    requestFullType: "tigrisdata.v1.CommitTransactionRequest",
     requestStreaming: false,
     responseType: "CommitTransactionResponse",
     responseLongType: "CommitTransactionResponse",
-    responseFullType: "tigrisdata.tigris.v1.CommitTransactionResponse",
+    responseFullType: "tigrisdata.v1.CommitTransactionResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -88,11 +88,11 @@ The Tigris Data service.
       "Rollback transaction discards all the changes\nperformed in the transaction",
     requestType: "RollbackTransactionRequest",
     requestLongType: "RollbackTransactionRequest",
-    requestFullType: "tigrisdata.tigris.v1.RollbackTransactionRequest",
+    requestFullType: "tigrisdata.v1.RollbackTransactionRequest",
     requestStreaming: false,
     responseType: "RollbackTransactionResponse",
     responseLongType: "RollbackTransactionResponse",
-    responseFullType: "tigrisdata.tigris.v1.RollbackTransactionResponse",
+    responseFullType: "tigrisdata.v1.RollbackTransactionResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -122,11 +122,11 @@ The Tigris Data service.
       "Inserts new documents in the collection and returns an AlreadyExists error if any of the documents\nin the request already exists. Insert provides idempotency by returning an error if the document\nalready exists. To replace documents, use REPLACE API instead of INSERT.",
     requestType: "InsertRequest",
     requestLongType: "InsertRequest",
-    requestFullType: "tigrisdata.tigris.v1.InsertRequest",
+    requestFullType: "tigrisdata.v1.InsertRequest",
     requestStreaming: false,
     responseType: "InsertResponse",
     responseLongType: "InsertResponse",
-    responseFullType: "tigrisdata.tigris.v1.InsertResponse",
+    responseFullType: "tigrisdata.v1.InsertResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -155,11 +155,11 @@ The Tigris Data service.
       "Inserts the documents or replaces the existing documents in the collections.",
     requestType: "ReplaceRequest",
     requestLongType: "ReplaceRequest",
-    requestFullType: "tigrisdata.tigris.v1.ReplaceRequest",
+    requestFullType: "tigrisdata.v1.ReplaceRequest",
     requestStreaming: false,
     responseType: "ReplaceResponse",
     responseLongType: "ReplaceResponse",
-    responseFullType: "tigrisdata.tigris.v1.ReplaceResponse",
+    responseFullType: "tigrisdata.v1.ReplaceResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -188,11 +188,11 @@ The Tigris Data service.
       "Delete a range of documents in the collection using the condition provided in the filter.",
     requestType: "DeleteRequest",
     requestLongType: "DeleteRequest",
-    requestFullType: "tigrisdata.tigris.v1.DeleteRequest",
+    requestFullType: "tigrisdata.v1.DeleteRequest",
     requestStreaming: false,
     responseType: "DeleteResponse",
     responseLongType: "DeleteResponse",
-    responseFullType: "tigrisdata.tigris.v1.DeleteResponse",
+    responseFullType: "tigrisdata.v1.DeleteResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -221,11 +221,11 @@ The Tigris Data service.
       "Update a range of documents in the collection using the condition provided in the filter.",
     requestType: "UpdateRequest",
     requestLongType: "UpdateRequest",
-    requestFullType: "tigrisdata.tigris.v1.UpdateRequest",
+    requestFullType: "tigrisdata.v1.UpdateRequest",
     requestStreaming: false,
     responseType: "UpdateResponse",
     responseLongType: "UpdateResponse",
-    responseFullType: "tigrisdata.tigris.v1.UpdateResponse",
+    responseFullType: "tigrisdata.v1.UpdateResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -254,11 +254,11 @@ The Tigris Data service.
       "Reads range of documents from the collection using the condition in the filter.",
     requestType: "ReadRequest",
     requestLongType: "ReadRequest",
-    requestFullType: "tigrisdata.tigris.v1.ReadRequest",
+    requestFullType: "tigrisdata.v1.ReadRequest",
     requestStreaming: false,
     responseType: "ReadResponse",
     responseLongType: "ReadResponse",
-    responseFullType: "tigrisdata.tigris.v1.ReadResponse",
+    responseFullType: "tigrisdata.v1.ReadResponse",
     responseStreaming: true,
     options: {
       "google.api.http": {
@@ -287,11 +287,11 @@ The Tigris Data service.
       "Creates a new collection or atomically upgrades the collection to the new schema changes in the database\npassed in the request.",
     requestType: "CreateOrUpdateCollectionRequest",
     requestLongType: "CreateOrUpdateCollectionRequest",
-    requestFullType: "tigrisdata.tigris.v1.CreateOrUpdateCollectionRequest",
+    requestFullType: "tigrisdata.v1.CreateOrUpdateCollectionRequest",
     requestStreaming: false,
     responseType: "CreateOrUpdateCollectionResponse",
     responseLongType: "CreateOrUpdateCollectionResponse",
-    responseFullType: "tigrisdata.tigris.v1.CreateOrUpdateCollectionResponse",
+    responseFullType: "tigrisdata.v1.CreateOrUpdateCollectionResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -322,11 +322,11 @@ The Tigris Data service.
       "Drop the collection and all its documents in the database passed in the request.",
     requestType: "DropCollectionRequest",
     requestLongType: "DropCollectionRequest",
-    requestFullType: "tigrisdata.tigris.v1.DropCollectionRequest",
+    requestFullType: "tigrisdata.v1.DropCollectionRequest",
     requestStreaming: false,
     responseType: "DropCollectionResponse",
     responseLongType: "DropCollectionResponse",
-    responseFullType: "tigrisdata.tigris.v1.DropCollectionResponse",
+    responseFullType: "tigrisdata.v1.DropCollectionResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -353,11 +353,11 @@ The Tigris Data service.
     description: "List returns all the databases.",
     requestType: "ListDatabasesRequest",
     requestLongType: "ListDatabasesRequest",
-    requestFullType: "tigrisdata.tigris.v1.ListDatabasesRequest",
+    requestFullType: "tigrisdata.v1.ListDatabasesRequest",
     requestStreaming: false,
     responseType: "ListDatabasesResponse",
     responseLongType: "ListDatabasesResponse",
-    responseFullType: "tigrisdata.tigris.v1.ListDatabasesResponse",
+    responseFullType: "tigrisdata.v1.ListDatabasesResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -378,11 +378,11 @@ The Tigris Data service.
     description: "List all collections in the database passed in the request.",
     requestType: "ListCollectionsRequest",
     requestLongType: "ListCollectionsRequest",
-    requestFullType: "tigrisdata.tigris.v1.ListCollectionsRequest",
+    requestFullType: "tigrisdata.v1.ListCollectionsRequest",
     requestStreaming: false,
     responseType: "ListCollectionsResponse",
     responseLongType: "ListCollectionsResponse",
-    responseFullType: "tigrisdata.tigris.v1.ListCollectionsResponse",
+    responseFullType: "tigrisdata.v1.ListCollectionsResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -410,11 +410,11 @@ The Tigris Data service.
       "Creates a new database and returns a AlreadyExists error if the database already exists.",
     requestType: "CreateDatabaseRequest",
     requestLongType: "CreateDatabaseRequest",
-    requestFullType: "tigrisdata.tigris.v1.CreateDatabaseRequest",
+    requestFullType: "tigrisdata.v1.CreateDatabaseRequest",
     requestStreaming: false,
     responseType: "CreateDatabaseResponse",
     responseLongType: "CreateDatabaseResponse",
-    responseFullType: "tigrisdata.tigris.v1.CreateDatabaseResponse",
+    responseFullType: "tigrisdata.v1.CreateDatabaseResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -442,11 +442,11 @@ The Tigris Data service.
       "Drop database deletes all the collections in the database along with all it documents.",
     requestType: "DropDatabaseRequest",
     requestLongType: "DropDatabaseRequest",
-    requestFullType: "tigrisdata.tigris.v1.DropDatabaseRequest",
+    requestFullType: "tigrisdata.v1.DropDatabaseRequest",
     requestStreaming: false,
     responseType: "DropDatabaseResponse",
     responseLongType: "DropDatabaseResponse",
-    responseFullType: "tigrisdata.tigris.v1.DropDatabaseResponse",
+    responseFullType: "tigrisdata.v1.DropDatabaseResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -474,11 +474,11 @@ The Tigris Data service.
       "Describe database describes the information related to database along\nwith all the collections inside database.",
     requestType: "DescribeDatabaseRequest",
     requestLongType: "DescribeDatabaseRequest",
-    requestFullType: "tigrisdata.tigris.v1.DescribeDatabaseRequest",
+    requestFullType: "tigrisdata.v1.DescribeDatabaseRequest",
     requestStreaming: false,
     responseType: "DescribeDatabaseResponse",
     responseLongType: "DescribeDatabaseResponse",
-    responseFullType: "tigrisdata.tigris.v1.DescribeDatabaseResponse",
+    responseFullType: "tigrisdata.v1.DescribeDatabaseResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -506,11 +506,11 @@ The Tigris Data service.
       "Describe collection describes the information related to collection.",
     requestType: "DescribeCollectionRequest",
     requestLongType: "DescribeCollectionRequest",
-    requestFullType: "tigrisdata.tigris.v1.DescribeCollectionRequest",
+    requestFullType: "tigrisdata.v1.DescribeCollectionRequest",
     requestStreaming: false,
     responseType: "DescribeCollectionResponse",
     responseLongType: "DescribeCollectionResponse",
-    responseFullType: "tigrisdata.tigris.v1.DescribeCollectionResponse",
+    responseFullType: "tigrisdata.v1.DescribeCollectionResponse",
     responseStreaming: false,
     options: {
       "google.api.http": {
@@ -535,14 +535,15 @@ The Tigris Data service.
   key={"Stream-16"}
   method={{
     name: "Stream",
-    description: "",
+    description:
+      "Provides real time events for the changes made into the database. Streams by default publish all events for a database\nbut can be restricted to a specific collection. These events can be useful to build event-driven applications.",
     requestType: "StreamRequest",
     requestLongType: "StreamRequest",
-    requestFullType: "tigrisdata.tigris.v1.StreamRequest",
+    requestFullType: "tigrisdata.v1.StreamRequest",
     requestStreaming: false,
     responseType: "StreamResponse",
     responseLongType: "StreamResponse",
-    responseFullType: "tigrisdata.tigris.v1.StreamResponse",
+    responseFullType: "tigrisdata.v1.StreamResponse",
     responseStreaming: true,
     options: {
       "google.api.http": {
@@ -560,9 +561,35 @@ The Tigris Data service.
   }}
 />
 
+#### `GetInfo`
+
+<ProtoServiceMethod
+  key={"GetInfo-17"}
+  method={{
+    name: "GetInfo",
+    description:
+      "Provides the information about the server. This information includes returning the server version, etc.",
+    requestType: "GetInfoRequest",
+    requestLongType: "GetInfoRequest",
+    requestFullType: "tigrisdata.v1.GetInfoRequest",
+    requestStreaming: false,
+    responseType: "GetInfoResponse",
+    responseLongType: "GetInfoResponse",
+    responseFullType: "tigrisdata.v1.GetInfoResponse",
+    responseStreaming: false,
+    options: {
+      "google.api.http": {
+        rules: [{ method: "GET", pattern: "/api/v1/info" }],
+      },
+    },
+    requestTypeLink: "/protodocs/server/v1/api.proto#getinforequest",
+    responseTypeLink: "/protodocs/server/v1/api.proto#getinforesponse",
+  }}
+/>
+
 ---
 
-#### Messages
+## Messages
 
 ### `BeginTransactionRequest`
 
@@ -571,7 +598,7 @@ The Tigris Data service.
   message={{
     name: "BeginTransactionRequest",
     longName: "BeginTransactionRequest",
-    fullName: "tigrisdata.tigris.v1.BeginTransactionRequest",
+    fullName: "tigrisdata.v1.BeginTransactionRequest",
     description: 'Start new transaction in database specified by "db".',
     hasExtensions: false,
     hasFields: true,
@@ -596,7 +623,7 @@ The Tigris Data service.
         label: "",
         type: "TransactionOptions",
         longType: "TransactionOptions",
-        fullType: "tigrisdata.tigris.v1.TransactionOptions",
+        fullType: "tigrisdata.v1.TransactionOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -614,7 +641,7 @@ The Tigris Data service.
   message={{
     name: "BeginTransactionResponse",
     longName: "BeginTransactionResponse",
-    fullName: "tigrisdata.tigris.v1.BeginTransactionResponse",
+    fullName: "tigrisdata.v1.BeginTransactionResponse",
     description:
       "Start transaction returns transaction context\n which uniquely identifies the transaction",
     hasExtensions: false,
@@ -629,7 +656,7 @@ The Tigris Data service.
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
-        fullType: "tigrisdata.tigris.v1.TransactionCtx",
+        fullType: "tigrisdata.v1.TransactionCtx",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -647,7 +674,7 @@ The Tigris Data service.
   message={{
     name: "CollectionDescription",
     longName: "CollectionDescription",
-    fullName: "tigrisdata.tigris.v1.CollectionDescription",
+    fullName: "tigrisdata.v1.CollectionDescription",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -672,7 +699,7 @@ The Tigris Data service.
         label: "",
         type: "CollectionMetadata",
         longType: "CollectionMetadata",
-        fullType: "tigrisdata.tigris.v1.CollectionMetadata",
+        fullType: "tigrisdata.v1.CollectionMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -702,7 +729,7 @@ The Tigris Data service.
   message={{
     name: "CollectionInfo",
     longName: "CollectionInfo",
-    fullName: "tigrisdata.tigris.v1.CollectionInfo",
+    fullName: "tigrisdata.v1.CollectionInfo",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -727,7 +754,7 @@ The Tigris Data service.
         label: "",
         type: "CollectionMetadata",
         longType: "CollectionMetadata",
-        fullType: "tigrisdata.tigris.v1.CollectionMetadata",
+        fullType: "tigrisdata.v1.CollectionMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -745,7 +772,7 @@ The Tigris Data service.
   message={{
     name: "CollectionMetadata",
     longName: "CollectionMetadata",
-    fullName: "tigrisdata.tigris.v1.CollectionMetadata",
+    fullName: "tigrisdata.v1.CollectionMetadata",
     description: "",
     hasExtensions: false,
     hasFields: false,
@@ -762,7 +789,7 @@ The Tigris Data service.
   message={{
     name: "CollectionOptions",
     longName: "CollectionOptions",
-    fullName: "tigrisdata.tigris.v1.CollectionOptions",
+    fullName: "tigrisdata.v1.CollectionOptions",
     description: "Collection requests modifying options.",
     hasExtensions: false,
     hasFields: true,
@@ -775,7 +802,7 @@ The Tigris Data service.
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
-        fullType: "tigrisdata.tigris.v1.TransactionCtx",
+        fullType: "tigrisdata.v1.TransactionCtx",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -793,7 +820,7 @@ The Tigris Data service.
   message={{
     name: "CommitTransactionRequest",
     longName: "CommitTransactionRequest",
-    fullName: "tigrisdata.tigris.v1.CommitTransactionRequest",
+    fullName: "tigrisdata.v1.CommitTransactionRequest",
     description: "Commit transaction with the given ID",
     hasExtensions: false,
     hasFields: true,
@@ -819,7 +846,7 @@ The Tigris Data service.
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
-        fullType: "tigrisdata.tigris.v1.TransactionCtx",
+        fullType: "tigrisdata.v1.TransactionCtx",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -837,7 +864,7 @@ The Tigris Data service.
   message={{
     name: "CommitTransactionResponse",
     longName: "CommitTransactionResponse",
-    fullName: "tigrisdata.tigris.v1.CommitTransactionResponse",
+    fullName: "tigrisdata.v1.CommitTransactionResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -867,7 +894,7 @@ The Tigris Data service.
   message={{
     name: "CreateDatabaseRequest",
     longName: "CreateDatabaseRequest",
-    fullName: "tigrisdata.tigris.v1.CreateDatabaseRequest",
+    fullName: "tigrisdata.v1.CreateDatabaseRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -892,7 +919,7 @@ The Tigris Data service.
         label: "",
         type: "DatabaseOptions",
         longType: "DatabaseOptions",
-        fullType: "tigrisdata.tigris.v1.DatabaseOptions",
+        fullType: "tigrisdata.v1.DatabaseOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -910,7 +937,7 @@ The Tigris Data service.
   message={{
     name: "CreateDatabaseResponse",
     longName: "CreateDatabaseResponse",
-    fullName: "tigrisdata.tigris.v1.CreateDatabaseResponse",
+    fullName: "tigrisdata.v1.CreateDatabaseResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -952,7 +979,7 @@ The Tigris Data service.
   message={{
     name: "CreateOrUpdateCollectionRequest",
     longName: "CreateOrUpdateCollectionRequest",
-    fullName: "tigrisdata.tigris.v1.CreateOrUpdateCollectionRequest",
+    fullName: "tigrisdata.v1.CreateOrUpdateCollectionRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1014,7 +1041,7 @@ The Tigris Data service.
         label: "",
         type: "CollectionOptions",
         longType: "CollectionOptions",
-        fullType: "tigrisdata.tigris.v1.CollectionOptions",
+        fullType: "tigrisdata.v1.CollectionOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1032,7 +1059,7 @@ The Tigris Data service.
   message={{
     name: "CreateOrUpdateCollectionResponse",
     longName: "CreateOrUpdateCollectionResponse",
-    fullName: "tigrisdata.tigris.v1.CreateOrUpdateCollectionResponse",
+    fullName: "tigrisdata.v1.CreateOrUpdateCollectionResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1074,7 +1101,7 @@ The Tigris Data service.
   message={{
     name: "DatabaseDescription",
     longName: "DatabaseDescription",
-    fullName: "tigrisdata.tigris.v1.DatabaseDescription",
+    fullName: "tigrisdata.v1.DatabaseDescription",
     description: "",
     hasExtensions: false,
     hasFields: false,
@@ -1091,7 +1118,7 @@ The Tigris Data service.
   message={{
     name: "DatabaseInfo",
     longName: "DatabaseInfo",
-    fullName: "tigrisdata.tigris.v1.DatabaseInfo",
+    fullName: "tigrisdata.v1.DatabaseInfo",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1116,7 +1143,7 @@ The Tigris Data service.
         label: "",
         type: "DatabaseMetadata",
         longType: "DatabaseMetadata",
-        fullType: "tigrisdata.tigris.v1.DatabaseMetadata",
+        fullType: "tigrisdata.v1.DatabaseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1134,7 +1161,7 @@ The Tigris Data service.
   message={{
     name: "DatabaseMetadata",
     longName: "DatabaseMetadata",
-    fullName: "tigrisdata.tigris.v1.DatabaseMetadata",
+    fullName: "tigrisdata.v1.DatabaseMetadata",
     description: "",
     hasExtensions: false,
     hasFields: false,
@@ -1151,7 +1178,7 @@ The Tigris Data service.
   message={{
     name: "DatabaseOptions",
     longName: "DatabaseOptions",
-    fullName: "tigrisdata.tigris.v1.DatabaseOptions",
+    fullName: "tigrisdata.v1.DatabaseOptions",
     description: "Database requests modifying options.",
     hasExtensions: false,
     hasFields: false,
@@ -1168,7 +1195,7 @@ The Tigris Data service.
   message={{
     name: "DeleteRequest",
     longName: "DeleteRequest",
-    fullName: "tigrisdata.tigris.v1.DeleteRequest",
+    fullName: "tigrisdata.v1.DeleteRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1218,7 +1245,7 @@ The Tigris Data service.
         label: "",
         type: "DeleteRequestOptions",
         longType: "DeleteRequestOptions",
-        fullType: "tigrisdata.tigris.v1.DeleteRequestOptions",
+        fullType: "tigrisdata.v1.DeleteRequestOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1236,7 +1263,7 @@ The Tigris Data service.
   message={{
     name: "DeleteRequestOptions",
     longName: "DeleteRequestOptions",
-    fullName: "tigrisdata.tigris.v1.DeleteRequestOptions",
+    fullName: "tigrisdata.v1.DeleteRequestOptions",
     description: "Additional options for deleted requests.",
     hasExtensions: false,
     hasFields: true,
@@ -1249,7 +1276,7 @@ The Tigris Data service.
         label: "",
         type: "WriteOptions",
         longType: "WriteOptions",
-        fullType: "tigrisdata.tigris.v1.WriteOptions",
+        fullType: "tigrisdata.v1.WriteOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1267,7 +1294,7 @@ The Tigris Data service.
   message={{
     name: "DeleteResponse",
     longName: "DeleteResponse",
-    fullName: "tigrisdata.tigris.v1.DeleteResponse",
+    fullName: "tigrisdata.v1.DeleteResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1280,7 +1307,7 @@ The Tigris Data service.
         label: "",
         type: "ResponseMetadata",
         longType: "ResponseMetadata",
-        fullType: "tigrisdata.tigris.v1.ResponseMetadata",
+        fullType: "tigrisdata.v1.ResponseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1310,7 +1337,7 @@ The Tigris Data service.
   message={{
     name: "DescribeCollectionRequest",
     longName: "DescribeCollectionRequest",
-    fullName: "tigrisdata.tigris.v1.DescribeCollectionRequest",
+    fullName: "tigrisdata.v1.DescribeCollectionRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1347,7 +1374,7 @@ The Tigris Data service.
         label: "",
         type: "CollectionOptions",
         longType: "CollectionOptions",
-        fullType: "tigrisdata.tigris.v1.CollectionOptions",
+        fullType: "tigrisdata.v1.CollectionOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1365,7 +1392,7 @@ The Tigris Data service.
   message={{
     name: "DescribeCollectionResponse",
     longName: "DescribeCollectionResponse",
-    fullName: "tigrisdata.tigris.v1.DescribeCollectionResponse",
+    fullName: "tigrisdata.v1.DescribeCollectionResponse",
     description:
       "A detailed description about the collection.\nThe description returns collection metadata and the schema.",
     hasExtensions: false,
@@ -1391,7 +1418,7 @@ The Tigris Data service.
         label: "",
         type: "CollectionMetadata",
         longType: "CollectionMetadata",
-        fullType: "tigrisdata.tigris.v1.CollectionMetadata",
+        fullType: "tigrisdata.v1.CollectionMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1421,7 +1448,7 @@ The Tigris Data service.
   message={{
     name: "DescribeDatabaseRequest",
     longName: "DescribeDatabaseRequest",
-    fullName: "tigrisdata.tigris.v1.DescribeDatabaseRequest",
+    fullName: "tigrisdata.v1.DescribeDatabaseRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1451,7 +1478,7 @@ The Tigris Data service.
   message={{
     name: "DescribeDatabaseResponse",
     longName: "DescribeDatabaseResponse",
-    fullName: "tigrisdata.tigris.v1.DescribeDatabaseResponse",
+    fullName: "tigrisdata.v1.DescribeDatabaseResponse",
     description:
       "A detailed description about the database and all associated collections.\nDescription of the collection includes schema details as well.",
     hasExtensions: false,
@@ -1477,7 +1504,7 @@ The Tigris Data service.
         label: "",
         type: "DatabaseMetadata",
         longType: "DatabaseMetadata",
-        fullType: "tigrisdata.tigris.v1.DatabaseMetadata",
+        fullType: "tigrisdata.v1.DatabaseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1491,7 +1518,7 @@ The Tigris Data service.
         label: "repeated",
         type: "CollectionDescription",
         longType: "CollectionDescription",
-        fullType: "tigrisdata.tigris.v1.CollectionDescription",
+        fullType: "tigrisdata.v1.CollectionDescription",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1509,7 +1536,7 @@ The Tigris Data service.
   message={{
     name: "DropCollectionRequest",
     longName: "DropCollectionRequest",
-    fullName: "tigrisdata.tigris.v1.DropCollectionRequest",
+    fullName: "tigrisdata.v1.DropCollectionRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1546,7 +1573,7 @@ The Tigris Data service.
         label: "",
         type: "CollectionOptions",
         longType: "CollectionOptions",
-        fullType: "tigrisdata.tigris.v1.CollectionOptions",
+        fullType: "tigrisdata.v1.CollectionOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1564,7 +1591,7 @@ The Tigris Data service.
   message={{
     name: "DropCollectionResponse",
     longName: "DropCollectionResponse",
-    fullName: "tigrisdata.tigris.v1.DropCollectionResponse",
+    fullName: "tigrisdata.v1.DropCollectionResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1606,7 +1633,7 @@ The Tigris Data service.
   message={{
     name: "DropDatabaseRequest",
     longName: "DropDatabaseRequest",
-    fullName: "tigrisdata.tigris.v1.DropDatabaseRequest",
+    fullName: "tigrisdata.v1.DropDatabaseRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1632,7 +1659,7 @@ The Tigris Data service.
         label: "",
         type: "DatabaseOptions",
         longType: "DatabaseOptions",
-        fullType: "tigrisdata.tigris.v1.DatabaseOptions",
+        fullType: "tigrisdata.v1.DatabaseOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1650,7 +1677,7 @@ The Tigris Data service.
   message={{
     name: "DropDatabaseResponse",
     longName: "DropDatabaseResponse",
-    fullName: "tigrisdata.tigris.v1.DropDatabaseResponse",
+    fullName: "tigrisdata.v1.DropDatabaseResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1692,7 +1719,7 @@ The Tigris Data service.
   message={{
     name: "ErrorDetails",
     longName: "ErrorDetails",
-    fullName: "tigrisdata.tigris.v1.ErrorDetails",
+    fullName: "tigrisdata.v1.ErrorDetails",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1727,14 +1754,61 @@ The Tigris Data service.
   }}
 />
 
-### `InsertRequest`
+### `GetInfoRequest`
 
 <ProtoMessage
   key={28}
   message={{
+    name: "GetInfoRequest",
+    longName: "GetInfoRequest",
+    fullName: "tigrisdata.v1.GetInfoRequest",
+    description: "",
+    hasExtensions: false,
+    hasFields: false,
+    hasOneofs: false,
+    extensions: [],
+    fields: [],
+  }}
+/>
+
+### `GetInfoResponse`
+
+<ProtoMessage
+  key={29}
+  message={{
+    name: "GetInfoResponse",
+    longName: "GetInfoResponse",
+    fullName: "tigrisdata.v1.GetInfoResponse",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "server_version",
+        description: "",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `InsertRequest`
+
+<ProtoMessage
+  key={30}
+  message={{
     name: "InsertRequest",
     longName: "InsertRequest",
-    fullName: "tigrisdata.tigris.v1.InsertRequest",
+    fullName: "tigrisdata.v1.InsertRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1784,7 +1858,7 @@ The Tigris Data service.
         label: "",
         type: "InsertRequestOptions",
         longType: "InsertRequestOptions",
-        fullType: "tigrisdata.tigris.v1.InsertRequestOptions",
+        fullType: "tigrisdata.v1.InsertRequestOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1798,11 +1872,11 @@ The Tigris Data service.
 ### `InsertRequestOptions`
 
 <ProtoMessage
-  key={29}
+  key={31}
   message={{
     name: "InsertRequestOptions",
     longName: "InsertRequestOptions",
-    fullName: "tigrisdata.tigris.v1.InsertRequestOptions",
+    fullName: "tigrisdata.v1.InsertRequestOptions",
     description: "additional options for insert requests.",
     hasExtensions: false,
     hasFields: true,
@@ -1815,7 +1889,7 @@ The Tigris Data service.
         label: "",
         type: "WriteOptions",
         longType: "WriteOptions",
-        fullType: "tigrisdata.tigris.v1.WriteOptions",
+        fullType: "tigrisdata.v1.WriteOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1829,11 +1903,11 @@ The Tigris Data service.
 ### `InsertResponse`
 
 <ProtoMessage
-  key={30}
+  key={32}
   message={{
     name: "InsertResponse",
     longName: "InsertResponse",
-    fullName: "tigrisdata.tigris.v1.InsertResponse",
+    fullName: "tigrisdata.v1.InsertResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1846,7 +1920,7 @@ The Tigris Data service.
         label: "",
         type: "ResponseMetadata",
         longType: "ResponseMetadata",
-        fullType: "tigrisdata.tigris.v1.ResponseMetadata",
+        fullType: "tigrisdata.v1.ResponseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1872,11 +1946,11 @@ The Tigris Data service.
 ### `ListCollectionsRequest`
 
 <ProtoMessage
-  key={31}
+  key={33}
   message={{
     name: "ListCollectionsRequest",
     longName: "ListCollectionsRequest",
-    fullName: "tigrisdata.tigris.v1.ListCollectionsRequest",
+    fullName: "tigrisdata.v1.ListCollectionsRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1901,7 +1975,7 @@ The Tigris Data service.
         label: "",
         type: "CollectionOptions",
         longType: "CollectionOptions",
-        fullType: "tigrisdata.tigris.v1.CollectionOptions",
+        fullType: "tigrisdata.v1.CollectionOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1915,11 +1989,11 @@ The Tigris Data service.
 ### `ListCollectionsResponse`
 
 <ProtoMessage
-  key={32}
+  key={34}
   message={{
     name: "ListCollectionsResponse",
     longName: "ListCollectionsResponse",
-    fullName: "tigrisdata.tigris.v1.ListCollectionsResponse",
+    fullName: "tigrisdata.v1.ListCollectionsResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1944,7 +2018,7 @@ The Tigris Data service.
         label: "repeated",
         type: "CollectionInfo",
         longType: "CollectionInfo",
-        fullType: "tigrisdata.tigris.v1.CollectionInfo",
+        fullType: "tigrisdata.v1.CollectionInfo",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -1958,11 +2032,11 @@ The Tigris Data service.
 ### `ListDatabasesRequest`
 
 <ProtoMessage
-  key={33}
+  key={35}
   message={{
     name: "ListDatabasesRequest",
     longName: "ListDatabasesRequest",
-    fullName: "tigrisdata.tigris.v1.ListDatabasesRequest",
+    fullName: "tigrisdata.v1.ListDatabasesRequest",
     description: "",
     hasExtensions: false,
     hasFields: false,
@@ -1975,11 +2049,11 @@ The Tigris Data service.
 ### `ListDatabasesResponse`
 
 <ProtoMessage
-  key={34}
+  key={36}
   message={{
     name: "ListDatabasesResponse",
     longName: "ListDatabasesResponse",
-    fullName: "tigrisdata.tigris.v1.ListDatabasesResponse",
+    fullName: "tigrisdata.v1.ListDatabasesResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -1992,7 +2066,7 @@ The Tigris Data service.
         label: "repeated",
         type: "DatabaseInfo",
         longType: "DatabaseInfo",
-        fullType: "tigrisdata.tigris.v1.DatabaseInfo",
+        fullType: "tigrisdata.v1.DatabaseInfo",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -2006,11 +2080,11 @@ The Tigris Data service.
 ### `ReadRequest`
 
 <ProtoMessage
-  key={35}
+  key={37}
   message={{
     name: "ReadRequest",
     longName: "ReadRequest",
-    fullName: "tigrisdata.tigris.v1.ReadRequest",
+    fullName: "tigrisdata.v1.ReadRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2073,7 +2147,7 @@ The Tigris Data service.
         label: "",
         type: "ReadRequestOptions",
         longType: "ReadRequestOptions",
-        fullType: "tigrisdata.tigris.v1.ReadRequestOptions",
+        fullType: "tigrisdata.v1.ReadRequestOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -2087,11 +2161,11 @@ The Tigris Data service.
 ### `ReadRequestOptions`
 
 <ProtoMessage
-  key={36}
+  key={38}
   message={{
     name: "ReadRequestOptions",
     longName: "ReadRequestOptions",
-    fullName: "tigrisdata.tigris.v1.ReadRequestOptions",
+    fullName: "tigrisdata.v1.ReadRequestOptions",
     description:
       'Options that can be used to modify the results, for example "limit" to control the number of documents\nreturned by the server.',
     hasExtensions: false,
@@ -2105,7 +2179,7 @@ The Tigris Data service.
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
-        fullType: "tigrisdata.tigris.v1.TransactionCtx",
+        fullType: "tigrisdata.v1.TransactionCtx",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -2158,11 +2232,11 @@ The Tigris Data service.
 ### `ReadResponse`
 
 <ProtoMessage
-  key={37}
+  key={39}
   message={{
     name: "ReadResponse",
     longName: "ReadResponse",
-    fullName: "tigrisdata.tigris.v1.ReadResponse",
+    fullName: "tigrisdata.v1.ReadResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2199,7 +2273,7 @@ The Tigris Data service.
         label: "",
         type: "ResponseMetadata",
         longType: "ResponseMetadata",
-        fullType: "tigrisdata.tigris.v1.ResponseMetadata",
+        fullType: "tigrisdata.v1.ResponseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -2213,11 +2287,11 @@ The Tigris Data service.
 ### `ReplaceRequest`
 
 <ProtoMessage
-  key={38}
+  key={40}
   message={{
     name: "ReplaceRequest",
     longName: "ReplaceRequest",
-    fullName: "tigrisdata.tigris.v1.ReplaceRequest",
+    fullName: "tigrisdata.v1.ReplaceRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2267,7 +2341,7 @@ The Tigris Data service.
         label: "",
         type: "ReplaceRequestOptions",
         longType: "ReplaceRequestOptions",
-        fullType: "tigrisdata.tigris.v1.ReplaceRequestOptions",
+        fullType: "tigrisdata.v1.ReplaceRequestOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -2281,11 +2355,11 @@ The Tigris Data service.
 ### `ReplaceRequestOptions`
 
 <ProtoMessage
-  key={39}
+  key={41}
   message={{
     name: "ReplaceRequestOptions",
     longName: "ReplaceRequestOptions",
-    fullName: "tigrisdata.tigris.v1.ReplaceRequestOptions",
+    fullName: "tigrisdata.v1.ReplaceRequestOptions",
     description: "Additional options for replace requests.",
     hasExtensions: false,
     hasFields: true,
@@ -2298,7 +2372,7 @@ The Tigris Data service.
         label: "",
         type: "WriteOptions",
         longType: "WriteOptions",
-        fullType: "tigrisdata.tigris.v1.WriteOptions",
+        fullType: "tigrisdata.v1.WriteOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -2312,11 +2386,11 @@ The Tigris Data service.
 ### `ReplaceResponse`
 
 <ProtoMessage
-  key={40}
+  key={42}
   message={{
     name: "ReplaceResponse",
     longName: "ReplaceResponse",
-    fullName: "tigrisdata.tigris.v1.ReplaceResponse",
+    fullName: "tigrisdata.v1.ReplaceResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2329,7 +2403,7 @@ The Tigris Data service.
         label: "",
         type: "ResponseMetadata",
         longType: "ResponseMetadata",
-        fullType: "tigrisdata.tigris.v1.ResponseMetadata",
+        fullType: "tigrisdata.v1.ResponseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -2355,11 +2429,11 @@ The Tigris Data service.
 ### `ResponseMetadata`
 
 <ProtoMessage
-  key={41}
+  key={43}
   message={{
     name: "ResponseMetadata",
     longName: "ResponseMetadata",
-    fullName: "tigrisdata.tigris.v1.ResponseMetadata",
+    fullName: "tigrisdata.v1.ResponseMetadata",
     description: "Has metadata related to the documents stored.",
     hasExtensions: false,
     hasFields: true,
@@ -2399,11 +2473,11 @@ The Tigris Data service.
 ### `RollbackTransactionRequest`
 
 <ProtoMessage
-  key={42}
+  key={44}
   message={{
     name: "RollbackTransactionRequest",
     longName: "RollbackTransactionRequest",
-    fullName: "tigrisdata.tigris.v1.RollbackTransactionRequest",
+    fullName: "tigrisdata.v1.RollbackTransactionRequest",
     description: "Rollback transaction with the given ID",
     hasExtensions: false,
     hasFields: true,
@@ -2429,7 +2503,7 @@ The Tigris Data service.
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
-        fullType: "tigrisdata.tigris.v1.TransactionCtx",
+        fullType: "tigrisdata.v1.TransactionCtx",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -2443,11 +2517,11 @@ The Tigris Data service.
 ### `RollbackTransactionResponse`
 
 <ProtoMessage
-  key={43}
+  key={45}
   message={{
     name: "RollbackTransactionResponse",
     longName: "RollbackTransactionResponse",
-    fullName: "tigrisdata.tigris.v1.RollbackTransactionResponse",
+    fullName: "tigrisdata.v1.RollbackTransactionResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2473,11 +2547,11 @@ The Tigris Data service.
 ### `StreamChange`
 
 <ProtoMessage
-  key={44}
+  key={46}
   message={{
     name: "StreamChange",
     longName: "StreamChange",
-    fullName: "tigrisdata.tigris.v1.StreamChange",
+    fullName: "tigrisdata.v1.StreamChange",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2515,11 +2589,11 @@ The Tigris Data service.
 ### `StreamRequest`
 
 <ProtoMessage
-  key={45}
+  key={47}
   message={{
     name: "StreamRequest",
     longName: "StreamRequest",
-    fullName: "tigrisdata.tigris.v1.StreamRequest",
+    fullName: "tigrisdata.v1.StreamRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2545,11 +2619,11 @@ The Tigris Data service.
 ### `StreamResponse`
 
 <ProtoMessage
-  key={46}
+  key={48}
   message={{
     name: "StreamResponse",
     longName: "StreamResponse",
-    fullName: "tigrisdata.tigris.v1.StreamResponse",
+    fullName: "tigrisdata.v1.StreamResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2562,7 +2636,7 @@ The Tigris Data service.
         label: "repeated",
         type: "StreamChange",
         longType: "StreamChange",
-        fullType: "tigrisdata.tigris.v1.StreamChange",
+        fullType: "tigrisdata.v1.StreamChange",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -2576,11 +2650,11 @@ The Tigris Data service.
 ### `TransactionCtx`
 
 <ProtoMessage
-  key={47}
+  key={49}
   message={{
     name: "TransactionCtx",
     longName: "TransactionCtx",
-    fullName: "tigrisdata.tigris.v1.TransactionCtx",
+    fullName: "tigrisdata.v1.TransactionCtx",
     description:
       "Contains ID which uniquely identifies transaction\nThis context is returned by BeginTransaction request and\nshould be passed in the subsequent requests in order to run\nthem in the context of the same transaction.",
     hasExtensions: false,
@@ -2619,11 +2693,11 @@ The Tigris Data service.
 ### `TransactionOptions`
 
 <ProtoMessage
-  key={48}
+  key={50}
   message={{
     name: "TransactionOptions",
     longName: "TransactionOptions",
-    fullName: "tigrisdata.tigris.v1.TransactionOptions",
+    fullName: "tigrisdata.v1.TransactionOptions",
     description:
       "Options that can be used to modify the transaction semantics.",
     hasExtensions: false,
@@ -2637,11 +2711,11 @@ The Tigris Data service.
 ### `UpdateRequest`
 
 <ProtoMessage
-  key={49}
+  key={51}
   message={{
     name: "UpdateRequest",
     longName: "UpdateRequest",
-    fullName: "tigrisdata.tigris.v1.UpdateRequest",
+    fullName: "tigrisdata.v1.UpdateRequest",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2704,7 +2778,7 @@ The Tigris Data service.
         label: "",
         type: "UpdateRequestOptions",
         longType: "UpdateRequestOptions",
-        fullType: "tigrisdata.tigris.v1.UpdateRequestOptions",
+        fullType: "tigrisdata.v1.UpdateRequestOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -2718,11 +2792,11 @@ The Tigris Data service.
 ### `UpdateRequestOptions`
 
 <ProtoMessage
-  key={50}
+  key={52}
   message={{
     name: "UpdateRequestOptions",
     longName: "UpdateRequestOptions",
-    fullName: "tigrisdata.tigris.v1.UpdateRequestOptions",
+    fullName: "tigrisdata.v1.UpdateRequestOptions",
     description: "Additional options for update requests.",
     hasExtensions: false,
     hasFields: true,
@@ -2735,7 +2809,7 @@ The Tigris Data service.
         label: "",
         type: "WriteOptions",
         longType: "WriteOptions",
-        fullType: "tigrisdata.tigris.v1.WriteOptions",
+        fullType: "tigrisdata.v1.WriteOptions",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -2749,11 +2823,11 @@ The Tigris Data service.
 ### `UpdateResponse`
 
 <ProtoMessage
-  key={51}
+  key={53}
   message={{
     name: "UpdateResponse",
     longName: "UpdateResponse",
-    fullName: "tigrisdata.tigris.v1.UpdateResponse",
+    fullName: "tigrisdata.v1.UpdateResponse",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2766,7 +2840,7 @@ The Tigris Data service.
         label: "",
         type: "ResponseMetadata",
         longType: "ResponseMetadata",
-        fullType: "tigrisdata.tigris.v1.ResponseMetadata",
+        fullType: "tigrisdata.v1.ResponseMetadata",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -2804,11 +2878,11 @@ The Tigris Data service.
 ### `WriteOptions`
 
 <ProtoMessage
-  key={52}
+  key={54}
   message={{
     name: "WriteOptions",
     longName: "WriteOptions",
-    fullName: "tigrisdata.tigris.v1.WriteOptions",
+    fullName: "tigrisdata.v1.WriteOptions",
     description: "Additional options to modify write requests.",
     hasExtensions: false,
     hasFields: true,
@@ -2821,7 +2895,7 @@ The Tigris Data service.
         label: "",
         type: "TransactionCtx",
         longType: "TransactionCtx",
-        fullType: "tigrisdata.tigris.v1.TransactionCtx",
+        fullType: "tigrisdata.v1.TransactionCtx",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
