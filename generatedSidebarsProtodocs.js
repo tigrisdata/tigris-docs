@@ -6,7 +6,7 @@ module.exports = {
       items: [
         {
           type: "category",
-          label: "tigrisdata.tigris.v1",
+          label: "tigrisdata.v1",
           items: [{ type: "doc", id: "server/v1/api.proto", label: "Tigris" }],
         },
       ],
