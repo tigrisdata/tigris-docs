@@ -79,6 +79,9 @@ const config = {
         },
       },
     ],
+  ],
+
+  plugins: [
     [
       "docusaurus-plugin-segment",
       {
