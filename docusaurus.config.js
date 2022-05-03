@@ -79,6 +79,12 @@ const config = {
         },
       },
     ],
+    [
+      "docusaurus-plugin-segment",
+      {
+        apiKey: "5hxcYrckK6SUpv5MaebDNAUZ0vJvzFcM",
+      },
+    ],
   ],
 
   themeConfig:
