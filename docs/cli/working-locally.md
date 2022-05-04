@@ -1,7 +1,10 @@
 # Working Locally
 
-Getting started working with Tigris locally requires one easy step. Open
-your terminal, and:
+Getting started working with Tigris locally requires one easy step.
+
+### Starting up local Tigris
+
+Open your terminal, and:
 
 ```shell
 tigris local up
@@ -9,6 +12,17 @@ tigris local up
 
 This will spin up Tigris locally as a set of Docker containers. The Tigris
 server will then be available on port `8081`.
+
+### Health Check
+
+You can use the `ping` command to verify that the server is ready to
+accept requests.
+
+```shell
+tigris ping
+```
+
+### Start building
 
 That's it, you are ready to build with Tigris!
 
