@@ -1,7 +1,25 @@
 # Quickstart: Java
 
-The following guide will get you up and running locally as quickly as possible
-using Java.
+:::tip
+⏱ This guide should require less than 5 minutes
+
+:::
+
+Getting started with Tigris is extremely fast and simple. The following
+guide will get you up and running locally as quickly as possible using Java.
+
+## Prerequisites
+
+All you'll need is any computer running macOS or Linux, with the following
+installed:
+
+- [Docker](https://docs.docker.com/get-docker/)
+- JDK version 8, 11 or 17
+- [Apache maven](https://maven.apache.org/install.html)
+
+## Working locally
+
+Now let's get started locally with Tigris in three easy steps:
 
 ### 1. Startup Tigris locally via Docker
 
@@ -27,9 +45,6 @@ curl -sSL https://tigris.dev/cli-linux | sudo tar -xz -C /usr/local/bin
 </TabItem>
 </Tabs>
 
-Note that you'll need to have [docker](https://docs.docker.com/get-docker/)
-installed already.
-
 Next we start up Tigris locally using the _tigris_ cli
 
 ```shell
@@ -42,23 +57,19 @@ Once this command has completed, Tigris server will be available on port
 ### 2. Download the starter project
 
 Fire up the terminal and use the following command to download the starter
-project
+project that we've put together for this guide
 
 ```shell
-curl -L https://github.com/tigrisdata/tigris-starter-java/archive/refs/tags/1.0.0-alpha.9.tar.gz  | tar -xz
+mkdir tigris-starter && curl -sSL https://tigris.dev/java-starter  | tar -xz --strip=1 -C tigris-starter
 ```
 
 ### 3. Build the project
 
-The following prerequisites are needed for this step:
-
-- JDK setup at version 8 / 11 / 17
-- Apache maven
-
-From your terminal move into the starter project and build it.
+From your terminal move into the starter project directory and build the
+project
 
 ```shell
-cd tigris-starter-java-1.0.0-alpha.9
+cd tigris-starter
 mvn clean install
 ```
 
@@ -158,27 +169,32 @@ public ResponseEntity<String> purchase(
 }
 ```
 
-Now launch the application from the IDE.
-
-An example using IntelliJ IDEA is shown below
+Next run the application from your favorite IDE. An example using IntelliJ
+IDEA is shown below
 ![launcher window image](/img/screenshots/launcher_window.png)
 
+:::info
 A successful launch of the application will end with the log entry
-`[main] INFO c.t.s.spring.TigrisInitializer - Finished initializing Tigris`
+
+```shell
+[main] INFO c.t.s.spring.TigrisInitializer - Finished initializing Tigris
+```
+
+:::
 
 Congratulations, you just wrote a REST service which uses Tigris as the
 backend. Take a look at the REST API at
 [http://localhost:8080/swagger.html](http://localhost:8080/swagger.html).
 
-### Understanding what just happened
+## Understanding what just happened
 
-The downloaded starter project includes the data model Java classes consisting
-of three collections `users`, `products` and `orders` located in
-`com.tigrisdata.starter.collections` Java package.
+The starter project includes the Java model classes corresponding to the
+three collections _users_, _products_ and _orders_ located in the Java
+package `com.tigrisdata.starter.collections`.
 
 When you launched the application, code located in
 `com.tigrisdata.starter.spring.TigrisInitializer#run` created the database
-and registered the schema based on the 3 collection models.
+and registered the schema with Tigris based on the three collection models.
 
 You wrote a new HTTP handler that used Tigris' transaction feature. The
 transaction involved reading data, validating that certain conditions around
