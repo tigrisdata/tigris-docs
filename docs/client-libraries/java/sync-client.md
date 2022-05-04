@@ -6,16 +6,6 @@
 In this section we will do a code walk through of how to use the Java sync
 client library to build with the Tigris data platform.
 
-## Installation
-
-Download the JAR file and add it to your project.
-
-```java
-import com.tigrisdata.db.client.*;
-import com.tigrisdata.db.annotation.*;
-import com.tigrisdata.db.type.*;
-```
-
 ## Client initialization
 
 ```java
