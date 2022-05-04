@@ -1,6 +1,6 @@
 # Client Library: Java
 
-![Maven Central](https://img.shields.io/maven-central/v/com.tigrisdata/tigris-client-java)
+[![Maven Central](https://img.shields.io/maven-central/v/com.tigrisdata/tigris-client-java)](https://mvnrepository.com/artifact/com.tigrisdata/tigris-client)
 [![javadoc](https://javadoc.io/badge2/com.tigrisdata/tigris-client/javadoc.svg)](https://javadoc.io/doc/com.tigrisdata/tigris-client)
 
 Tigris provides an easy-to-use and intuitive interface for Java combined with
@@ -26,7 +26,9 @@ maximize the use of system resources.
 
 ## Installation
 
-Download the JAR file and add it to your project.
+Follow the instructions
+[here](https://mvnrepository.com/artifact/com.tigrisdata/tigris-client) for your
+build tool of choice and add the client library to your project.
 
 ```java
 import com.tigrisdata.db.client.*;
