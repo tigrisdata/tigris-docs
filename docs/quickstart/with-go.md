@@ -278,11 +278,11 @@ The changes in the above function applied atomically to multiple collections or 
 ## Next steps
 
 - Play with the data using the [CLI](https://docs.tigrisdata.com/cli)
-  - tigris list collections shop
-  - tigris read shop users
-  - tigris read shop products
-  - tigris read shop orders
+  - `tigris list collections shop`
+  - `tigris read shop users`
+  - `tigris read shop products`
+  - `tigris read shop orders`
 - Bring the Tigris Go client into your existing project:
-  - go get github.com/tigrisdata/tigris-client-go
+  - `go get github.com/tigrisdata/tigris-client-go@latest`
 - Scaffold new Go project:
-  - tigris scaffold go {Company} {Project} {DbName} {CollectionName1} ...
+  - `tigris scaffold go {Company} {Project} {DbName} {CollectionName1} ...`
