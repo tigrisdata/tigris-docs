@@ -10,18 +10,18 @@ static website generator.
 [Node.js](https://nodejs.org/en/download/) version >= 14 or above (which can
 be checked by running node -v).
 
-### Protobuffet
+### Protocol Buffer Compiler
 
-Install protoc. change for your OS as necessary
+Install protoc. Change for your OS as necessary
 
 ```shell
 brew install protobuf
 ```
 
-Install protoc-gen-doc. this depends on golang.
+Install protoc-gen-doc. This depends on golang.
 
 ```shell
-go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc
+go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 ```
 
 ## Installation
