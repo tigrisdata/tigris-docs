@@ -5,8 +5,8 @@
 
 :::
 
-Getting started with Tigris is extremely fast and simple. The following
-guide will get you up and running locally as quickly as possible using Java.
+With a few quick steps, the following guide will get you up and running with
+a RESTful web application that uses Tigris as the backend.
 
 ## Prerequisites
 
@@ -14,14 +14,18 @@ All you'll need is any computer running macOS or Linux, with the following
 installed:
 
 - [Docker](https://docs.docker.com/get-docker/)
-- JDK version 8, 11 or 17
+- [JDK version](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 8, 11 or 17
 - [Apache maven](https://maven.apache.org/install.html)
 
-## Working locally
+## Build a RESTful Application
 
-Now let's get started locally with Tigris in three easy steps:
+We will build an application that will accept HTTP requests to store and
+retrieve data in the Tigris backend. This is a simplified implementation of
+an e-commerce use case.
 
-### 1. Startup Tigris locally via Docker
+Now let's get started locally with Tigris.
+
+### Startup Tigris locally via Docker
 
 The first step is to install the CLI
 
@@ -54,7 +58,7 @@ tigris local up
 Once this command has completed, Tigris server will be available on port
 `8081`.
 
-### 2. Download the starter project
+### Download the starter project
 
 Fire up the terminal and use the following command to download the starter
 project that we've put together for this guide
@@ -63,7 +67,7 @@ project that we've put together for this guide
 mkdir tigris-starter && curl -sSL https://tigris.dev/java-starter  | tar -xz --strip=1 -C tigris-starter
 ```
 
-### 3. Build the project
+### Build the project
 
 From your terminal move into the starter project directory and build the
 project
@@ -73,11 +77,68 @@ cd tigris-starter
 mvn clean install
 ```
 
-### 4. Insert and read data
+### Run the application
 
-The following code will set up a HTTP handler that will leverage Tigris to
-insert data into the _orders_ collection while updating the data in the
-_users_ and _products_ collections.
+Next run the application from your favorite IDE. An example using **IntelliJ
+IDEA** is shown below
+
+![intellij_launcher image](/img/screenshots/intellij_launcher.png)
+
+:::info
+A successful launch of the application will end with the log entry
+
+```shell
+[main] INFO  c.t.starter.spring.TigrisInitializer - Finished initializing Tigris
+```
+
+:::
+
+Congratulations, you just wrote a REST service which uses Tigris as the
+backend.
+
+Try out the REST API at
+[http://localhost:8080/swagger.html](http://localhost:8080/swagger.html)
+
+![swagger_openapi_image](/img/screenshots/java_starter_openapi.png)
+![swagger_openapi_image](/img/screenshots/java_starter_schemas.png)
+
+Let's create a user and a product.
+
+**Create a User**
+
+```shell
+curl -X 'POST' \
+  'http://localhost:8080/users/create' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": 1,
+  "name": "Jania McGrory",
+  "balance": 6045.7
+}'
+```
+
+**Create a Product**
+
+```shell
+curl -X 'POST' \
+  'http://localhost:8080/products/create' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": 1,
+  "name": "Vanilla Beans",
+  "quantity": 6358,
+  "price": 4.39
+}'
+```
+
+These newly added User and Product documents were persisted in the Tigris
+backend.
+
+### Extend the application
+
+Now let's set up a HTTP handler that will leverage Tigris to insert data
+into the _orders_ collection while updating the data in the _users_ and
+_products_ collections.
 
 :::info
 One of the main features of Tigris is the ability to perform ACID
@@ -169,22 +230,14 @@ public ResponseEntity<String> purchase(
 }
 ```
 
-Next run the application from your favorite IDE. An example using IntelliJ
-IDEA is shown below
-![launcher window image](/img/screenshots/launcher_window.png)
+Run the application again and use the newly added HTTP endpoint to create an
+order.
 
-:::info
-A successful launch of the application will end with the log entry
+**Create an Order**
 
 ```shell
-[main] INFO c.t.s.spring.TigrisInitializer - Finished initializing Tigris
+curl -X 'POST' 'http://localhost:8080/order/1/1/20
 ```
-
-:::
-
-Congratulations, you just wrote a REST service which uses Tigris as the
-backend. Take a look at the REST API at
-[http://localhost:8080/swagger.html](http://localhost:8080/swagger.html).
 
 ## Understanding what just happened
 
@@ -194,7 +247,8 @@ package `com.tigrisdata.starter.collections`.
 
 When you launched the application, code located in
 `com.tigrisdata.starter.spring.TigrisInitializer#run` created the database
-and registered the schema with Tigris based on the three collection models.
+and registered the schema with the Tigris backend based on the three collection
+models.
 
 You wrote a new HTTP handler that used Tigris' transaction feature. The
 transaction involved reading data, validating that certain conditions around
