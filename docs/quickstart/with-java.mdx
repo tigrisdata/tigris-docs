@@ -153,17 +153,11 @@ Open the project in your favorite IDE and add the following to
 **Additional Imports**
 
 ```java title="OrderController.java"
-import com.tigrisdata.db.client.TransactionOptions;
-import com.tigrisdata.db.client.TransactionSession;
-import com.tigrisdata.db.client.TransactionTigrisCollection;
-import com.tigrisdata.db.client.UpdateFields;
-import com.tigrisdata.starter.collections.Product;
-import com.tigrisdata.starter.collections.User;
+import java.util.Collections;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import java.util.Collections;
+import com.tigrisdata.db.client.UpdateFields;
 ```
 
 **HTTP handler**
@@ -171,62 +165,54 @@ import java.util.Collections;
 ```java title="OrderController.java"
 @PostMapping("{user_id}/{product_id}/{qty}")
 public ResponseEntity<String> purchase(
-    @RequestParam("user_id") int userId,
-    @RequestParam("product_id") int productId,
-    @RequestParam("qty") int quantity)
-    throws TigrisException {
+        @PathVariable("user_id") int userId,
+        @PathVariable("product_id") int productId,
+        @PathVariable("qty") int quantity)
+        throws TigrisException {
+  tigrisStarterDatabase.transact(
+          session -> {
+            try {
+              // read the user and product documents
+              User user = userCollection.readOne(session, Filters.eq("id", userId)).get();
+              Product product = productCollection.readOne(session, Filters.eq("id", productId)).get();
 
-  // Begin the transaction and perform all operations below in the context of
-  // this transaction
-  TransactionSession transactionSession =
-      tigrisStarterDatabase.beginTransaction(new TransactionOptions());
+              // ensure that a user is never allowed to purchase products worth more than
+              // their available balance, and that we never create orders that exceed the
+              // amount of available product
+              if (product.getQuantity() >= quantity
+                      && product.getPrice() * quantity <= user.getBalance()) {
+                double orderTotal = product.getPrice() * quantity;
+                double newUserBalance = user.getBalance() - orderTotal;
+                int newProductQuantity = product.getQuantity() - quantity;
+                userCollection.update(
+                        session,
+                        Filters.eq("id", userId),
+                        UpdateFields.newBuilder().set("balance", newUserBalance).build());
 
-  try {
-    // retrieve session aware collection
-    TransactionTigrisCollection<User> userCollection =
-        transactionSession.getCollection(User.class);
-    TransactionTigrisCollection<Product> productCollection =
-        transactionSession.getCollection(Product.class);
-    TransactionTigrisCollection<Order> orderCollection =
-        transactionSession.getCollection(Order.class);
+                productCollection.update(
+                        session,
+                        Filters.eq("id", productId),
+                        UpdateFields.newBuilder().set("quantity", newProductQuantity).build());
 
-    // read the user and product documents
-    User user = userCollection.readOne(Filters.eq("id", userId)).get();
-    Product product = productCollection.readOne(Filters.eq("id", productId)).get();
+                orderCollection.insert(
+                        session,
+                        new Order(
+                                orderIdSequence.incrementAndGet(),
+                                userId,
+                                orderTotal,
+                                Collections.singletonList(new Order.ProductItem(productId, quantity))));
 
-    // ensure that a user is never allowed to purchase products worth more than
-    // their available balance, and that we never create orders that exceed the
-    // amount of available product
-    if (product.getQuantity() >= quantity && product.getPrice() * quantity <= user.getBalance()) {
-      double orderTotal = product.getPrice() * quantity;
-      double newUserBalance = user.getBalance() - orderTotal;
-      int newProductQuantity = product.getQuantity() - quantity;
-      userCollection.update(
-          Filters.eq("id", userId),
-          UpdateFields.newBuilder().set("balance", newUserBalance).build());
-
-      productCollection.update(
-          Filters.eq("id", productId),
-          UpdateFields.newBuilder().set("quantity", newProductQuantity).build());
-
-      orderCollection.insert(
-          new Order(
-              orderIdSequence.incrementAndGet(),
-              userId,
-              orderTotal,
-              Collections.singletonList(new Order.ProductItem(productId, quantity))));
-
-      // commit the transaction to persist all the changes
-      transactionSession.commit();
-      return ResponseEntity.status(HttpStatus.OK).body("Purchased successfully");
-    } else {
-      transactionSession.rollback();
-      return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body("Not enough balance");
-    }
-  } catch (Exception ex) {
-    transactionSession.rollback();
-    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to shop");
-  }
+              } else {
+                // throw this to automatically rollback current transaction
+                throw new IllegalStateException("Not enough balance");
+              }
+            } catch (TigrisException ex) {
+              // handle this or throw this to automatically rollback current transaction
+              throw new IllegalStateException(ex);
+            }
+          });
+  // transaction successful
+  return ResponseEntity.status(HttpStatus.OK).body("Purchased successfully");
 }
 ```
 
@@ -236,7 +222,7 @@ order.
 **Create an Order**
 
 ```shell
-curl -X 'POST' 'http://localhost:8080/order/1/1/20
+curl -X 'POST' 'http://localhost:8080/order/1/1/20'
 ```
 
 ## Understanding what just happened
