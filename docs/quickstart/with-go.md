@@ -210,24 +210,24 @@ func setupCreateOrderRoute(r *gin.Engine, db *tigris.Database) {
 
 		// Perform the operations with users, products, orders
 		// to create the order transactionally
-		err := db.Tx(c, func(ctx context.Context, tx *tigris.Tx) error {
+		err := db.Tx(c, func(txCtx context.Context) error {
 			// Get an object of the transactional users collection
-			users := tigris.GetTxCollection[User](tx)
+			users := tigris.GetCollection[User](db)
 
 			// Read the user with order's UserId
-			u, err := users.ReadOne(ctx, filter.Eq("id", o.UserId))
+			u, err := users.ReadOne(txCtx, filter.Eq("id", o.UserId))
 			if err != nil {
 				return err
 			}
 
-			products := tigris.GetTxCollection[Product](tx)
+			products := tigris.GetCollection[Product](db)
 
 			orderTotal := 0.0
 
 			// For every product in the order
 			for _, v := range o.Products {
 				// Read the product with id=v.Id from the Tigris collection
-				p, err := products.ReadOne(ctx, filter.Eq("id", v.Id))
+				p, err := products.ReadOne(txCtx, filter.Eq("id", v.Id))
 				if err != nil {
 					return err
 				}
@@ -238,8 +238,8 @@ func setupCreateOrderRoute(r *gin.Engine, db *tigris.Database) {
 				}
 
 				// Subtract the quantity required to satisfy the order
-				_, err = products.Update(ctx, filter.Eq("id", v.Id),
-					update.Set("Quantity", p.Quantity-v.Quantity))
+				_, err = products.Update(txCtx, filter.Eq("id", v.Id),
+					fields.Set("Quantity", p.Quantity-v.Quantity))
 				if err != nil {
 					return err
 				}
@@ -252,8 +252,8 @@ func setupCreateOrderRoute(r *gin.Engine, db *tigris.Database) {
 			}
 
 			// Subtract order total cost from user balance
-			_, err = users.Update(ctx, filter.Eq("id", o.UserId),
-				update.Set("Balance", u.Balance-orderTotal))
+			_, err = users.Update(txCtx, filter.Eq("id", o.UserId),
+				fields.Set("Balance", u.Balance-orderTotal))
 			if err != nil {
 				return err
 			}

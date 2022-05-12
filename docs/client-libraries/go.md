@@ -139,7 +139,7 @@ In the following example the field `Balance` of the `User` with `Id`=1
 is set to 200:
 
 ```go
-	_, err = users.Update(ctx, filter.Eq("Id", "1"), update.Set("Balance", 200))
+	_, err = users.Update(ctx, filter.Eq("Id", "1"), fields.Set("Balance", 200))
 	if err != nil {
 		// handle error
 	}
@@ -176,11 +176,11 @@ consistently modify documents across collections.
 	// executed in it will be applied to the database.
 	// Changes will be discarded when the closure returns an error.
 	// In this example if Balance is lower than 100 transaction will be rolled back
-	err = db.Tx(ctx, func(ctx context.Context, tx *tigris.Tx) error {
+	err = db.Tx(ctx, func(txCtx context.Context) error {
 		// Get the transactional collection object
-		c := tigris.GetTxCollection[User](tx)
+		c := tigris.GetCollection[User](db)
 
-		u, err := c.ReadOne(ctx, filter.Eq("Id", 1))
+		u, err := c.ReadOne(txCtx, filter.Eq("Id", 1))
 		if err != nil {
 			return err
 		}
