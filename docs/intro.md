@@ -3,7 +3,7 @@ id: intro
 slug: /
 ---
 
-# Welcome to Tigris!
+# Overview
 
 Here you'll find ways to get started, understand core concepts, and explore
 a variety of resources to help you get the most from Tigris data platform. We
