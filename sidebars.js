@@ -23,6 +23,7 @@ const sidebars = {
         type: "doc",
         id: "intro",
       },
+      collapsed: false,
       items: ["overview/key-concepts"],
     },
     {
