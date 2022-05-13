@@ -46,7 +46,20 @@ const sidebars = {
         type: "generated-index",
       },
       collapsed: false,
-      items: ["datamodels/schema", "datamodels/types", "datamodels/examples"],
+      items: [
+        {
+          type: "category",
+          label: "Schema",
+          link: {
+            type: "doc",
+            id: "datamodels/schema",
+          },
+          collapsed: false,
+          items: ["datamodels/using-go", "datamodels/using-java"],
+        },
+        "datamodels/json-spec",
+        "datamodels/examples",
+      ],
     },
     {
       type: "category",
