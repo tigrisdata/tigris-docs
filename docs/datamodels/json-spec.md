@@ -49,7 +49,7 @@ document. These fields are defined as part of the properties.
 
 The fields must all have the following keywords expressed as JSON keys:
 
-- **type**: This keyword states the data [type](types.md).
+- **type**: This keyword states the data type
 - **description**: This keyword describes the purpose of the field
 
 The array and object data types have additional items that must be specified.
