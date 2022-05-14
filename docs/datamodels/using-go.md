@@ -176,7 +176,8 @@ The model definition above will result in the following collection schema
 Tigris supports the majority of the basic Go types while also providing support
 for custom types.
 
-- Basic types: int, int64, string, flot64
+- Basic types: int, int32, int64, float32, float64, string, []string, byte,
+  []byte, bool, map[string], time.Time
 - Custom types: struct to define custom types
 
 ### Field Tags
