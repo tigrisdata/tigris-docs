@@ -55,10 +55,10 @@ const sidebars = {
             id: "datamodels/schema",
           },
           collapsed: false,
-          items: ["datamodels/using-go", "datamodels/using-java"],
+          items: ["datamodels/json-spec"],
         },
-        "datamodels/json-spec",
-        "datamodels/examples",
+        "datamodels/using-go",
+        "datamodels/using-java",
       ],
     },
     {

@@ -29,8 +29,8 @@ There are three categories of data types supported:
 
 ## Defining the Data Models
 
-The data models encompassing collections and their schema are defined
-together with the application code using the same programming language. By
+The data models encompassing collections and their schema are declared
+as part of the application code using the same programming language. By
 incorporating this data model into your application code, you can ensure
 that it remains consistent and up-to-date with the application's business logic.
 
