@@ -1,0 +1,171 @@
+# Quickstart: HTTP API
+
+The following guide will get you up and running using the HTTP APIs.
+
+:::tip
+⏱ This guide should require less than 5 minutes
+
+:::
+
+First let's review what you need to get going.
+
+## Prerequisites
+
+All you'll need is any computer running macOS or Linux, with
+[docker](https://docs.docker.com/get-docker/) installed.
+
+## Working locally
+
+First let's get started with Tigris locally.
+
+### Startup Tigris locally via Docker
+
+The first step is to install the CLI
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+<Tabs>
+<TabItem value="macOS" label="macOS">
+
+```shell
+curl -sSL https://tigris.dev/cli-macos | sudo tar -xz -C /usr/local/bin
+```
+
+</TabItem>
+<TabItem value="Linux" label="Linux">
+
+```shell
+curl -sSL https://tigris.dev/cli-linux | sudo tar -xz -C /usr/local/bin
+```
+
+</TabItem>
+</Tabs>
+
+Next we start up Tigris locally using the _tigris_ cli
+
+```shell
+tigris local up
+```
+
+Once this command has completed, Tigris server will be available on port
+`8081`.
+
+## Creating database and collection
+
+For this quickstart we will create a database named _sampledb_ and then
+create a collection _users_ inside it.
+
+Creating a database is as easy as calling an API, and it is ready in an
+instant.
+
+```shell
+curl -X POST http://localhost:8081/api/v1/databases/sampledb/create
+```
+
+Similarly, a collection is instantaneously created through the API. In
+Tigris, a collection is an ordered set of records called documents that all
+follow a specific schema and whose fields are strongly typed.
+
+```shell
+curl http://localhost:8081/api/v1/databases/sampledb/collections/users/createOrUpdate \
+      -X POST \
+      -H "Content-Type: application/json" \
+      -d '{
+        "schema": {
+          "title": "users",
+          "properties": {
+            "balance": {
+              "type": "number"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "primary_key": [
+            "id"
+          ]
+        }
+      }'
+```
+
+The schema of the collections created above can be fetched as follows
+
+```shell
+curl -X POST http://localhost:8081/api/v1/databases/sampledb/collections/users/describe
+```
+
+## Upsert some documents
+
+The following example will replace documents with the same `id` if they
+already exist, or create new documents if they don't exist with the same `id`.
+
+```shell
+curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents/replace \
+      -X PUT \
+      -H "Content-Type: application/json" \
+      -d '{
+        "documents": [
+          {"id": 1, "name": "Jania McGrory", "balance": 6045.7},
+          {"id": 2, "name": "Bunny Instone", "balance": 2948.87}
+        ]
+      }'
+```
+
+## Read a document
+
+Next up, read the document from the collection by using its `id`.
+
+```shell
+curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents/read \
+      -X POST \
+      -H "Content-Type: application/json" \
+      -d '{
+        "filter": {"id": 1}
+      }'
+```
+
+## Update a document
+
+Update one of the fields in a document by using its `id`.
+
+```shell
+curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents/update \
+      -X PUT \
+      -H "Content-Type: application/json" \
+      -d '{
+        "fields": {
+          "$set": {"balance": 2448.87}
+        },
+        "filter": {"id": 2}
+      }'
+```
+
+## Delete documents
+
+Finally, use the delete API to remove the documents from the collection
+based on the filter.
+
+```shell
+curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents/delete \
+      -X DELETE \
+      -H "Content-Type: application/json" \
+      -d '{
+        "filter": {
+          "$or": [
+            {"id": 1},
+            {"id": 2}
+          ]
+        }
+      }'
+```
+
+## Conclusion
+
+Tigris offers simple and intuitive APIs to make it easy for you get started
+with any data architecture needs! Setting up the database is instantaneous,
+as well - no need for tedious configuration. While schema enforcement on
+collections ensures that the data is well-structured and less prone to errors.
