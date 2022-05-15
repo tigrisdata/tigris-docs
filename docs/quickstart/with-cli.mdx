@@ -18,7 +18,7 @@ All you'll need is any computer running macOS or Linux, with
 
 Now let's get started locally with Tigris in three easy steps:
 
-### 1. Startup Tigris locally via Docker
+### Startup Tigris locally via Docker
 
 The first step is to install the CLI
 
@@ -51,7 +51,7 @@ tigris local up
 Once this command has completed, Tigris server will be available on port
 `8081`.
 
-### 2. Create sample schema
+### Create sample schema
 
 For this quickstart we will model a simple ecommerce app. The data would be
 stored in three collections _products_, _users_ and _orders_.
@@ -69,10 +69,10 @@ The schema of the collections created can be fetched as follows
 tigris describe collection sampledb orders
 ```
 
-### 3. Insert and read data
+### Insert and read data
 
-The following example will set up the data model, insert data into the _users_
-and _products_ collections and then read it back.
+The following example will insert data into the _users_ and _products_
+collections and then read it back.
 
 One of the main features of Tigris is the ability to perform ACID
 transactions. We will perform a transaction that involves inserting and
@@ -147,7 +147,7 @@ interactive, and we could enforce constraints within our application. Such as,
 ensuring that the user has enough balance or that there is enough available
 product.
 
-See the [Go quick start](with-go.md) section for an example of how we can
+See the [Go quick start](with-go.mdx) section for an example of how we can
 leverage Tigris' transactions to easily and automatically ensure that no
 user is ever allowed to purchase products worth more than their available
 balance, and that we never create orders that exceed the amount of available

@@ -35,6 +35,7 @@ const sidebars = {
       collapsed: false,
       items: [
         "quickstart/with-cli",
+        "quickstart/with-http",
         "quickstart/with-go",
         "quickstart/with-java",
       ],
