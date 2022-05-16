@@ -447,6 +447,6 @@ support for custom types.
 
 - primitive types: `boolean`, `byte`, `short`, `int`, `long`, `float`, `double`
 - wrapper types: `Boolean`, `Byte`, `Short`, `Integer`, `Long`, `Float`, `Double`
-- Utility types: `java.util.Date`, `java.util.UUID`, `java.util.List`, `java.util. Map`, `java.util.Set`, `java.util.Collection`
+- Utility types: `java.util.Date`, `java.util.UUID`, `java.util.List`, `java. util.Map`, `java.util.Collection`
 - Array: arrays of above all primitive and wrappers
 - Custom types: Custom user class to define custom types
