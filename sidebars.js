@@ -59,6 +59,7 @@ const sidebars = {
           items: ["datamodels/json-spec"],
         },
         "datamodels/using-go",
+        "datamodels/using-java",
       ],
     },
     {
