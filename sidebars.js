@@ -59,7 +59,6 @@ const sidebars = {
           items: ["datamodels/json-spec"],
         },
         "datamodels/using-go",
-        "datamodels/using-java",
       ],
     },
     {
@@ -69,7 +68,7 @@ const sidebars = {
         type: "generated-index",
       },
       collapsed: false,
-      items: ["guides/rest-webapp-go", "guides/rest-webapp-java"],
+      items: ["guides/rest-webapp-go"],
     },
     {
       type: "category",
