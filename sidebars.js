@@ -64,6 +64,15 @@ const sidebars = {
     },
     {
       type: "category",
+      label: "Guides",
+      link: {
+        type: "generated-index",
+      },
+      collapsed: false,
+      items: ["guides/rest-webapp-go", "guides/rest-webapp-java"],
+    },
+    {
+      type: "category",
       label: "Client Libraries",
       link: {
         type: "generated-index",
