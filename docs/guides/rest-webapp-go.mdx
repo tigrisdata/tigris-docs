@@ -1,0 +1,316 @@
+# RESTful Web App with Go and Tigris
+
+In this guide we will build a web application that accepts HTTP requests to
+store and retrieve data in the Tigris backend. The application uses
+[Gin](https://github.com/gin-gonic/gin) framework for serving HTTP requests.
+
+This is a simplified implementation of an e-commerce use case - this is just
+one of many use cases for how you could interact with Tigris!
+
+Now let's get started locally with Tigris.
+
+## Startup Tigris locally via Docker
+
+The first step is to install the CLI
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+<Tabs>
+<TabItem value="macOS" label="macOS">
+
+```shell
+curl -sSL https://tigris.dev/cli-macos | sudo tar -xz -C /usr/local/bin
+```
+
+</TabItem>
+<TabItem value="Linux" label="Linux">
+
+```shell
+curl -sSL https://tigris.dev/cli-linux | sudo tar -xz -C /usr/local/bin
+```
+
+</TabItem>
+</Tabs>
+
+Now we start up Tigris locally using the _tigris_ cli
+
+```shell
+tigris local up
+```
+
+Once this command has completed, Tigris server will be available on port
+`8081`.
+
+## Setting up and starting the service
+
+### Clone the starter application code repository
+
+```shell
+git clone https://github.com/tigrisdata/tigris-starter-go.git
+cd tigris-starter-go
+```
+
+### Build and start the application
+
+```shell
+go build .
+./tigris-starter-go
+```
+
+## Testing the service
+
+Now let's fire up the terminal and run the commands below to test the service.
+
+### Insert users
+
+First off let's create two new users: Jane and John
+
+```shell
+curl http://localhost:8080/users/create \
+      -X POST \
+      -H 'Content-Type: application/json' \
+      -d '{"id":1,"Name":"John","Balance":100}'
+curl http://localhost:8080/users/create \
+      -X POST \
+      -H 'Content-Type: application/json' \
+      -d '{"id":2,"Name":"Jane","Balance":200}'
+```
+
+### Insert products
+
+Next go ahead and create two products: Avocado and Gold
+
+```shell
+curl http://localhost:8080/products/create \
+      -X POST \
+      -H 'Content-Type: application/json' \
+      -d '{"id":1,"Name":"Avocado","Price":10,"Quantity":5}'
+curl http://localhost:8080/products/create \
+      -X POST \
+      -H 'Content-Type: application/json' \
+      -d '{"id":2,"Name":"Gold","Price":3000,"Quantity":1}'
+```
+
+### Place a couple of orders
+
+#### Low balance
+
+Let's start off with an order that fails because John is trying to purchase 1
+unit of Gold that costs $3000.00, while John's balance is $100.00.
+
+```shell
+curl http://localhost:8080/orders/create \
+      -X POST \
+      -H 'Content-Type: application/json' \
+      -d '{"id":1,"UserId":1, "Products" : [{"id":2,"Quantity":1}]}'
+```
+
+#### Low stock
+
+The next order fails as well because Jane is trying to purchase 30 Avocados that
+cost $300.00, while Jane's balance is $200.00.
+
+```shell
+curl http://localhost:8080/orders/create \
+      -X POST \
+      -H 'Content-Type: application/json' \
+      -d '{"id":1,"UserId":2, "Products" : [{"id":1,"Quantity":30}]}'
+```
+
+#### Successful purchase
+
+Now an order that succeeds as John purchases 5 Avocados that cost
+$50.00 and John's balance is $100.00, which is enough for the purchase.
+
+```shell
+curl http://localhost:8080/orders/create \
+      -X POST \
+      -H 'Content-Type: application/json' \
+      -d '{"id":1,"UserId":1, "Products" : [{"id":1,"Quantity":5}]}'
+```
+
+### Check the balances and stock
+
+Now go ahead and confirm that both John's balance and the Avocado stock is
+up-to-date.
+
+```shell
+curl http://localhost:8080/users/read/1
+curl http://localhost:8080/products/read/1
+```
+
+## Code walk through
+
+This web application uses [Gin](https://github.com/gin-gonic/gin) framework
+for serving REST requests and Tigris as the backend to persist the data.
+
+### Setting up the database and collections
+
+The `main` function in the application initializes the Tigris backend
+
+```go
+db, err := tigris.OpenDatabase(ctx,
+    &tigris.DatabaseConfig{Config: config.Config{URL: "localhost:8081"}},
+    "shop", &User{}, &Product{}, &Order{})
+```
+
+There are a couple of important things to note here:
+
+- `User`, `Product` and `Order` are types that declare the data model for
+  the application.
+- The call to `OpenDatabase` function is instantaneous. It either creates
+  the database `shop` and the three collections if they do not exist, or
+  updates the schema of the collections if they already exist.
+
+### Setting up the HTTP routes
+
+The following code shows how the HTTP routes are set up
+
+```go
+setupCRUDRoutes[User](r, db, "users")
+setupCRUDRoutes[Product](r, db, "products")
+```
+
+This sets up the `create`, `delete` and `read` routes. Note how we are using
+Go generics which reduces the code boilerplate and allows reusing the same
+function to set up HTTP routes for the three collections.
+
+The code below demonstrates how the `/create` HTTP route is set up
+
+```go
+func setupCRUDRoutes[T interface{}](r *gin.Engine, db *tigris.Database, name string) {
+	setupReadRoute[T](r, db, name)
+
+	r.POST(fmt.Sprintf("/%s/create", name), func(c *gin.Context) {
+		coll := tigris.GetCollection[T](db)
+
+		var u T
+		if err := c.Bind(&u); err != nil {
+			return
+		}
+
+		if _, err := coll.Insert(c, &u); err != nil {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusCreated, u)
+	})
+
+	r.DELETE(fmt.Sprintf("/%s/delete/:id", name), func(c *gin.Context) {
+		coll := tigris.GetCollection[T](db)
+
+		id, _ := strconv.Atoi(c.Param("id"))
+
+		if _, err := coll.Delete(c, filter.Eq("id", id)); err != nil {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"Status": "DELETED"})
+	})
+}
+```
+
+A couple of important points to note about the `setupCRUDRoutese` function:
+
+- The code `coll := tigris.GetCollection[T](db)` is responsible for
+  instantiating an object of the collection.
+- Once instantiated, `coll` has the methods for inserting, deleting and reading
+  documents in the collection.
+- After binding the object from the request body `c.Bind(&u)`, it is then
+  inserted into the collection via the function call `coll.Insert(c, &u)`.
+  Once this function call returns Tigris guarantees that the object has been
+  persisted.
+
+### Performing transaction across the collections
+
+The order creation route `/order/create` needs to be transactional to ensure
+that all the three collections are consistently updated. Tigris supports
+interactive ACID transactions out-of-the-box which provide the guarantees
+we are looking for.
+
+```go
+func setupCreateOrderRoute(r *gin.Engine, db *tigris.Database) {
+	r.POST("/orders/create", func(c *gin.Context) {
+		var o Order
+		// Read the request body into o
+		if err := c.Bind(&o); err != nil {
+			return
+		}
+
+		// Perform the read, update and insert on the users, products and orders
+		// collections in a transaction. If the function passed to db.Tx
+		// returns an error then the transaction will be automatically rolled back.
+		// If no error is returned, the transaction will be automatically committed.
+		err := db.Tx(c, func(txCtx context.Context) error {
+			// Fetch an object of the users collection
+			users := tigris.GetCollection[User](db)
+
+			// Read the user with order's UserId
+			u, err := users.ReadOne(txCtx, filter.Eq("id", o.UserId))
+			if err != nil {
+				return err
+			}
+
+			// Fetch an object of the products collection
+			products := tigris.GetCollection[Product](db)
+
+			orderTotal := 0.0
+
+			for _, v := range o.Products {
+				// Fetch the product in the order from the collection
+				p, err := products.ReadOne(txCtx, filter.Eq("id", v.Id))
+				if err != nil {
+					return err
+				}
+
+				// Verify that product quantity in the inventory is more than the
+				// product quantity in the order
+				if p.Quantity < v.Quantity {
+					return fmt.Errorf("low stock on product %v", p.Name)
+				}
+
+				// Update the inventory to reduce the product quantity based on the
+				// quantity in the order
+				_, err = products.Update(txCtx, filter.Eq("id", v.Id),
+					fields.Set("Quantity", p.Quantity-v.Quantity))
+				if err != nil {
+					return err
+				}
+
+				orderTotal += p.Price * float64(v.Quantity)
+			}
+
+			// Verify that the user has enough balance to be able to support the
+			// order purchase
+			if orderTotal > u.Balance {
+				return fmt.Errorf("low balance. order total %v", orderTotal)
+			}
+
+			// Update the user's balance to account for the order purchase
+			_, err = users.Update(txCtx, filter.Eq("id", o.UserId),
+				fields.Set("Balance", u.Balance-orderTotal))
+			if err != nil {
+				return err
+			}
+
+			// Returning no error means that the transaction will be committed.
+			return nil
+		})
+
+		// If there is no error returned then the transaction was successfully
+		// committed and the data has been consistently updated in Tigris.
+		if err != nil {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"Status": "PURCHASED"})
+	})
+}
+```
+
+Tigris with its simple but powerful APIs has made it easy for you to get
+started with any data architecture needs!
