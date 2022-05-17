@@ -8,10 +8,8 @@ In this section we will cover data modeling using Java.
 
 ## Declaring Models
 
-Models are regular Java model (POJO) composed of primitive and wrapper Java
-types or custom types. These models are not tightly coupled with Tigris and
-can be
-shared with other modules of your project.
+Models are regular Java model (POJO) comprised of primitive and wrapper Java
+types, or custom types.
 
 ```java
 import com.tigrisdata.db.annotation.TigrisField;
@@ -108,22 +106,26 @@ The name of the collection is derived from the Java class name. The class name
 name is pluralized to snake_cases as collection name. For example, the
 Java class name `User` is converted to `users` as the collection name. While
 the Java class name `UserDetail` is converted to `user_details` as the
-collection name. User can optionally customize their collection name by
-using `@TigrisCollection` annotation. For example below will create Tigris
+collection name.
+
+In the majority of the cases you will not need to customize the collection name,
+but if you do, you can customize the collection name by using the
+`@TigrisCollection` annotation. For example, the code sample below creates a
 collection named `system_users`.
 
 ```java
 @TigrisCollection("system_users")
 public class User implements TigrisCollectionType {
-    // body same as above
+    //...
 }
 ```
 
 ### Field Names
 
-The name of the field member in the Java class are used as the field names
+The field names in the Java class definition are also used as the field names
 in the collection's schema. There is no conversion performed by default.
-Optionally to add description to your fields you can use annotation
+
+You can optionally add description to your fields by using the annotation
 `@TigrisField` as below
 
 ```java
@@ -158,9 +160,10 @@ public class User implements TigrisCollectionType {
 ### Defining Primary Key
 
 Every collection must have a primary key. One or more fields in the Java class
-can be specified as primary key by using `@TigrisPrimaryKey(1)` annotation.
-Note: the number represents the order of primary key. In below example field
-`id` is the single primary key field.
+can be specified as primary key by using `@TigrisPrimaryKey` annotation.
+
+The example below demonstrates how primary key is defined. The number in
+`@TigrisPrimaryKey(1)` represents the order of the field in the primary key.
 
 ```java
 public class User implements TigrisCollectionType {
@@ -445,8 +448,8 @@ The model definition above will result in the following collection schema
 Tigris supports the majority of the primitive Java types while also providing
 support for custom types.
 
-- primitive types: `boolean`, `byte`, `short`, `int`, `long`, `float`, `double`
-- wrapper types: `Boolean`, `Byte`, `Short`, `Integer`, `Long`, `Float`, `Double`
-- Utility types: `java.util.Date`, `java.util.UUID`, `java.util.List`, `java. util.Map`, `java.util.Collection`
-- Array: arrays of above all primitive and wrappers
-- Custom types: Custom user class to define custom types
+- primitive types: boolean, byte, short, int, long, float, double
+- wrapper types: Boolean, Byte, Short, Integer, Long, Float, Double
+- Utility types: java.util.Date, java.util.UUID, java.util.List, java.util.Map, java.util.Collection
+- Array: array type supporting all the above primitive and wrapper types
+- Custom types: user-defined class to define custom types
