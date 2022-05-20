@@ -69,7 +69,7 @@ const sidebars = {
         type: "generated-index",
       },
       collapsed: false,
-      items: ["guides/rest-webapp-go"],
+      items: ["guides/rest-webapp-go", "guides/rest-webapp-java"],
     },
     {
       type: "category",
