@@ -13,10 +13,11 @@ for help along the way.
 
 ## What is Tigris?
 
-[Tigris](https://github.com/tigrisdata/tigris) is a zero-ops data platform
-for real-time websites and apps.
-It makes building modern data-driven apps a breeze. Open source and
-multi-cloud enabled from day one.
+[Tigris](https://github.com/tigrisdata/tigris) is a modern, scalable backend
+for building real-time websites and apps. The zero-ops approach of Tigris
+means developers can focus on their application rather than managing
+databases or data pipelines. While our API makes it easy to get started with
+any data architecture needs!
 
 We are fully committed to open source and embrace the open exchange of
 information, collaborative development and transparency.
