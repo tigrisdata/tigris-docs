@@ -111,7 +111,7 @@ read one and read all documents from the collection.
 #### Read one document
 
 ```go
-    var u User
+    var u *User
     u, err := users.ReadOne(ctx, filter.Eq("Id", 1))
     if err != nil {
         // handle error
