@@ -1,7 +1,17 @@
 # Quickstart: Java
 
-This guide will get you up and running with a RESTful web application that
-uses Tigris as the backend.
+Tigris offers simple and intuitive APIs to make it easy for you get started
+with any data architecture needs!
+
+Setting up the database is instantaneous, as well - no need for tedious
+configuration. You define the data model as part of the application code,
+which then drives the database infrastructure without you having to
+configure and provision database resources.
+
+Furthermore, you can continue using your preferred programming language when
+working with Tigris. There is no new database query language to learn!
+
+The following guide will get you up and running with Java.
 
 :::tip
 ⏱ This guide should require less than 5 minutes
@@ -16,17 +26,11 @@ All you'll need is any computer running macOS or Linux, with the following
 installed:
 
 - [Docker](https://docs.docker.com/get-docker/)
-- [JDK version](http://www.oracle.com/technetwork/java/javase/downloads/index.html) 8, 11 or 17
-- [Apache maven](https://maven.apache.org/install.html)
+- [JDK 1.8 or newer](https://adoptopenjdk.net/)
 
-## Build a RESTful Web Application
+## Working locally
 
-We will build an application that will accept HTTP requests to store and
-retrieve data in the Tigris backend. This is a simplified implementation of
-an e-commerce use case - this is just one of many use cases for how you
-could interact with Tigris!
-
-Now let's get started locally with Tigris.
+First let's get started with Tigris locally.
 
 ### Startup Tigris locally via Docker
 
@@ -61,185 +65,153 @@ tigris local up
 Once this command has completed, Tigris server will be available on port
 `8081`.
 
-### Download the starter project
+## Add the client library dependency to your project
 
-Fire up the terminal and use the following command to download the starter
-project that we've put together for this guide
-
-```shell
-mkdir tigris-starter && curl -sSL https://tigris.dev/java-starter  | tar -xz --strip=1 -C tigris-starter
+```xml
+<dependency>
+    <groupId>com.tigrisdata</groupId>
+    <artifactId>tigris-client</artifactId>
+    <version>${tigris.client.java.version}</version>
+</dependency>
 ```
 
-### Build the project
+For latest version and for other dependency management or build
+tool you can refer to dependency
+snippet from [here](https://mvnrepository.com/artifact/com.tigrisdata/tigris-client)
 
-From your terminal move into the starter project directory and build the
-project
+## Quickstart
 
-```shell
-cd tigris-starter
-mvn clean install
-```
+```java title=TigrisApp.java
 
-### Run the application
-
-Next run the application from your favorite IDE. An example using **IntelliJ
-IDEA** is shown below
-
-![intellij_launcher image](/img/screenshots/intellij_launcher.png)
-
-:::info
-A successful launch of the application will end with the log entry
-
-```shell
-[main] INFO  c.t.starter.spring.TigrisInitializer - Finished initializing Tigris
-```
-
-:::
-
-Congratulations, you just wrote a REST service which uses Tigris as the
-backend.
-
-Try out the REST API at
-[http://localhost:8080/swagger.html](http://localhost:8080/swagger.html)
-
-![swagger_openapi_image](/img/screenshots/java_starter_openapi.png)
-![swagger_openapi_image](/img/screenshots/java_starter_schemas.png)
-
-Let's create a user and a product.
-
-**Create a User**
-
-```shell
-curl -X 'POST' \
-  'http://localhost:8080/users/create' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "id": 1,
-  "name": "Jania McGrory",
-  "balance": 6045.7
-}'
-```
-
-**Create a Product**
-
-```shell
-curl -X 'POST' \
-  'http://localhost:8080/products/create' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "id": 1,
-  "name": "Vanilla Beans",
-  "quantity": 6358,
-  "price": 4.39
-}'
-```
-
-These newly added User and Product documents were persisted in the Tigris
-backend.
-
-### Extend the application
-
-Now let's set up a HTTP handler that will leverage Tigris to insert data
-into the _orders_ collection while updating the data in the _users_ and
-_products_ collections.
-
-:::info
-One of the main features of Tigris is the ability to perform ACID
-transactions. We will perform the insert and update operations in a
-transaction ensuring that the collections are consistently updated.
-
-:::
-
-Open the project in your favorite IDE and add the following to
-`com.tigrisdata.starter.controller.OrderController`
-
-**Additional Imports**
-
-```java title="OrderController.java"
-import java.util.Collections;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.tigrisdata.db.client.Filters;
+import com.tigrisdata.db.client.StandardTigrisClient;
+import com.tigrisdata.db.client.TigrisClient;
+import com.tigrisdata.db.client.TigrisCollection;
+import com.tigrisdata.db.client.TigrisDatabase;
 import com.tigrisdata.db.client.UpdateFields;
-```
+import com.tigrisdata.db.client.config.TigrisConfiguration;
+import com.tigrisdata.db.client.error.TigrisException;
+import com.tigrisdata.db.type.TigrisCollectionType;
 
-**HTTP handler**
+import java.util.Objects;
 
-```java title="OrderController.java"
-@PostMapping("{user_id}/{product_id}/{qty}")
-public ResponseEntity<String> purchase(
-        @PathVariable("user_id") int userId,
-        @PathVariable("product_id") int productId,
-        @PathVariable("qty") int quantity)
-        throws TigrisException {
-  tigrisStarterDatabase.transact(
-          session -> {
-            try {
-              // read the user and product documents
-              User user = userCollection.readOne(session, Filters.eq("id", userId)).get();
-              Product product = productCollection.readOne(session, Filters.eq("id", productId)).get();
+public class TigrisApp {
 
-              // ensure that a user is never allowed to purchase products worth more than
-              // their available balance, and that we never create orders that exceed the
-              // amount of available product
-              if (product.getQuantity() >= quantity
-                      && product.getPrice() * quantity <= user.getBalance()) {
-                double orderTotal = product.getPrice() * quantity;
-                double newUserBalance = user.getBalance() - orderTotal;
-                int newProductQuantity = product.getQuantity() - quantity;
-                userCollection.update(
-                        session,
-                        Filters.eq("id", userId),
-                        UpdateFields.newBuilder().set("balance", newUserBalance).build());
+  public static void main(String[] args) throws TigrisException {
+    // configuration
+    TigrisConfiguration config =
+        TigrisConfiguration.newBuilder("localhost:8081")
+            .withNetwork(
+                TigrisConfiguration.NetworkConfig.newBuilder()
+                    .usePlainText() // for dev env - plaintext communication
+                    .build())
+            .build();
 
-                productCollection.update(
-                        session,
-                        Filters.eq("id", productId),
-                        UpdateFields.newBuilder().set("quantity", newProductQuantity).build());
+    // construct client
+    TigrisClient client = StandardTigrisClient.getInstance(config);
 
-                orderCollection.insert(
-                        session,
-                        new Order(
-                                orderIdSequence.incrementAndGet(),
-                                userId,
-                                orderTotal,
-                                Collections.singletonList(new Order.ProductItem(productId, quantity))));
+    // create or get db
+    TigrisDatabase helloDB = client.createDatabaseIfNotExists("hello_db");
 
-              } else {
-                // throw this to automatically rollback current transaction
-                throw new IllegalStateException("Not enough balance");
-              }
-            } catch (TigrisException ex) {
-              // handle this or throw this to automatically rollback current transaction
-              throw new IllegalStateException(ex);
-            }
-          });
-  // transaction successful
-  return ResponseEntity.status(HttpStatus.OK).body("Purchased successfully");
+    // create or update collection(s)
+    helloDB.createOrUpdateCollections(User.class);
+
+    // get collection
+    TigrisCollection<User> users = helloDB.getCollection(User.class);
+
+    // insert
+    users.insert(new User(1, "Jania McGrory", 6045.7));
+    users.insert(new User(2, "Bunny Instone", 2948.87));
+
+    // read
+    User user1 = users.readOne(Filters.eq("id", 1)).get();
+
+    // update
+    users.update(
+        Filters.eq("id", 1), UpdateFields.newBuilder().set("name", "Jania McGrover").build());
+
+    // transaction - transfer between users
+    helloDB.transact(
+        (tx) -> {
+          try {
+            User jania = users.readOne(tx, Filters.eq("id", 1)).get();
+            User bunny = users.readOne(tx, Filters.eq("id", 1)).get();
+
+            users.update(
+                tx,
+                Filters.eq("id", 1),
+                UpdateFields.newBuilder().set("balance", jania.getBalance() - 100).build());
+
+            users.update(
+                tx,
+                Filters.eq("id", 2),
+                UpdateFields.newBuilder().set("balance", bunny.getBalance() + 100).build());
+
+          } catch (TigrisException ex) {
+            throw new IllegalStateException("Transaction failed", ex);
+          }
+        });
+
+    // delete - delete users with id 1 or 2
+    users.delete(
+            Filters.or(
+                    Filters.eq("id", 1),
+                    Filters.eq("id", 2)
+            )
+    );
+  }
+
+  public static class User implements TigrisCollectionType {
+    private int id;
+    private String name;
+    private double balance;
+
+    public User() {}
+
+    public User(int id, String name, double balance) {
+      this.id = id;
+      this.name = name;
+      this.balance = balance;
+    }
+
+    public int getId() {
+      return id;
+    }
+
+    public void setId(int id) {
+      this.id = id;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public double getBalance() {
+      return balance;
+    }
+
+    public void setBalance(double balance) {
+      this.balance = balance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      User user = (User) o;
+      return id == user.id
+          && Double.compare(user.balance, balance) == 0
+          && Objects.equals(name, user.name);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(id, name, balance);
+    }
+  }
 }
 ```
-
-Run the application again and use the newly added HTTP endpoint to create an
-order.
-
-**Create an Order**
-
-```shell
-curl -X 'POST' 'http://localhost:8080/order/1/1/20'
-```
-
-## Understanding what just happened
-
-The starter project includes the Java model classes corresponding to the
-three collections _users_, _products_ and _orders_ located in the Java
-package `com.tigrisdata.starter.collections`.
-
-When you launched the application, code located in
-`com.tigrisdata.starter.spring.TigrisInitializer#run` created the database
-and registered the schema with the Tigris backend based on the three collection
-models.
-
-You wrote a new HTTP handler that used Tigris' transaction feature. The
-transaction involved reading data, validating that certain conditions around
-the product quantity and user's balance are met, and finally inserting a new
-order together with updating the users and products collections.
