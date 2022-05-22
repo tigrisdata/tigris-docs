@@ -72,33 +72,7 @@ public class User implements TigrisCollectionType {
 }
 ```
 
-This declaration will create a collection named `users` with the following
-schema on Tigris
-
-```json
-{
-  "title": "users",
-  "additionalProperties": false,
-  "type": "object",
-  "properties": {
-    "balance": {
-      "type": "number",
-      "format": "double",
-      "description": "User account balance"
-    },
-    "id": {
-      "type": "integer",
-      "format": "int32",
-      "description": "A unique identifier for the user"
-    },
-    "name": {
-      "type": "string",
-      "description": "Name of the user"
-    }
-  },
-  "primary_key": ["id"]
-}
-```
+This declaration will create a collection named `users`.
 
 ### Collection Names
 
@@ -246,30 +220,6 @@ public class User implements TigrisCollectionType {
 }
 ```
 
-The class definition above will result in the following collection schema
-
-```json
-{
-  "title": "users",
-  "additionalProperties": false,
-  "type": "object",
-  "properties": {
-    "age": {
-      "type": "integer",
-      "format": "int32"
-    },
-    "email": {
-      "type": "string"
-    },
-    "id": {
-      "type": "integer",
-      "format": "int64"
-    }
-  },
-  "primary_key": ["id", "email"]
-}
-```
-
 ### Embedded Data Model
 
 Tigris offers rich documents that enable embedding related data in a single
@@ -392,54 +342,6 @@ public class Order implements TigrisCollectionType {
         result = 31 * result + Arrays.hashCode(products);
         return result;
     }
-}
-```
-
-The model definition above will result in the following collection schema
-
-```json
-{
-  "title": "orders",
-  "additionalProperties": false,
-  "type": "object",
-  "properties": {
-    "id": {
-      "type": "integer",
-      "format": "int64"
-    },
-    "products": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32",
-            "description": "A unique identifier for the product"
-          },
-          "name": {
-            "type": "string",
-            "description": "Name of the product"
-          },
-          "price": {
-            "type": "number",
-            "format": "double",
-            "description": "Price of the product"
-          },
-          "quantity": {
-            "type": "integer",
-            "format": "int32",
-            "description": "Number of products available in the store"
-          }
-        }
-      }
-    },
-    "userId": {
-      "type": "integer",
-      "format": "int64"
-    }
-  },
-  "primary_key": ["id"]
 }
 ```
 
