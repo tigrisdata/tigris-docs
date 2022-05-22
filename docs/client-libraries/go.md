@@ -201,5 +201,5 @@ consistently modify documents across collections.
 
 ## Next steps
 
-- Play with complete example [service](https://github.com/tigrisdata/tigris-started-go)
+- Play with complete example [service](https://github.com/tigrisdata/tigris-starter-go)
 - Check the full API [reference](https://pkg.go.dev/github.com/tigrisdata/tigris-client-go)
