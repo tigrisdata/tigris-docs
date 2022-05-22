@@ -18,26 +18,7 @@ type User struct {
 }
 ```
 
-This declaration will create a collection named `users` with the following
-schema on Tigris
-
-```json
-{
-  "title": "users",
-  "properties": {
-    "Balance": {
-      "type": "number"
-    },
-    "Id": {
-      "type": "integer"
-    },
-    "Name": {
-      "type": "string"
-    }
-  },
-  "primary_key": ["Id"]
-}
-```
+This declaration will create a collection named `users`.
 
 ### Collection Names
 
@@ -88,26 +69,6 @@ type UserDetail struct {
 }
 ```
 
-The model definition above will result in the following collection schema
-
-```json
-{
-  "title": "user_details",
-  "properties": {
-    "Id": {
-      "type": "integer"
-    },
-    "Email": {
-      "type": "string"
-    },
-    "Age": {
-      "type": "integer"
-    }
-  },
-  "primary_key": ["Id", "Email"]
-}
-```
-
 ### Embedded Data Model
 
 Tigris offers rich documents that enable embedding related data in a single
@@ -131,43 +92,6 @@ type Order struct {
 	UserId int
 
 	Products []Product
-}
-```
-
-The model definition above will result in the following collection schema
-
-```json
-{
-  "title": "orders",
-  "properties": {
-    "Id": {
-      "type": "integer"
-    },
-    "UserId": {
-      "type": "integer"
-    },
-    "Products": {
-      "items": {
-        "properties": {
-          "Id": {
-            "type": "integer"
-          },
-          "Name": {
-            "type": "string"
-          },
-          "Price": {
-            "type": "number"
-          },
-          "Quantity": {
-            "type": "integer"
-          }
-        },
-        "type": "object"
-      },
-      "type": "array"
-    }
-  },
-  "primary_key": ["Id"]
 }
 ```
 
