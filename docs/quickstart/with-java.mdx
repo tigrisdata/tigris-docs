@@ -82,7 +82,7 @@ snippet from [here](https://mvnrepository.com/artifact/com.tigrisdata/tigris-cli
 ## Quickstart
 
 ```java title=TigrisApp.java
-
+import com.tigrisdata.db.annotation.TigrisPrimaryKey;
 import com.tigrisdata.db.client.Filters;
 import com.tigrisdata.db.client.StandardTigrisClient;
 import com.tigrisdata.db.client.TigrisClient;
@@ -162,6 +162,7 @@ public class TigrisApp {
   }
 
   public static class User implements TigrisCollectionType {
+    @TigrisPrimaryKey(1)
     private int id;
     private String name;
     private double balance;
