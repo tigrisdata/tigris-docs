@@ -11,8 +11,9 @@ const TwitterSvg =
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Tigris Data Platform",
-  tagline: "Zero-Ops Data Platform for Real-time Websites and Apps",
+  title: "Tigris",
+  tagline:
+    "For developers who want to build scalable web and mobile apps fast!",
   url: "https://docs.tigrisdata.com",
   baseUrl: "/",
   favicon: "img/favicon.ico",
@@ -105,7 +106,7 @@ const config = {
       },
       navbar: {
         hideOnScroll: false,
-        title: "Tigris Data Platform",
+        title: "Tigris",
         logo: {
           alt: "Tigris Logo",
           src: "img/logo.svg",
