@@ -2,204 +2,228 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/tigrisdata/tigris-client-go.svg)](https://pkg.go.dev/github.com/tigrisdata/tigris-client-go)
 
-This library provides and interface to access Tigris platform from Golang programs.
+Tigris provides an easy-to-use and intuitive interface for Go. Setting up
+the database is instantaneous, as well - no need for tedious configuration.
+You define the data model as part of the application code, which then drives
+the database infrastructure without you having to configure and provision
+database resources.
 
-## Requirements
+## Prerequisites
 
-The Tigris library depends on [Golang generics](https://go.dev/doc/tutorial/generics), so Go 1.18 or newer is required.
+The Tigris client depends on
+[Golang generics](https://go.dev/doc/tutorial/generics) which requires Go 1.18
+or newer.
 
 ## Installation
 
-Run this to bring Tigris library as a dependency to your project:
-
 ```shell
-go get github.com/tigrisdata/tigris-client-go@latest
+go get -u github.com/tigrisdata/tigris-client-go@latest
 ```
 
-## Data modelling
+## Set up the data model
 
-Collections models are defined declaratively in the code. Here is an example
-of the collection with one string, one integer and one double fields:
+Models are regular Go structs composed of basic Go types or custom types.
 
 ```go
 type User struct {
-    Id int64 `tigris:"primary_key"`
-    Name string
-	Balance float64
+    Id      int `tigris:"primary_key"`
+    Name    string
+    Balance float64
 }
 ```
 
-Please note `tigris"primary_key"` annotation, which indicates the fields which is
-used as primary key of the collection.
+This declaration will create a collection named `users`.
 
-## Initialization
+For detailed documentation on data modeling refer to the
+[data modeling using go](../datamodels/using-go.md) section.
 
-The `OpenDatabase` connects to the Tigris instance and initialize collections
-using provided configuration and collections models:
+## Connect and initialize the database
 
-```go
-	cfg := &config.Database{
-	    Driver: config.Driver{
-			URL: "localhost:8081"
-		}}
-
-	db, err := tigris.OpenDatabase(ctx, cfg, "OrderDB", &User{})
-```
-
-Once `OpenDatabase` succeeds the database `OrderDB` and
-collection for `User` are initialized.
-
-## Accessing the documents in the collection
-
-To access the documents a collection object should be instantiated,
-using collection model type and database object returned by `OpenDatabase`:
+The `OpenDatabase` function connects to the Tigris backend, creates the
+database and collections if they don't exist, otherwise updates the schema of
+the collections if they already exist.
 
 ```go
-	users := tigris.GetCollection[User](db)
+db, err := tigris.OpenDatabase(ctx,
+	&config.Database{Driver: config.Driver{URL: "localhost:8081"}},
+    "hello_db", &User{})
 ```
 
-Returned `users` object has methods to read and modify documents.
+## CRUD operations
+
+The first step is to set up the collection object. All the CRUD operations
+on the collection are performed through this collection object.
+
+```go
+users := tigris.GetCollection[User](db)
+```
 
 ### Insert documents
 
-Use `Insert` API to insert documents into collection.
-The following example inserts two documents into the `users` collection:
+Use the `Insert` API to insert one or more documents into collection.
 
 ```go
-    _, err = users.Insert(ctx,
-		&User{Id: 1, Name: "Jane", Balance: 100},
-        &User{Id: 2, Name: "John", Balance: 100}
-	)
-    if err != nil {
-		//handle error
-    }
+_, err := users.Insert(ctx,
+    &User{Id: 1, Name: "Jania McGrory", Balance: 6045.7},
+    &User{Id: 2, Name: "Bunny Instone", Balance: 2948.87})
+if err != nil {
+    // handle error
+}
 ```
 
-Insert API will fail if a document with same `Id` already exists in the collection,
-meaning that insert API maintains uniqueness of the field which marked as primary key.
+The Insert API maintains uniqueness of the field marked as the primary key,
+for example, the field `Id` in the example above. If a document with the
+same primary key value already exists in the collection, the Insert fails.
+
+### Upsert documents
+
+Use the `InsertOrReplace` API to insert a new document or replace an existing
+document with the same primary key value.
+
+```go
+_, err := users.InsertOrReplace(ctx,
+    &User{Id: 1, Name: "Jania McGrory", Balance: 6045.7},
+    &User{Id: 2, Name: "Bunny Instone", Balance: 2948.87})
+if err != nil {
+    // handle error
+}
+```
 
 ### Read documents
 
-Read returns the documents which matches the provided filter.
-In the following example two documents with `Id=1` and `Id=2` returned,
-so the filter is equivalent to `Id=1 or Id=2` logical condition.
+To read one or more documents, use the `Read` API. If filters are provided,
+then documents matching the filtering condition are fetched.
 
 ```go
-	it, err := users.Read(ctx,
-		filter.Or(
-			filter.Eq("Id", 1),
-			filter.Eq("Id", 2)
-		))
-    if err != nil {
-		// handle error
-    }
-	defer it.Close()
+it, err := users.Read(ctx,
+    filter.Or(
+        filter.Eq("Id", 1),
+        filter.Eq("Id", 2)
+    ))
+if err != nil {
+    // handle error
+}
+defer it.Close()
 
-    var user User
-    for it.Next(&user) {
-        fmt.Printf("%+v\n", user)
-	}
+var user User
+for it.Next(&user) {
+    fmt.Printf("%+v\n", user)
+}
 
-    if it.Err() != nil {
-		// handle error
-    }
+if it.Err() != nil {
+    // handle error
+}
 ```
 
-There are two other forms of read API, which provide simplified interface for
-read one and read all documents from the collection.
+#### Read single document
 
-#### Read one document
+To read a single document, use the `ReadOne` API.
 
 ```go
-    var u *User
-    u, err := users.ReadOne(ctx, filter.Eq("Id", 1))
-    if err != nil {
-        // handle error
-    }
+var user *User
+user, err = users.ReadOne(ctx, filter.Eq("Id", 1)) // find user with Id 1
+if err != nil {
+    panic(err)
+}
 ```
 
 #### Read all documents
 
+Use the `ReadAll` API to read all the documents in the collection.
+
 ```go
-    var u User
-    it, err := users.ReadAll(ctx)
-    if err != nil {
-        // handle error
-    }
-	// iterate documents here
+var u User
+it, err := users.ReadAll(ctx)
+if err != nil {
+    // handle error
+}
+
+defer it.Close()
+
+var user User
+for it.Next(&user) {
+    fmt.Printf("%+v\n", user)
+}
+
+if it.Err() != nil {
+    // handle error
+}
 ```
 
 ### Update documents
 
-Update API is used to partially update existing documents.
-It updates the fields of the documents, which matches the filter.
-Update mutation specifies which fields need to be modified.
+The Update API is used to update existing documents that match the filters.
+Fields that need to be updated are specified when calling the API.
 
-In the following example the field `Balance` of the `User` with `Id`=1
-is set to 200:
+In the following example, the field `Balance` is updated for documents which
+match the filter `Id=1`.
 
 ```go
-	_, err = users.Update(ctx, filter.Eq("Id", "1"), fields.Set("Balance", 200))
-	if err != nil {
-		// handle error
-	}
+_, err := users.Update(ctx, filter.Eq("Id", "1"), fields.Set("Balance", 200))
+if err != nil {
+    // handle error
+}
 ```
 
 ### Delete documents
 
-Delete API allows to delete documents which matches provided filter:
+Use the `Delete` API to delete documents that match the filters.
 
 ```go
-    if _, err := users.Delete(ctx, filter.Eq("Id", "1")); err != nil {
-		// handle errors
-	}
+_, err := users.Delete(ctx, filter.Eq("Id", "1"))
+if err != nil {
+    // handle error
+}
 ```
 
 #### Delete all documents
 
-This is a simplified version of delete API to remove all the documents
-in the collection:
+In order to truncate the collection and delete all the documents in it, use
+the `DeleteAll` API.
 
 ```go
-    if _, err := users.DeleteAll(ctx); err != nil {
-        // handle errors
-    }
+_, err := users.DeleteAll(ctx)
+if err != nil {
+    // handle error
+}
 ```
 
 ## Transactions
 
-The Tigris platform provides transactional interface, which can be used to
-consistently modify documents across collections.
+Tigris provides global, ACID transactions with strict serializability
+using optimistic concurrency control. The transactions allow multiple
+clients to concurrently read and write data in the database with strong
+consistency guarantees.
+
+Transactions in Tigris work across collections and documents without any
+restrictions. Unlike some other document databases, there are no confusing
+read / write concerns to configure, and no cross-shard caveats.
 
 ```go
-	// When the closure returns no error, the changes from all operations
-	// executed in it will be applied to the database.
-	// Changes will be discarded when the closure returns an error.
-	// In this example if Balance is lower than 100 transaction will be rolled back
-	err = db.Tx(ctx, func(txCtx context.Context) error {
-		// Get the transactional collection object
-		c := tigris.GetCollection[User](db)
+// When the closure returns no error, the changes from all the operations
+// executed in it will be committed as a transaction.
+// If the closure returns an error, the changes from the operations are
+// rolled back.
+db.Tx(ctx, func(txCtx context.Context) error {
+    var userOne *User
+    if userOne, err = users.ReadOne(txCtx, filter.Eq("Id", 1)); err != nil {
+        return err
+    }
 
-		u, err := c.ReadOne(txCtx, filter.Eq("Id", 1))
-		if err != nil {
-			return err
-		}
+    var userTwo *User
+    if userTwo, err = users.ReadOne(txCtx, filter.Eq("Id", 2)); err != nil {
+        return err
+    }
 
-		if u.Balance < 100 {
-			return fmt.Errorf("low balance")
-		}
+    if _, err = users.Update(txCtx, filter.Eq("Id", 1),
+        fields.Set("Balance", userOne.Balance-100)); err != nil {
+        return err
+    }
+    if _, err = users.Update(txCtx, filter.Eq("Id", 2),
+        fields.Set("Balance", userTwo.Balance+100)); err != nil {
+        return err
+    }
 
-		// ...
-		// Same API as in non-transactional case can be used here
-		return nil
-	})
-	if err != nil {
-		panic(err)
-	}
-}
+    return nil
+})
 ```
-
-## Next steps
-
-- Play with complete example [service](https://github.com/tigrisdata/tigris-starter-go)
-- Check the full API [reference](https://pkg.go.dev/github.com/tigrisdata/tigris-client-go)

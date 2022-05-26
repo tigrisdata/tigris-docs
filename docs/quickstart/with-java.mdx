@@ -130,7 +130,9 @@ public class TigrisApp {
     users.update(
         Filters.eq("id", 1), UpdateFields.newBuilder().set("name", "Jania McGrover").build());
 
-    // transaction - transfer between users
+    // global, ACID transaction with strict serializability using
+    // optimistic concurrency control
+    // transfer between users
     helloDB.transact(
         (tx) -> {
           try {

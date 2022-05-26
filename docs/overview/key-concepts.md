@@ -9,14 +9,15 @@ The key concepts in this document will help you get started with
 understanding how it works and help you develop a mental model on how to
 build an application with Tigris.
 
-| Concept         | Description                                                                                                                                         |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Database**    | A group of collections.                                                                                                                             |
-| **Collection**  | An ordered set of structured records called documents- analogous to tables in other database systems.                                               |
-| **Schema**      | A user-defined structure for the documents in a collection specified using JSON schema [specification](https://json-schema.org/specification.html). |
-| **Document**    | A JSON object with a pre-defined schema.                                                                                                            |
-| **Primary Key** | A primary key uniquely identifies a document in the collection and enforces the unique constraint.                                                  |
-| **Stream**      | Real-time events for writes performed on collections.                                                                                               |
+| Concept         | Description                                                                                                                                                                                           |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Database**    | A group of collections.                                                                                                                                                                               |
+| **Collection**  | An ordered set of structured records called documents- analogous to tables in other database systems.                                                                                                 |
+| **Schema**      | A user-defined structure for the documents in a collection specified using JSON schema [specification](https://json-schema.org/specification.html).                                                   |
+| **Document**    | A JSON object with a pre-defined schema.                                                                                                                                                              |
+| **Primary Key** | A primary key uniquely identifies a document in the collection and enforces the unique constraint.                                                                                                    |
+| **Transaction** | Global ACID transactions with strict serializability using optimistic concurrency that allow multiple clients to concurrently read and write data in the database with strong consistency guarantees. |
+| **Stream**      | Real-time events for writes performed on collections.                                                                                                                                                 |
 
 ### Database
 

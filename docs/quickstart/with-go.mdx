@@ -123,7 +123,9 @@ func main() {
 	// Update - update user's name
 	users.Update(ctx, filter.Eq("Id", 1), fields.Set("Name", "Jania McGrover"))
 
-	// Transaction - transfer between users
+	// Global, ACID Transaction with strict serializability using
+	// optimistic concurrency control
+	// Transfer between users
 	db.Tx(ctx, func(txCtx context.Context) error {
 		var userOne *User
 		if userOne, err = users.ReadOne(txCtx, filter.Eq("Id", 1)); err != nil {
