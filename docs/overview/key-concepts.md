@@ -69,6 +69,17 @@ a document in the collection and enforces the unique constraint. A primary
 key can be defined on a single field or can be composite. Documents are
 stored in sorted order according to the primary key.
 
+### Transaction
+
+Transactions allow multiple clients to concurrently read and write data in
+the database with strong consistency guarantees. Transactions are globally
+ordered and ACID compliant with strict serializability using optimistic
+concurrency control.
+
+Transactions work across collections and documents without any
+restrictions. Unlike some other document databases, there are no confusing
+read / write concerns to configure, and no cross-shard caveats.
+
 ### Stream
 
 Streams provide a continuous ordered stream of events in real-time for all
