@@ -9,14 +9,15 @@ The key concepts in this document will help you get started with
 understanding how it works and help you develop a mental model on how to
 build an application with Tigris.
 
-| Concept         | Description                                                                                                                                         |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Database**    | A group of collections.                                                                                                                             |
-| **Collection**  | An ordered set of structured records called documents- analogous to tables in other database systems.                                               |
-| **Schema**      | A user-defined structure for the documents in a collection specified using JSON schema [specification](https://json-schema.org/specification.html). |
-| **Document**    | A JSON object with a pre-defined schema.                                                                                                            |
-| **Primary Key** | A primary key uniquely identifies a document in the collection and enforces the unique constraint.                                                  |
-| **Stream**      | Real-time events for writes performed on collections.                                                                                               |
+| Concept         | Description                                                                                                                                                                                           |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Database**    | A group of collections.                                                                                                                                                                               |
+| **Collection**  | An ordered set of structured records called documents- analogous to tables in other database systems.                                                                                                 |
+| **Schema**      | A user-defined structure for the documents in a collection specified using JSON schema [specification](https://json-schema.org/specification.html).                                                   |
+| **Document**    | A JSON object with a pre-defined schema.                                                                                                                                                              |
+| **Primary Key** | A primary key uniquely identifies a document in the collection and enforces the unique constraint.                                                                                                    |
+| **Transaction** | Global ACID transactions with strict serializability using optimistic concurrency that allow multiple clients to concurrently read and write data in the database with strong consistency guarantees. |
+| **Stream**      | Real-time events for writes performed on collections.                                                                                                                                                 |
 
 ### Database
 
@@ -67,6 +68,17 @@ Every collection must have a primary key. A primary key uniquely identifies
 a document in the collection and enforces the unique constraint. A primary
 key can be defined on a single field or can be composite. Documents are
 stored in sorted order according to the primary key.
+
+### Transaction
+
+Transactions allow multiple clients to concurrently read and write data in
+the database with strong consistency guarantees. Transactions are globally
+ordered and ACID compliant with strict serializability using optimistic
+concurrency control.
+
+Transactions work across collections and documents without any
+restrictions. Unlike some other document databases, there are no confusing
+read / write concerns to configure, and no cross-shard caveats.
 
 ### Stream
 
