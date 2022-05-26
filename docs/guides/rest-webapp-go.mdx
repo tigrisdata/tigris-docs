@@ -259,7 +259,9 @@ func setupCreateOrderRoute(r *gin.Engine, db *tigris.Database) {
 
 			orderTotal := 0.0
 
-			for _, v := range o.Products {
+			for i := 0; i < len(o.Products); i++ {
+                v := &o.Products[i]
+
 				// Fetch the product in the order from the collection
 				p, err := products.ReadOne(txCtx, filter.Eq("id", v.Id))
 				if err != nil {
@@ -281,6 +283,9 @@ func setupCreateOrderRoute(r *gin.Engine, db *tigris.Database) {
 				}
 
 				orderTotal += p.Price * float64(v.Quantity)
+
+                // Remember purchase price in the being created order
+                v.Price = p.Price
 			}
 
 			// Verify that the user has enough balance to be able to support the
@@ -296,8 +301,13 @@ func setupCreateOrderRoute(r *gin.Engine, db *tigris.Database) {
 				return err
 			}
 
+            orders := tigris.GetCollection[Order](db)
+
+            // Create the order
+            _, err = orders.Insert(ctx, &o)
+
 			// Returning no error means that the transaction will be committed.
-			return nil
+			return err
 		})
 
 		// If there is no error returned then the transaction was successfully
