@@ -4,11 +4,115 @@
       "name": "server/v1/api.proto",
       "description": "",
       "package": "tigrisdata.v1",
-      "hasEnums": false,
+      "hasEnums": true,
       "hasExtensions": false,
       "hasMessages": true,
       "hasServices": true,
-      "enums": [],
+      "enums": [
+        {
+          "name": "Code",
+          "longName": "Code",
+          "fullName": "tigrisdata.v1.Code",
+          "description": "Codes returned by the Tigris server in the case of error",
+          "values": [
+            {
+              "name": "OK",
+              "number": "0",
+              "description": "200"
+            },
+            {
+              "name": "CANCELLED",
+              "number": "1",
+              "description": "499"
+            },
+            {
+              "name": "UNKNOWN",
+              "number": "2",
+              "description": "500"
+            },
+            {
+              "name": "INVALID_ARGUMENT",
+              "number": "3",
+              "description": "400"
+            },
+            {
+              "name": "DEADLINE_EXCEEDED",
+              "number": "4",
+              "description": "504"
+            },
+            {
+              "name": "NOT_FOUND",
+              "number": "5",
+              "description": "404"
+            },
+            {
+              "name": "ALREADY_EXISTS",
+              "number": "6",
+              "description": "409"
+            },
+            {
+              "name": "PERMISSION_DENIED",
+              "number": "7",
+              "description": "403"
+            },
+            {
+              "name": "RESOURCE_EXHAUSTED",
+              "number": "8",
+              "description": "429"
+            },
+            {
+              "name": "FAILED_PRECONDITION",
+              "number": "9",
+              "description": "412"
+            },
+            {
+              "name": "ABORTED",
+              "number": "10",
+              "description": "409"
+            },
+            {
+              "name": "OUT_OF_RANGE",
+              "number": "11",
+              "description": "400"
+            },
+            {
+              "name": "UNIMPLEMENTED",
+              "number": "12",
+              "description": "501"
+            },
+            {
+              "name": "INTERNAL",
+              "number": "13",
+              "description": "500"
+            },
+            {
+              "name": "UNAVAILABLE",
+              "number": "14",
+              "description": "503"
+            },
+            {
+              "name": "DATA_LOSS",
+              "number": "15",
+              "description": "500"
+            },
+            {
+              "name": "UNAUTHENTICATED",
+              "number": "16",
+              "description": "401"
+            },
+            {
+              "name": "CONFLICT",
+              "number": "17",
+              "description": "409"
+            },
+            {
+              "name": "BAD_GATEWAY",
+              "number": "18",
+              "description": "502"
+            }
+          ]
+        }
+      ],
       "extensions": [],
       "messages": [
         {
@@ -358,7 +462,7 @@
             },
             {
               "name": "schema",
-              "description": "Schema of the documents in this collection. The schema specifications are same as\nJSON schema specification defined \u003ca href=\"https://json-schema.org/specification.html\" title=\"here\"\u003ehere\u003c/a\u003e.\n\u003cp\u003e\u003c/p\u003eThe following is an schema example:\n`{\n \"name\": \"user\",\n \"description\": \"Collection of documents with details of users\",\n \"properties\": {\n   \"id\": {\n     \"description\": \"A unique identifier for the user\",\n     \"type\": \"integer\"\n   },\n   \"name\": {\n     \"description\": \"Name of the user\",\n     \"type\": \"string\",\n     \"maxLength\": 100\n   },\n   \"balance\": {\n     \"description\": \"User account balance\",\n     \"type\": \"number\"\n   }\n },\n \"primary_key\": [\"id\"]\n}`",
+              "description": "Schema of the documents in this collection. The schema specifications are same as\nJSON schema specification defined \u003ca href=\"https://json-schema.org/specification.html\" title=\"here\"\u003ehere\u003c/a\u003e.\n\u003cp\u003e\u003c/p\u003eThe following is an schema example:\n`{\n \"title\": \"user\",\n \"description\": \"Collection of documents with details of users\",\n \"properties\": {\n   \"id\": {\n     \"description\": \"A unique identifier for the user\",\n     \"type\": \"integer\"\n   },\n   \"name\": {\n     \"description\": \"Name of the user\",\n     \"type\": \"string\",\n     \"maxLength\": 100\n   },\n   \"balance\": {\n     \"description\": \"User account balance\",\n     \"type\": \"number\"\n   }\n },\n \"primary_key\": [\"id\"]\n}`",
               "label": "",
               "type": "bytes",
               "longType": "bytes",
@@ -944,10 +1048,46 @@
           ]
         },
         {
+          "name": "Error",
+          "longName": "Error",
+          "fullName": "tigrisdata.v1.Error",
+          "description": "The Error type defines a logical error model",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "code",
+              "description": "The status code is a short, machine parsable string,\nwhich uniquely identifies the error type.\nTigris to HTTP code mapping [here](/reference/http-code)",
+              "label": "",
+              "type": "Code",
+              "longType": "Code",
+              "fullType": "tigrisdata.v1.Code",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "message",
+              "description": "A developer-facing descriptive error message",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "ErrorDetails",
           "longName": "ErrorDetails",
           "fullName": "tigrisdata.v1.ErrorDetails",
-          "description": "",
+          "description": "ErrorDetails defines error format passed by Tigris HTTP protocol",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -957,21 +1097,33 @@
               "name": "code",
               "description": "",
               "label": "",
-              "type": "uint32",
-              "longType": "uint32",
-              "fullType": "uint32",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
             },
             {
-              "name": "msg",
+              "name": "message",
               "description": "",
               "label": "",
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "retry",
+              "description": "",
+              "label": "",
+              "type": "RetryInfo",
+              "longType": "RetryInfo",
+              "fullType": "tigrisdata.v1.RetryInfo",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -1007,6 +1159,18 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "error",
+              "description": "NOTE: This is a hack to propagate this object definition to OpenAPI",
+              "label": "",
+              "type": "Error",
+              "longType": "Error",
+              "fullType": "tigrisdata.v1.Error",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -1127,6 +1291,18 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "keys",
+              "description": "an array returns the value of the primary keys.",
+              "label": "repeated",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -1538,6 +1714,18 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "keys",
+              "description": "an array returns the value of the primary keys.",
+              "label": "repeated",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -1570,6 +1758,42 @@
               "type": "Timestamp",
               "longType": "google.protobuf.Timestamp",
               "fullType": "google.protobuf.Timestamp",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "deleted_at",
+              "description": "Time at which the document was deleted. Measured in nano-seconds since the Unix epoch.",
+              "label": "",
+              "type": "Timestamp",
+              "longType": "google.protobuf.Timestamp",
+              "fullType": "google.protobuf.Timestamp",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RetryInfo",
+          "longName": "RetryInfo",
+          "fullName": "tigrisdata.v1.RetryInfo",
+          "description": "Contains retry information",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "delay",
+              "description": "retry delay advice in milliseconds",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -1638,9 +1862,9 @@
           ]
         },
         {
-          "name": "StreamChange",
-          "longName": "StreamChange",
-          "fullName": "tigrisdata.v1.StreamChange",
+          "name": "StreamEvent",
+          "longName": "StreamEvent",
+          "fullName": "tigrisdata.v1.StreamEvent",
           "description": "",
           "hasExtensions": false,
           "hasFields": true,
@@ -1648,12 +1872,72 @@
           "extensions": [],
           "fields": [
             {
-              "name": "collection_name",
+              "name": "tx_id",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "collection",
               "description": "",
               "label": "",
               "type": "string",
               "longType": "string",
               "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "op",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "key",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "lkey",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "rkey",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -1666,6 +1950,18 @@
               "type": "bytes",
               "longType": "bytes",
               "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "last",
+              "description": "",
+              "label": "",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -1694,8 +1990,43 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
+            },
+            {
+              "name": "collection",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "StreamRequestOptions",
+              "longType": "StreamRequestOptions",
+              "fullType": "tigrisdata.v1.StreamRequestOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
             }
           ]
+        },
+        {
+          "name": "StreamRequestOptions",
+          "longName": "StreamRequestOptions",
+          "fullName": "tigrisdata.v1.StreamRequestOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
         },
         {
           "name": "StreamResponse",
@@ -1708,12 +2039,12 @@
           "extensions": [],
           "fields": [
             {
-              "name": "changes",
+              "name": "event",
               "description": "",
-              "label": "repeated",
-              "type": "StreamChange",
-              "longType": "StreamChange",
-              "fullType": "tigrisdata.v1.StreamChange",
+              "label": "",
+              "type": "StreamEvent",
+              "longType": "StreamEvent",
+              "fullType": "tigrisdata.v1.StreamEvent",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",

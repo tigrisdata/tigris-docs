@@ -1013,7 +1013,7 @@ The Tigris Data service.
       {
         name: "schema",
         description:
-          'Schema of the documents in this collection. The schema specifications are same as\nJSON schema specification defined <a href="https://json-schema.org/specification.html" title="here">here</a>.\n<p></p>The following is an schema example:\n`{\n "name": "user",\n "description": "Collection of documents with details of users",\n "properties": {\n   "id": {\n     "description": "A unique identifier for the user",\n     "type": "integer"\n   },\n   "name": {\n     "description": "Name of the user",\n     "type": "string",\n     "maxLength": 100\n   },\n   "balance": {\n     "description": "User account balance",\n     "type": "number"\n   }\n },\n "primary_key": ["id"]\n}`',
+          'Schema of the documents in this collection. The schema specifications are same as\nJSON schema specification defined <a href="https://json-schema.org/specification.html" title="here">here</a>.\n<p></p>The following is an schema example:\n`{\n "title": "user",\n "description": "Collection of documents with details of users",\n "properties": {\n   "id": {\n     "description": "A unique identifier for the user",\n     "type": "integer"\n   },\n   "name": {\n     "description": "Name of the user",\n     "type": "string",\n     "maxLength": 100\n   },\n   "balance": {\n     "description": "User account balance",\n     "type": "number"\n   }\n },\n "primary_key": ["id"]\n}`',
         label: "",
         type: "bytes",
         longType: "bytes",
@@ -1712,15 +1712,15 @@ The Tigris Data service.
   }}
 />
 
-### `ErrorDetails`
+### `Error`
 
 <ProtoMessage
   key={27}
   message={{
-    name: "ErrorDetails",
-    longName: "ErrorDetails",
-    fullName: "tigrisdata.v1.ErrorDetails",
-    description: "",
+    name: "Error",
+    longName: "Error",
+    fullName: "tigrisdata.v1.Error",
+    description: "The Error type defines a logical error model",
     hasExtensions: false,
     hasFields: true,
     hasOneofs: false,
@@ -1728,19 +1728,21 @@ The Tigris Data service.
     fields: [
       {
         name: "code",
-        description: "",
+        description:
+          "The status code is a short, machine parsable string,\nwhich uniquely identifies the error type.\nTigris to HTTP code mapping [here](/reference/http-code)",
         label: "",
-        type: "uint32",
-        longType: "uint32",
-        fullType: "uint32",
+        type: "Code",
+        longType: "Code",
+        fullType: "tigrisdata.v1.Code",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#code",
       },
       {
-        name: "msg",
-        description: "",
+        name: "message",
+        description: "A developer-facing descriptive error message",
         label: "",
         type: "string",
         longType: "string",
@@ -1754,10 +1756,66 @@ The Tigris Data service.
   }}
 />
 
-### `GetInfoRequest`
+### `ErrorDetails`
 
 <ProtoMessage
   key={28}
+  message={{
+    name: "ErrorDetails",
+    longName: "ErrorDetails",
+    fullName: "tigrisdata.v1.ErrorDetails",
+    description:
+      "ErrorDetails defines error format passed by Tigris HTTP protocol",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "code",
+        description: "",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "message",
+        description: "",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "retry",
+        description: "",
+        label: "",
+        type: "RetryInfo",
+        longType: "RetryInfo",
+        fullType: "tigrisdata.v1.RetryInfo",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#retryinfo",
+      },
+    ],
+  }}
+/>
+
+### `GetInfoRequest`
+
+<ProtoMessage
+  key={29}
   message={{
     name: "GetInfoRequest",
     longName: "GetInfoRequest",
@@ -1774,7 +1832,7 @@ The Tigris Data service.
 ### `GetInfoResponse`
 
 <ProtoMessage
-  key={29}
+  key={30}
   message={{
     name: "GetInfoResponse",
     longName: "GetInfoResponse",
@@ -1804,7 +1862,7 @@ The Tigris Data service.
 ### `InsertRequest`
 
 <ProtoMessage
-  key={30}
+  key={31}
   message={{
     name: "InsertRequest",
     longName: "InsertRequest",
@@ -1872,7 +1930,7 @@ The Tigris Data service.
 ### `InsertRequestOptions`
 
 <ProtoMessage
-  key={31}
+  key={32}
   message={{
     name: "InsertRequestOptions",
     longName: "InsertRequestOptions",
@@ -1903,7 +1961,7 @@ The Tigris Data service.
 ### `InsertResponse`
 
 <ProtoMessage
-  key={32}
+  key={33}
   message={{
     name: "InsertResponse",
     longName: "InsertResponse",
@@ -1939,6 +1997,18 @@ The Tigris Data service.
         oneofdecl: "",
         defaultValue: "",
       },
+      {
+        name: "keys",
+        description: "an array returns the value of the primary keys.",
+        label: "repeated",
+        type: "bytes",
+        longType: "bytes",
+        fullType: "bytes",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
     ],
   }}
 />
@@ -1946,7 +2016,7 @@ The Tigris Data service.
 ### `ListCollectionsRequest`
 
 <ProtoMessage
-  key={33}
+  key={34}
   message={{
     name: "ListCollectionsRequest",
     longName: "ListCollectionsRequest",
@@ -1989,7 +2059,7 @@ The Tigris Data service.
 ### `ListCollectionsResponse`
 
 <ProtoMessage
-  key={34}
+  key={35}
   message={{
     name: "ListCollectionsResponse",
     longName: "ListCollectionsResponse",
@@ -2032,7 +2102,7 @@ The Tigris Data service.
 ### `ListDatabasesRequest`
 
 <ProtoMessage
-  key={35}
+  key={36}
   message={{
     name: "ListDatabasesRequest",
     longName: "ListDatabasesRequest",
@@ -2049,7 +2119,7 @@ The Tigris Data service.
 ### `ListDatabasesResponse`
 
 <ProtoMessage
-  key={36}
+  key={37}
   message={{
     name: "ListDatabasesResponse",
     longName: "ListDatabasesResponse",
@@ -2080,7 +2150,7 @@ The Tigris Data service.
 ### `ReadRequest`
 
 <ProtoMessage
-  key={37}
+  key={38}
   message={{
     name: "ReadRequest",
     longName: "ReadRequest",
@@ -2161,7 +2231,7 @@ The Tigris Data service.
 ### `ReadRequestOptions`
 
 <ProtoMessage
-  key={38}
+  key={39}
   message={{
     name: "ReadRequestOptions",
     longName: "ReadRequestOptions",
@@ -2232,7 +2302,7 @@ The Tigris Data service.
 ### `ReadResponse`
 
 <ProtoMessage
-  key={39}
+  key={40}
   message={{
     name: "ReadResponse",
     longName: "ReadResponse",
@@ -2287,7 +2357,7 @@ The Tigris Data service.
 ### `ReplaceRequest`
 
 <ProtoMessage
-  key={40}
+  key={41}
   message={{
     name: "ReplaceRequest",
     longName: "ReplaceRequest",
@@ -2355,7 +2425,7 @@ The Tigris Data service.
 ### `ReplaceRequestOptions`
 
 <ProtoMessage
-  key={41}
+  key={42}
   message={{
     name: "ReplaceRequestOptions",
     longName: "ReplaceRequestOptions",
@@ -2386,7 +2456,7 @@ The Tigris Data service.
 ### `ReplaceResponse`
 
 <ProtoMessage
-  key={42}
+  key={43}
   message={{
     name: "ReplaceResponse",
     longName: "ReplaceResponse",
@@ -2422,6 +2492,18 @@ The Tigris Data service.
         oneofdecl: "",
         defaultValue: "",
       },
+      {
+        name: "keys",
+        description: "an array returns the value of the primary keys.",
+        label: "repeated",
+        type: "bytes",
+        longType: "bytes",
+        fullType: "bytes",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
     ],
   }}
 />
@@ -2429,7 +2511,7 @@ The Tigris Data service.
 ### `ResponseMetadata`
 
 <ProtoMessage
-  key={43}
+  key={44}
   message={{
     name: "ResponseMetadata",
     longName: "ResponseMetadata",
@@ -2466,6 +2548,49 @@ The Tigris Data service.
         oneofdecl: "",
         defaultValue: "",
       },
+      {
+        name: "deleted_at",
+        description:
+          "Time at which the document was deleted. Measured in nano-seconds since the Unix epoch.",
+        label: "",
+        type: "Timestamp",
+        longType: "google.protobuf.Timestamp",
+        fullType: "google.protobuf.Timestamp",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `RetryInfo`
+
+<ProtoMessage
+  key={45}
+  message={{
+    name: "RetryInfo",
+    longName: "RetryInfo",
+    fullName: "tigrisdata.v1.RetryInfo",
+    description: "Contains retry information",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "delay",
+        description: "retry delay advice in milliseconds",
+        label: "",
+        type: "int32",
+        longType: "int32",
+        fullType: "int32",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
     ],
   }}
 />
@@ -2473,7 +2598,7 @@ The Tigris Data service.
 ### `RollbackTransactionRequest`
 
 <ProtoMessage
-  key={44}
+  key={46}
   message={{
     name: "RollbackTransactionRequest",
     longName: "RollbackTransactionRequest",
@@ -2517,7 +2642,7 @@ The Tigris Data service.
 ### `RollbackTransactionResponse`
 
 <ProtoMessage
-  key={45}
+  key={47}
   message={{
     name: "RollbackTransactionResponse",
     longName: "RollbackTransactionResponse",
@@ -2544,14 +2669,14 @@ The Tigris Data service.
   }}
 />
 
-### `StreamChange`
+### `StreamEvent`
 
 <ProtoMessage
-  key={46}
+  key={48}
   message={{
-    name: "StreamChange",
-    longName: "StreamChange",
-    fullName: "tigrisdata.v1.StreamChange",
+    name: "StreamEvent",
+    longName: "StreamEvent",
+    fullName: "tigrisdata.v1.StreamEvent",
     description: "",
     hasExtensions: false,
     hasFields: true,
@@ -2559,12 +2684,72 @@ The Tigris Data service.
     extensions: [],
     fields: [
       {
-        name: "collection_name",
+        name: "tx_id",
+        description: "",
+        label: "",
+        type: "bytes",
+        longType: "bytes",
+        fullType: "bytes",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "collection",
         description: "",
         label: "",
         type: "string",
         longType: "string",
         fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "op",
+        description: "",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "key",
+        description: "",
+        label: "",
+        type: "bytes",
+        longType: "bytes",
+        fullType: "bytes",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "lkey",
+        description: "",
+        label: "",
+        type: "bytes",
+        longType: "bytes",
+        fullType: "bytes",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "rkey",
+        description: "",
+        label: "",
+        type: "bytes",
+        longType: "bytes",
+        fullType: "bytes",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
@@ -2582,6 +2767,18 @@ The Tigris Data service.
         oneofdecl: "",
         defaultValue: "",
       },
+      {
+        name: "last",
+        description: "",
+        label: "",
+        type: "bool",
+        longType: "bool",
+        fullType: "bool",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
     ],
   }}
 />
@@ -2589,7 +2786,7 @@ The Tigris Data service.
 ### `StreamRequest`
 
 <ProtoMessage
-  key={47}
+  key={49}
   message={{
     name: "StreamRequest",
     longName: "StreamRequest",
@@ -2612,14 +2809,56 @@ The Tigris Data service.
         oneofdecl: "",
         defaultValue: "",
       },
+      {
+        name: "collection",
+        description: "",
+        label: "",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "options",
+        description: "",
+        label: "",
+        type: "StreamRequestOptions",
+        longType: "StreamRequestOptions",
+        fullType: "tigrisdata.v1.StreamRequestOptions",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+        typeLink: "/protodocs/server/v1/api.proto#streamrequestoptions",
+      },
     ],
+  }}
+/>
+
+### `StreamRequestOptions`
+
+<ProtoMessage
+  key={50}
+  message={{
+    name: "StreamRequestOptions",
+    longName: "StreamRequestOptions",
+    fullName: "tigrisdata.v1.StreamRequestOptions",
+    description: "",
+    hasExtensions: false,
+    hasFields: false,
+    hasOneofs: false,
+    extensions: [],
+    fields: [],
   }}
 />
 
 ### `StreamResponse`
 
 <ProtoMessage
-  key={48}
+  key={51}
   message={{
     name: "StreamResponse",
     longName: "StreamResponse",
@@ -2631,17 +2870,17 @@ The Tigris Data service.
     extensions: [],
     fields: [
       {
-        name: "changes",
+        name: "event",
         description: "",
-        label: "repeated",
-        type: "StreamChange",
-        longType: "StreamChange",
-        fullType: "tigrisdata.v1.StreamChange",
+        label: "",
+        type: "StreamEvent",
+        longType: "StreamEvent",
+        fullType: "tigrisdata.v1.StreamEvent",
         ismap: false,
         isoneof: false,
         oneofdecl: "",
         defaultValue: "",
-        typeLink: "/protodocs/server/v1/api.proto#streamchange",
+        typeLink: "/protodocs/server/v1/api.proto#streamevent",
       },
     ],
   }}
@@ -2650,7 +2889,7 @@ The Tigris Data service.
 ### `TransactionCtx`
 
 <ProtoMessage
-  key={49}
+  key={52}
   message={{
     name: "TransactionCtx",
     longName: "TransactionCtx",
@@ -2693,7 +2932,7 @@ The Tigris Data service.
 ### `TransactionOptions`
 
 <ProtoMessage
-  key={50}
+  key={53}
   message={{
     name: "TransactionOptions",
     longName: "TransactionOptions",
@@ -2711,7 +2950,7 @@ The Tigris Data service.
 ### `UpdateRequest`
 
 <ProtoMessage
-  key={51}
+  key={54}
   message={{
     name: "UpdateRequest",
     longName: "UpdateRequest",
@@ -2792,7 +3031,7 @@ The Tigris Data service.
 ### `UpdateRequestOptions`
 
 <ProtoMessage
-  key={52}
+  key={55}
   message={{
     name: "UpdateRequestOptions",
     longName: "UpdateRequestOptions",
@@ -2823,7 +3062,7 @@ The Tigris Data service.
 ### `UpdateResponse`
 
 <ProtoMessage
-  key={53}
+  key={56}
   message={{
     name: "UpdateResponse",
     longName: "UpdateResponse",
@@ -2878,7 +3117,7 @@ The Tigris Data service.
 ### `WriteOptions`
 
 <ProtoMessage
-  key={54}
+  key={57}
   message={{
     name: "WriteOptions",
     longName: "WriteOptions",
@@ -2902,6 +3141,43 @@ The Tigris Data service.
         defaultValue: "",
         typeLink: "/protodocs/server/v1/api.proto#transactionctx",
       },
+    ],
+  }}
+/>
+
+---
+
+## Enums
+
+### `Code`
+
+<ProtoEnum
+  key={0}
+  enumb={{
+    name: "Code",
+    longName: "Code",
+    fullName: "tigrisdata.v1.Code",
+    description: "Codes returned by the Tigris server in the case of error",
+    values: [
+      { name: "OK", number: "0", description: "200" },
+      { name: "CANCELLED", number: "1", description: "499" },
+      { name: "UNKNOWN", number: "2", description: "500" },
+      { name: "INVALID_ARGUMENT", number: "3", description: "400" },
+      { name: "DEADLINE_EXCEEDED", number: "4", description: "504" },
+      { name: "NOT_FOUND", number: "5", description: "404" },
+      { name: "ALREADY_EXISTS", number: "6", description: "409" },
+      { name: "PERMISSION_DENIED", number: "7", description: "403" },
+      { name: "RESOURCE_EXHAUSTED", number: "8", description: "429" },
+      { name: "FAILED_PRECONDITION", number: "9", description: "412" },
+      { name: "ABORTED", number: "10", description: "409" },
+      { name: "OUT_OF_RANGE", number: "11", description: "400" },
+      { name: "UNIMPLEMENTED", number: "12", description: "501" },
+      { name: "INTERNAL", number: "13", description: "500" },
+      { name: "UNAVAILABLE", number: "14", description: "503" },
+      { name: "DATA_LOSS", number: "15", description: "500" },
+      { name: "UNAUTHENTICATED", number: "16", description: "401" },
+      { name: "CONFLICT", number: "17", description: "409" },
+      { name: "BAD_GATEWAY", number: "18", description: "502" },
     ],
   }}
 />
