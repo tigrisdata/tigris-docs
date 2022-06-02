@@ -137,7 +137,6 @@ Open the project in your favorite IDE and add the following to
 import java.util.Collections;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.tigrisdata.db.client.UpdateFields;
 ```
 
@@ -178,7 +177,6 @@ public ResponseEntity<String> purchase(
                 orderCollection.insert(
                         session,
                         new Order(
-                                orderIdSequence.incrementAndGet(),
                                 userId,
                                 orderTotal,
                                 Collections.singletonList(new Order.ProductItem(productId, quantity))));

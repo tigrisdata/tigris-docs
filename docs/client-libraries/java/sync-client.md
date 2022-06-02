@@ -44,7 +44,7 @@ Java and then use the client library to have them created on Tigris.
 // collection model definition
 public class User implements TigrisCollectionType {
   @TigrisField(description = "A unique identifier for the user")
-  @TigrisPrimaryKey(1)
+  @TigrisPrimaryKey(order = 1)
   private int id;
 
   @TigrisField(description = "Name of the user")
