@@ -84,6 +84,7 @@ snippet from [here](https://mvnrepository.com/artifact/com.tigrisdata/tigris-cli
 ```java title=TigrisApp.java
 import com.tigrisdata.db.annotation.TigrisPrimaryKey;
 import com.tigrisdata.db.client.Filters;
+import com.tigrisdata.db.client.InsertResponse;
 import com.tigrisdata.db.client.StandardTigrisClient;
 import com.tigrisdata.db.client.TigrisClient;
 import com.tigrisdata.db.client.TigrisCollection;
@@ -97,124 +98,132 @@ import java.util.Objects;
 
 public class TigrisApp {
 
-  public static void main(String[] args) throws TigrisException {
-    // configuration
-    TigrisConfiguration config =
-        TigrisConfiguration.newBuilder("localhost:8081")
-            .withNetwork(
-                TigrisConfiguration.NetworkConfig.newBuilder()
-                    .usePlainText() // for dev env - plaintext communication
-                    .build())
-            .build();
+    public static void main(String[] args) throws TigrisException {
 
-    // construct client
-    TigrisClient client = StandardTigrisClient.getInstance(config);
+        // configuration
+        TigrisConfiguration config =
+                TigrisConfiguration.newBuilder("localhost:8081")
+                        .withNetwork(
+                                TigrisConfiguration.NetworkConfig.newBuilder()
+                                        .usePlainText() // for dev env - plaintext communication
+                                        .build())
+                        .build();
 
-    // create or get db
-    TigrisDatabase helloDB = client.createDatabaseIfNotExists("hello_db");
+        // construct client
+        TigrisClient client = StandardTigrisClient.getInstance(config);
 
-    // create or update collection(s)
-    helloDB.createOrUpdateCollections(User.class);
+        // create or get db
+        TigrisDatabase helloDB = client.createDatabaseIfNotExists("hello-db");
 
-    // get collection
-    TigrisCollection<User> users = helloDB.getCollection(User.class);
+        // create or update collection(s)
+        helloDB.createOrUpdateCollections(User.class);
 
-    // insert
-    users.insert(new User(1, "Jania McGrory", 6045.7));
-    users.insert(new User(2, "Bunny Instone", 2948.87));
+        // get collection
+        TigrisCollection<User> users = helloDB.getCollection(User.class);
 
-    // read
-    User user1 = users.readOne(Filters.eq("id", 1)).get();
+        // insert
+        User user1 = new User("Jania McGrory", 6045.7);
+        User user2 = new User("Bunny Instone", 2948.87);
+        InsertResponse<User> insertJaniaResponse = users.insert(user1);
+        InsertResponse<User> insertBunnyResponse = users.insert(user2);
 
-    // update
-    users.update(
-        Filters.eq("id", 1), UpdateFields.newBuilder().set("name", "Jania McGrover").build());
+        // read the auto-generated ids
+        int janiaId = user1.getId();
+        int bunnyId = user2.getId();
 
-    // global, ACID transaction with strict serializability using
-    // optimistic concurrency control
-    // transfer between users
-    helloDB.transact(
-        (tx) -> {
-          try {
-            User jania = users.readOne(tx, Filters.eq("id", 1)).get();
-            User bunny = users.readOne(tx, Filters.eq("id", 1)).get();
+        // read user back
+        User user = users.readOne(Filters.eq("id", janiaId)).get();
 
-            users.update(
-                tx,
-                Filters.eq("id", 1),
-                UpdateFields.newBuilder().set("balance", jania.getBalance() - 100).build());
+        // update
+        users.update(
+                Filters.eq("id", janiaId),
+                UpdateFields.newBuilder()
+                        .set("name", "Jania McGrover")
+                        .build()
+        );
 
-            users.update(
-                tx,
-                Filters.eq("id", 2),
-                UpdateFields.newBuilder().set("balance", bunny.getBalance() + 100).build());
+        // global, ACID transaction with strict serializability using
+        // optimistic concurrency control
 
-          } catch (TigrisException ex) {
-            throw new IllegalStateException("Transaction failed", ex);
-          }
-        });
+        // transfer between users
+        helloDB.transact(
+                (tx) -> {
+                    try {
+                        User jania = users.readOne(tx, Filters.eq("id", janiaId)).get();
+                        User bunny = users.readOne(tx, Filters.eq("id", bunnyId)).get();
 
-    // delete - delete users with id 1 or 2
-    users.delete(
-            Filters.or(
-                    Filters.eq("id", 1),
-                    Filters.eq("id", 2)
-            )
-    );
-  }
+                        users.update(
+                                tx,
+                                Filters.eq("id", janiaId),
+                                UpdateFields.newBuilder().set("balance", jania.getBalance() - 100).build());
+                        users.update(
+                                tx,
+                                Filters.eq("id", bunnyId),
+                                UpdateFields.newBuilder().set("balance", bunny.getBalance() + 100).build());
 
-  public static class User implements TigrisCollectionType {
-    @TigrisPrimaryKey(order = 1)
-    private int id;
-    private String name;
-    private double balance;
+                    } catch (TigrisException tigrisException) {
+                        // auto-rollback after throwing exception.
+                        throw new IllegalStateException("Transaction failed", tigrisException);
+                    }
+                });
 
-    public User() {}
-
-    public User(int id, String name, double balance) {
-      this.id = id;
-      this.name = name;
-      this.balance = balance;
+        // delete jania and bunny
+        users.delete(Filters.eq("id", janiaId));
+        users.delete(Filters.eq("id", bunnyId));
     }
 
-    public int getId() {
-      return id;
-    }
+    public static class User implements TigrisCollectionType {
+        @TigrisPrimaryKey(order = 1, autoGenerate = true)
+        private int id;
+        private String name;
+        private double balance;
 
-    public void setId(int id) {
-      this.id = id;
-    }
+        public User() {
+        }
 
-    public String getName() {
-      return name;
-    }
+        public User(String name, double balance) {
+            this.name = name;
+            this.balance = balance;
+        }
 
-    public void setName(String name) {
-      this.name = name;
-    }
+        public int getId() {
+            return id;
+        }
 
-    public double getBalance() {
-      return balance;
-    }
+        public void setId(int id) {
+            this.id = id;
+        }
 
-    public void setBalance(double balance) {
-      this.balance = balance;
-    }
+        public String getName() {
+            return name;
+        }
 
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
-      User user = (User) o;
-      return id == user.id
-          && Double.compare(user.balance, balance) == 0
-          && Objects.equals(name, user.name);
-    }
+        public void setName(String name) {
+            this.name = name;
+        }
 
-    @Override
-    public int hashCode() {
-      return Objects.hash(id, name, balance);
+        public double getBalance() {
+            return balance;
+        }
+
+        public void setBalance(double balance) {
+            this.balance = balance;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            User user = (User) o;
+            return id == user.id
+                    && Double.compare(user.balance, balance) == 0
+                    && Objects.equals(name, user.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, name, balance);
+        }
     }
-  }
 }
 ```
