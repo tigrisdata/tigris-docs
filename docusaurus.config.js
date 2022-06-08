@@ -34,13 +34,7 @@ const config = {
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
         },
-        blog: {
-          routeBasePath: "blog",
-          path: "blog",
-          postsPerPage: 10,
-          editUrl: "https://github.com/tigrisdata/tigris-docs/blob/main",
-          blogTitle: "Tigris Data Blog",
-        },
+        blog: false,
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
