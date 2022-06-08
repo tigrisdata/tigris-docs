@@ -12,7 +12,7 @@ Models are regular Go structs composed of basic Go types or custom types.
 
 ```go
 type User struct {
-    Id      int `tigris:"primary_key"`
+    Id      int `tigris:"primary_key,autoGenerate"`
     Name    string
     Balance float64
 }
@@ -37,25 +37,30 @@ fields in the collection schema with a different name, you can configure
 
 ```go
 type User struct {
-    Id      int `json:"id" tigris:"primary_key"`
+    Id      int `json:"id" tigris:"primary_key,autoGenerate"`
     Name    string
     Balance float64
 }
 ```
 
-### Defining Primary Key
+### Primary Key
 
-Every collection must have a primary key. One or more fields in the struct
-can be specified as primary key by configuring **tigris primary key** field
-tag. The example below demonstrates a model with a single primary key field
+#### Defining Primary Key
+
+One or more fields in the struct can be specified as primary key by
+configuring **tigris primary key** field tag. While the **autoGenerate** tag
+can be used to instruct Tigris to automatically generate the values for this
+field. The example below demonstrates a model with a single primary key field
 
 ```go
 type UserDetail struct {
-	Id    int `tigris:"primary_key"`
+	Id    int `tigris:"primary_key,autoGenerate"`
 	Email string
 	Age   int
 }
 ```
+
+#### Composite Primary Key
 
 Composite primary keys are also supported but in case of composite keys
 order of the fields is important. The example below demonstrates
@@ -63,7 +68,7 @@ how the order of the fields are defined in case of a composite primary key
 
 ```go
 type UserDetail struct {
-	Id    int    `tigris:"primary_key:1"`
+	Id    int    `tigris:"primary_key:1,autoGenerate"`
 	Email string `tigris:"primary_key:2"`
 	Age   int
 }
@@ -81,14 +86,14 @@ type and then embed it inside the `Order` type.
 
 ```go
 type Product struct {
-	Id       int `tigris:"primary_key"`
+	Id       int `tigris:"primary_key,autoGenerate"`
 	Name     string
 	Quantity int
 	Price    float64
 }
 
 type Order struct {
-	Id     int `tigris:"primary_key"`
+	Id     int `tigris:"primary_key,autoGenerate"`
 	UserId int
 
 	Products []Product
@@ -109,7 +114,8 @@ for custom types.
 Tags can be used in the struct definition to enrich the fields when
 declaring the models.
 
-| Tag Name             | Description                                                                                                                                                                       |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| json                 | Customize the struct fields when the model is converted into collection schema. Primarily used for transforming the struct field names as they get converted to collection schema |
-| tigris:"primary_key" | Specify the field that will be used as the primary key. Optionally specify a number, for example `tigris:"primary_key:1"`, to define the field order in a composite primary key   |
+| Tag Name              | Description                                                                                                                                                                       |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| json                  | Customize the struct fields when the model is converted into collection schema. Primarily used for transforming the struct field names as they get converted to collection schema |
+| tigris:"primary_key"  | Specify the field that will be used as the primary key. Optionally specify a number, for example `tigris:"primary_key:1"`, to define the field order in a composite primary key   |
+| tigris:"autoGenerate" | Specify that Tigris should autogenerate the values for this field. This can be combined with the primary_key tag                                                                  |
