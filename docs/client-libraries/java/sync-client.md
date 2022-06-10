@@ -44,7 +44,7 @@ Java and then use the client library to have them created on Tigris.
 // collection model definition
 public class User implements TigrisCollectionType {
   @TigrisField(description = "A unique identifier for the user")
-  @TigrisPrimaryKey(order = 1)
+  @TigrisPrimaryKey(order = 1, autoGenerate = true)
   private int id;
 
   @TigrisField(description = "Name of the user")
@@ -52,6 +52,14 @@ public class User implements TigrisCollectionType {
 
   @TigrisField(description = "User account balance")
   private double balance;
+
+  public User() {
+  }
+
+  public User(String name, double balance) {
+      this.name = name;
+      this.balance = balance;
+  }
 
   public int getId() {
     return id;
@@ -107,9 +115,9 @@ TigrisCollection<User> userCollection = db.getCollection(User.class);
 
 ```java
 // insert 3 users (alice, lucy & emma) into the user collection
-User alice = new User(1, "Alice", 100);
-User lucy = new User(2, "Lucy", 85);
-User emma = new User(3, "Emma", 105);
+User alice = new User("Alice", 100);
+User lucy = new User("Lucy", 85);
+User emma = new User("Emma", 105);
 
 userCollection.insert(alice);
 userCollection.insert(lucy);
@@ -120,7 +128,7 @@ userCollection.insert(emma);
 
 ```java
 // read alice from the user collection
-User alice = userCollection.readOne(Filters.eq("id", 1)).get();
+User alice = userCollection.readOne(Filters.eq("id", alice.getId())).get();
 ```
 
 ## Update document
@@ -144,37 +152,26 @@ userCollection.delete(Filters.eq("id", lucy.getId()));
 
 ```java
 TigrisDatabase db = client.getDatabase(dbName);
-TransactionSession session = db.beginTransaction(new TransactionOptions());
-try {
-    // retrieve transaction aware collection
-    TransactionTigrisCollection<User> userCollection = session.getCollection(User.class);
-    User emma = userCollection.readOne(Filters.eq("id", emma.getId()));
-    User lucy = userCollection.readOne(Filters.eq("id", lucy.getId()));
+db.transact(
+        tx -> {
+                try {
+                    // retrieve transaction aware collection
+                    TigrisCollection<User> userCollection = db.getCollection(User.class);
+                    User emma = userCollection.readOne(Filters.eq("id", emma.getId()));
+                    User lucy = userCollection.readOne(Filters.eq("id", lucy.getId()));
 
-    // reduce emma's balance by 10
-    userCollection.update(
-        Filters.eq("id", emma.getId()),
-        UpdateFields.newBuilder()
-        .set(
-             "balance",
-             emma.getBalance() - 10
-        ).build()
-    );
+                    // reduce emma's balance by 10
+                    userCollection.update(
+                    Filters.eq("id", emma.getId()),
+                    UpdateFields.newBuilder().set("balance", emma.getBalance() - 10).build());
 
-    // increment lucy's balance by 10
-    userCollection.update(
-        Filters.eq("id", lucy.getId()),
-        UpdateFields.newBuilder()
-        .set(
-            "balance",
-            lucy.getBalance() + 10
-        ).build()
-    );
-    // commit transaction
-    session.commit();
-} catch(Exception ex) {
-    // handle ex
-    // in case of an error, rollback
-    session.rollback();
-}
+                    // increment lucy's balance by 10
+                    userCollection.update(
+                    Filters.eq("id", lucy.getId()),
+                    UpdateFields.newBuilder().set("balance", lucy.getBalance() + 10).build());
+            } catch (Exception ex) {
+                    // throw it to rollback ongoing transaction
+                    throw new IllegalStateException(ex);
+            }
+        });
 ```

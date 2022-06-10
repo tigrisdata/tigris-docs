@@ -45,7 +45,7 @@ Java and then use the client library to have them created on Tigris.
 // collection model definition
 public class User implements TigrisCollectionType {
   @TigrisField(description = "A unique identifier for the user")
-  @TigrisPrimaryKey(order = 1)
+  @TigrisPrimaryKey(order = 1, autoGenerate = true)
   private int id;
 
   @TigrisField(description = "Name of the user")
@@ -53,6 +53,14 @@ public class User implements TigrisCollectionType {
 
   @TigrisField(description = "User account balance")
   private double balance;
+
+  public User() {
+  }
+
+  public User(String name, double balance) {
+      this.name = name;
+      this.balance = balance;
+  }
 
   public int getId() {
     return id;
@@ -108,9 +116,9 @@ TigrisAsyncCollection<User> userCollection = db.getCollection(User.class);
 
 ```java
 // insert 3 users (alice, lucy & emma) into the user collection
-User alice = new User(1, "Alice", 100);
-User lucy = new User(2, "Lucy", 85);
-User emma = new User(3, "Emma", 105);
+User alice = new User("Alice", 100);
+User lucy = new User("Lucy", 85);
+User emma = new User("Emma", 105);
 
 CompletableFuture<InsertResponse> completableFuture1 = userCollection.insert(alice);
 CompletableFuture<InsertResponse> completableFuture2 = userCollection.insert(lucy);
@@ -121,7 +129,8 @@ CompletableFuture<InsertResponse> completableFuture3 = userCollection.insert(emm
 
 ```java
 // read alice from the user collection.
-CompletableFuture<Optional<User>> completableFuture = userCollection.readOne(Filters.eq("id", 1));
+CompletableFuture<Optional<User>> completableFuture = userCollection.readOne
+        (Filters.eq("id", alice.getId()));
 ```
 
 ## Update document
