@@ -129,6 +129,11 @@ const config = {
             ],
           },
           {
+            href: "https://blog.tigrisdata.com/",
+            label: "Blog",
+            position: "left",
+          },
+          {
             href: "https://jobs.lever.co/tigris",
             label: "Careers",
             position: "right",
