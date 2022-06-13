@@ -100,7 +100,7 @@ tigris insert sampledb products \
 ]'
 ```
 
-#### Read the data that was inserted
+#### Read the data that was inserted by the Primary key field
 
 ```shell
 tigris read sampledb users '{"id": 1}'
@@ -108,6 +108,16 @@ tigris read sampledb users '{"id": 1}'
 
 ```shell
 tigris read sampledb products '{"id": 3}'
+```
+
+#### Read the data that was inserted by any field in the schema
+
+```shell
+tigris read sampledb users '{"name": "Jania McGrory"}'
+```
+
+```shell
+tigris read sampledb products '{"name": "Vanilla Beans"}'
 ```
 
 #### Perform a transaction that modifies all three collections

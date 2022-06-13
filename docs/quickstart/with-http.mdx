@@ -86,7 +86,9 @@ curl http://localhost:8081/api/v1/databases/sampledb/collections/users/createOrU
               "type": "number"
             },
             "id": {
-              "type": "integer"
+              "type": "integer",
+              "format": "int32",
+              "autoGenerate": true
             },
             "name": {
               "type": "string"
@@ -105,26 +107,28 @@ The schema of the collections created above can be fetched as follows
 curl -X POST http://localhost:8081/api/v1/databases/sampledb/collections/users/describe
 ```
 
-## Upsert some documents
+## Insert some documents
 
 The following example will replace documents with the same `id` if they
 already exist, or create new documents if they don't exist with the same `id`.
 
 ```shell
-curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents/replace \
-      -X PUT \
+curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents/insert \
+      -X POST \
       -H "Content-Type: application/json" \
       -d '{
         "documents": [
-          {"id": 1, "name": "Jania McGrory", "balance": 6045.7},
-          {"id": 2, "name": "Bunny Instone", "balance": 2948.87}
+          {"name": "Jania McGrory", "balance": 6045.7},
+          {"name": "Bunny Instone", "balance": 2948.87}
         ]
       }'
 ```
 
 ## Read a document
 
-Next up, read the document from the collection by using its `id`.
+### Using the primary key field
+
+Read the document from the collection by using its `id`.
 
 ```shell
 curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents/read \
@@ -132,6 +136,19 @@ curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents
       -H "Content-Type: application/json" \
       -d '{
         "filter": {"id": 1}
+      }'
+```
+
+### Using any field in the schema
+
+Read the document from the collection by using the field `name`.
+
+```shell
+curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents/read \
+      -X POST \
+      -H "Content-Type: application/json" \
+      -d '{
+        "filter": {"name": "Jania McGrory"}
       }'
 ```
 
