@@ -100,7 +100,7 @@ public class TigrisApp {
 
     public static void main(String[] args) throws TigrisException {
 
-        // configuration
+        // configure the client
         TigrisConfiguration config =
                 TigrisConfiguration.newBuilder("localhost:8081")
                         .withNetwork(
@@ -109,16 +109,19 @@ public class TigrisApp {
                                         .build())
                         .build();
 
-        // construct client
+        // initialize the client
         TigrisClient client = StandardTigrisClient.getInstance(config);
 
-        // create or get db
+        // create the database if it does not exist,
+        // and fetch the database object
         TigrisDatabase helloDB = client.createDatabaseIfNotExists("hello-db");
 
-        // create or update collection(s)
+        // create the collections if they don't exist, or
+        // update the collection schema
         helloDB.createOrUpdateCollections(User.class);
 
-        // get collection
+        // fetch the collection object, all the CRUD operations on the
+        // collection will be performed through this collection object
         TigrisCollection<User> users = helloDB.getCollection(User.class);
 
         // insert
@@ -128,37 +131,37 @@ public class TigrisApp {
         InsertResponse<User> insertBunnyResponse = users.insert(user2);
 
         // read the auto-generated ids
-        int janiaId = user1.getId();
-        int bunnyId = user2.getId();
+        int janiaId = user1.getUserId();
+        int bunnyId = user2.getUserId();
 
-        // read user back
-        User user = users.readOne(Filters.eq("id", janiaId)).get();
+        // find the user by primary key field id
+        User user = users.readOne(Filters.eq("userId", janiaId)).get();
+
+        // find user with Name Jania McGrory
+        User user = users.readOne(Filters.eq("name", "Jania McGrory")).get();
 
         // update
         users.update(
-                Filters.eq("id", janiaId),
+                Filters.eq("userId", janiaId),
                 UpdateFields.newBuilder()
                         .set("name", "Jania McGrover")
                         .build()
         );
 
-        // global, ACID transaction with strict serializability using
-        // optimistic concurrency control
-
-        // transfer between users
+        // transaction - transfer balance between users
         helloDB.transact(
                 (tx) -> {
                     try {
-                        User jania = users.readOne(tx, Filters.eq("id", janiaId)).get();
-                        User bunny = users.readOne(tx, Filters.eq("id", bunnyId)).get();
+                        User jania = users.readOne(tx, Filters.eq("userId", janiaId)).get();
+                        User bunny = users.readOne(tx, Filters.eq("userId", bunnyId)).get();
 
                         users.update(
                                 tx,
-                                Filters.eq("id", janiaId),
+                                Filters.eq("userId", janiaId),
                                 UpdateFields.newBuilder().set("balance", jania.getBalance() - 100).build());
                         users.update(
                                 tx,
-                                Filters.eq("id", bunnyId),
+                                Filters.eq("userId", bunnyId),
                                 UpdateFields.newBuilder().set("balance", bunny.getBalance() + 100).build());
 
                     } catch (TigrisException tigrisException) {
@@ -167,14 +170,14 @@ public class TigrisApp {
                     }
                 });
 
-        // delete jania and bunny
-        users.delete(Filters.eq("id", janiaId));
-        users.delete(Filters.eq("id", bunnyId));
+        // delete users
+        users.delete(Filters.eq("userId", janiaId));
+        users.delete(Filters.eq("userId", bunnyId));
     }
 
     public static class User implements TigrisCollectionType {
         @TigrisPrimaryKey(order = 1, autoGenerate = true)
-        private int id;
+        private int userId;
         private String name;
         private double balance;
 
@@ -186,12 +189,12 @@ public class TigrisApp {
             this.balance = balance;
         }
 
-        public int getId() {
-            return id;
+        public int getUserId() {
+            return userId;
         }
 
-        public void setId(int id) {
-            this.id = id;
+        public void setUserId(int userId) {
+            this.userId = userId;
         }
 
         public String getName() {
@@ -215,14 +218,14 @@ public class TigrisApp {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             User user = (User) o;
-            return id == user.id
+            return userId == user.userId
                     && Double.compare(user.balance, balance) == 0
                     && Objects.equals(name, user.name);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(id, name, balance);
+            return Objects.hash(userId, name, balance);
         }
     }
 }
