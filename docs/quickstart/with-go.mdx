@@ -78,6 +78,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/tigrisdata/tigris-client-go/config"
@@ -87,7 +88,7 @@ import (
 )
 
 type User struct {
-	Id      int `tigris:"primary_key"`
+	UserId  int32 `tigris:"primary_key,autoGenerate"`
 	Name    string
 	Balance float64
 }
@@ -108,40 +109,45 @@ func main() {
 	// through this collection object
 	users := tigris.GetCollection[User](db)
 
-	// Insert or replace user
-	users.InsertOrReplace(ctx,
-		&User{Id: 1, Name: "Jania McGrory", Balance: 6045.7},
-		&User{Id: 2, Name: "Bunny Instone", Balance: 2948.87})
+	// Insert
+	users.Insert(ctx,
+		&User{Name: "Jania McGrory", Balance: 6045.7},
+		&User{Name: "Bunny Instone", Balance: 2948.87})
 
 	// Read
 	var user *User
-	user, err = users.ReadOne(ctx, filter.Eq("Id", 1)) // find user with Id 1
+	user, err = users.ReadOne(ctx, filter.Eq("UserId", 1)) // find user with primary key field UserId
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println(user)
+
+	user, err = users.ReadOne(ctx, filter.Eq("Name", "Jania McGrory")) // find user with Name Jania McGrory
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(user)
 
 	// Update - update user's name
-	users.Update(ctx, filter.Eq("Id", 1), fields.Set("Name", "Jania McGrover"))
+	users.Update(ctx, filter.Eq("UserId", 1), fields.Set("Name", "Jania McGrover"))
 
-	// Global, ACID Transaction with strict serializability using
-	// optimistic concurrency control
-	// Transfer between users
+	// Transaction - transfer balance between users
 	db.Tx(ctx, func(txCtx context.Context) error {
 		var userOne *User
-		if userOne, err = users.ReadOne(txCtx, filter.Eq("Id", 1)); err != nil {
+		if userOne, err = users.ReadOne(txCtx, filter.Eq("UserId", 1)); err != nil {
 			return err
 		}
 
 		var userTwo *User
-		if userTwo, err = users.ReadOne(txCtx, filter.Eq("Id", 2)); err != nil {
+		if userTwo, err = users.ReadOne(txCtx, filter.Eq("UserId", 2)); err != nil {
 			return err
 		}
 
-		if _, err = users.Update(txCtx, filter.Eq("Id", 1),
+		if _, err = users.Update(txCtx, filter.Eq("UserId", 1),
 			fields.Set("Balance", userOne.Balance-100)); err != nil {
 			return err
 		}
-		if _, err = users.Update(txCtx, filter.Eq("Id", 2),
+		if _, err = users.Update(txCtx, filter.Eq("UserId", 2),
 			fields.Set("Balance", userTwo.Balance+100)); err != nil {
 			return err
 		}
@@ -149,7 +155,10 @@ func main() {
 		return nil
 	})
 
-	// Delete - delete users with Id 1 or 2
-	users.Delete(ctx, filter.Or(filter.Eq("Id", 1), filter.Eq("Id", 2)))
+	// Delete - delete users with UserId 1 or 2
+	users.Delete(ctx, filter.Or(filter.Eq("UserId", 1), filter.Eq("UserId", 2)))
+
+	// Drop the database and its collections
+	db.Drop(ctx)
 }
 ```

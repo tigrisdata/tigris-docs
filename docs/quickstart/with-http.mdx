@@ -85,7 +85,7 @@ curl http://localhost:8081/api/v1/databases/sampledb/collections/users/createOrU
             "balance": {
               "type": "number"
             },
-            "id": {
+            "user_id": {
               "type": "integer",
               "format": "int32",
               "autoGenerate": true
@@ -95,7 +95,7 @@ curl http://localhost:8081/api/v1/databases/sampledb/collections/users/createOrU
             }
           },
           "primary_key": [
-            "id"
+            "user_id"
           ]
         }
       }'
@@ -135,7 +135,7 @@ curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents
       -X POST \
       -H "Content-Type: application/json" \
       -d '{
-        "filter": {"id": 1}
+        "filter": {"user_id": 1}
       }'
 ```
 
@@ -164,13 +164,13 @@ curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents
         "fields": {
           "$set": {"balance": 2448.87}
         },
-        "filter": {"id": 2}
+        "filter": {"user_id": 2}
       }'
 ```
 
 ## Delete documents
 
-Finally, use the delete API to remove the documents from the collection
+Use the delete API to remove the documents from the collection
 based on the filter.
 
 ```shell
@@ -180,9 +180,18 @@ curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents
       -d '{
         "filter": {
           "$or": [
-            {"id": 1},
-            {"id": 2}
+            {"user_id": 1},
+            {"user_id": 2}
           ]
         }
       }'
+```
+
+## Drop database
+
+Finally, drop the database _sampledb_ we have created for this quickstart
+with all its collections.
+
+```shell
+curl -X DELETE http://localhost:8081/api/v1/databases/sampledb/drop
 ```
