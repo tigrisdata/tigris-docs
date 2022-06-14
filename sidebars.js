@@ -70,7 +70,11 @@ const sidebars = {
         type: "generated-index",
       },
       collapsed: false,
-      items: ["guides/rest-webapp-go", "guides/rest-webapp-java"],
+      items: [
+        "guides/rest-webapp-go",
+        "guides/rest-webapp-java",
+        "guides/rest-webapp-typescript",
+      ],
     },
     {
       type: "category",

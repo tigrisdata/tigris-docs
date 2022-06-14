@@ -1,0 +1,268 @@
+# RESTful Web App with TypeScript and Tigris
+
+In this guide we will build a Node environment based web application that
+accepts HTTP requests to store and retrieve data in the Tigris backend. The
+application uses [Express](https://expressjs.com/) framework.
+
+This is a simplified implementation of an e-commerce use case - this is just
+one of many use cases for how you could interact with Tigris!
+
+Now let's get started locally with Tigris.
+
+## Startup Tigris locally via Docker
+
+The first step is to install the CLI
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+<Tabs>
+<TabItem value="macOS" label="macOS">
+
+```shell
+curl -sSL https://tigris.dev/cli-macos | sudo tar -xz -C /usr/local/bin
+```
+
+</TabItem>
+<TabItem value="Linux" label="Linux">
+
+```shell
+curl -sSL https://tigris.dev/cli-linux | sudo tar -xz -C /usr/local/bin
+```
+
+</TabItem>
+</Tabs>
+
+Now we start up Tigris locally using the _tigris_ cli
+
+```shell
+tigris local up
+```
+
+Once this command has completed, Tigris server will be available on port
+`8081`.
+
+## Setting up and starting the application
+
+### Clone the starter application code repository
+
+```shell
+git clone https://github.com/tigrisdata/tigris-starter-ts.git
+cd tigris-starter-ts
+```
+
+### Build the project
+
+The next step is to build project.
+
+```shell
+npm run build
+```
+
+### Run the application
+
+```shell
+npm run dev
+```
+
+Note: this is running with hot-reloading on.
+
+:::info
+A successful launch of the application will see log entry
+
+```shell
+[1] ⚡️[server]: Server is running at http://localhost:8080
+```
+
+:::
+
+## Testing the application
+
+Let's create a user and a product.
+
+### Create a User
+
+```shell
+curl -X 'POST' \
+  'http://localhost:8080/users/create' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "userId": 0,
+  "name": "Jania McGrory",
+  "balance": 6045.7
+}'
+```
+
+### Create a Product
+
+```shell
+curl -X 'POST' \
+  'http://localhost:8080/products/create' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "productId": 0,
+  "name": "Vanilla Beans",
+  "quantity": 6358,
+  "price": 4.39
+}'
+```
+
+These newly added User and Product documents were persisted in the Tigris
+backend.
+
+## Extend the application
+
+Now let's set up a HTTP handler that will leverage Tigris to insert data
+into the _orders_ collection while updating the data in the _users_ and
+_products_ collections.
+
+:::info
+One of the main features of Tigris is the ability to perform ACID
+transactions. We will perform the insert and update operations in a
+transaction ensuring that the collections are consistently updated.
+
+:::
+
+Open the project in your favorite IDE and add the following to
+`src/controllers/order-controller.ts`
+
+**Additional Imports**
+
+```typescript title="order-controller.ts"
+import { User } from "../models/user";
+import { Product } from "../models/product";
+import { UpdateFieldsOperator } from "@tigrisdata/core/dist/types";
+```
+
+**HTTP handler**
+
+```typescript title="order-controller.ts"
+public createOrder = async (req: Request, res: Response) => {
+  this.db.transact(async tx => {
+      // get user
+      const user: (User | undefined) = await this.db.getCollection<User>('users').readOne({
+          op: SelectorFilterOperator.EQ,
+          fields: {
+              userId: Number.parseInt(req.params.userId)
+          }
+      }, tx);
+      if (user === undefined) {
+          res.status(404).json({error: 'User not found'});
+          return;
+      }
+
+      // get product
+      const product: (Product | undefined) = await this.db.getCollection<Product>('products').readOne(
+          {
+              op: SelectorFilterOperator.EQ,
+              fields: {
+                  productId: Number.parseInt(req.params.productId)
+              }
+          },
+          tx
+      );
+      if (product === undefined) {
+          res.status(404).json({error: 'Product not found'});
+          return;
+      }
+
+      // read quantity for order
+      const qty: number = Number.parseInt(req.params.quantity);
+
+      // check quantity available
+      if (qty > product.quantity) {
+          res.status(412).json({error: 'Insufficient product quantity'});
+          return;
+      }
+      const orderTotal: number = qty * product.price;
+
+      // check balance available
+      if (user.balance < orderTotal) {
+          res.status(412).json({error: 'Insufficient user balance'});
+          return;
+      }
+
+      // deduct balance
+      await this.db.getCollection<User>('users').update(
+          {
+              op: SelectorFilterOperator.EQ,
+              fields: {
+                  userId: user.userId
+              }
+          },
+          {
+              op: UpdateFieldsOperator.SET,
+              fields: {
+                  balance: user.balance - orderTotal
+              }
+          },
+          tx
+      );
+      console.log('deducted user balance');
+
+      // deduct product quantity
+      await this.db.getCollection<Product>('products').update(
+          {
+              op: SelectorFilterOperator.EQ,
+              fields: {
+                  productId: product.productId
+              }
+          },
+          {
+              op: UpdateFieldsOperator.SET,
+              fields: {
+                  quantity: product.quantity - qty
+              }
+          },
+          tx
+      );
+      // create order
+      const order: Order = {
+          orderId: 0, // server will auto-generate it,
+          orderTotal: orderTotal,
+          userId: user.userId,
+          productItems: [
+              {
+                  productId: product.productId,
+                  quantity: qty
+              }
+          ]
+      };
+
+      await this.orders.insert(order, tx);
+      console.log('order created');
+
+      res.status(200).json({status: 'Order placed successfully'});
+  });
+};
+```
+
+**Configure Route**
+Add below in `OrderController.setupRoutes` to configure HTTP routing.
+
+```typescript
+this.router.post(`${this.path}/:userId/:productId/:quantity`, this.createOrder);
+```
+
+Use the newly added HTTP endpoint to create an
+order.
+
+### Create an Order
+
+```shell
+curl -X 'POST' 'http://localhost:8080/order/1/1/20'
+```
+
+## Understanding what just happened
+
+The starter project includes the TypeScript Tigris data container interfaces
+and their corresponding schema definition located at `src/models/`.
+
+When you launched the application, code located in `App.initializeTigris`
+created the database and registered the schema with the Tigris backend based
+for these 3 models (User, Product, Order).
+
+You wrote a new HTTP handler that used Tigris' transaction feature. The
+transaction involved reading data, validating that certain conditions around
+the product quantity and user's balance are met, and finally inserting a new
+order together with updating the users and products collections.
