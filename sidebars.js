@@ -60,6 +60,7 @@ const sidebars = {
         },
         "datamodels/using-go",
         "datamodels/using-java",
+        "datamodels/using-typescript",
       ],
     },
     {
@@ -92,6 +93,7 @@ const sidebars = {
             "client-libraries/java/async-client",
           ],
         },
+        "client-libraries/typescript",
       ],
     },
     {
