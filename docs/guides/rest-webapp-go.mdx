@@ -70,11 +70,11 @@ First off let's create two new users: Jane and John
 curl http://localhost:8080/users/create \
       -X POST \
       -H 'Content-Type: application/json' \
-      -d '{"id":1,"Name":"John","Balance":100}'
+      -d '{"Name":"John","Balance":100}'
 curl http://localhost:8080/users/create \
       -X POST \
       -H 'Content-Type: application/json' \
-      -d '{"id":2,"Name":"Jane","Balance":200}'
+      -d '{"Name":"Jane","Balance":200}'
 ```
 
 ### Insert products
@@ -85,11 +85,11 @@ Next go ahead and create two products: Avocado and Gold
 curl http://localhost:8080/products/create \
       -X POST \
       -H 'Content-Type: application/json' \
-      -d '{"id":1,"Name":"Avocado","Price":10,"Quantity":5}'
+      -d '{"Name":"Avocado","Price":10,"Quantity":5}'
 curl http://localhost:8080/products/create \
       -X POST \
       -H 'Content-Type: application/json' \
-      -d '{"id":2,"Name":"Gold","Price":3000,"Quantity":1}'
+      -d '{"Name":"Gold","Price":3000,"Quantity":1}'
 ```
 
 ### Place a couple of orders
@@ -103,19 +103,19 @@ unit of Gold that costs $3000.00, while John's balance is $100.00.
 curl http://localhost:8080/orders/create \
       -X POST \
       -H 'Content-Type: application/json' \
-      -d '{"id":1,"UserId":1, "Products" : [{"id":2,"Quantity":1}]}'
+      -d '{"UserId":1,"Products":[{"id":2,"Quantity":1}]}'
 ```
 
 #### Low stock
 
-The next order fails as well because Jane is trying to purchase 30 Avocados that
-cost $300.00, while Jane's balance is $200.00.
+The next order fails as well because Jane is trying to purchase 10 Avocados,
+but there is only 5 in the stock.
 
 ```shell
 curl http://localhost:8080/orders/create \
       -X POST \
       -H 'Content-Type: application/json' \
-      -d '{"id":1,"UserId":2, "Products" : [{"id":1,"Quantity":30}]}'
+      -d '{"UserId":2,"Products":[{"id":1,"Quantity":10}]}'
 ```
 
 #### Successful purchase
@@ -127,7 +127,7 @@ $50.00 and John's balance is $100.00, which is enough for the purchase.
 curl http://localhost:8080/orders/create \
       -X POST \
       -H 'Content-Type: application/json' \
-      -d '{"id":1,"UserId":1, "Products" : [{"id":1,"Quantity":5}]}'
+      -d '{"UserId":1,"Products":[{"id":1,"Quantity":5}]}'
 ```
 
 ### Check the balances and stock
@@ -138,6 +138,7 @@ up-to-date.
 ```shell
 curl http://localhost:8080/users/read/1
 curl http://localhost:8080/products/read/1
+curl http://localhost:8080/orders/read/1
 ```
 
 ## Code walk through
@@ -203,7 +204,7 @@ func setupCRUDRoutes[T interface{}](r *gin.Engine, db *tigris.Database, name str
 
 		id, _ := strconv.Atoi(c.Param("id"))
 
-		if _, err := coll.Delete(c, filter.Eq("id", id)); err != nil {
+		if _, err := coll.Delete(c, filter.Eq("Id", id)); err != nil {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err})
 			return
 		}
@@ -237,6 +238,7 @@ func setupCreateOrderRoute(r *gin.Engine, db *tigris.Database) {
 		var o Order
 		// Read the request body into o
 		if err := c.Bind(&o); err != nil {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 
@@ -249,7 +251,7 @@ func setupCreateOrderRoute(r *gin.Engine, db *tigris.Database) {
 			users := tigris.GetCollection[User](db)
 
 			// Read the user with order's UserId
-			u, err := users.ReadOne(txCtx, filter.Eq("id", o.UserId))
+			u, err := users.ReadOne(txCtx, filter.Eq("Id", o.UserId))
 			if err != nil {
 				return err
 			}
@@ -259,11 +261,12 @@ func setupCreateOrderRoute(r *gin.Engine, db *tigris.Database) {
 
 			orderTotal := 0.0
 
+			// For every product in the order
 			for i := 0; i < len(o.Products); i++ {
-                v := &o.Products[i]
+				v := &o.Products[i]
 
 				// Fetch the product in the order from the collection
-				p, err := products.ReadOne(txCtx, filter.Eq("id", v.Id))
+				p, err := products.ReadOne(txCtx, filter.Eq("Id", v.Id))
 				if err != nil {
 					return err
 				}
@@ -276,16 +279,16 @@ func setupCreateOrderRoute(r *gin.Engine, db *tigris.Database) {
 
 				// Update the inventory to reduce the product quantity based on the
 				// quantity in the order
-				_, err = products.Update(txCtx, filter.Eq("id", v.Id),
-					fields.Set("Quantity", p.Quantity-v.Quantity))
-				if err != nil {
+				if _, err = products.Update(txCtx,
+					filter.Eq("Id", v.Id),
+					fields.Set("Quantity", p.Quantity-v.Quantity)); err != nil {
 					return err
 				}
 
 				orderTotal += p.Price * float64(v.Quantity)
 
-                // Remember purchase price in the being created order
-                v.Price = p.Price
+				// Remember purchase price in the being created order
+				v.Price = p.Price
 			}
 
 			// Verify that the user has enough balance to be able to support the
@@ -295,16 +298,16 @@ func setupCreateOrderRoute(r *gin.Engine, db *tigris.Database) {
 			}
 
 			// Update the user's balance to account for the order purchase
-			_, err = users.Update(txCtx, filter.Eq("id", o.UserId),
-				fields.Set("Balance", u.Balance-orderTotal))
-			if err != nil {
+			if _, err = users.Update(txCtx,
+				filter.Eq("Id", o.UserId),
+				fields.Set("Balance", u.Balance-orderTotal)); err != nil {
 				return err
 			}
 
-            orders := tigris.GetCollection[Order](db)
+			orders := tigris.GetCollection[Order](db)
 
-            // Create the order
-            _, err = orders.Insert(ctx, &o)
+			// Create the order
+			_, err = orders.Insert(txCtx, &o)
 
 			// Returning no error means that the transaction will be committed.
 			return err
@@ -317,7 +320,7 @@ func setupCreateOrderRoute(r *gin.Engine, db *tigris.Database) {
 			return
 		}
 
-		c.JSON(http.StatusOK, gin.H{"Status": "PURCHASED"})
+		c.JSON(http.StatusCreated, o)
 	})
 }
 ```
