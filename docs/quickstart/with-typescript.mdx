@@ -1,0 +1,253 @@
+# Quickstart: TypeScript
+
+Tigris offers simple and intuitive APIs to make it easy for you get started
+with any data architecture needs!
+
+Setting up the database is instantaneous, as well - no need for tedious
+configuration. You define the data model as part of the application code,
+which then drives the database infrastructure without you having to
+configure and provision database resources.
+
+Furthermore, you can continue using your preferred programming language when
+working with Tigris. There is no new database query language to learn!
+
+The following guide will get you up and running with TypeScript.
+
+:::tip
+⏱ This guide should require less than 5 minutes
+
+:::
+
+First let's review what you need to get going.
+
+## Prerequisites
+
+All you'll need is any computer running macOS or Linux, with the following
+installed:
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [JDK 1.8 or newer](https://adoptopenjdk.net/)
+
+## Working locally
+
+First let's get started with Tigris locally.
+
+### Startup Tigris locally via Docker
+
+The first step is to install the CLI
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+<Tabs>
+<TabItem value="macOS" label="macOS">
+
+```shell
+curl -sSL https://tigris.dev/cli-macos | sudo tar -xz -C /usr/local/bin
+```
+
+</TabItem>
+<TabItem value="Linux" label="Linux">
+
+```shell
+curl -sSL https://tigris.dev/cli-linux | sudo tar -xz -C /usr/local/bin
+```
+
+</TabItem>
+</Tabs>
+
+Next we start up Tigris locally using the _tigris_ cli
+
+```shell
+tigris local up
+```
+
+Once this command has completed, Tigris server will be available on port
+`8081`.
+
+## Add the client library dependency to your project
+
+```shell
+npm install @tigrisdata/core
+```
+
+## Quickstart
+
+```typescript title=app.ts
+import { Collection, DB, Tigris } from "@tigrisdata/core";
+import {
+  SelectorFilterOperator,
+  TigrisCollectionType,
+  TigrisDataTypes,
+  TigrisSchema,
+  UpdateFieldsOperator,
+} from "@tigrisdata/core/dist/types";
+
+export class Application {
+  private readonly tigris: Tigris;
+
+  constructor() {
+    this.tigris = new Tigris({
+      serverUrl: "localhost:8081",
+    });
+    this.tigrisPlayground();
+  }
+
+  public async tigrisPlayground() {
+    // create db if not exists
+    const db: DB = await this.tigris.createDatabaseIfNotExists("hello-db");
+    console.log("db created");
+    // register or update collection
+    const users: Collection<User> = await db.createOrUpdateCollection(
+      "users",
+      userSchema
+    );
+    console.log("collection created");
+
+    // insert
+    const jania: User = await users.insert({
+      userId: 0,
+      name: "Jania McGrory",
+      balance: 6045.7,
+    });
+    console.log("user created with id = " + jania.userId);
+
+    const bunny: User = await users.insert({
+      userId: 0,
+      name: "Bunny Instone",
+      balance: 2948.87,
+    });
+    console.log("user created with id = " + bunny.userId);
+
+    // find the user by pkey field
+    const user1: User = await users.readOne({
+      op: SelectorFilterOperator.EQ,
+      fields: {
+        userId: jania.userId,
+      },
+    });
+    const user2: User = await users.readOne({
+      op: SelectorFilterOperator.EQ,
+      fields: {
+        userId: bunny.userId,
+      },
+    });
+
+    // update
+    await users.update(
+      {
+        op: SelectorFilterOperator.EQ,
+        fields: {
+          userId: bunny.userId,
+        },
+      },
+      {
+        op: UpdateFieldsOperator.SET,
+        fields: {
+          name: "Jania McGrover",
+        },
+      }
+    );
+    console.log("user updated");
+
+    // transaction - transfer balance between users
+    await db.transact(async (tx) => {
+      console.log("read in tx: " + jania.userId);
+      console.log("read in tx: " + bunny.userId);
+
+      // find the user by pkey field
+      const user1: User = await users.readOne(
+        {
+          op: SelectorFilterOperator.EQ,
+          fields: {
+            userId: jania.userId,
+          },
+        },
+        tx
+      );
+      const user2: User = await users.readOne(
+        {
+          op: SelectorFilterOperator.EQ,
+          fields: {
+            userId: bunny.userId,
+          },
+        },
+        tx
+      );
+
+      // update balance
+      await users.update(
+        {
+          op: SelectorFilterOperator.EQ,
+          fields: {
+            userId: user1.userId,
+          },
+        },
+        {
+          op: UpdateFieldsOperator.SET,
+          fields: {
+            balance: user1.balance - 100,
+          },
+        },
+        tx
+      );
+
+      await users.update(
+        {
+          op: SelectorFilterOperator.EQ,
+          fields: {
+            userId: user2.userId,
+          },
+        },
+        {
+          op: UpdateFieldsOperator.SET,
+          fields: {
+            balance: user2.balance + 100,
+          },
+        },
+        tx
+      );
+      console.log("balance transferred");
+    });
+
+    // delete users
+    await users.delete({
+      op: SelectorFilterOperator.EQ,
+      fields: {
+        userId: user1.userId,
+      },
+    });
+    await users.delete({
+      op: SelectorFilterOperator.EQ,
+      fields: {
+        userId: user2.userId,
+      },
+    });
+    console.log("users deleted");
+  }
+}
+
+interface User extends TigrisCollectionType {
+  userId: number;
+  name: string;
+  balance: number;
+}
+
+const userSchema: TigrisSchema<User> = {
+  userId: {
+    type: TigrisDataTypes.INT32,
+    primary_key: {
+      order: 1,
+      autoGenerate: true,
+    },
+  },
+  name: {
+    type: TigrisDataTypes.STRING,
+  },
+  balance: {
+    type: TigrisDataTypes.NUMBER,
+  },
+};
+
+new Application();
+```
