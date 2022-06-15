@@ -38,6 +38,7 @@ const sidebars = {
         "quickstart/with-http",
         "quickstart/with-go",
         "quickstart/with-java",
+        "quickstart/with-typescript",
       ],
     },
     {
