@@ -175,3 +175,9 @@ db.transact(
             }
         });
 ```
+
+## Drop database
+
+```java
+client.dropDatabase("sampledb");
+```
