@@ -79,7 +79,6 @@ import {
   TigrisCollectionType,
   TigrisDataTypes,
   TigrisSchema,
-  UpdateFieldsOperator,
 } from "@tigrisdata/core/dist/types";
 
 export class Application {
@@ -130,19 +129,13 @@ export class Application {
         userId: bunny.userId,
       },
       {
-        op: UpdateFieldsOperator.SET,
-        fields: {
-          name: "Jania McGrover",
-        },
+        name: "Jania McGrover",
       }
     );
     console.log("user updated");
 
     // transaction - transfer balance between users
     await db.transact(async (tx) => {
-      console.log("read in tx: " + jania.userId);
-      console.log("read in tx: " + bunny.userId);
-
       // find the user by pkey field
       const user1: User = await users.readOne(
         {
@@ -163,10 +156,7 @@ export class Application {
           userId: user1.userId,
         },
         {
-          op: UpdateFieldsOperator.SET,
-          fields: {
-            balance: user1.balance - 100,
-          },
+          balance: user1.balance - 100,
         },
         tx
       );
@@ -176,10 +166,7 @@ export class Application {
           userId: user2.userId,
         },
         {
-          op: UpdateFieldsOperator.SET,
-          fields: {
-            balance: user2.balance + 100,
-          },
+          balance: user2.balance + 100,
         },
         tx
       );

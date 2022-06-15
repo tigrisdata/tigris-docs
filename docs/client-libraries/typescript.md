@@ -142,16 +142,10 @@ users.read(
     op: LogicalOperator.OR,
     selectorFilters: [
       {
-        op: SelectorFilterOperator.EQ,
-        fields: {
-          name: "alice",
-        },
+        name: "alice",
       },
       {
-        op: SelectorFilterOperator.EQ,
-        fields: {
-          name: "emma",
-        },
+        name: "emma",
       },
     ],
   },
@@ -183,10 +177,7 @@ await users.update(
     userId: 1,
   },
   {
-    op: UpdateFieldsOperator.SET,
-    fields: {
-      balance: 100, // set the balance of this user to 100
-    },
+    balance: 100, // set the balance of this user to 100
   },
   tx
 );
@@ -241,10 +232,7 @@ await db.transact(async (tx) => {
       userId: user1.userId,
     },
     {
-      op: UpdateFieldsOperator.SET,
-      fields: {
-        balance: user1.balance - 100,
-      },
+      balance: user1.balance - 100,
     },
     tx
   );
@@ -255,10 +243,7 @@ await db.transact(async (tx) => {
       userId: user2.userId,
     },
     {
-      op: UpdateFieldsOperator.SET,
-      fields: {
-        balance: user2.balance + 100,
-      },
+      balance: user2.balance + 100,
     },
     tx
   );
