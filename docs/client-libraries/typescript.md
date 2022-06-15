@@ -71,6 +71,12 @@ tigris.createDatabaseIfNotExists("hello-db").then((db) => {
 });
 ```
 
+Create collection
+
+```typescript
+db.createOrUpdateCollection("users", userSchema).then((users) => {});
+```
+
 ## CRUD operations
 
 The first step is to set up the collection object. All the CRUD operations on
