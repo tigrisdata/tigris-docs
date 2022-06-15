@@ -195,3 +195,9 @@ db
         }
     });
 ```
+
+## Drop database
+
+```java
+asyncClient.dropDatabase("sampledb");
+```

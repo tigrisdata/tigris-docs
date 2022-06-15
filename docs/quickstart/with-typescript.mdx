@@ -76,7 +76,6 @@ npm install @tigrisdata/core
 ```typescript title=app.ts
 import { Collection, DB, Tigris } from "@tigrisdata/core";
 import {
-  SelectorFilterOperator,
   TigrisCollectionType,
   TigrisDataTypes,
   TigrisSchema,
@@ -106,14 +105,12 @@ export class Application {
 
     // insert
     const jania: User = await users.insert({
-      userId: 0,
       name: "Jania McGrory",
       balance: 6045.7,
     });
     console.log("user created with id = " + jania.userId);
 
     const bunny: User = await users.insert({
-      userId: 0,
       name: "Bunny Instone",
       balance: 2948.87,
     });
@@ -121,25 +118,16 @@ export class Application {
 
     // find the user by pkey field
     const user1: User = await users.readOne({
-      op: SelectorFilterOperator.EQ,
-      fields: {
-        userId: jania.userId,
-      },
+      userId: jania.userId,
     });
     const user2: User = await users.readOne({
-      op: SelectorFilterOperator.EQ,
-      fields: {
-        userId: bunny.userId,
-      },
+      userId: bunny.userId,
     });
 
     // update
     await users.update(
       {
-        op: SelectorFilterOperator.EQ,
-        fields: {
-          userId: bunny.userId,
-        },
+        userId: bunny.userId,
       },
       {
         op: UpdateFieldsOperator.SET,
@@ -158,19 +146,13 @@ export class Application {
       // find the user by pkey field
       const user1: User = await users.readOne(
         {
-          op: SelectorFilterOperator.EQ,
-          fields: {
-            userId: jania.userId,
-          },
+          userId: jania.userId,
         },
         tx
       );
       const user2: User = await users.readOne(
         {
-          op: SelectorFilterOperator.EQ,
-          fields: {
-            userId: bunny.userId,
-          },
+          userId: bunny.userId,
         },
         tx
       );
@@ -178,10 +160,7 @@ export class Application {
       // update balance
       await users.update(
         {
-          op: SelectorFilterOperator.EQ,
-          fields: {
-            userId: user1.userId,
-          },
+          userId: user1.userId,
         },
         {
           op: UpdateFieldsOperator.SET,
@@ -194,10 +173,7 @@ export class Application {
 
       await users.update(
         {
-          op: SelectorFilterOperator.EQ,
-          fields: {
-            userId: user2.userId,
-          },
+          userId: user2.userId,
         },
         {
           op: UpdateFieldsOperator.SET,
@@ -212,23 +188,20 @@ export class Application {
 
     // delete users
     await users.delete({
-      op: SelectorFilterOperator.EQ,
-      fields: {
-        userId: user1.userId,
-      },
+      userId: user1.userId,
     });
     await users.delete({
-      op: SelectorFilterOperator.EQ,
-      fields: {
-        userId: user2.userId,
-      },
+      userId: user2.userId,
     });
     console.log("users deleted");
+
+    // drop database
+    await this.tigris.dropDatabase("hello-db");
   }
 }
 
 interface User extends TigrisCollectionType {
-  userId: number;
+  userId?: number;
   name: string;
   balance: number;
 }

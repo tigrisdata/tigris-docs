@@ -26,7 +26,7 @@ of their data container using TigrisSchema
 
 ```typescript title=DataContainer
 interface User extends TigrisCollectionType {
-  userId: number;
+  userId?: number;
   name: string;
   balance: number;
 }
@@ -66,15 +66,16 @@ const tigris: Tigris = new Tigris({
 Create database (if not exists)
 
 ```typescript
-tigris.createDatabaseIfNotExists("hello-db").then((db) => {
-  // here is your db
-});
+const db: Database = await tigris.createDatabaseIfNotExists("hello-db");
 ```
 
 Create collection
 
 ```typescript
-db.createOrUpdateCollection("users", userSchema).then((users) => {});
+const users: Collection<User> = await db.createOrUpdateCollection(
+  "users",
+  userSchema
+);
 ```
 
 ## CRUD operations
@@ -83,9 +84,7 @@ The first step is to set up the collection object. All the CRUD operations on
 the collection are performed through this collection object.
 
 ```typescript
-db.getCollection<User>("users").then((users) => {
-  // here is your users collection
-});
+const users: Collection<User> = db.getCollection<User>("users");
 ```
 
 ### Insert documents
@@ -97,14 +96,11 @@ the value.
 
 ```typescript
 const user: User = {
-  userId: 0,
   name: "Jania McGrory",
   balance: 6045.7,
 };
 
-users.insert(user).then((insertedUser) => {
-  // insertedUser has `id` set in it.
-});
+const insertedUser: User = await users.insert(user);
 ```
 
 The insert API maintains uniqueness of the field marked as the primary key, for
@@ -118,13 +114,11 @@ document with the same primary key value. use `insertOrReplaceMany` to do the
 same on more than one documents.
 
 ```typescript
-users
-  .insertOrReplace({
-    userId: 1,
-    balance: 1000000,
-    name: "Bunny Instone",
-  })
-  .then((insertedOrReplacedDoc) => {});
+const insertedOrReplacedDoc: User = await users.insertOrReplace({
+  userId: 1,
+  balance: 1000000,
+  name: "Bunny Instone",
+});
 ```
 
 ### Read single document
@@ -133,16 +127,9 @@ To read one document you can use `readOne()`, If filters are provided, then
 documents matching the filtering condition are fetched.
 
 ```typescript
-users
-  .readOne({
-    op: SelectorFilterOperator.EQ,
-    fields: {
-      userId: 1,
-    },
-  })
-  .then((user) => {
-    // user will be set to `undefined` if there was no such record found.
-  });
+const user: User = await users.readOne({
+  userId: 1,
+});
 ```
 
 #### Read documents
@@ -191,23 +178,18 @@ In the following example, the field `balance` is updated for documents which
 match the filter `id=1`.
 
 ```typescript
-users
-  .update(
-    {
-      op: SelectorFilterOperator.EQ,
-      fields: {
-        userId: 1,
-      },
+await users.update(
+  {
+    userId: 1,
+  },
+  {
+    op: UpdateFieldsOperator.SET,
+    fields: {
+      balance: 100, // set the balance of this user to 100
     },
-    {
-      op: UpdateFieldsOperator.SET,
-      fields: {
-        balance: 100, // set the balance of this user to 100
-      },
-    },
-    tx
-  )
-  .then((updateResponse) => {});
+  },
+  tx
+);
 ```
 
 ### Delete documents
@@ -215,14 +197,9 @@ users
 Use the `delete()` API to delete documents that match the filters.
 
 ```typescript
-users
-  .delete({
-    op: SelectorFilterOperator.EQ,
-    fields: {
-      userId: user.userId,
-    },
-  })
-  .then((deleteResponse) => {});
+await users.delete({
+  userId: user.userId,
+});
 ```
 
 ## Transactions
@@ -237,14 +214,11 @@ restrictions. Unlike some other document databases, there are no confusing read
 / write concerns to configure, and no cross-shard caveats.
 
 ```typescript
-db.transact(async (tx) => {
+await db.transact(async (tx) => {
   // read user 1
   const user1: User | undefined = await users.readOne(
     {
-      op: SelectorFilterOperator.EQ,
-      fields: {
-        userId: 1,
-      },
+      userId: 1,
     },
     tx
   );
@@ -252,10 +226,7 @@ db.transact(async (tx) => {
   // read user 2
   const user2: User | undefined = await users.readOne(
     {
-      op: SelectorFilterOperator.EQ,
-      fields: {
-        userId: 2,
-      },
+      userId: 2,
     },
     tx
   );
@@ -267,10 +238,7 @@ db.transact(async (tx) => {
   // deduct balance from user1
   await users.update(
     {
-      op: SelectorFilterOperator.EQ,
-      fields: {
-        userId: user1.userId,
-      },
+      userId: user1.userId,
     },
     {
       op: UpdateFieldsOperator.SET,
@@ -284,10 +252,7 @@ db.transact(async (tx) => {
   // add balance to user2
   await users.update(
     {
-      op: SelectorFilterOperator.EQ,
-      fields: {
-        userId: user2.userId,
-      },
+      userId: user2.userId,
     },
     {
       op: UpdateFieldsOperator.SET,
@@ -298,4 +263,10 @@ db.transact(async (tx) => {
     tx
   );
 });
+```
+
+## Drop database
+
+```typescript
+await tigris.dropDatabase("hello-db");
 ```

@@ -87,7 +87,6 @@ curl -X 'POST' \
   'http://localhost:8080/users/create' \
   -H 'Content-Type: application/json' \
   -d '{
-  "userId": 0,
   "name": "Jania McGrory",
   "balance": 6045.7
 }'
@@ -100,7 +99,6 @@ curl -X 'POST' \
   'http://localhost:8080/products/create' \
   -H 'Content-Type: application/json' \
   -d '{
-  "productId": 0,
   "name": "Vanilla Beans",
   "quantity": 6358,
   "price": 4.39
@@ -141,10 +139,7 @@ public createOrder = async (req: Request, res: Response) => {
   this.db.transact(async tx => {
       // get user
       const user: (User | undefined) = await this.db.getCollection<User>('users').readOne({
-          op: SelectorFilterOperator.EQ,
-          fields: {
-              userId: Number.parseInt(req.params.userId)
-          }
+        userId: Number.parseInt(req.params.userId)
       }, tx);
       if (user === undefined) {
           res.status(404).json({error: 'User not found'});
@@ -152,12 +147,8 @@ public createOrder = async (req: Request, res: Response) => {
       }
 
       // get product
-      const product: (Product | undefined) = await this.db.getCollection<Product>('products').readOne(
-          {
-              op: SelectorFilterOperator.EQ,
-              fields: {
-                  productId: Number.parseInt(req.params.productId)
-              }
+      const product: (Product | undefined) = await this.db.getCollection<Product>('products').readOne({
+           productId: Number.parseInt(req.params.productId)
           },
           tx
       );
@@ -185,10 +176,7 @@ public createOrder = async (req: Request, res: Response) => {
       // deduct balance
       await this.db.getCollection<User>('users').update(
           {
-              op: SelectorFilterOperator.EQ,
-              fields: {
-                  userId: user.userId
-              }
+              userId: user.userId
           },
           {
               op: UpdateFieldsOperator.SET,
@@ -203,10 +191,7 @@ public createOrder = async (req: Request, res: Response) => {
       // deduct product quantity
       await this.db.getCollection<Product>('products').update(
           {
-              op: SelectorFilterOperator.EQ,
-              fields: {
-                  productId: product.productId
-              }
+              productId: product.productId
           },
           {
               op: UpdateFieldsOperator.SET,
@@ -218,7 +203,6 @@ public createOrder = async (req: Request, res: Response) => {
       );
       // create order
       const order: Order = {
-          orderId: 0, // server will auto-generate it,
           orderTotal: orderTotal,
           userId: user.userId,
           productItems: [
@@ -250,8 +234,10 @@ order.
 ### Create an Order
 
 ```shell
-curl -X 'POST' 'http://localhost:8080/order/1/1/20'
+curl -X 'POST' 'http://localhost:8080/order/{user-id}/{product-id}/20'
 ```
+
+Note: The commands to create user and product will output the generated ID.
 
 ## Understanding what just happened
 
