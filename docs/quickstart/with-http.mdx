@@ -1,16 +1,13 @@
 # Quickstart: HTTP API
 
-Tigris offers simple and intuitive APIs to make it easy for you get started
-with any data architecture needs!
-
-Setting up the database is instantaneous, as well - no need for tedious
-configuration. While schema enforcement on collections ensures that the data
-is well-structured and less prone to errors.
-
 The following guide will get you up and running using the HTTP APIs.
 
 :::tip
-⏱ This guide should require less than 5 minutes
+Quickly add data and easily retrieve or edit that data through simple and
+intuitive APIs.
+
+Easily evolve the data model as your application evolves
+without worrying about breaking a rigid schema.
 
 :::
 
@@ -21,42 +18,13 @@ First let's review what you need to get going.
 All you'll need is any computer running macOS or Linux, with
 [docker](https://docs.docker.com/get-docker/) installed.
 
-## Working locally
+Next, let's get started with Tigris locally.
 
-First let's get started with Tigris locally.
+## Startup Tigris locally via Docker
 
-### Startup Tigris locally via Docker
+import StartupLocally from "../includes/_startup_tigris_locally.mdx";
 
-The first step is to install the CLI
-
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-
-<Tabs>
-<TabItem value="macOS" label="macOS">
-
-```shell
-curl -sSL https://tigris.dev/cli-macos | sudo tar -xz -C /usr/local/bin
-```
-
-</TabItem>
-<TabItem value="Linux" label="Linux">
-
-```shell
-curl -sSL https://tigris.dev/cli-linux | sudo tar -xz -C /usr/local/bin
-```
-
-</TabItem>
-</Tabs>
-
-Next we start up Tigris locally using the _tigris_ cli
-
-```shell
-tigris local up
-```
-
-Once this command has completed, Tigris server will be available on port
-`8081`.
+<StartupLocally />
 
 ## Creating database and collection
 
@@ -85,7 +53,7 @@ curl http://localhost:8081/api/v1/databases/sampledb/collections/users/createOrU
             "balance": {
               "type": "number"
             },
-            "user_id": {
+            "id": {
               "type": "integer",
               "format": "int32",
               "autoGenerate": true
@@ -95,7 +63,7 @@ curl http://localhost:8081/api/v1/databases/sampledb/collections/users/createOrU
             }
           },
           "primary_key": [
-            "user_id"
+            "id"
           ]
         }
       }'
@@ -135,7 +103,7 @@ curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents
       -X POST \
       -H "Content-Type: application/json" \
       -d '{
-        "filter": {"user_id": 1}
+        "filter": {"id": 1}
       }'
 ```
 
@@ -164,7 +132,7 @@ curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents
         "fields": {
           "$set": {"balance": 2448.87}
         },
-        "filter": {"user_id": 2}
+        "filter": {"id": 2}
       }'
 ```
 
@@ -180,8 +148,8 @@ curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents
       -d '{
         "filter": {
           "$or": [
-            {"user_id": 1},
-            {"user_id": 2}
+            {"id": 1},
+            {"id": 2}
           ]
         }
       }'
