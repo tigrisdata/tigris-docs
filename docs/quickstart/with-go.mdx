@@ -1,20 +1,15 @@
 # Quickstart: Go
 
-Tigris offers simple and intuitive APIs to make it easy for you get started
-with any data architecture needs!
-
-Setting up the database is instantaneous, as well - no need for tedious
-configuration. You define the data model as part of the application code,
-which then drives the database infrastructure without you having to
-configure and provision database resources.
-
-Furthermore, you can continue using your preferred programming language when
-working with Tigris. There is no new database query language to learn!
-
 The following guide will get you up and running with Go.
 
 :::tip
-⏱ This guide should require less than 5 minutes
+Define the data model in the application code, which sets up the database
+instantaneously. Easily evolve the data model as your application evolves
+without worrying about breaking a rigid schema.
+
+Quickly add data and easily retrieve or edit that data through simple and
+intuitive APIs. Continue using your preferred programming language, there is
+no new database query language to learn.
 
 :::
 
@@ -28,42 +23,13 @@ installed:
 - [Docker](https://docs.docker.com/get-docker/)
 - [Golang 1.18 or newer](https://go.dev/dl/)
 
-## Working locally
+Next, let's get started with Tigris locally.
 
-First let's get started with Tigris locally.
+## Startup Tigris locally via Docker
 
-### Startup Tigris locally via Docker
+import StartupLocally from "../includes/_startup_tigris_locally.mdx";
 
-The first step is to install the CLI
-
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-
-<Tabs>
-<TabItem value="macOS" label="macOS">
-
-```shell
-curl -sSL https://tigris.dev/cli-macos | sudo tar -xz -C /usr/local/bin
-```
-
-</TabItem>
-<TabItem value="Linux" label="Linux">
-
-```shell
-curl -sSL https://tigris.dev/cli-linux | sudo tar -xz -C /usr/local/bin
-```
-
-</TabItem>
-</Tabs>
-
-Next we start up Tigris locally using the _tigris_ cli
-
-```shell
-tigris local up
-```
-
-Once this command has completed, Tigris server will be available on port
-`8081`.
+<StartupLocally />
 
 ## Install the client library
 
@@ -87,8 +53,9 @@ import (
 	"github.com/tigrisdata/tigris-client-go/tigris"
 )
 
+// User is a declaration of the model for the collection
 type User struct {
-	UserId  int32 `tigris:"primary_key,autoGenerate"`
+	tigris.Model
 	Name    string
 	Balance float64
 }
@@ -110,13 +77,13 @@ func main() {
 	users := tigris.GetCollection[User](db)
 
 	// Insert
-	users.Insert(ctx,
-		&User{Name: "Jania McGrory", Balance: 6045.7},
-		&User{Name: "Bunny Instone", Balance: 2948.87})
+	userJ := User{Name: "Jania McGrory", Balance: 6045.7}
+	userB := User{Name: "Bunny Instone", Balance: 2948.87}
+	users.Insert(ctx, &userJ, &userB)
 
 	// Read
 	var user *User
-	user, err = users.ReadOne(ctx, filter.Eq("UserId", 1)) // find user with primary key field UserId
+	user, err = users.ReadOne(ctx, filter.Eq("ID", userJ.ID)) // find user with primary key field
 	if err != nil {
 		panic(err)
 	}
@@ -129,34 +96,25 @@ func main() {
 	fmt.Println(user)
 
 	// Update - update user's name
-	users.Update(ctx, filter.Eq("UserId", 1), fields.Set("Name", "Jania McGrover"))
+	users.Update(ctx, filter.Eq("ID", userJ.ID), fields.Set("Name", "Jania McGrover"))
 
 	// Transaction - transfer balance between users
 	db.Tx(ctx, func(txCtx context.Context) error {
-		var userOne *User
-		if userOne, err = users.ReadOne(txCtx, filter.Eq("UserId", 1)); err != nil {
+		// update their balance
+		if _, err = users.Update(txCtx, filter.Eq("ID", userJ.ID),
+			fields.Set("Balance", userJ.Balance-100)); err != nil {
 			return err
 		}
-
-		var userTwo *User
-		if userTwo, err = users.ReadOne(txCtx, filter.Eq("UserId", 2)); err != nil {
-			return err
-		}
-
-		if _, err = users.Update(txCtx, filter.Eq("UserId", 1),
-			fields.Set("Balance", userOne.Balance-100)); err != nil {
-			return err
-		}
-		if _, err = users.Update(txCtx, filter.Eq("UserId", 2),
-			fields.Set("Balance", userTwo.Balance+100)); err != nil {
+		if _, err = users.Update(txCtx, filter.Eq("ID", userB.ID),
+			fields.Set("Balance", userB.Balance+100)); err != nil {
 			return err
 		}
 
 		return nil
 	})
 
-	// Delete - delete users with UserId 1 or 2
-	users.Delete(ctx, filter.Or(filter.Eq("UserId", 1), filter.Eq("UserId", 2)))
+	// Delete - delete users with IDs 1 or 2
+	users.Delete(ctx, filter.Or(filter.Eq("ID", userJ.ID), filter.Eq("ID", userB.ID)))
 
 	// Drop the database and its collections
 	db.Drop(ctx)

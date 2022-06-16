@@ -1,20 +1,15 @@
 # Quickstart: Java
 
-Tigris offers simple and intuitive APIs to make it easy for you get started
-with any data architecture needs!
-
-Setting up the database is instantaneous, as well - no need for tedious
-configuration. You define the data model as part of the application code,
-which then drives the database infrastructure without you having to
-configure and provision database resources.
-
-Furthermore, you can continue using your preferred programming language when
-working with Tigris. There is no new database query language to learn!
-
 The following guide will get you up and running with Java.
 
 :::tip
-⏱ This guide should require less than 5 minutes
+Define the data model in the application code, which sets up the database
+instantaneously. Easily evolve the data model as your application evolves
+without worrying about breaking a rigid schema.
+
+Quickly add data and easily retrieve or edit that data through simple and
+intuitive APIs. Continue using your preferred programming language, there is
+no new database query language to learn.
 
 :::
 
@@ -28,42 +23,13 @@ installed:
 - [Docker](https://docs.docker.com/get-docker/)
 - [JDK 1.8 or newer](https://adoptopenjdk.net/)
 
-## Working locally
+Next, let's get started with Tigris locally.
 
-First let's get started with Tigris locally.
+## Startup Tigris locally via Docker
 
-### Startup Tigris locally via Docker
+import StartupLocally from "../includes/_startup_tigris_locally.mdx";
 
-The first step is to install the CLI
-
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-
-<Tabs>
-<TabItem value="macOS" label="macOS">
-
-```shell
-curl -sSL https://tigris.dev/cli-macos | sudo tar -xz -C /usr/local/bin
-```
-
-</TabItem>
-<TabItem value="Linux" label="Linux">
-
-```shell
-curl -sSL https://tigris.dev/cli-linux | sudo tar -xz -C /usr/local/bin
-```
-
-</TabItem>
-</Tabs>
-
-Next we start up Tigris locally using the _tigris_ cli
-
-```shell
-tigris local up
-```
-
-Once this command has completed, Tigris server will be available on port
-`8081`.
+<StartupLocally />
 
 ## Add the client library dependency to your project
 
@@ -125,16 +91,16 @@ public class TigrisApp {
         TigrisCollection<User> users = helloDB.getCollection(User.class);
 
         // insert
-        User user1 = new User("Jania McGrory", 6045.7);
-        User user2 = new User("Bunny Instone", 2948.87);
-        InsertResponse<User> insertJaniaResponse = users.insert(user1);
-        InsertResponse<User> insertBunnyResponse = users.insert(user2);
+        User jania = new User("Jania McGrory", 6045.7);
+        User bunny = new User("Bunny Instone", 2948.87);
+        users.insert(jania);
+        users.insert(bunny);
 
         // read the auto-generated ids
-        int janiaId = user1.getUserId();
-        int bunnyId = user2.getUserId();
+        int janiaId = jania.getUserId();
+        int bunnyId = bunny.getUserId();
 
-        // find the user by primary key field id
+        // find the user by primary key field
         User user = users.readOne(Filters.eq("userId", janiaId)).get();
 
         // find user with Name Jania McGrory
@@ -152,9 +118,6 @@ public class TigrisApp {
         helloDB.transact(
                 (tx) -> {
                     try {
-                        User jania = users.readOne(tx, Filters.eq("userId", janiaId)).get();
-                        User bunny = users.readOne(tx, Filters.eq("userId", bunnyId)).get();
-
                         users.update(
                                 tx,
                                 Filters.eq("userId", janiaId),
@@ -173,6 +136,9 @@ public class TigrisApp {
         // delete users
         users.delete(Filters.eq("userId", janiaId));
         users.delete(Filters.eq("userId", bunnyId));
+
+        // drop the database and its collections
+        client.dropDatabase("hello-db");
     }
 
     public static class User implements TigrisCollectionType {
