@@ -1,8 +1,8 @@
 # RESTful Web App with TypeScript and Tigris
 
-In this guide we will build a Node environment based web application that
-accepts HTTP requests to store and retrieve data in the Tigris backend. The
-application uses [Express](https://expressjs.com/) framework.
+In this guide we will build a web application that accepts HTTP requests to
+store and retrieve data in the Tigris backend. The application uses
+[Express](https://expressjs.com/) framework.
 
 This is a simplified implementation of an e-commerce use case - this is just
 one of many use cases for how you could interact with Tigris!
@@ -11,36 +11,9 @@ Now let's get started locally with Tigris.
 
 ## Startup Tigris locally via Docker
 
-The first step is to install the CLI
+import StartupLocally from "../includes/_startup_tigris_locally.mdx";
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-
-<Tabs>
-<TabItem value="macOS" label="macOS">
-
-```shell
-curl -sSL https://tigris.dev/cli-macos | sudo tar -xz -C /usr/local/bin
-```
-
-</TabItem>
-<TabItem value="Linux" label="Linux">
-
-```shell
-curl -sSL https://tigris.dev/cli-linux | sudo tar -xz -C /usr/local/bin
-```
-
-</TabItem>
-</Tabs>
-
-Now we start up Tigris locally using the _tigris_ cli
-
-```shell
-tigris local up
-```
-
-Once this command has completed, Tigris server will be available on port
-`8081`.
+<StartupLocally />
 
 ## Setting up and starting the application
 
