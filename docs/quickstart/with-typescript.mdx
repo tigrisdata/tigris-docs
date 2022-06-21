@@ -31,133 +31,36 @@ import StartupLocally from "../includes/_startup_tigris_locally.mdx";
 
 <StartupLocally />
 
-## Add the client library dependency to your project
-
-```shell
-npm install @tigrisdata/core
-```
-
 ## Quickstart
 
-```typescript title=app.ts
-import { Collection, DB, Tigris } from "@tigrisdata/core";
-import {
-  TigrisCollectionType,
-  TigrisDataTypes,
-  TigrisSchema,
-} from "@tigrisdata/core/dist/types";
+Let's run following command to scaffold a Tigris quickstart app that
+demonstrates Tigris operations.
 
-export class Application {
-  private readonly tigris: Tigris;
-
-  constructor() {
-    // initialize the client
-    this.tigris = new Tigris({
-      serverUrl: "localhost:8081",
-    });
-
-    this.tigrisPlayground();
-  }
-
-  public async tigrisPlayground() {
-    // create the database if it does not exist,
-    // and fetch the database object
-    const db: DB = await this.tigris.createDatabaseIfNotExists("hello-db");
-
-    // create the collections if they don't exist, or
-    // update the collection schema
-    const users: Collection<User> = await db.createOrUpdateCollection(
-      "users",
-      userSchema
-    );
-
-    // insert
-    const jania: User = await users.insert({
-      name: "Jania McGrory",
-      balance: 6045.7,
-    });
-    const bunny: User = await users.insert({
-      name: "Bunny Instone",
-      balance: 2948.87,
-    });
-
-    // find the user by primary key field
-    const user1: User = await users.readOne({
-      userId: jania.userId,
-    });
-    const user2: User = await users.readOne({
-      userId: bunny.userId,
-    });
-
-    // update
-    await users.update(
-      {
-        userId: bunny.userId,
-      },
-      {
-        name: "Jania McGrover",
-      }
-    );
-
-    // transaction - transfer balance between users
-    await db.transact(async (tx) => {
-      // update balance
-      await users.update(
-        {
-          userId: jania.userId,
-        },
-        {
-          balance: jania.balance - 100,
-        },
-        tx
-      );
-
-      await users.update(
-        {
-          userId: bunny.userId,
-        },
-        {
-          balance: bunny.balance + 100,
-        },
-        tx
-      );
-    });
-
-    // delete users
-    await users.delete({
-      userId: jania.userId,
-    });
-    await users.delete({
-      userId: bunny.userId,
-    });
-
-    // drop database
-    await this.tigris.dropDatabase("hello-db");
-  }
-}
-
-// declare the data model
-interface User extends TigrisCollectionType {
-  userId?: number;
-  name: string;
-  balance: number;
-}
-
-const userSchema: TigrisSchema<User> = {
-  userId: {
-    type: TigrisDataTypes.INT32,
-    primary_key: {
-      order: 1,
-      autoGenerate: true,
-    },
-  },
-  name: {
-    type: TigrisDataTypes.STRING,
-  },
-  balance: {
-    type: TigrisDataTypes.NUMBER,
-  },
-};
-
-new Application();
+```shell
+mkdir tigris-quickstart-ts && cd tigris-quickstart-ts
+npx create-tigris-app
 ```
+
+## Code overview
+
+Above code scaffolded the project with following directory structure.
+
+```
+.
+├── package.json
+├── src
+│   ├── app.ts
+│   ├── index.ts
+│   ├── lib
+│   │   └── config.ts
+│   └── models
+│       └── user.ts
+└── tsconfig.json
+```
+
+- `index.ts` is the entry-point for the generated application.
+- `app.ts` is the application class. `tigrisQuickstart` method
+  demonstrates the tigris operations.
+- `lib/config.ts` contains the tigris client initialization.
+- `models/user.ts` contains the data-container and schema for `users`
+  collection.
