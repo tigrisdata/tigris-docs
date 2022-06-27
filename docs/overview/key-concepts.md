@@ -17,7 +17,7 @@ build an application with Tigris.
 | **Document**    | A JSON object with a pre-defined schema.                                                                                                                                                              |
 | **Primary Key** | A primary key uniquely identifies a document in the collection and enforces the unique constraint. In the absence of a user-defined primary key, it is auto-generated.                                |
 | **Transaction** | Global ACID transactions with strict serializability using optimistic concurrency that allow multiple clients to concurrently read and write data in the database with strong consistency guarantees. |
-| **Stream**      | Real-time events for writes performed on collections.                                                                                                                                                 |
+| **Events**      | Real-time events for writes performed on collections.                                                                                                                                                 |
 
 ### Database
 
@@ -81,9 +81,9 @@ Transactions work across collections and documents without any
 restrictions. Unlike some other document databases, there are no confusing
 read / write concerns to configure, and no cross-shard caveats.
 
-### Stream
+### Events
 
-Streams provide a continuous ordered stream of events in real-time for all
+Events provide a continuous ordered stream of events in real-time for all
 the writes performed in the collection. The event stream can then be used
 for building real-time applications such as IoT platform, messaging app,
 monitoring, analytics and others.
