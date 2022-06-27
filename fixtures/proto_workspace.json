@@ -109,6 +109,11 @@
               "name": "BAD_GATEWAY",
               "number": "18",
               "description": "502"
+            },
+            {
+              "name": "METHOD_NOT_ALLOWED",
+              "number": "19",
+              "description": "405"
             }
           ]
         }
@@ -1132,6 +1137,197 @@
           ]
         },
         {
+          "name": "EventsRequest",
+          "longName": "EventsRequest",
+          "fullName": "tigrisdata.v1.EventsRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "collection",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "options",
+              "description": "",
+              "label": "",
+              "type": "EventsRequestOptions",
+              "longType": "EventsRequestOptions",
+              "fullType": "tigrisdata.v1.EventsRequestOptions",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EventsRequestOptions",
+          "longName": "EventsRequestOptions",
+          "fullName": "tigrisdata.v1.EventsRequestOptions",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "EventsResponse",
+          "longName": "EventsResponse",
+          "fullName": "tigrisdata.v1.EventsResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "event",
+              "description": "",
+              "label": "",
+              "type": "StreamEvent",
+              "longType": "StreamEvent",
+              "fullType": "tigrisdata.v1.StreamEvent",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FacetCount",
+          "longName": "FacetCount",
+          "fullName": "tigrisdata.v1.FacetCount",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "count",
+              "description": "",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FacetStats",
+          "longName": "FacetStats",
+          "fullName": "tigrisdata.v1.FacetStats",
+          "description": "avg, min, max, sum are only available for numeric fields",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "avg",
+              "description": "",
+              "label": "",
+              "type": "float",
+              "longType": "float",
+              "fullType": "float",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "max",
+              "description": "",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "min",
+              "description": "",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sum",
+              "description": "",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "count",
+              "description": "",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "GetInfoRequest",
           "longName": "GetInfoRequest",
           "fullName": "tigrisdata.v1.GetInfoRequest",
@@ -1410,6 +1606,126 @@
               "type": "DatabaseInfo",
               "longType": "DatabaseInfo",
               "fullType": "tigrisdata.v1.DatabaseInfo",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Page",
+          "longName": "Page",
+          "fullName": "tigrisdata.v1.Page",
+          "description": "Pagination meta. Used only in /search as of now",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "current",
+              "description": "",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "total",
+              "description": "",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "per_page",
+              "description": "",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PublishRequest",
+          "longName": "PublishRequest",
+          "fullName": "tigrisdata.v1.PublishRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "topic",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "message",
+              "description": "",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PublishResponse",
+          "longName": "PublishResponse",
+          "fullName": "tigrisdata.v1.PublishResponse",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "status",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -1862,6 +2178,366 @@
           ]
         },
         {
+          "name": "SearchFacet",
+          "longName": "SearchFacet",
+          "fullName": "tigrisdata.v1.SearchFacet",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "counts",
+              "description": "",
+              "label": "repeated",
+              "type": "FacetCount",
+              "longType": "FacetCount",
+              "fullType": "tigrisdata.v1.FacetCount",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "stats",
+              "description": "",
+              "label": "",
+              "type": "FacetStats",
+              "longType": "FacetStats",
+              "fullType": "tigrisdata.v1.FacetStats",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SearchHit",
+          "longName": "SearchHit",
+          "fullName": "tigrisdata.v1.SearchHit",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "data",
+              "description": "actual search document",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "metadata",
+              "description": "Has metadata related to the search hit",
+              "label": "",
+              "type": "SearchHitMeta",
+              "longType": "SearchHitMeta",
+              "fullType": "tigrisdata.v1.SearchHitMeta",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SearchHitMeta",
+          "longName": "SearchHitMeta",
+          "fullName": "tigrisdata.v1.SearchHitMeta",
+          "description": "Contains metadata related to the search hit, has information about document created_at/updated_at as well.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "created_at",
+              "description": "Time at which the document was inserted/replaced. Measured in nano-seconds since the Unix epoch.",
+              "label": "",
+              "type": "Timestamp",
+              "longType": "google.protobuf.Timestamp",
+              "fullType": "google.protobuf.Timestamp",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "updated_at",
+              "description": "Time at which the document was updated. Measured in nano-seconds since the Unix epoch.",
+              "label": "",
+              "type": "Timestamp",
+              "longType": "google.protobuf.Timestamp",
+              "fullType": "google.protobuf.Timestamp",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SearchMetadata",
+          "longName": "SearchMetadata",
+          "fullName": "tigrisdata.v1.SearchMetadata",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "found",
+              "description": "",
+              "label": "",
+              "type": "int64",
+              "longType": "int64",
+              "fullType": "int64",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "page",
+              "description": "",
+              "label": "",
+              "type": "Page",
+              "longType": "Page",
+              "fullType": "tigrisdata.v1.Page",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SearchRequest",
+          "longName": "SearchRequest",
+          "fullName": "tigrisdata.v1.SearchRequest",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "db",
+              "description": "Database name to read documents from.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "collection",
+              "description": "Collection name to read documents from.",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "q",
+              "description": "Query string for searching across text fields",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "search_fields",
+              "description": "Array of fields to project search query against",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "filter",
+              "description": "Filter stacks on top of query results to further narrow down the results. Similar to `ReadRequest.filter`",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "facet",
+              "description": "Facet query to aggregate results on given fields",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sort",
+              "description": "Array of fields and corresponding sort orders to order the results `[{ \"salary\": \"$desc\" }]`",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "fields",
+              "description": "Fetch specific fields from a document. Default is all",
+              "label": "",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "page_size",
+              "description": "Optionally can set the number of hits to be returned per page, default is 20.",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "page",
+              "description": "Optionally can specify the page to retrieve. If page is set then only hits for this page is returned",
+              "label": "",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SearchResponse",
+          "longName": "SearchResponse",
+          "fullName": "tigrisdata.v1.SearchResponse",
+          "description": "Response struct for /search",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "hits",
+              "description": "",
+              "label": "repeated",
+              "type": "SearchHit",
+              "longType": "SearchHit",
+              "fullType": "tigrisdata.v1.SearchHit",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "facets",
+              "description": "",
+              "label": "repeated",
+              "type": "FacetsEntry",
+              "longType": "SearchResponse.FacetsEntry",
+              "fullType": "tigrisdata.v1.SearchResponse.FacetsEntry",
+              "ismap": true,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "meta",
+              "description": "",
+              "label": "",
+              "type": "SearchMetadata",
+              "longType": "SearchMetadata",
+              "fullType": "tigrisdata.v1.SearchMetadata",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FacetsEntry",
+          "longName": "SearchResponse.FacetsEntry",
+          "fullName": "tigrisdata.v1.SearchResponse.FacetsEntry",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key",
+              "description": "",
+              "label": "",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "",
+              "type": "SearchFacet",
+              "longType": "SearchFacet",
+              "fullType": "tigrisdata.v1.SearchFacet",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "StreamEvent",
           "longName": "StreamEvent",
           "fullName": "tigrisdata.v1.StreamEvent",
@@ -1970,9 +2646,9 @@
           ]
         },
         {
-          "name": "StreamRequest",
-          "longName": "StreamRequest",
-          "fullName": "tigrisdata.v1.StreamRequest",
+          "name": "SubscribeRequest",
+          "longName": "SubscribeRequest",
+          "fullName": "tigrisdata.v1.SubscribeRequest",
           "description": "",
           "hasExtensions": false,
           "hasFields": true,
@@ -1992,7 +2668,7 @@
               "defaultValue": ""
             },
             {
-              "name": "collection",
+              "name": "topic",
               "description": "",
               "label": "",
               "type": "string",
@@ -2002,36 +2678,13 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
-            },
-            {
-              "name": "options",
-              "description": "",
-              "label": "",
-              "type": "StreamRequestOptions",
-              "longType": "StreamRequestOptions",
-              "fullType": "tigrisdata.v1.StreamRequestOptions",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
             }
           ]
         },
         {
-          "name": "StreamRequestOptions",
-          "longName": "StreamRequestOptions",
-          "fullName": "tigrisdata.v1.StreamRequestOptions",
-          "description": "",
-          "hasExtensions": false,
-          "hasFields": false,
-          "hasOneofs": false,
-          "extensions": [],
-          "fields": []
-        },
-        {
-          "name": "StreamResponse",
-          "longName": "StreamResponse",
-          "fullName": "tigrisdata.v1.StreamResponse",
+          "name": "SubscribeResponse",
+          "longName": "SubscribeResponse",
+          "fullName": "tigrisdata.v1.SubscribeResponse",
           "description": "",
           "hasExtensions": false,
           "hasFields": true,
@@ -2039,12 +2692,12 @@
           "extensions": [],
           "fields": [
             {
-              "name": "event",
+              "name": "message",
               "description": "",
               "label": "",
-              "type": "StreamEvent",
-              "longType": "StreamEvent",
-              "fullType": "tigrisdata.v1.StreamEvent",
+              "type": "bytes",
+              "longType": "bytes",
+              "fullType": "bytes",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -2460,6 +3113,29 @@
               }
             },
             {
+              "name": "Search",
+              "description": "Searches a collection for documents matching the query",
+              "requestType": "SearchRequest",
+              "requestLongType": "SearchRequest",
+              "requestFullType": "tigrisdata.v1.SearchRequest",
+              "requestStreaming": false,
+              "responseType": "SearchResponse",
+              "responseLongType": "SearchResponse",
+              "responseFullType": "tigrisdata.v1.SearchResponse",
+              "responseStreaming": true,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "POST",
+                      "pattern": "/api/v1/databases/{db}/collections/{collection}/documents/search",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
               "name": "CreateOrUpdateCollection",
               "description": "Creates a new collection or atomically upgrades the collection to the new schema changes in the database\npassed in the request.",
               "requestType": "CreateOrUpdateCollectionRequest",
@@ -2643,22 +3319,22 @@
               }
             },
             {
-              "name": "Stream",
+              "name": "Events",
               "description": "Provides real time events for the changes made into the database. Streams by default publish all events for a database\nbut can be restricted to a specific collection. These events can be useful to build event-driven applications.",
-              "requestType": "StreamRequest",
-              "requestLongType": "StreamRequest",
-              "requestFullType": "tigrisdata.v1.StreamRequest",
+              "requestType": "EventsRequest",
+              "requestLongType": "EventsRequest",
+              "requestFullType": "tigrisdata.v1.EventsRequest",
               "requestStreaming": false,
-              "responseType": "StreamResponse",
-              "responseLongType": "StreamResponse",
-              "responseFullType": "tigrisdata.v1.StreamResponse",
+              "responseType": "EventsResponse",
+              "responseLongType": "EventsResponse",
+              "responseFullType": "tigrisdata.v1.EventsResponse",
               "responseStreaming": true,
               "options": {
                 "google.api.http": {
                   "rules": [
                     {
                       "method": "POST",
-                      "pattern": "/api/v1/databases/{db}/stream",
+                      "pattern": "/api/v1/databases/{db}/collections/{collection}/events",
                       "body": "*"
                     }
                   ]
@@ -2682,6 +3358,52 @@
                     {
                       "method": "GET",
                       "pattern": "/api/v1/info"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Publish",
+              "description": "",
+              "requestType": "PublishRequest",
+              "requestLongType": "PublishRequest",
+              "requestFullType": "tigrisdata.v1.PublishRequest",
+              "requestStreaming": false,
+              "responseType": "PublishResponse",
+              "responseLongType": "PublishResponse",
+              "responseFullType": "tigrisdata.v1.PublishResponse",
+              "responseStreaming": false,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "POST",
+                      "pattern": "/api/v1/databases/{db}/topic/{topic}/publish",
+                      "body": "*"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Subscribe",
+              "description": "",
+              "requestType": "SubscribeRequest",
+              "requestLongType": "SubscribeRequest",
+              "requestFullType": "tigrisdata.v1.SubscribeRequest",
+              "requestStreaming": false,
+              "responseType": "SubscribeResponse",
+              "responseLongType": "SubscribeResponse",
+              "responseFullType": "tigrisdata.v1.SubscribeResponse",
+              "responseStreaming": true,
+              "options": {
+                "google.api.http": {
+                  "rules": [
+                    {
+                      "method": "POST",
+                      "pattern": "/api/v1/databases/{db}/topic/{topic}/subscribe",
+                      "body": "*"
                     }
                   ]
                 }
