@@ -66,6 +66,15 @@ const sidebars = {
     },
     {
       type: "category",
+      label: "Change Events",
+      link: {
+        type: "generated-index",
+      },
+      collapsed: false,
+      items: ["change-events/introduction"],
+    },
+    {
+      type: "category",
       label: "Guides",
       link: {
         type: "generated-index",
