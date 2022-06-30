@@ -1259,7 +1259,7 @@
           "name": "FacetStats",
           "longName": "FacetStats",
           "fullName": "tigrisdata.v1.FacetStats",
-          "description": "avg, min, max, sum are only available for numeric fields",
+          "description": "Additional stats for faceted field",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -1267,7 +1267,7 @@
           "fields": [
             {
               "name": "avg",
-              "description": "",
+              "description": "Average of all values in a field. Only available for numeric fields",
               "label": "",
               "type": "float",
               "longType": "float",
@@ -1279,7 +1279,7 @@
             },
             {
               "name": "max",
-              "description": "",
+              "description": "Maximum of all values in a field. Only available for numeric fields",
               "label": "",
               "type": "int64",
               "longType": "int64",
@@ -1291,7 +1291,7 @@
             },
             {
               "name": "min",
-              "description": "",
+              "description": "Minimum of all values in a field. Only available for numeric fields",
               "label": "",
               "type": "int64",
               "longType": "int64",
@@ -1303,7 +1303,7 @@
             },
             {
               "name": "sum",
-              "description": "",
+              "description": "Sum of all values in a field. Only available for numeric fields",
               "label": "",
               "type": "int64",
               "longType": "int64",
@@ -1315,7 +1315,7 @@
             },
             {
               "name": "count",
-              "description": "",
+              "description": "Total number of values in a field",
               "label": "",
               "type": "int64",
               "longType": "int64",
@@ -1617,7 +1617,7 @@
           "name": "Page",
           "longName": "Page",
           "fullName": "tigrisdata.v1.Page",
-          "description": "Pagination meta. Used only in /search as of now",
+          "description": "Pagination metadata for SearchResponse",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -1625,7 +1625,7 @@
           "fields": [
             {
               "name": "current",
-              "description": "",
+              "description": "Current page of search results",
               "label": "",
               "type": "int32",
               "longType": "int32",
@@ -1637,7 +1637,7 @@
             },
             {
               "name": "total",
-              "description": "",
+              "description": "Total pages in search results",
               "label": "",
               "type": "int32",
               "longType": "int32",
@@ -1648,8 +1648,8 @@
               "defaultValue": ""
             },
             {
-              "name": "per_page",
-              "description": "",
+              "name": "size",
+              "description": "Number of results per page",
               "label": "",
               "type": "int32",
               "longType": "int32",
@@ -2225,7 +2225,7 @@
           "fields": [
             {
               "name": "data",
-              "description": "actual search document",
+              "description": "Actual search document",
               "label": "",
               "type": "bytes",
               "longType": "bytes",
@@ -2297,7 +2297,7 @@
           "fields": [
             {
               "name": "found",
-              "description": "",
+              "description": "Total number of matches",
               "label": "",
               "type": "int64",
               "longType": "int64",
@@ -2457,7 +2457,7 @@
           "name": "SearchResponse",
           "longName": "SearchResponse",
           "fullName": "tigrisdata.v1.SearchResponse",
-          "description": "Response struct for /search",
+          "description": "Response struct for search",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
