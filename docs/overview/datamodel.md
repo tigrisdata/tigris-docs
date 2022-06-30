@@ -34,5 +34,5 @@ as part of the application code using the same programming language. By
 incorporating this data model into your application code, you can ensure
 that it remains consistent and up-to-date with the application's business logic.
 
-The next sections cover defining the data models and schemas in the
-supported programming languages.
+The language specific reference sections cover defining the data models and
+schemas in the supported programming languages.
