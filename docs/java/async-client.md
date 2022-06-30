@@ -1,10 +1,10 @@
-# Java: Client
+# Async Client
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.tigrisdata/tigris-client-java)](https://mvnrepository.com/artifact/com.tigrisdata/tigris-client)
 [![javadoc](https://javadoc.io/badge2/com.tigrisdata/tigris-client/javadoc.svg)](https://javadoc.io/doc/com.tigrisdata/tigris-client)
 
-In this section we will do a code walk through of how to use the Java sync
-client library to build with the Tigris data platform.
+In this section we will do a code walk through of how to use the Java async
+client library to build with Tigris.
 
 ## Client initialization
 
@@ -13,7 +13,7 @@ client library to build with the Tigris data platform.
 TigrisConfiguration configuration = TigrisConfiguration.newBuilder("localhost:8081").build();
 
 // client
-TigrisClient client = StandardTigrisClient.getInstance(tigrisConfiguration);
+TigrisAsyncClient asyncClient = StandardTigrisAsyncClient.getInstance(configuration);
 ```
 
 :::info
@@ -26,16 +26,17 @@ to be updated.
 ## Create database
 
 ```java
-TigrisDatabase db = client.createDatabaseIfNotExists("sampledb");
+CompletableFuture<TigrisAsyncDatabase> completableFuture =
+        asyncClient.createDatabaseIfNotExists("sampledb");
 ```
 
 ## Retrieve database
 
 ```java
-TigrisDatabase db = client.getDatabase("sampledb");
+TigrisAsyncDatabase db = asyncClient.getDatabase("sampledb");
 ```
 
-## Create collection
+## Create collections
 
 Define the data model for your collections within your application code in
 Java and then use the client library to have them created on Tigris.
@@ -101,14 +102,14 @@ public class User implements TigrisCollectionType {
   }
 }
 
-// create the collection(s)
-db.createOrUpdateCollections(User.class);
+CompletableFuture<CreateOrUpdateCollectionsResponse> completableFuture =
+        db.createOrUpdateCollections(User.class);
 ```
 
 ## Retrieve collection
 
 ```java
-TigrisCollection<User> userCollection = db.getCollection(User.class);
+TigrisAsyncCollection<User> userCollection = db.getCollection(User.class);
 ```
 
 ## Insert document
@@ -119,23 +120,24 @@ User alice = new User("Alice", 100);
 User lucy = new User("Lucy", 85);
 User emma = new User("Emma", 105);
 
-userCollection.insert(alice);
-userCollection.insert(lucy);
-userCollection.insert(emma);
+CompletableFuture<InsertResponse> completableFuture1 = userCollection.insert(alice);
+CompletableFuture<InsertResponse> completableFuture2 = userCollection.insert(lucy);
+CompletableFuture<InsertResponse> completableFuture3 = userCollection.insert(emma);
 ```
 
 ## Read document
 
 ```java
-// read alice from the user collection
-User alice = userCollection.readOne(Filters.eq("id", alice.getId())).get();
+// read alice from the user collection.
+CompletableFuture<Optional<User>> completableFuture = userCollection.readOne
+        (Filters.eq("id", alice.getId()));
 ```
 
 ## Update document
 
 ```java
 // update emma's name in the user collection
-userCollection.update(
+CompletableFuture<UpdateResponse> completableFuture = userCollection.update(
             Filters.eq("id", emma.getId()),
             UpdateFields.newBuilder().set("name", "Dr. Emma").build()
 );
@@ -145,39 +147,57 @@ userCollection.update(
 
 ```java
 // delete lucy from the user collection
-userCollection.delete(Filters.eq("id", lucy.getId()));
+CompletableFuture<DeleteResponse> completableFuture = userCollection.delete(
+            Filters.eq("id", lucy.getId())
+);
 ```
 
 ## Perform transaction
 
 ```java
-TigrisDatabase db = client.getDatabase(dbName);
-db.transact(
-        tx -> {
-                try {
-                    // retrieve transaction aware collection
-                    TigrisCollection<User> userCollection = db.getCollection(User.class);
-                    User emma = userCollection.readOne(Filters.eq("id", emma.getId()));
-                    User lucy = userCollection.readOne(Filters.eq("id", lucy.getId()));
+TigrisAsyncDatabase db = asyncClient.getDatabase(dbName);
+db
+    .beginTransaction(new TransactionOptions())
+    .whenComplete((session, throwable) -> {
+        if (throwable != null) {
+            // handle exception
+        }
+        try{
+            // retrieve transaction aware collection
+            TransactionTigrisCollection<User> userCollection = session.getCollection(User.class);
+            User emma = userCollection.readOne(Filters.eq("id", emma.getId()));
+            User lucy = userCollection.readOne(Filters.eq("id", lucy.getId()));
 
-                    // reduce emma's balance by 10
-                    userCollection.update(
-                    Filters.eq("id", emma.getId()),
-                    UpdateFields.newBuilder().set("balance", emma.getBalance() - 10).build());
+            // reduce emma's balance by 10
+            userCollection.update(
+                Filters.eq("id", emma.getId()),
+                UpdateFields.newBuilder().set(
+                   "balance",
+                   emma.getBalance() - 10
+                ).build()
+            );
 
-                    // increment lucy's balance by 10
-                    userCollection.update(
-                    Filters.eq("id", lucy.getId()),
-                    UpdateFields.newBuilder().set("balance", lucy.getBalance() + 10).build());
-            } catch (Exception ex) {
-                    // throw it to rollback ongoing transaction
-                    throw new IllegalStateException(ex);
-            }
-        });
+            // increment lucy's balance by 10
+            userCollection.update(
+                Filters.eq("id", lucy.getId()),
+                UpdateFields.newBuilder().set(
+                    "balance",
+                    lucy.getBalance() + 10
+                ).build()
+            );
+
+            // commit transaction
+            session.commit();
+        } catch(Exception ex) {
+            // handle ex
+            // in case of an error, rollback
+            session.rollback();
+        }
+    });
 ```
 
 ## Drop database
 
 ```java
-client.dropDatabase("sampledb");
+asyncClient.dropDatabase("sampledb");
 ```

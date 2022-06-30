@@ -1,10 +1,8 @@
-# Data Modeling Using Go
+# Data Modeling
 
 Tigris enables the data models to be declared as part of the
 application code. These data models are then converted to appropriate
 objects, such as collections, on the backend.
-
-In this section we will cover data modeling using Go.
 
 ## Declaring Models
 
