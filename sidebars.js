@@ -33,19 +33,9 @@ const sidebars = {
       ],
     },
     {
-      type: "category",
+      type: "doc",
       label: "Quickstart",
-      link: {
-        type: "generated-index",
-      },
-      collapsed: false,
-      items: [
-        "quickstart/with-cli",
-        "quickstart/with-http",
-        "quickstart/with-go",
-        "quickstart/with-java",
-        "quickstart/with-typescript",
-      ],
+      id: "quickstart/quickstart",
     },
     {
       type: "category",

@@ -2,7 +2,7 @@
 
 Getting started working with Tigris locally requires one easy step.
 
-### Starting up local Tigris
+## Starting up Tigris on your local machine
 
 Open your terminal, and:
 
@@ -10,7 +10,7 @@ Open your terminal, and:
 tigris local up
 ```
 
-This will spin up Tigris locally as a set of Docker containers. The Tigris
+This will spin up Tigris locally via Docker. The Tigris
 server will then be available on port `8081`.
 
 ### Health Check
@@ -22,36 +22,106 @@ accept requests.
 tigris ping
 ```
 
-### Start building
+## Start building
 
 That's it, you are ready to build with Tigris!
 
+### Create sample schema
+
+For this quickstart we will model a simple ecommerce app. The data would be
+stored in three collections _products_, _users_ and _orders_.
+
+Let's use the CLI to generate the sample schema and create the three
+collections in the database named _sampledb_.
+
 ```shell
-tigris create database testdb
-tigris create collection testdb \
-'{
-    "title": "users",
-    "description": "Collection of documents with details of users",
-    "properties": {
-      "id": {
-        "description": "A unique identifier for the user",
-        "type": "integer"
-      },
-      "name": {
-        "description": "Name of the user",
-        "type": "string",
-        "maxLength": 100
-      }
-    },
-    "primary_key": [
-      "id"
-    ]
-}'
-tigris insert_or_replace testdb users '{"id": 20, "name": "Alice Alan"}'
-tigris read testdb users
+tigris generate sample-schema --create
 ```
 
-### Shutting down the local Tigris
+The schema of the collections created can be fetched as follows
+
+```shell
+tigris describe collection sampledb orders
+```
+
+### Insert data
+
+The following example will insert data into the _users_ and _products_
+collections and then read it back.
+
+One of the main features of Tigris is the ability to perform ACID
+transactions. We will perform a transaction that involves inserting and
+updating documents in the _orders_, _users_ and _products_ collections.
+
+Now lets fire up the CLI and use the Tigris APIs to perform CRUD operations on
+the data.
+
+#### Insert some data into the user and product collections
+
+```shell
+tigris insert sampledb users \
+'[
+    {"id": 1, "name": "Jania McGrory", "balance": 6045.7},
+    {"id": 2, "name": "Bunny Instone", "balance": 2948.87}
+]'
+```
+
+```shell
+tigris insert sampledb products \
+'[
+    {"id": 1, "name": "Vanilla Beans", "quantity": 6358, "price": 4.39},
+    {"id": 2, "name": "Cheese - Provolone", "quantity": 5726, "price": 16.74},
+    {"id": 3, "name": "Cake - Box Window 10x10x2.5", "quantity": 5514, "price": 36.4}
+]'
+```
+
+### Read the data that was inserted by the Primary key field
+
+```shell
+tigris read sampledb users '{"id": 1}'
+```
+
+```shell
+tigris read sampledb products '{"id": 3}'
+```
+
+### Read the data that was inserted by any field in the schema
+
+```shell
+tigris read sampledb users '{"name": "Jania McGrory"}'
+```
+
+```shell
+tigris read sampledb products '{"name": "Vanilla Beans"}'
+```
+
+### Perform a transaction that modifies all three collections
+
+```shell
+tigris transact sampledb \
+'[
+  {
+    "insert": {
+      "collection": "orders",
+      "documents": [{
+          "id": 1, "user_id": 1, "order_total": 53.89, "products": [{"id": 1, "quantity": 1}]
+        }]
+    }
+  },
+  {
+    "update": {
+      "collection": "users", "fields": {"$set": {"balance": 5991.81}}, "filter": {"id": 1}
+    }
+  },
+  {
+    "update": {
+      "collection": "products", "fields": {"$set": {"quantity": 6357}}, "filter": {"id": 1}
+    }
+  }
+]'
+```
+
+## Shutting down the local Tigris
 
 Shutting down the locally running Tigris is also as easy as requiring a
 single step. Open your terminal, and:
@@ -60,20 +130,11 @@ single step. Open your terminal, and:
 tigris local down
 ```
 
-### Customizing the Tigris server version and port
+## Customizing the Tigris server version and port
 
 You can change the Tigris server port. For example, if you want
 the server to be available on port `9091`:
 
 ```shell
 tigris local up 9091
-```
-
-By default, the
-[Docker image](https://hub.docker.com/repository/docker/tigrisdata/tigris/tags)
-corresponding to the latest released version is used to spin up Tigris. If
-you want to run a specific version, such as `1.0.0-alpha.13`:
-
-```shell
-tigris local up 8081 1.0.0-alpha.13
 ```
