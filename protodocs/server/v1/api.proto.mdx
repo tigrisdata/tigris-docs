@@ -5,13 +5,17 @@ hide_title: true
 
 import { ProtoMessage, ProtoServiceMethod, ProtoEnum } from "@theme/ProtoFile";
 
-**Package:** _tigrisdata.v1_
+## `api.proto`
 
-## Tigris
+_**path** server/v1/api.proto_
 
-The Tigris Data service.
+_**package** tigrisdata.v1_
 
 ---
+
+## Services
+
+### `Tigris`
 
 #### `BeginTransaction`
 
@@ -2059,7 +2063,7 @@ The Tigris Data service.
     name: "FacetStats",
     longName: "FacetStats",
     fullName: "tigrisdata.v1.FacetStats",
-    description: "avg, min, max, sum are only available for numeric fields",
+    description: "Additional stats for faceted field",
     hasExtensions: false,
     hasFields: true,
     hasOneofs: false,
@@ -2067,7 +2071,8 @@ The Tigris Data service.
     fields: [
       {
         name: "avg",
-        description: "",
+        description:
+          "Average of all values in a field. Only available for numeric fields",
         label: "",
         type: "float",
         longType: "float",
@@ -2079,7 +2084,8 @@ The Tigris Data service.
       },
       {
         name: "max",
-        description: "",
+        description:
+          "Maximum of all values in a field. Only available for numeric fields",
         label: "",
         type: "int64",
         longType: "int64",
@@ -2091,7 +2097,8 @@ The Tigris Data service.
       },
       {
         name: "min",
-        description: "",
+        description:
+          "Minimum of all values in a field. Only available for numeric fields",
         label: "",
         type: "int64",
         longType: "int64",
@@ -2103,7 +2110,8 @@ The Tigris Data service.
       },
       {
         name: "sum",
-        description: "",
+        description:
+          "Sum of all values in a field. Only available for numeric fields",
         label: "",
         type: "int64",
         longType: "int64",
@@ -2115,7 +2123,7 @@ The Tigris Data service.
       },
       {
         name: "count",
-        description: "",
+        description: "Total number of values in a field",
         label: "",
         type: "int64",
         longType: "int64",
@@ -2486,7 +2494,7 @@ The Tigris Data service.
     name: "Page",
     longName: "Page",
     fullName: "tigrisdata.v1.Page",
-    description: "Pagination meta. Used only in /search as of now",
+    description: "Pagination metadata for SearchResponse",
     hasExtensions: false,
     hasFields: true,
     hasOneofs: false,
@@ -2494,7 +2502,7 @@ The Tigris Data service.
     fields: [
       {
         name: "current",
-        description: "",
+        description: "Current page of search results",
         label: "",
         type: "int32",
         longType: "int32",
@@ -2506,7 +2514,7 @@ The Tigris Data service.
       },
       {
         name: "total",
-        description: "",
+        description: "Total pages in search results",
         label: "",
         type: "int32",
         longType: "int32",
@@ -2517,8 +2525,8 @@ The Tigris Data service.
         defaultValue: "",
       },
       {
-        name: "per_page",
-        description: "",
+        name: "size",
+        description: "Number of results per page",
         label: "",
         type: "int32",
         longType: "int32",
@@ -3198,7 +3206,7 @@ The Tigris Data service.
     fields: [
       {
         name: "data",
-        description: "actual search document",
+        description: "Actual search document",
         label: "",
         type: "bytes",
         longType: "bytes",
@@ -3286,7 +3294,7 @@ The Tigris Data service.
     fields: [
       {
         name: "found",
-        description: "",
+        description: "Total number of matches",
         label: "",
         type: "int64",
         longType: "int64",
@@ -3463,7 +3471,7 @@ The Tigris Data service.
     name: "SearchResponse",
     longName: "SearchResponse",
     fullName: "tigrisdata.v1.SearchResponse",
-    description: "Response struct for /search",
+    description: "Response struct for search",
     hasExtensions: false,
     hasFields: true,
     hasOneofs: false,
