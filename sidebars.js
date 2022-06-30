@@ -24,7 +24,7 @@ const sidebars = {
         id: "intro",
       },
       collapsed: false,
-      items: ["overview/key-concepts"],
+      items: [],
     },
     {
       type: "category",
@@ -43,35 +43,26 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "Data Modeling",
+      label: "Core Concepts",
       link: {
-        type: "generated-index",
+        type: "doc",
+        id: "core-concepts/concepts",
       },
       collapsed: false,
       items: [
         {
           type: "category",
-          label: "Schema",
+          label: "Data Models",
           link: {
             type: "doc",
-            id: "datamodels/schema",
+            id: "core-concepts/datamodels/overview",
           },
           collapsed: false,
-          items: ["datamodels/json-spec"],
+          items: ["core-concepts/datamodels/schema"],
         },
-        "datamodels/using-go",
-        "datamodels/using-java",
-        "datamodels/using-typescript",
+        "core-concepts/filtering/filter",
+        "core-concepts/change-events/introduction",
       ],
-    },
-    {
-      type: "category",
-      label: "Change Events",
-      link: {
-        type: "generated-index",
-      },
-      collapsed: false,
-      items: ["change-events/introduction"],
     },
     {
       type: "category",
@@ -94,20 +85,43 @@ const sidebars = {
       },
       collapsed: false,
       items: [
-        "client-libraries/go",
         {
           type: "category",
           label: "Client Library: Java",
           link: {
-            type: "doc",
-            id: "client-libraries/java/overview",
+            type: "generated-index",
           },
           items: [
+            "client-libraries/java/overview",
             "client-libraries/java/sync-client",
             "client-libraries/java/async-client",
+            "client-libraries/java/datamodel-java",
           ],
         },
-        "client-libraries/typescript",
+        {
+          type: "category",
+          label: "Client Library: Go",
+          link: {
+            type: "generated-index",
+          },
+          items: [
+            "client-libraries/go/overview",
+            "client-libraries/go/go",
+            "client-libraries/go/datamodel-go",
+          ],
+        },
+        {
+          type: "category",
+          label: "Client Library: Typescript",
+          link: {
+            type: "generated-index",
+          },
+          items: [
+            "client-libraries/typescript/overview",
+            "client-libraries/typescript/typescript",
+            "client-libraries/typescript/datamodel-typescript",
+          ],
+        },
       ],
     },
     {

@@ -1,4 +1,4 @@
-# JSON Specification
+# Schema
 
 Tigris follows the JSON schema
 [specification](https://json-schema.org/specification.html).

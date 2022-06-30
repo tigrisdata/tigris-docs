@@ -1,4 +1,4 @@
-# Introduction
+# Change Events
 
 Each operation of a transaction is recorded as a change event. You can stream these change events per collection in
 real-time. The table below describes the fields of the JSON for each change event.

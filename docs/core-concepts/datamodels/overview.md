@@ -1,4 +1,4 @@
-# Schema
+# Data Modeling
 
 Most applications expect the data they store to conform to some kind of
 schema. A schema is a blueprint for the application that outlines how data
