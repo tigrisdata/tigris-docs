@@ -4,8 +4,6 @@ Tigris enables the data models to be declared as part of the
 application code. These data models are then converted to appropriate
 objects, such as collections, on the backend.
 
-In this section we will cover data modeling using TypeScript.
-
 ## Declaring Models
 
 There are two basic constructs for TypeScript Tigris modeling.

@@ -1,4 +1,4 @@
-# Filter
+# Filters
 
 Tigris offers powerful apis to read or search the data. These APIs support filters to add specific criteria that the
 documents must match in order to return only the most relevant documents.

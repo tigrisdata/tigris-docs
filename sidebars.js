@@ -21,10 +21,16 @@ const sidebars = {
       label: "Overview",
       link: {
         type: "doc",
-        id: "intro",
+        id: "overview/intro",
       },
       collapsed: false,
-      items: [],
+      items: [
+        "overview/concepts",
+        "overview/datamodel",
+        "overview/schema",
+        "overview/filter",
+        "overview/change-events",
+      ],
     },
     {
       type: "category",
@@ -43,85 +49,59 @@ const sidebars = {
     },
     {
       type: "category",
-      label: "Core Concepts",
+      label: "Go Reference",
       link: {
         type: "doc",
-        id: "core-concepts/concepts",
+        id: "golang/getting-started",
       },
-      collapsed: false,
+      collapsed: true,
       items: [
-        {
-          type: "category",
-          label: "Data Models",
-          link: {
-            type: "doc",
-            id: "core-concepts/datamodels/overview",
-          },
-          collapsed: false,
-          items: ["core-concepts/datamodels/schema"],
-        },
-        "core-concepts/filtering/filter",
-        "core-concepts/change-events/introduction",
+        "golang/getting-started",
+        "golang/datamodel",
+        "golang/crud",
+        "golang/transactions",
       ],
     },
     {
       type: "category",
-      label: "Guides",
+      label: "Java Reference",
       link: {
-        type: "generated-index",
+        type: "doc",
+        id: "java/getting-started",
       },
-      collapsed: false,
+      collapsed: true,
       items: [
-        "guides/rest-webapp-go",
-        "guides/rest-webapp-java",
-        "guides/rest-webapp-typescript",
+        "java/getting-started",
+        "java/datamodel",
+        "java/async-client",
+        "java/sync-client",
       ],
     },
     {
       type: "category",
-      label: "Client Libraries",
+      label: "TypeScript Reference",
+      link: {
+        type: "doc",
+        id: "typescript/getting-started",
+      },
+      collapsed: true,
+      items: [
+        "typescript/datamodel",
+        "typescript/crud",
+        "typescript/transactions",
+      ],
+    },
+    {
+      type: "category",
+      label: "Tutorials",
       link: {
         type: "generated-index",
       },
-      collapsed: false,
+      collapsed: true,
       items: [
-        {
-          type: "category",
-          label: "Client Library: Java",
-          link: {
-            type: "generated-index",
-          },
-          items: [
-            "client-libraries/java/overview",
-            "client-libraries/java/sync-client",
-            "client-libraries/java/async-client",
-            "client-libraries/java/datamodel-java",
-          ],
-        },
-        {
-          type: "category",
-          label: "Client Library: Go",
-          link: {
-            type: "generated-index",
-          },
-          items: [
-            "client-libraries/go/overview",
-            "client-libraries/go/go",
-            "client-libraries/go/datamodel-go",
-          ],
-        },
-        {
-          type: "category",
-          label: "Client Library: Typescript",
-          link: {
-            type: "generated-index",
-          },
-          items: [
-            "client-libraries/typescript/overview",
-            "client-libraries/typescript/typescript",
-            "client-libraries/typescript/datamodel-typescript",
-          ],
-        },
+        "tutorials/rest-webapp-go",
+        "tutorials/rest-webapp-java",
+        "tutorials/rest-webapp-typescript",
       ],
     },
     {

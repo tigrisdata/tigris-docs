@@ -1,10 +1,10 @@
-# Async Client Usage
+# Sync Client
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.tigrisdata/tigris-client-java)](https://mvnrepository.com/artifact/com.tigrisdata/tigris-client)
 [![javadoc](https://javadoc.io/badge2/com.tigrisdata/tigris-client/javadoc.svg)](https://javadoc.io/doc/com.tigrisdata/tigris-client)
 
-In this section we will do a code walk through of how to use the Java async
-client library to build with the Tigris data platform.
+In this section we will do a code walk through of how to use the Java sync
+client library to build with Tigris.
 
 ## Client initialization
 
@@ -13,7 +13,7 @@ client library to build with the Tigris data platform.
 TigrisConfiguration configuration = TigrisConfiguration.newBuilder("localhost:8081").build();
 
 // client
-TigrisAsyncClient asyncClient = StandardTigrisAsyncClient.getInstance(configuration);
+TigrisClient client = StandardTigrisClient.getInstance(tigrisConfiguration);
 ```
 
 :::info
@@ -26,17 +26,16 @@ to be updated.
 ## Create database
 
 ```java
-CompletableFuture<TigrisAsyncDatabase> completableFuture =
-        asyncClient.createDatabaseIfNotExists("sampledb");
+TigrisDatabase db = client.createDatabaseIfNotExists("sampledb");
 ```
 
 ## Retrieve database
 
 ```java
-TigrisAsyncDatabase db = asyncClient.getDatabase("sampledb");
+TigrisDatabase db = client.getDatabase("sampledb");
 ```
 
-## Create collections
+## Create collection
 
 Define the data model for your collections within your application code in
 Java and then use the client library to have them created on Tigris.
@@ -102,14 +101,14 @@ public class User implements TigrisCollectionType {
   }
 }
 
-CompletableFuture<CreateOrUpdateCollectionsResponse> completableFuture =
-        db.createOrUpdateCollections(User.class);
+// create the collection(s)
+db.createOrUpdateCollections(User.class);
 ```
 
 ## Retrieve collection
 
 ```java
-TigrisAsyncCollection<User> userCollection = db.getCollection(User.class);
+TigrisCollection<User> userCollection = db.getCollection(User.class);
 ```
 
 ## Insert document
@@ -120,24 +119,23 @@ User alice = new User("Alice", 100);
 User lucy = new User("Lucy", 85);
 User emma = new User("Emma", 105);
 
-CompletableFuture<InsertResponse> completableFuture1 = userCollection.insert(alice);
-CompletableFuture<InsertResponse> completableFuture2 = userCollection.insert(lucy);
-CompletableFuture<InsertResponse> completableFuture3 = userCollection.insert(emma);
+userCollection.insert(alice);
+userCollection.insert(lucy);
+userCollection.insert(emma);
 ```
 
 ## Read document
 
 ```java
-// read alice from the user collection.
-CompletableFuture<Optional<User>> completableFuture = userCollection.readOne
-        (Filters.eq("id", alice.getId()));
+// read alice from the user collection
+User alice = userCollection.readOne(Filters.eq("id", alice.getId())).get();
 ```
 
 ## Update document
 
 ```java
 // update emma's name in the user collection
-CompletableFuture<UpdateResponse> completableFuture = userCollection.update(
+userCollection.update(
             Filters.eq("id", emma.getId()),
             UpdateFields.newBuilder().set("name", "Dr. Emma").build()
 );
@@ -147,57 +145,39 @@ CompletableFuture<UpdateResponse> completableFuture = userCollection.update(
 
 ```java
 // delete lucy from the user collection
-CompletableFuture<DeleteResponse> completableFuture = userCollection.delete(
-            Filters.eq("id", lucy.getId())
-);
+userCollection.delete(Filters.eq("id", lucy.getId()));
 ```
 
 ## Perform transaction
 
 ```java
-TigrisAsyncDatabase db = asyncClient.getDatabase(dbName);
-db
-    .beginTransaction(new TransactionOptions())
-    .whenComplete((session, throwable) -> {
-        if (throwable != null) {
-            // handle exception
-        }
-        try{
-            // retrieve transaction aware collection
-            TransactionTigrisCollection<User> userCollection = session.getCollection(User.class);
-            User emma = userCollection.readOne(Filters.eq("id", emma.getId()));
-            User lucy = userCollection.readOne(Filters.eq("id", lucy.getId()));
+TigrisDatabase db = client.getDatabase(dbName);
+db.transact(
+        tx -> {
+                try {
+                    // retrieve transaction aware collection
+                    TigrisCollection<User> userCollection = db.getCollection(User.class);
+                    User emma = userCollection.readOne(Filters.eq("id", emma.getId()));
+                    User lucy = userCollection.readOne(Filters.eq("id", lucy.getId()));
 
-            // reduce emma's balance by 10
-            userCollection.update(
-                Filters.eq("id", emma.getId()),
-                UpdateFields.newBuilder().set(
-                   "balance",
-                   emma.getBalance() - 10
-                ).build()
-            );
+                    // reduce emma's balance by 10
+                    userCollection.update(
+                    Filters.eq("id", emma.getId()),
+                    UpdateFields.newBuilder().set("balance", emma.getBalance() - 10).build());
 
-            // increment lucy's balance by 10
-            userCollection.update(
-                Filters.eq("id", lucy.getId()),
-                UpdateFields.newBuilder().set(
-                    "balance",
-                    lucy.getBalance() + 10
-                ).build()
-            );
-
-            // commit transaction
-            session.commit();
-        } catch(Exception ex) {
-            // handle ex
-            // in case of an error, rollback
-            session.rollback();
-        }
-    });
+                    // increment lucy's balance by 10
+                    userCollection.update(
+                    Filters.eq("id", lucy.getId()),
+                    UpdateFields.newBuilder().set("balance", lucy.getBalance() + 10).build());
+            } catch (Exception ex) {
+                    // throw it to rollback ongoing transaction
+                    throw new IllegalStateException(ex);
+            }
+        });
 ```
 
 ## Drop database
 
 ```java
-asyncClient.dropDatabase("sampledb");
+client.dropDatabase("sampledb");
 ```
