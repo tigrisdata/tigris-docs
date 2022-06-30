@@ -1,0 +1,491 @@
+---
+id: quickstart
+slug: /quickstart
+---
+
+# Quickstart
+
+The following guide will get you up and running with Tigris.
+
+:::tip
+Quickly add data and easily retrieve or edit that data through simple and
+intuitive APIs.
+
+Easily evolve the data model as your application evolves
+without worrying about breaking a rigid schema.
+
+:::
+
+## Startup Tigris on your local machine
+
+import StartupLocally from "../includes/_startup_tigris_locally.mdx";
+
+<StartupLocally />
+
+## 5-minute quickstart
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+<Tabs className="unique-tabs">
+<TabItem value="go" label="Go">
+
+**Prerequisites**
+
+All you'll need is any computer running macOS or Linux, with
+[Golang 1.18 or newer](https://go.dev/dl/) installed.
+
+**Install the client library**
+
+```shell
+go get -u github.com/tigrisdata/tigris-client-go@latest
+```
+
+**Quickstart**
+
+```go title=main.go
+package main
+
+import (
+    "context"
+    "fmt"
+    "time"
+
+    "github.com/tigrisdata/tigris-client-go/config"
+    "github.com/tigrisdata/tigris-client-go/fields"
+    "github.com/tigrisdata/tigris-client-go/filter"
+    "github.com/tigrisdata/tigris-client-go/tigris"
+)
+
+// User is a declaration of the model for the collection
+type User struct {
+    tigris.Model
+    Name    string
+    Balance float64
+}
+
+func main() {
+    ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+    defer cancel()
+
+    // Connect to the Tigris backend, create the database and collection if they don't exist,
+    // otherwise update the schema of the collection if it already exists
+    db, err := tigris.OpenDatabase(ctx, &config.Database{Driver: config.Driver{URL: "localhost:8081"}},
+    "hello_db", &User{})
+    if err != nil {
+        panic(err)
+    }
+
+    // Get the collection object, all the CRUD operations on the collection will be performed
+    // through this collection object
+    users := tigris.GetCollection[User](db)
+
+    // Insert
+    userJ := User{Name: "Jania McGrory", Balance: 6045.7}
+    userB := User{Name: "Bunny Instone", Balance: 2948.87}
+    users.Insert(ctx, &userJ, &userB)
+
+    // Read
+    var user *User
+    user, err = users.ReadOne(ctx, filter.Eq("ID", userJ.ID)) // find user with primary key field
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(user)
+
+    user, err = users.ReadOne(ctx, filter.Eq("Name", "Jania McGrory")) // find user with Name Jania McGrory
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(user)
+
+    // Update - update user's name
+    users.Update(ctx, filter.Eq("ID", userJ.ID), fields.Set("Name", "Jania McGrover"))
+
+    // Transaction - transfer balance between users
+    db.Tx(ctx, func(txCtx context.Context) error {
+        // update their balance
+        if _, err = users.Update(txCtx, filter.Eq("ID", userJ.ID),
+        fields.Set("Balance", userJ.Balance-100)); err != nil {
+          return err
+        }
+        if _, err = users.Update(txCtx, filter.Eq("ID", userB.ID),
+        fields.Set("Balance", userB.Balance+100)); err != nil {
+          return err
+        }
+
+        return nil
+    })
+
+    // Delete - delete users with IDs 1 or 2
+    users.Delete(ctx, filter.Or(filter.Eq("ID", userJ.ID), filter.Eq("ID", userB.ID)))
+
+    // Drop the database and its collections
+    db.Drop(ctx)
+}
+```
+
+</TabItem>
+<TabItem value="http" label="HTTP">
+
+**Prerequisites**
+
+All you'll need is any computer running macOS or Linux.
+
+**Creating database and collection**
+
+For this quickstart we will create a database named _sampledb_ and then
+create a collection _users_ inside it.
+
+Creating a database is as easy as calling an API, and it is ready in an
+instant.
+
+```shell
+curl -X POST http://localhost:8081/api/v1/databases/sampledb/create
+```
+
+Similarly, a collection is instantaneously created through the API. In
+Tigris, a collection is an ordered set of records called documents that all
+follow a specific schema and whose fields are strongly typed.
+
+```shell
+curl http://localhost:8081/api/v1/databases/sampledb/collections/users/createOrUpdate \
+      -X POST \
+      -H "Content-Type: application/json" \
+      -d '{
+        "schema": {
+          "title": "users",
+          "properties": {
+            "balance": {
+              "type": "number"
+            },
+            "id": {
+              "type": "integer",
+              "format": "int32",
+              "autoGenerate": true
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "primary_key": [
+            "id"
+          ]
+        }
+      }'
+```
+
+The schema of the collections created above can be fetched as follows
+
+```shell
+curl -X POST http://localhost:8081/api/v1/databases/sampledb/collections/users/describe
+```
+
+**Insert some documents**
+
+The following example will replace documents with the same `id` if they
+already exist, or create new documents if they don't exist with the same `id`.
+
+```shell
+curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents/insert \
+      -X POST \
+      -H "Content-Type: application/json" \
+      -d '{
+        "documents": [
+          {"name": "Jania McGrory", "balance": 6045.7},
+          {"name": "Bunny Instone", "balance": 2948.87}
+        ]
+      }'
+```
+
+**Read a document using the primary key field**
+
+Read the document from the collection by using its `id`.
+
+```shell
+curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents/read \
+      -X POST \
+      -H "Content-Type: application/json" \
+      -d '{
+        "filter": {"id": 1}
+      }'
+```
+
+**Read a document using any field in the schema**
+
+Read the document from the collection by using the field `name`.
+
+```shell
+curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents/read \
+      -X POST \
+      -H "Content-Type: application/json" \
+      -d '{
+        "filter": {"name": "Jania McGrory"}
+      }'
+```
+
+**Update a document**
+
+Update one of the fields in a document by using its `id`.
+
+```shell
+curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents/update \
+      -X PUT \
+      -H "Content-Type: application/json" \
+      -d '{
+        "fields": {
+          "$set": {"balance": 2448.87}
+        },
+        "filter": {"id": 2}
+      }'
+```
+
+**Delete documents**
+
+Use the delete API to remove the documents from the collection
+based on the filter.
+
+```shell
+curl http://localhost:8081/api/v1/databases/sampledb/collections/users/documents/delete \
+      -X DELETE \
+      -H "Content-Type: application/json" \
+      -d '{
+        "filter": {
+          "$or": [
+            {"id": 1},
+            {"id": 2}
+          ]
+        }
+      }'
+```
+
+**Drop database**
+
+Finally, drop the database _sampledb_ we have created for this quickstart
+with all its collections.
+
+```shell
+curl -X DELETE http://localhost:8081/api/v1/databases/sampledb/drop
+```
+
+</TabItem>
+<TabItem value="java" label="Java">
+
+**Prerequisites**
+
+All you'll need is any computer running macOS or Linux, with
+[JDK 1.8 or newer](https://adoptopenjdk.net/) installed.
+
+**Add the client library dependency to your project**
+
+```xml
+<dependency>
+  <groupId>com.tigrisdata</groupId>
+  <artifactId>tigris-client</artifactId>
+  <version>${tigris.client.java.version}</version>
+</dependency>
+```
+
+For latest version and for other dependency management or build
+tool you can refer to dependency
+snippet from [here](https://mvnrepository.com/artifact/com.tigrisdata/tigris-client)
+
+**Quickstart**
+
+```java title=TigrisApp.java
+import com.tigrisdata.db.annotation.TigrisPrimaryKey;
+import com.tigrisdata.db.client.Filters;
+import com.tigrisdata.db.client.InsertResponse;
+import com.tigrisdata.db.client.StandardTigrisClient;
+import com.tigrisdata.db.client.TigrisClient;
+import com.tigrisdata.db.client.TigrisCollection;
+import com.tigrisdata.db.client.TigrisDatabase;
+import com.tigrisdata.db.client.UpdateFields;
+import com.tigrisdata.db.client.config.TigrisConfiguration;
+import com.tigrisdata.db.client.error.TigrisException;
+import com.tigrisdata.db.type.TigrisCollectionType;
+
+import java.util.Objects;
+
+public class TigrisApp {
+    public static void main(String[] args) throws TigrisException {
+        // configure the client
+        TigrisConfiguration config =
+            TigrisConfiguration.newBuilder("localhost:8081")
+                .withNetwork(
+                    TigrisConfiguration.NetworkConfig.newBuilder()
+                        .usePlainText() // for dev env - plaintext communication
+                        .build())
+                .build();
+
+        // initialize the client
+        TigrisClient client = StandardTigrisClient.getInstance(config);
+
+        // create the database if it does not exist,
+        // and fetch the database object
+        TigrisDatabase helloDB = client.createDatabaseIfNotExists("hello-db");
+
+        // create the collections if they don't exist, or
+        // update the collection schema
+        helloDB.createOrUpdateCollections(User.class);
+
+        // fetch the collection object, all the CRUD operations on the
+        // collection will be performed through this collection object
+        TigrisCollection<User> users = helloDB.getCollection(User.class);
+
+        // insert
+        User jania = new User("Jania McGrory", 6045.7);
+        User bunny = new User("Bunny Instone", 2948.87);
+        users.insert(jania);
+        users.insert(bunny);
+
+        // read the auto-generated ids
+        int janiaId = jania.getUserId();
+        int bunnyId = bunny.getUserId();
+
+        // find the user by primary key field
+        User user = users.readOne(Filters.eq("userId", janiaId)).get();
+
+        // find user with Name Jania McGrory
+        User user = users.readOne(Filters.eq("name", "Jania McGrory")).get();
+
+        // update
+        users.update(
+            Filters.eq("userId", janiaId),
+            UpdateFields.newBuilder()
+                .set("name", "Jania McGrover")
+                .build()
+        );
+
+        // transaction - transfer balance between users
+        helloDB.transact(
+          (tx) -> {
+              try {
+                  users.update(
+                      tx,
+                      Filters.eq("userId", janiaId),
+                      UpdateFields
+                          .newBuilder()
+                          .set("balance", jania.getBalance() - 100)
+                          .build());
+                  users.update(
+                      tx,
+                      Filters.eq("userId", bunnyId),
+                      UpdateFields
+                          .newBuilder()
+                          .set("balance", bunny.getBalance() + 100)
+                          .build());
+              } catch (TigrisException tigrisException) {
+                  // auto-rollback after throwing exception.
+                  throw new IllegalStateException("Transaction failed", tigrisException);
+              }
+          });
+
+        // delete users
+        users.delete(Filters.eq("userId", janiaId));
+        users.delete(Filters.eq("userId", bunnyId));
+
+        // drop the database and its collections
+        client.dropDatabase("hello-db");
+    }
+
+    public static class User implements TigrisCollectionType {
+        @TigrisPrimaryKey(order = 1, autoGenerate = true)
+        private int userId;
+        private String name;
+        private double balance;
+
+        public User() {
+        }
+
+        public User(String name, double balance) {
+            this.name = name;
+            this.balance = balance;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public double getBalance() {
+            return balance;
+        }
+
+        public void setBalance(double balance) {
+            this.balance = balance;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            User user = (User) o;
+            return userId == user.userId
+                      && Double.compare(user.balance, balance) == 0
+                      && Objects.equals(name, user.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(userId, name, balance);
+        }
+    }
+}
+```
+
+</TabItem>
+<TabItem value="typescript" label="TypeScript">
+
+**Prerequisites**
+
+All you'll need is any computer running macOS or Linux, with
+[NodeJS](https://nodejs.org/en/) v12 or later installed.
+
+**Quickstart**
+
+Let's run following command to scaffold a Tigris quickstart app that
+demonstrates Tigris operations.
+
+```shell
+mkdir tigris-quickstart-ts && cd tigris-quickstart-ts
+npx create-tigris-app
+```
+
+**Code overview**
+
+Above code scaffolded the project with following directory structure.
+
+```
+.
+├── package.json
+├── src
+│   ├── app.ts
+│   ├── index.ts
+│   ├── lib
+│   │   └── config.ts
+│   └── models
+│       └── user.ts
+└── tsconfig.json
+```
+
+- `index.ts` is the entry-point for the generated application.
+- `app.ts` is the application class. `tigrisQuickstart` method
+  demonstrates the tigris operations.
+- `lib/config.ts` contains the tigris client initialization.
+- `models/user.ts` contains the data-container and schema for `users`
+  collection.
+
+</TabItem>
+</Tabs>

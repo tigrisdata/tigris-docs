@@ -1,44 +1,5 @@
-The first step is to install the CLI
-
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
-
-<Tabs>
-<TabItem value="macOS" label="macOS">
-
 ```shell
-curl -sSL https://tigris.dev/cli-macos | sudo tar -xz -C /usr/local/bin
+docker run -d -p 8081:8081 tigrisdata/tigris-local
 ```
 
-</TabItem>
-<TabItem value="macOS arm64" label="macOS (arm64)">
-
-```shell
-curl -sSL https://tigris.dev/cli-macos-arm64 | sudo tar -xz -C /usr/local/bin
-```
-
-</TabItem>
-<TabItem value="Linux" label="Linux">
-
-```shell
-curl -sSL https://tigris.dev/cli-linux | sudo tar -xz -C /usr/local/bin
-```
-
-</TabItem>
-<TabItem value="Linux arm64" label="Linux (arm64)">
-
-```shell
-curl -sSL https://tigris.dev/cli-linux-arm64 | sudo tar -xz -C /usr/local/bin
-```
-
-</TabItem>
-</Tabs>
-
-Next we start up Tigris locally using the _tigris_ cli
-
-```shell
-tigris local up
-```
-
-Once this command has completed, Tigris server will be available on port
-`8081`.
+Once this command has completed, Tigris will be available on port `8081`.
