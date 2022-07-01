@@ -47,7 +47,21 @@ const sidebars = {
       collapsed: true,
       items: [
         "golang/getting-started",
-        "golang/datamodel",
+        {
+          type: "category",
+          label: "Data Modeling",
+          link: {
+            type: "doc",
+            id: "golang/datamodel/overview",
+          },
+          collapsed: false,
+          items: [
+            "golang/datamodel/declare",
+            "golang/datamodel/primary-key",
+            "golang/datamodel/embedded",
+            "golang/datamodel/types",
+          ],
+        },
         "golang/crud",
         "golang/transactions",
       ],
