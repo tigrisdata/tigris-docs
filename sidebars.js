@@ -47,7 +47,21 @@ const sidebars = {
       collapsed: true,
       items: [
         "golang/getting-started",
-        "golang/datamodel",
+        {
+          type: "category",
+          label: "Data Modeling",
+          link: {
+            type: "doc",
+            id: "golang/datamodel/overview",
+          },
+          collapsed: false,
+          items: [
+            "golang/datamodel/declare",
+            "golang/datamodel/primary-key",
+            "golang/datamodel/embedded",
+            "golang/datamodel/types",
+          ],
+        },
         "golang/crud",
         "golang/transactions",
       ],
@@ -62,7 +76,21 @@ const sidebars = {
       collapsed: true,
       items: [
         "java/getting-started",
-        "java/datamodel",
+        {
+          type: "category",
+          label: "Data Modeling",
+          link: {
+            type: "doc",
+            id: "java/datamodel/overview",
+          },
+          collapsed: false,
+          items: [
+            "java/datamodel/declare",
+            "java/datamodel/primary-key",
+            "java/datamodel/embedded",
+            "java/datamodel/types",
+          ],
+        },
         "java/async-client",
         "java/sync-client",
       ],
@@ -76,7 +104,21 @@ const sidebars = {
       },
       collapsed: true,
       items: [
-        "typescript/datamodel",
+        "typescript/getting-started",
+        {
+          type: "category",
+          label: "Data Modeling",
+          link: {
+            type: "doc",
+            id: "typescript/datamodel/overview",
+          },
+          collapsed: false,
+          items: [
+            "typescript/datamodel/declare",
+            "typescript/datamodel/primary-key",
+            "typescript/datamodel/embedded",
+          ],
+        },
         "typescript/crud",
         "typescript/transactions",
       ],
