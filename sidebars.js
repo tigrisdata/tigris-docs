@@ -76,7 +76,21 @@ const sidebars = {
       collapsed: true,
       items: [
         "java/getting-started",
-        "java/datamodel",
+        {
+          type: "category",
+          label: "Data Modeling",
+          link: {
+            type: "doc",
+            id: "java/datamodel/overview",
+          },
+          collapsed: false,
+          items: [
+            "java/datamodel/declare",
+            "java/datamodel/primary-key",
+            "java/datamodel/embedded",
+            "java/datamodel/types",
+          ],
+        },
         "java/async-client",
         "java/sync-client",
       ],
