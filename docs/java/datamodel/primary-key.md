@@ -1,5 +1,9 @@
 # Primary Key
 
+A primary key uniquely identifies a document in the collection and enforces
+the unique constraint. In the absence of a user-defined primary key, it is
+auto-generated.
+
 ## Defining a Primary Key
 
 The example below demonstrates how primary key is defined. The

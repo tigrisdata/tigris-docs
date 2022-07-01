@@ -104,7 +104,21 @@ const sidebars = {
       },
       collapsed: true,
       items: [
-        "typescript/datamodel",
+        "typescript/getting-started",
+        {
+          type: "category",
+          label: "Data Modeling",
+          link: {
+            type: "doc",
+            id: "typescript/datamodel/overview",
+          },
+          collapsed: false,
+          items: [
+            "typescript/datamodel/declare",
+            "typescript/datamodel/primary-key",
+            "typescript/datamodel/embedded",
+          ],
+        },
         "typescript/crud",
         "typescript/transactions",
       ],
