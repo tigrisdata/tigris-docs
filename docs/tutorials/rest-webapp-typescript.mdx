@@ -111,7 +111,7 @@ import { UpdateFieldsOperator } from "@tigrisdata/core/dist/types";
 public createOrder = async (req: Request, res: Response) => {
     this.db.transact(async tx => {
         // get user
-        const user: (User | undefined) = await this.db.getCollection<User>('users').readOne({
+        const user: (User | undefined) = await this.db.getCollection<User>('users').findOne({
             userId: Number.parseInt(req.params.userId)
         }, tx);
         if (user === undefined) {
@@ -120,7 +120,7 @@ public createOrder = async (req: Request, res: Response) => {
         }
 
         // get product
-        const product: (Product | undefined) = await this.db.getCollection<Product>('products').readOne({
+        const product: (Product | undefined) = await this.db.getCollection<Product>('products').findOne({
                 productId: Number.parseInt(req.params.productId)
             },
             tx

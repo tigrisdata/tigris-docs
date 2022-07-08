@@ -46,21 +46,35 @@ const insertedOrReplacedDoc: User = await users.insertOrReplace({
 
 ## Read single document
 
-To read one document you can use `readOne()`, If filters are provided, then
+To read one document you can use `findOne()`, If filters are provided, then
 documents matching the filtering condition are fetched.
 
 ```typescript
-const user: User = await users.readOne({
+const user: User = await users.findOne({
   userId: 1,
 });
 ```
 
 ### Read documents
 
-To read multiple documents, use the `read()` API.
+To read multiple documents, use the `findMany()` or `findManyStream()` API.
 
 ```typescript
-users.read(
+users.findMany({
+  op: LogicalOperator.OR,
+  selectorFilters: [
+    {
+      name: "alice",
+    },
+    {
+      name: "emma",
+    },
+  ],
+});
+```
+
+```typescript
+users.findManyStream(
   {
     op: LogicalOperator.OR,
     selectorFilters: [
@@ -74,7 +88,7 @@ users.read(
   },
   {
     onEnd() {
-      // when read is finished
+      // when find is finished
     },
     onNext(user: User) {
       // when the next user is fetched

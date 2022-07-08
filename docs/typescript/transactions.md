@@ -12,7 +12,7 @@ read or write concerns to configure, and no cross-shard caveats.
 ```typescript
 await db.transact(async (tx) => {
   // read user 1
-  const user1: User | undefined = await users.readOne(
+  const user1: User | undefined = await users.findOne(
     {
       userId: 1,
     },
@@ -20,7 +20,7 @@ await db.transact(async (tx) => {
   );
 
   // read user 2
-  const user2: User | undefined = await users.readOne(
+  const user2: User | undefined = await users.findOne(
     {
       userId: 2,
     },
