@@ -276,11 +276,13 @@ The example below extends the schema for the user collection by adding the
 field `languages`
 
 ```json
-"languages": {
-  "description": "Languages spoken by the user",
-  "type": "array",
-  "items": {
-    "type": "string"
+{
+  "languages": {
+    "description": "Languages spoken by the user",
+    "type": "array",
+    "items": {
+      "type": "string"
+    }
   }
 }
 ```
@@ -295,25 +297,27 @@ The example below extends the schema for the user collection by adding the field
 `address`
 
 ```json
-"address": {
-  "description": "Street address of the user",
-  "type": "object",
-  "properties": {
-    "street": {
-      "description": "Street number",
-      "type": "string"
-    },
-    "city": {
-      "description": "Name of the city",
-      "type": "string"
-    },
-    "state": {
-      "description": "Name of the state",
-      "type": "string"
-    },
-    "zip": {
-      "description": "The zip code",
-      "type": "integer"
+{
+  "address": {
+    "description": "Street address of the user",
+    "type": "object",
+    "properties": {
+      "street": {
+        "description": "Street number",
+        "type": "string"
+      },
+      "city": {
+        "description": "Name of the city",
+        "type": "string"
+      },
+      "state": {
+        "description": "Name of the state",
+        "type": "string"
+      },
+      "zip": {
+        "description": "The zip code",
+        "type": "integer"
+      }
     }
   }
 }
@@ -373,3 +377,8 @@ fields _languages_ and _address_
   "primary_key": ["id"]
 }
 ```
+
+## Null Values
+
+`null` is an allowed value for any field with an exception to the primary key fields. The primary key fields can’t be set
+as null. If the field is set to null, then Tigris will be storing it as null; Otherwise, it is not stored in the database.

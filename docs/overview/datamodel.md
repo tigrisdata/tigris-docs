@@ -1,4 +1,4 @@
-# Data Modeling
+docs/overview/datamodel.md # Data Modeling
 
 Most applications expect the data they store to conform to some kind of
 schema. A schema is a blueprint for the application that outlines how data
@@ -36,3 +36,28 @@ that it remains consistent and up-to-date with the application's business logic.
 
 The language specific reference sections cover defining the data models and
 schemas in the supported programming languages.
+
+## Evolving the Data Models
+
+### Schema Evolution
+
+Tigris enforces schema for a collection but allows evolving the schema without needing any downtime. The schema updates
+are done in a transactional manner, are lightweight, and take only a few milliseconds to complete. Schema changes are
+immediately made available to any new transactions.
+
+### Compatibility rules for schema changes
+
+Tigris applies the following rules when validating schema changes:
+
+- **Adding a field**: Adding a new field to an existing collection is allowed.
+
+  :::note
+  Adding or removing any fields to the primary key is not allowed. Primary keys once set during collection creation can't be changed.
+  :::
+
+- **Modifying field properties**: The following modifications to a field property are allowed.
+
+  - Adding a maximum length constraint for string or byte field type. This constraint will only be applicable for future records.
+  - Increasing the maximum length constraint for string or byte field type.
+
+- **Changing the field type or removing a field**: Changing the type of the field or dropping a field is not allowed at the moment.
