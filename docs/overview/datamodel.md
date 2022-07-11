@@ -35,29 +35,31 @@ incorporating this data model into your application code, you can ensure
 that it remains consistent and up-to-date with the application's business logic.
 
 The language specific reference sections cover defining the data models and
-schemas in the supported programming languages.
+schemas in the supported programming languages:
+
+- **[Data modeling with Go](../golang/datamodel/declare)**
+- **[Data modeling with Java](../java/datamodel/declare)**
+- **[Data modeling with TypeScript](../typescript/datamodel/declare)**
 
 ## Evolving the Data Models
 
-### Schema Evolution
-
-Tigris enforces schema for a collection but allows evolving the schema without needing any downtime. The schema updates
-are done in a transactional manner, are lightweight, and take only a few milliseconds to complete. Schema changes are
+You have the flexibility to evolve your data model as the application
+evolves. Tigris offers this flexibility by allowing the schema to be evolved
+in a lightweight manner without any downtime. The schema changes are
+performed in a transactional manner, take only a few milliseconds to
+complete and do not require a collection rebuild. The updated schema is
 immediately made available to any new transactions.
 
-### Compatibility rules for schema changes
+The following schema changes are currently supported:
 
-Tigris applies the following rules when validating schema changes:
+- Add a new field to an existing collection without any restrictions.
+- Define a maximum length constraint for string or byte field types. This
+  constraint will only be applicable for documents added after the
+  constraint is defined.
+- Increase the maximum length constraint for string or byte field types.
 
-- **Adding a field**: Adding a new field to an existing collection is allowed.
+The following schema changes are currently not supported:
 
-  :::note
-  Adding or removing any fields to the primary key is not allowed. Primary keys once set during collection creation can't be changed.
-  :::
-
-- **Modifying field properties**: The following modifications to a field property are allowed.
-
-  - Adding a maximum length constraint for string or byte field type. This constraint will only be applicable for future records.
-  - Increasing the maximum length constraint for string or byte field type.
-
-- **Changing the field type or removing a field**: Changing the type of the field or dropping a field is not allowed at the moment.
+- Change the data type of the field.
+- Remove a field from the schema.
+- Add or remove a field from the primary key definition.
