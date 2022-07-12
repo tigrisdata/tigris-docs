@@ -1,7 +1,5 @@
 # Getting Started
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/tigrisdata/tigris-client-go.svg)](https://pkg.go.dev/github.com/tigrisdata/tigris-client-go)
-
 ## Prerequisites
 
 The Tigris client depends on
