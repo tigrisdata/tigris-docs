@@ -1,0 +1,64 @@
+# Go Reference
+
+[![Go Reference](https://pkg.go.dev/badge/github.com/tigrisdata/tigris-client-go.svg)](https://pkg.go.dev/github.com/tigrisdata/tigris-client-go)
+
+Tigris provides an easy-to-use and intuitive interface for Go. Setting up
+the database is instantaneous, as well - no need for tedious configuration.
+You define the data model as part of the application code, which then drives
+the database infrastructure without you having to configure and provision
+database resources.
+
+## 1. Install package
+
+```shell
+go get -u github.com/tigrisdata/tigris-client-go@latest
+```
+
+<span style={{textAlign: "right"}}>
+
+[Getting started →](getting-started)
+
+</span>
+
+## 2. Define data models
+
+```go
+type User struct {
+    Id      int `tigris:"primary_key,autoGenerate"`
+    Name    string
+    Balance float64
+}
+
+db, err := tigris.OpenDatabase(ctx,
+	&config.Database{Driver: config.Driver{URL: "localhost:8081"}},
+    "hello_db", &User{})
+```
+
+<span style={{textAlign: "right"}}>
+
+[Declaring models →](datamodel/declare)
+
+</span>
+
+## 3. Persist and query
+
+```go
+users := tigris.GetCollection[User](db)
+
+_, err := users.Insert(ctx, &User{Name: "Jania McGrory", Balance: 6045.7})
+if err != nil {
+    // handle error
+}
+
+var user *User
+user, err = users.ReadOne(ctx, filter.Eq("Id", 1)) // find user with Id 1
+if err != nil {
+    // handle error
+}
+```
+
+<span style={{textAlign: "right"}}>
+
+[CRUD operations →](crud)
+
+</span>
