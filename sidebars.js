@@ -42,7 +42,7 @@ const sidebars = {
       label: "Go Reference",
       link: {
         type: "doc",
-        id: "golang/getting-started",
+        id: "golang/index",
       },
       collapsed: true,
       items: [
