@@ -1,0 +1,84 @@
+# TypeScript Reference
+
+![npm](https://img.shields.io/npm/v/@tigrisdata/core)
+
+Tigris provides an easy-to-use and intuitive interface for TypeScript. Setting up
+the database is instantaneous, as well - no need for tedious configuration.
+You define the data model as part of the application code, which then drives
+the database infrastructure without you having to configure and provision
+database resources.
+
+## 1. Install package
+
+```shell
+npm install @tigrisdata/core
+```
+
+<span style={{textAlign: "right"}}>
+
+[Getting started →](getting-started)
+
+</span>
+
+## 2. Define data models
+
+```typescript
+const tigris: Tigris = new Tigris({
+  serverUrl: "localhost:8081",
+});
+
+interface User extends TigrisCollectionType {
+  userId?: number;
+  name: string;
+  balance: number;
+}
+
+const userSchema: TigrisSchema<User> = {
+  userId: {
+    type: TigrisDataTypes.INT32,
+    primary_key: {
+      order: 1,
+      autoGenerate: true,
+    },
+  },
+  name: {
+    type: TigrisDataTypes.STRING,
+  },
+  balance: {
+    type: TigrisDataTypes.NUMBER,
+  },
+};
+
+const db: Database = await tigris.createDatabaseIfNotExists("hello-db");
+
+const users: Collection<User> = await db.createOrUpdateCollection(
+  "users",
+  userSchema
+);
+```
+
+<span style={{textAlign: "right"}}>
+
+[Declaring models →](datamodel/declare)
+
+</span>
+
+## 3. Persist and query
+
+```typescript
+const insertedUser: User = await users.insertOrReplace({
+  userId: 1,
+  balance: 1000000,
+  name: "Bunny Instone",
+});
+
+const user: User = await users.findOne({
+  userId: 1,
+});
+```
+
+<span style={{textAlign: "right"}}>
+
+[CRUD operations →](crud)
+
+</span>
