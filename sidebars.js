@@ -100,7 +100,7 @@ const sidebars = {
       label: "TypeScript Reference",
       link: {
         type: "doc",
-        id: "typescript/getting-started",
+        id: "typescript/index",
       },
       collapsed: true,
       items: [
