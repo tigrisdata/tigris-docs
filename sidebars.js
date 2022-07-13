@@ -71,7 +71,7 @@ const sidebars = {
       label: "Java Reference",
       link: {
         type: "doc",
-        id: "java/getting-started",
+        id: "java/index",
       },
       collapsed: true,
       items: [

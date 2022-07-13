@@ -1,14 +1,5 @@
 # Getting Started
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.tigrisdata/tigris-client-java)](https://mvnrepository.com/artifact/com.tigrisdata/tigris-client)
-[![javadoc](https://javadoc.io/badge2/com.tigrisdata/tigris-client/javadoc.svg)](https://javadoc.io/doc/com.tigrisdata/tigris-client)
-
-Tigris provides an easy-to-use and intuitive interface for Java. Setting up
-the database is instantaneous, as well - no need for tedious configuration.
-You define the data model as part of the application code, which then drives
-the database infrastructure without you having to configure and provision
-database resources.
-
 The Tigris Java client libraries offer both [asynchronous](async-client) and
 [synchronous](sync-client) clients.
 
@@ -29,9 +20,36 @@ maximize the use of system resources.
 
 ## Installation
 
-Follow the instructions
-[here](https://mvnrepository.com/artifact/com.tigrisdata/tigris-client) for your
-build tool of choice and add the client library to your project.
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+<Tabs className="unique-tabs">
+<TabItem value="maven" label="Maven">
+
+```xml
+<!-- https://mvnrepository.com/artifact/com.tigrisdata/tigris-client -->
+<dependency>
+  <groupId>com.tigrisdata</groupId>
+  <artifactId>tigris-client</artifactId>
+  <version>insert_client_version_here</version>
+</dependency>
+```
+
+</TabItem>
+
+<TabItem value="gradle" label="Gradle">
+
+```shell
+// https://mvnrepository.com/artifact/com.tigrisdata/tigris-client
+implementation group: 'com.tigrisdata', name: 'tigris-client', version: 'insert_client_version_here'
+```
+
+</TabItem>
+</Tabs>
+
+Further instructions are available
+[here](https://mvnrepository.com/artifact/com.tigrisdata/tigris-client) for
+additional build tools.
 
 ```java
 import com.tigrisdata.db.client.*;
