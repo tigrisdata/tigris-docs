@@ -88,8 +88,10 @@ public class User implements TigrisCollectionType {
 ## 3. Persist and query
 
 ```java
-TigrisConfiguration configuration = TigrisConfiguration.newBuilder("localhost:8081").build();
-TigrisClient client = StandardTigrisClient.getInstance(tigrisConfiguration);
+TigrisConfiguration config =
+    TigrisConfiguration.newBuilder("localhost:8081")
+        .build();
+TigrisClient client = StandardTigrisClient.getInstance(config);
 
 TigrisDatabase db = client.createDatabaseIfNotExists("sampledb");
 db.createOrUpdateCollections(User.class);
