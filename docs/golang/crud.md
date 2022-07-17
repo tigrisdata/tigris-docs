@@ -18,8 +18,8 @@ specify a value for that field when inserting.
 
 ```go
 _, err := users.Insert(ctx,
-    &User{Name: "Jania McGrory", Balance: 6045.7},
-    &User{Name: "Bunny Instone", Balance: 2948.87})
+    &User{FirstName: "John", LastName: "McGrory", Balance: 6045.7},
+    &User{FirstName: "Bunny", LastName: "Instone", Balance: 2948.87})
 if err != nil {
     // handle error
 }
@@ -36,8 +36,8 @@ document with the same primary key value.
 
 ```go
 _, err := users.InsertOrReplace(ctx,
-    &User{Id: 1, Name: "Jania McGrory", Balance: 6045.7},
-    &User{Id: 2, Name: "Bunny Instone", Balance: 2948.87})
+    &User{Id: 1, FirstName: "Jania", LastName: "McGrory", Balance: 6045.7},
+    &User{Id: 2, FirstName: "Bunny", LastName: "Instone", Balance: 2948.87})
 if err != nil {
     // handle error
 }
@@ -86,7 +86,6 @@ if err != nil {
 Use the `ReadAll` API to read all the documents in the collection.
 
 ```go
-var u User
 it, err := users.ReadAll(ctx)
 if err != nil {
     // handle error
@@ -102,6 +101,65 @@ for it.Next(&user) {
 if it.Err() != nil {
     // handle error
 }
+```
+
+## Search documents
+
+To search for documents, use the `Search` API. Search consists of a query against text fields in a collection.
+
+```go
+request := search.NewRequestBuilder("Jania").Build()
+it, err := users.Search(ctx, request)
+
+if err != nil {
+    // handle error
+}
+
+defer it.Close()
+
+var result search.Result[User]
+for it.Next(&result) {
+    fmt.Printf("%+v\n", result)
+}
+
+if it.Err() != nil {
+    // handle error
+}
+```
+
+### Project search query against specific fields
+
+By default, query is projected against all the text fields in collection. To project query against specific fields:
+
+```go
+request := search.NewRequestBuilder("Jania").
+                WithSearchFields("FirstName", "LastName").
+                Build()
+```
+
+### Refine the search results
+
+[Filters](../overview/filter.md) can be applied to further refine the search results.
+
+```go
+request := search.NewRequestBuilder("Jania").
+                WithSearchFields("FirstName", "LastName").
+                WithFilter(filter.Eq("Balance", 2000))
+                Build()
+```
+
+### Facet the search results
+
+Optionally, facet query can be specified to retrieve aggregate counts of values for one or more fields.
+
+```go
+request := search.NewRequestBuilder("Jania").
+                WithSearchFields("FirstName").
+                WithFilter(filter.Eq("Balance", 2000)).
+                WithFacet(search.NewFacetQueryBuilder().
+                    WithFields("LastName").
+                    Build())
+                Build()
 ```
 
 ## Update documents

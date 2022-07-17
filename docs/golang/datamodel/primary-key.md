@@ -15,8 +15,9 @@ like shown below:
 type User struct {
 	tigris.Model
 
-    Name    string
-    Balance float64
+    FirstName    string
+    LastName     string
+    Balance      float64
 }
 ```
 
@@ -30,7 +31,7 @@ The `ID` field is automatically populated when the document inserted into collec
 For example using the model above:
 
 ```go
-u := User{Name: "Harry", Balance: 1000}
+u := User{FirstName: "John", LastName: "Doe", Balance: 1000}
 _, err := user.Insert(ctx, &u)
 // error handling here
 fmt.Printf("Auto-generated user ID: %v\n", u.ID)
@@ -45,9 +46,10 @@ For example:
 
 ```go
 type User struct {
-    ID time.Time
-    Name    string
-    Balance float64
+    ID          time.Time
+    FirstName   string
+    LastName    string
+    Balance     float64
 }
 ```
 
