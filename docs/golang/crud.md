@@ -103,68 +103,6 @@ if it.Err() != nil {
 }
 ```
 
-## Search documents
-
-To search for documents, use the `Search` API. Search consists of a query against text fields in a collection.
-
-```go
-request := search.NewRequestBuilder().WithQuery("Jania").Build()
-it, err := users.Search(ctx, request)
-
-if err != nil {
-    // handle error
-}
-
-defer it.Close()
-
-var result search.Result[User]
-for it.Next(&result) {
-    fmt.Printf("%+v\n", result)
-}
-
-if it.Err() != nil {
-    // handle error
-}
-```
-
-### Project search query against specific fields
-
-By default, query is projected against all the text fields in collection. To project query against specific fields:
-
-```go
-request := search.NewRequestBuilder().
-                WithQuery("Jania").
-                WithSearchFields("FirstName", "LastName").
-                Build()
-```
-
-### Refine the search results
-
-[Filters](../overview/filter.md) can be applied to further refine the search results.
-
-```go
-request := search.NewRequestBuilder().
-                WithQuery("Jania").
-                WithSearchFields("FirstName", "LastName").
-                WithFilter(filter.Eq("Balance", 2000))
-                Build()
-```
-
-### Facet the search results
-
-Optionally, facet query can be specified to retrieve aggregate count of values for one or more fields.
-
-```go
-request := search.NewRequestBuilder().
-                WithQuery("Jania").
-                WithSearchFields("FirstName").
-                WithFilter(filter.Eq("Balance", 2000)).
-                WithFacet(search.NewFacetQueryBuilder().
-                    WithFields("LastName").
-                    Build())
-                Build()
-```
-
 ## Update documents
 
 The Update API is used to update existing documents that match the filters.

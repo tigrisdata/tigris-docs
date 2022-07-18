@@ -64,6 +64,7 @@ const sidebars = {
         },
         "golang/crud",
         "golang/query",
+        "golang/search",
         "golang/transactions",
       ],
     },
