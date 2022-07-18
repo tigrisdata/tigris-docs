@@ -47,26 +47,22 @@ public class User implements TigrisCollectionType {
   @TigrisPrimaryKey(order = 1, autoGenerate = true)
   private int id;
 
-  @TigrisField(description = "Name of the user")
-  private String name;
-
-  @TigrisField(description = "User account balance")
+  private String firstName;
+  private String lastName;
   private double balance;
 
-  public User() {
-  }
-
-  public User(String name, double balance) {
-      this.name = name;
-      this.balance = balance;
-  }
+  public User() {}
 
   public int getId() {
     return id;
   }
 
-  public String getName() {
-    return name;
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
   }
 
   public double getBalance() {
@@ -77,8 +73,12 @@ public class User implements TigrisCollectionType {
     this.id = id;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
   public void setBalance(double balance) {
@@ -87,17 +87,28 @@ public class User implements TigrisCollectionType {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
+    if (this == o) {
+      return true;
+    }
     if (o == null || getClass() != o.getClass()) return false;
     User user = (User) o;
-    return id == user.id
-        && Double.compare(user.balance, balance) == 0
-        && Objects.equals(name, user.name);
+
+    if (id != user.id) return false;
+    if (Double.compare(user.balance, balance) != 0) return false;
+    if (!Objects.equals(firstName, user.firstName)) return false;
+    return Objects.equals(lastName, user.lastName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, balance);
+    int result;
+    long temp;
+    result = id;
+    result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+    result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+    temp = Double.doubleToLongBits(balance);
+    result = 31 * result + (int) (temp ^ (temp >>> 32));
+    return result;
   }
 }
 
@@ -131,13 +142,55 @@ userCollection.insert(emma);
 User alice = userCollection.readOne(Filters.eq("id", alice.getId())).get();
 ```
 
+## Search documents
+
+To search for documents, use the `search()` API. Search consists of a query against text fields in a collection.
+
+```java
+SearchRequest request = SearchRequest.newBuilder("Jania").build();
+Iterator<SearchResult<User>> results = userCollection.search(request);
+```
+
+### Project search query against specific fields
+
+By default, query is projected against all the text fields in collection. To project query against specific fields:
+
+```java
+SearchRequest request = SearchRequest.newBuilder("Jania")
+                          .withSearchFields("firstName", "lastName")
+                          .build()
+```
+
+### Refine the search results
+
+[Filters](../overview/filter.md) can be applied to further refine the search results.
+
+```java
+SearchRequest request = SearchRequest.newBuilder("Jania")
+                          .withSearchFields("firstName", "lastName")
+                          .withFilter(Filters.eq("balance", 2000))
+                          .build()
+```
+
+### Facet the search results
+
+Optionally, facet query can be specified to retrieve aggregate count of values for one or more fields.
+
+```java
+SearchRequest request = SearchRequest.newBuilder("Jania")
+                          .withSearchFields("firstName")
+                          .withFilter(Filters.eq("balance", 2000))
+                          .withFacetFields("lastName")
+                          .build()
+```
+
 ## Update document
 
 ```java
 // update emma's name in the user collection
 userCollection.update(
             Filters.eq("id", emma.getId()),
-            UpdateFields.newBuilder().set("name", "Dr. Emma").build()
+            UpdateFields.newBuilder().set("firstName", "Dr. Emma").build()
 );
 ```
 

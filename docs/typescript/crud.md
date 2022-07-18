@@ -155,7 +155,7 @@ const request: SearchRequest<User> = {
   q: "Jania",
   searchFields: ["firstName"],
   filter: { balance: 2000 },
-  facetQuery: ["lastName"],
+  facets: ["lastName"],
 };
 ```
 
