@@ -150,7 +150,7 @@ request := search.NewRequestBuilder("Jania").
 
 ### Facet the search results
 
-Optionally, facet query can be specified to retrieve aggregate counts of values for one or more fields.
+Optionally, facet query can be specified to retrieve aggregate count of values for one or more fields.
 
 ```go
 request := search.NewRequestBuilder("Jania").

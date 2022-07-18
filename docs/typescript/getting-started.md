@@ -18,7 +18,8 @@ of their data container using TigrisSchema
 ```typescript title=DataContainer
 interface User extends TigrisCollectionType {
   userId?: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   balance: number;
 }
 ```
@@ -32,7 +33,10 @@ const userSchema: TigrisSchema<User> = {
       autoGenerate: true,
     },
   },
-  name: {
+  firstName: {
+    type: TigrisDataTypes.STRING,
+  },
+  lastName: {
     type: TigrisDataTypes.STRING,
   },
   balance: {

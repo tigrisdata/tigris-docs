@@ -29,7 +29,8 @@ const tigris: Tigris = new Tigris({
 
 interface User extends TigrisCollectionType {
   userId?: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   balance: number;
 }
 
@@ -41,7 +42,10 @@ const userSchema: TigrisSchema<User> = {
       autoGenerate: true,
     },
   },
-  name: {
+  firstName: {
+    type: TigrisDataTypes.STRING,
+  },
+  lastName: {
     type: TigrisDataTypes.STRING,
   },
   balance: {
@@ -69,7 +73,8 @@ const users: Collection<User> = await db.createOrUpdateCollection(
 const insertedUser: User = await users.insertOrReplace({
   userId: 1,
   balance: 1000000,
-  name: "Bunny Instone",
+  firstName: "Bunny",
+  lastName: "Instone",
 });
 
 const user: User = await users.findOne({
