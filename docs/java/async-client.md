@@ -150,7 +150,7 @@ CompletableFuture<Optional<User>> completableFuture = userCollection.readOne
 To search for documents, use the `search()` API. Search consists of a query against text fields in a collection.
 
 ```java
-SearchRequest request = SearchRequest.newBuilder("Jania").build();
+SearchRequest request = SearchRequest.newBuilder().withQuery("Jania").build();
 userCollection.search(request, new TigrisAsyncSearchReader<User>() {
         @Override
         public void onNext(SearchResult<User> result) {
@@ -174,7 +174,8 @@ userCollection.search(request, new TigrisAsyncSearchReader<User>() {
 By default, query is projected against all the text fields in collection. To project query against specific fields:
 
 ```java
-SearchRequest request = SearchRequest.newBuilder("Jania")
+SearchRequest request = SearchRequest.newBuilder()
+                          .withQuery("Jania")
                           .withSearchFields("firstName", "lastName")
                           .build()
 ```
@@ -184,7 +185,8 @@ SearchRequest request = SearchRequest.newBuilder("Jania")
 [Filters](../overview/filter.md) can be applied to further refine the search results.
 
 ```java
-SearchRequest request = SearchRequest.newBuilder("Jania")
+SearchRequest request = SearchRequest.newBuilder()
+                          .withQuery("Jania")
                           .withSearchFields("firstName", "lastName")
                           .withFilter(Filters.eq("balance", 2000))
                           .build()
@@ -195,7 +197,8 @@ SearchRequest request = SearchRequest.newBuilder("Jania")
 Optionally, facet query can be specified to retrieve aggregate count of values for one or more fields.
 
 ```java
-SearchRequest request = SearchRequest.newBuilder("Jania")
+SearchRequest request = SearchRequest.newBuilder()
+                          .withQuery("Jania")
                           .withSearchFields("firstName")
                           .withFilter(Filters.eq("balance", 2000))
                           .withFacetFields("lastName")

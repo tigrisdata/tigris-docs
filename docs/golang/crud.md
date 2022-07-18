@@ -108,7 +108,7 @@ if it.Err() != nil {
 To search for documents, use the `Search` API. Search consists of a query against text fields in a collection.
 
 ```go
-request := search.NewRequestBuilder("Jania").Build()
+request := search.NewRequestBuilder().WithQuery("Jania").Build()
 it, err := users.Search(ctx, request)
 
 if err != nil {
@@ -132,7 +132,8 @@ if it.Err() != nil {
 By default, query is projected against all the text fields in collection. To project query against specific fields:
 
 ```go
-request := search.NewRequestBuilder("Jania").
+request := search.NewRequestBuilder().
+                WithQuery("Jania").
                 WithSearchFields("FirstName", "LastName").
                 Build()
 ```
@@ -142,7 +143,8 @@ request := search.NewRequestBuilder("Jania").
 [Filters](../overview/filter.md) can be applied to further refine the search results.
 
 ```go
-request := search.NewRequestBuilder("Jania").
+request := search.NewRequestBuilder().
+                WithQuery("Jania").
                 WithSearchFields("FirstName", "LastName").
                 WithFilter(filter.Eq("Balance", 2000))
                 Build()
@@ -153,7 +155,8 @@ request := search.NewRequestBuilder("Jania").
 Optionally, facet query can be specified to retrieve aggregate count of values for one or more fields.
 
 ```go
-request := search.NewRequestBuilder("Jania").
+request := search.NewRequestBuilder().
+                WithQuery("Jania").
                 WithSearchFields("FirstName").
                 WithFilter(filter.Eq("Balance", 2000)).
                 WithFacet(search.NewFacetQueryBuilder().

@@ -41,7 +41,7 @@ same on more than one documents.
 const insertedOrReplacedDoc: User = await users.insertOrReplace({
   userId: 1,
   balance: 1000000,
-  firstName: "Instone",
+  firstName: "Bunny",
   lastName: "Instone",
 });
 ```
