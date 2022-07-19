@@ -1,6 +1,6 @@
 const request: SearchRequest<Catalog> = {
   q: "running",
   readFields: {
-    include: ["name", "price","brand"]
+    include: ["name", "price", "brand"]
   }
 };

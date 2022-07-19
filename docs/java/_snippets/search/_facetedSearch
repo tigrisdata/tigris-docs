@@ -4,6 +4,6 @@ SearchRequest request =
         .withSearchFields("name", "labels")
         .withFilter(
             Filters.and(
-                Filters.eq("price", 40), Filters.eq("price", 90)))
+                Filters.gte("price", 40), Filters.lt("price", 90)))
         .withFacetFields("brand", "labels")
         .build();

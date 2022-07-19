@@ -1,5 +1,7 @@
-import SearchTemplate from "../templates/_search-language-reference.template.mdx";
-import collectionSource from "!!raw-loader!./_snippets/search/_createCollection";
+import SearchTemplate, {
+  toc as searchToc,
+} from "../templates/_search-language-reference.template.mdx";
+import createCollectionSource from "!!raw-loader!./_snippets/search/_createCollection";
 import searchForDocumentsSource from "!!raw-loader!./_snippets/search/_searchForDocuments";
 import matchAllSource from "!!raw-loader!./_snippets/search/_matchAllSearch";
 import searchFieldsSource from "!!raw-loader!./_snippets/search/_searchFields";
@@ -12,7 +14,7 @@ import readFieldsSource from "!!raw-loader!./_snippets/search/_readFields";
 
 <SearchTemplate
   codeLang="java"
-  createCollection={collectionSource}
+  createCollection={createCollectionSource}
   searchForDocuments={searchForDocumentsSource}
   matchAllSearch={matchAllSource}
   searchFields={searchFieldsSource}
@@ -21,4 +23,9 @@ import readFieldsSource from "!!raw-loader!./_snippets/search/_readFields";
   facetedSearch={facetedSearchSource}
   readFields={readFieldsSource}
 />
+
+[//]: # "workaround to generate table of contents, see https://github.com/facebook/docusaurus/issues/3915"
+
+export const toc = [...searchToc];
+
 ;

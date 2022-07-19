@@ -24,7 +24,7 @@ The first step is to create the collection object.
 ## Searching for documents
 
 Search consists for a query against one or more text fields. Let's perform a simple search query to
-lookup any items matching "running"
+lookup any items matching "running".
 
 <CodeBlock language={props.codeLang}>{props.searchForDocuments}</CodeBlock>
 
@@ -51,14 +51,14 @@ unwanted results.
 ## Refine the search results using filters
 
 Let's adjust the query to only return items in `price` range of **[40, 90)**. We can use
-[Tigris filters](query#filter) in search to further refine the results.
+[filters](query#filter) in search to further refine the results.
 
 <CodeBlock language={props.codeLang}>{props.searchFilters}</CodeBlock>
 
 ### Exact text match
 
 Filters can be used to match against one or more field values in a collection. For example, to
-fetch all items from `brand` "adidas"
+fetch all items from `brand` "adidas".
 
 <CodeBlock language={props.codeLang}>{props.exactMatch}</CodeBlock>
 
@@ -80,6 +80,8 @@ navigation to the end user.
 ## Reading specific fields
 
 Similar to [field projection in query](query#reading-specific-fields), a search query can be
-programmed to return only specific fields of a document in search results
+programmed to return only specific fields of a document in search results.
 
 <CodeBlock language={props.codeLang}>{props.readFields}</CodeBlock>
+
+> Field projection supports either _inclusion_ or _exclusion_ of fields

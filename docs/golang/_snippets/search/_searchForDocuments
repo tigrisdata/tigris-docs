@@ -1,6 +1,5 @@
 request := search.NewRequestBuilder().WithQuery("running").Build()
 it, err := catalog.Search(ctx, request)
-
 if err != nil {
     // handle error
 }
