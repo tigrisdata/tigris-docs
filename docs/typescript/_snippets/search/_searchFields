@@ -1,0 +1,4 @@
+const request: SearchRequest<Catalog> = {
+  q: "running",
+  searchFields: ["name", "labels"]
+};

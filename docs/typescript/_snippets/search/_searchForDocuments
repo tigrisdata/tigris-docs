@@ -1,0 +1,15 @@
+const request: SearchRequest<Catalog> = {
+  q: "running",
+};
+
+catalog.search(request, {
+  onEnd() {
+    // when search completes
+  },
+  onNext(result: SearchResult<Catalog>) {
+    // when a search result is fetched
+  },
+  onError(error: Error) {
+    // in case of an error
+  },
+});

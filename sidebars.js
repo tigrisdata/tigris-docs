@@ -132,6 +132,7 @@ const sidebars = {
         },
         "typescript/crud",
         "typescript/query",
+        "typescript/search",
         "typescript/transactions",
       ],
     },

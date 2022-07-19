@@ -1,0 +1,24 @@
+import SearchTemplate from "../templates/_search-language-reference.template.mdx";
+import collectionSource from "!!raw-loader!./_snippets/search/_createCollection";
+import searchForDocumentsSource from "!!raw-loader!./_snippets/search/_searchForDocuments";
+import matchAllSource from "!!raw-loader!./_snippets/search/_matchAllSearch";
+import searchFieldsSource from "!!raw-loader!./_snippets/search/_searchFields";
+import searchFiltersSource from "!!raw-loader!./_snippets/search/_searchFilters";
+import exactMatchSource from "!!raw-loader!./_snippets/search/_exactMatch";
+import facetedSearchSource from "!!raw-loader!./_snippets/search/_facetedSearch";
+import readFieldsSource from "!!raw-loader!./_snippets/search/_readFields";
+
+# Searching
+
+<SearchTemplate
+  codeLang="typescript"
+  createCollection={collectionSource}
+  searchForDocuments={searchForDocumentsSource}
+  matchAllSearch={matchAllSource}
+  searchFields={searchFieldsSource}
+  searchFilters={searchFiltersSource}
+  exactMatch={exactMatchSource}
+  facetedSearch={facetedSearchSource}
+  readFields={readFieldsSource}
+/>
+;

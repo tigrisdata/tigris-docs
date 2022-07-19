@@ -1,0 +1,1 @@
+const catalog: Collection<Catalog> = db.getCollection<Catalog>("catalogdb")
