@@ -1,0 +1,2 @@
+SearchRequest request = SearchRequest.newBuilder().withQuery("running").build();
+Iterator<SearchResult<Catalog>> results = catalog.search(request);

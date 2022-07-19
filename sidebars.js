@@ -102,7 +102,7 @@ const sidebars = {
             id: "java/sync-client",
           },
           collapsed: false,
-          items: ["java/query"],
+          items: ["java/query", "java/search"],
         },
       ],
     },

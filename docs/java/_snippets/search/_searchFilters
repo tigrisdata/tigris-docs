@@ -1,0 +1,8 @@
+SearchRequest request =
+    SearchRequest.newBuilder()
+        .withQuery("running")
+        .withSearchFields("name", "labels")
+        .withFilter(
+            Filters.and(
+                Filters.eq("price", 40), Filters.eq("price", 90)))
+        .build();
