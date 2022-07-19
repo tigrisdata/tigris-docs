@@ -19,8 +19,7 @@ the value.
 
 ```typescript
 const user: User = {
-  firstName: "Jania",
-  lastName: "McGrory",
+  name: "Jania McGrory",
   balance: 6045.7,
 };
 
@@ -41,8 +40,7 @@ same on more than one documents.
 const insertedOrReplacedDoc: User = await users.insertOrReplace({
   userId: 1,
   balance: 1000000,
-  firstName: "Bunny",
-  lastName: "Instone",
+  name: "Bunny Instone",
 });
 ```
 
@@ -66,10 +64,10 @@ users.findMany({
   op: LogicalOperator.OR,
   selectorFilters: [
     {
-      firstName: "alice",
+      name: "alice",
     },
     {
-      firstName: "emma",
+      name: "emma",
     },
   ],
 });
@@ -81,10 +79,10 @@ users.findManyStream(
     op: LogicalOperator.OR,
     selectorFilters: [
       {
-        firstName: "alice",
+        name: "alice",
       },
       {
-        firstName: "emma",
+        name: "emma",
       },
     ],
   },
@@ -100,63 +98,6 @@ users.findManyStream(
     },
   }
 );
-```
-
-## Search documents
-
-To search for documents, use the `search()` API. Search consists of a query against text fields in a collection.
-
-```typescript
-const request: SearchRequest<User> = {
-  q: "Jania",
-};
-users.search(request, {
-  onEnd() {
-    // when search completes
-  },
-  onNext(result: SearchResult<User>) {
-    // when a search result is fetched
-  },
-  onError(error: Error) {
-    // in case of an error
-  },
-});
-```
-
-### Project search query against specific fields
-
-By default, query is projected against all the text fields in collection. To project query against specific fields:
-
-```typescript
-const request: SearchRequest<User> = {
-  q: "Jania",
-  searchFields: ["firstName", "lastName"],
-};
-```
-
-### Refine the search results
-
-[Filters](../overview/filter.md) can be applied to further refine the search results.
-
-```typescript
-const request: SearchRequest<User> = {
-  q: "Jania",
-  searchFields: ["firstName", "lastName"],
-  filter: { balance: 2000 },
-};
-```
-
-### Facet the search results
-
-Optionally, facet query can be specified to retrieve aggregate count of values for one or more fields.
-
-```typescript
-const request: SearchRequest<User> = {
-  q: "Jania",
-  searchFields: ["firstName"],
-  filter: { balance: 2000 },
-  facets: ["lastName"],
-};
 ```
 
 ## Update documents

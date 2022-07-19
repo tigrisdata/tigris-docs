@@ -9,8 +9,7 @@ There are two basic constructs for TypeScript Tigris modeling.
 // data container
 interface User extends TigrisCollectionType {
   userId?: number;
-  firstName: string;
-  lastName: string;
+  name: string;
   balance: number;
 }
 
@@ -23,10 +22,7 @@ const userSchema: TigrisSchema<User> = {
       autoGenerate: true,
     },
   },
-  firstName: {
-    type: TigrisDataTypes.STRING,
-  },
-  lastName: {
+  name: {
     type: TigrisDataTypes.STRING,
   },
   balance: {
