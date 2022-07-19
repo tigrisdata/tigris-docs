@@ -1,3 +1,6 @@
+import CodeBlock from "@theme/CodeBlock";
+import collectionSource from "!!raw-loader!./snippets/search/_createCollection";
+
 # Searching
 
 Tigris offers a realtime search for documents in a collection. Searching is by default enabled for a
@@ -19,9 +22,7 @@ Assuming an e-commerce website that has a collection catalog and has 6 products(
 
 The first step is to create the collection object.
 
-```go
-catalog := GetCollection[Catalog](catalogdb)
-```
+<CodeBlock language="go">{collectionSource}</CodeBlock>
 
 ## Searching for documents
 
