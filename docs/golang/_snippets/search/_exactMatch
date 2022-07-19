@@ -1,0 +1,3 @@
+request := search.NewRequestBuilder().
+                WithFilter(filter.Eq("brand", "adidas")).
+                Build()

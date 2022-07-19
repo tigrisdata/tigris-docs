@@ -1,0 +1,17 @@
+request := search.NewRequestBuilder().WithQuery("running").Build()
+it, err := catalog.Search(ctx, request)
+
+if err != nil {
+    // handle error
+}
+
+defer it.Close()
+
+var result search.Result[Catalog]
+for it.Next(&result) {
+    fmt.Printf("%+v\n", result)
+}
+
+if it.Err() != nil {
+    // handle error
+}

@@ -24,10 +24,9 @@ go get -u github.com/tigrisdata/tigris-client-go@latest
 
 ```go
 type User struct {
-    Id          int `tigris:"primary_key,autoGenerate"`
-    FirstName   string
-    LastName    string
-    Balance     float64
+    Id      int `tigris:"primary_key,autoGenerate"`
+    Name    string
+    Balance float64
 }
 
 db, err := tigris.OpenDatabase(ctx,
@@ -46,7 +45,7 @@ db, err := tigris.OpenDatabase(ctx,
 ```go
 users := tigris.GetCollection[User](db)
 
-_, err := users.Insert(ctx, &User{FirstName: "Jania", LastName: "McGrory", Balance: 6045.7})
+_, err := users.Insert(ctx, &User{Name: "Jania McGrory", Balance: 6045.7})
 if err != nil {
     // handle error
 }

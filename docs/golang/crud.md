@@ -18,8 +18,8 @@ specify a value for that field when inserting.
 
 ```go
 _, err := users.Insert(ctx,
-    &User{FirstName: "John", LastName: "McGrory", Balance: 6045.7},
-    &User{FirstName: "Bunny", LastName: "Instone", Balance: 2948.87})
+    &User{Name: "Jania McGrory", Balance: 6045.7},
+    &User{Name: "Bunny Instone", Balance: 2948.87})
 if err != nil {
     // handle error
 }
@@ -36,8 +36,8 @@ document with the same primary key value.
 
 ```go
 _, err := users.InsertOrReplace(ctx,
-    &User{Id: 1, FirstName: "Jania", LastName: "McGrory", Balance: 6045.7},
-    &User{Id: 2, FirstName: "Bunny", LastName: "Instone", Balance: 2948.87})
+    &User{Id: 1, Name: "Jania McGrory", Balance: 6045.7},
+    &User{Id: 2, Name: "Bunny Instone", Balance: 2948.87})
 if err != nil {
     // handle error
 }
@@ -86,6 +86,7 @@ if err != nil {
 Use the `ReadAll` API to read all the documents in the collection.
 
 ```go
+var u User
 it, err := users.ReadAll(ctx)
 if err != nil {
     // handle error

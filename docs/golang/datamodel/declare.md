@@ -5,10 +5,9 @@ Field properties can be modified using optional "tigris" tag.
 
 ```go
 type User struct {
-    Id          int `tigris:"primaryKey,autoGenerate"`
-    FirstName   string
-    LastName    string
-    Balance     float64
+    Id      int `tigris:"primaryKey,autoGenerate"`
+    Name    string
+    Balance float64
 }
 ```
 
@@ -31,9 +30,8 @@ fields in the collection schema with a different name, you can configure
 
 ```go
 type User struct {
-    Id          int `json:"id" tigris:"primaryKey,autoGenerate"`
-    FirstName   string
-    LastName    string
-    Balance     float64
+    Id      int `json:"id" tigris:"primaryKey,autoGenerate"`
+    Name    string
+    Balance float64
 }
 ```
