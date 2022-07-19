@@ -1,0 +1,4 @@
+SearchRequest request =
+    SearchRequest.newBuilder()
+        .withFilter(Filters.eq("brand", "adidas"))
+        .build();

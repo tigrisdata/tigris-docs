@@ -1,0 +1,5 @@
+SearchRequest request =
+    SearchRequest.newBuilder()
+        .withQuery("running")
+        .withSearchFields("name", "labels")
+        .build();

@@ -1,0 +1,4 @@
+request := search.NewRequestBuilder().
+                WithQuery("running").
+                WithSearchFields("name", "labels").
+                Build()

@@ -1,0 +1,3 @@
+const request: SearchRequest<Catalog> = {
+  filter: { brand: "adidas" }
+};

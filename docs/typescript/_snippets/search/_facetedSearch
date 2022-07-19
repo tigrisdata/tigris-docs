@@ -1,0 +1,22 @@
+const request: SearchRequest<Catalog> = {
+  q: "running",
+  searchFields: ["name", "labels"],
+  filter: {
+    op: LogicalOperator.AND,
+    selectorFilters: [
+      {
+        op: SelectorFilterOperator.GTE,
+        fields: {
+          price: 40
+        }
+      },
+      {
+        op: SelectorFilterOperator.LT,
+        fields: {
+          price: 90
+        }
+      }
+    ]
+  },
+  facets: ["brand", "labels"],
+};
