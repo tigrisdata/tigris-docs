@@ -1,0 +1,31 @@
+curl 'http://localhost:8081/api/v1/databases/catalogdb/collections/catalog/createOrUpdate' \
+-X POST \
+-H 'Content-Type: application/json' \
+-d '{
+    "schema": {
+        "title": "catalog",
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "string"
+            },
+            "price": {
+                "type": "number"
+            },
+            "brand": {
+                "type": "string"
+            },
+            "labels": {
+                "type": "string"
+            },
+            "popularity": {
+                "type": "integer"
+            }
+        },
+        "primary_key": [
+            "id"
+        ]
+    }
+  }'

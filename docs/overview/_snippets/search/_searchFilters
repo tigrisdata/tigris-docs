@@ -1,0 +1,17 @@
+curl 'http://localhost:8081/api/v1/databases/catalogdb/collections/catalog/documents/search' \
+-X POST \
+-H 'Content-Type: application/json' \
+-d '{
+    "q": "running",
+    "search_fields": [ "name", "labels" ],
+    "filter": {
+        "$and": [
+            {
+                "price": { "$gte": 40 }
+            },
+            {
+                "price": { "$lt": 90 }
+            }
+        ]
+    }
+  }'

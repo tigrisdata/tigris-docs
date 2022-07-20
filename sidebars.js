@@ -29,6 +29,7 @@ const sidebars = {
         "overview/datamodel",
         "overview/schema",
         "overview/query",
+        "overview/search",
         "overview/change-events",
       ],
     },
