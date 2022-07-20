@@ -1,1 +1,1 @@
-request := search.NewRequestBuilder().Build()
+request := search.MatchAll().Build()

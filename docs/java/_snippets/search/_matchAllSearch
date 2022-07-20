@@ -1,1 +1,1 @@
-SearchRequest request = SearchRequest.newBuilder().build();
+SearchRequest request = SearchRequest.matchAll().build();
