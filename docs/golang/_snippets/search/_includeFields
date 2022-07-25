@@ -1,0 +1,4 @@
+request := search.NewRequestBuilder().
+                WithQuery("running").
+                WithIncludeFields("name", "brand", "price").
+                Build()

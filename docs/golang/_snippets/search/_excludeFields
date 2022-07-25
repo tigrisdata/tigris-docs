@@ -1,0 +1,4 @@
+request := search.NewRequestBuilder().
+                WithQuery("running").
+                WithExcludeFields("id", "reviews").
+                Build()

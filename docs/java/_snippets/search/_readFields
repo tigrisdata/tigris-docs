@@ -1,9 +1,0 @@
-SearchRequest request =
-    SearchRequest.newBuilder()
-        .withQuery("running")
-        .withReadFields(ReadFields.newBuilder()
-            .includeField("name")
-            .includeField("price")
-            .includeField("brand")
-            .build())
-        .build();
