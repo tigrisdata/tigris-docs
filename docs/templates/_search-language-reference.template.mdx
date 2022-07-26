@@ -77,11 +77,22 @@ to narrow search results in real-time. Faceted search interface presents intuiti
 navigation to the end user.
 :::
 
-## Reading specific fields
+## Specifying document fields to retrieve
 
-Similar to [field projection in query](query#reading-specific-fields), a search query can be
-programmed to return only specific fields of a document in search results.
+Search query can be programmed to return only specific fields in a document in search results. We
+may only need to retrieve product `name`, `brand` and `price` for our interface.
 
-<CodeBlock language={props.codeLang}>{props.readFields}</CodeBlock>
+<CodeBlock language={props.codeLang}>{props.includeFields}</CodeBlock>
 
-> Field projection supports either _inclusion_ or _exclusion_ of fields
+On the contrary, exclusion of fields is useful to exclude/hide potentially sensitive fields or
+internal metadata from the document. To include all fields except `id` and `reviews` from documents
+in search results.
+
+<CodeBlock language={props.codeLang}>{props.excludeFields}</CodeBlock>
+
+:::note
+Field selection does not impact searching, filtering and faceting capabilities for that field. For
+example, if `reviews` field is not included in documents in search results, it could still be used
+for text querying, filtering and/or faceting; just that matched documents won't include `reviews`
+field.
+:::

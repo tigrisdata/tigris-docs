@@ -3,9 +3,5 @@ curl -L 'http://localhost:8081/api/v1/databases/catalogdb/collections/catalog/do
 -H 'Content-Type: application/json' \
 -d '{
     "q": "running",
-    "fields": {
-        "name": true,
-        "price": true,
-        "brand": true
-    }
+    "include_fields": ["name", "price", "brand"]
   }'
