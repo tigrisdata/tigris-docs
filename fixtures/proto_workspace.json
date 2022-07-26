@@ -281,23 +281,10 @@
           "fullName": "tigrisdata.v1.CollectionOptions",
           "description": "Collection requests modifying options.",
           "hasExtensions": false,
-          "hasFields": true,
+          "hasFields": false,
           "hasOneofs": false,
           "extensions": [],
-          "fields": [
-            {
-              "name": "tx_ctx",
-              "description": "Perform operation in the context of this transaction.",
-              "label": "",
-              "type": "TransactionCtx",
-              "longType": "TransactionCtx",
-              "fullType": "tigrisdata.v1.TransactionCtx",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
+          "fields": []
         },
         {
           "name": "CommitTransactionRequest",
@@ -316,18 +303,6 @@
               "type": "string",
               "longType": "string",
               "fullType": "string",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "tx_ctx",
-              "description": "Tigris transactional context with details about the transactions.",
-              "label": "",
-              "type": "TransactionCtx",
-              "longType": "TransactionCtx",
-              "fullType": "tigrisdata.v1.TransactionCtx",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -1804,18 +1779,6 @@
           "extensions": [],
           "fields": [
             {
-              "name": "tx_ctx",
-              "description": "Perform operation in the context of this transaction.",
-              "label": "",
-              "type": "TransactionCtx",
-              "longType": "TransactionCtx",
-              "fullType": "tigrisdata.v1.TransactionCtx",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            },
-            {
               "name": "limit",
               "description": "Limit the number of documents returned by the read operation.",
               "label": "",
@@ -2126,18 +2089,6 @@
               "isoneof": false,
               "oneofdecl": "",
               "defaultValue": ""
-            },
-            {
-              "name": "tx_ctx",
-              "description": "Tigris transactional context with details about the transactions.",
-              "label": "",
-              "type": "TransactionCtx",
-              "longType": "TransactionCtx",
-              "fullType": "tigrisdata.v1.TransactionCtx",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
             }
           ]
         },
@@ -2416,12 +2367,24 @@
               "defaultValue": ""
             },
             {
-              "name": "fields",
-              "description": "Fetch specific fields from a document. Default is all",
-              "label": "",
-              "type": "bytes",
-              "longType": "bytes",
-              "fullType": "bytes",
+              "name": "include_fields",
+              "description": "Array of document field names to include in results. By default, all fields are included.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "exclude_fields",
+              "description": "Array of document field names to exclude from results. `include_fields`, if specified, takes precedence over `exclude_fields`.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
               "ismap": false,
               "isoneof": false,
               "oneofdecl": "",
@@ -2709,7 +2672,7 @@
           "name": "TransactionCtx",
           "longName": "TransactionCtx",
           "fullName": "tigrisdata.v1.TransactionCtx",
-          "description": "Contains ID which uniquely identifies transaction\nThis context is returned by BeginTransaction request and\nshould be passed in the subsequent requests in order to run\nthem in the context of the same transaction.",
+          "description": "Contains ID which uniquely identifies transaction\nThis context is returned by BeginTransaction request and\nshould be passed in the metadata (headers) of subsequent requests\nin order to run them in the context of the same transaction.",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -2902,23 +2865,10 @@
           "fullName": "tigrisdata.v1.WriteOptions",
           "description": "Additional options to modify write requests.",
           "hasExtensions": false,
-          "hasFields": true,
+          "hasFields": false,
           "hasOneofs": false,
           "extensions": [],
-          "fields": [
-            {
-              "name": "tx_ctx",
-              "description": "Perform operation in the context of this transaction.",
-              "label": "",
-              "type": "TransactionCtx",
-              "longType": "TransactionCtx",
-              "fullType": "tigrisdata.v1.TransactionCtx",
-              "ismap": false,
-              "isoneof": false,
-              "oneofdecl": "",
-              "defaultValue": ""
-            }
-          ]
+          "fields": []
         }
       ],
       "services": [
