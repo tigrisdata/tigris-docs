@@ -43,7 +43,7 @@ catalog.findOne({
         brand: "adidas"
     }
 }).then(value => {
-    const product: Catalog = <Catalog>value;
+    const product: Catalog = <Catalog> value;
     console.log(product.name); // 'sneakers shoes'
     console.log(product.price); // 40
 });
@@ -89,15 +89,15 @@ let's say you only need to read `name`, `price` and `brand` fields from a docume
 catalog.findMany({
     op: LogicalOperator.AND,
     selectorFilters: [
-    {
-        brand: "adidas"
-    },
-    {
-        op: SelectorFilterOperator.LT,
-        fields: {
-            price: 50
+        {
+            brand: "adidas"
+        },
+        {
+            op: SelectorFilterOperator.LT,
+            fields: {
+                price: 50
+            }
         }
-    }
     ]
 }, {
     include: ["name", "price", "brand"],
@@ -156,11 +156,15 @@ const logicalFilter: LogicalFilter <ProductCatalog> = {
     selectorFilters: [
         {
             op: SelectorFilterOperator.LT,
-            price: 50
+            fields: {
+                price: 50
+            }
         },
         {
             op: SelectorFilterOperator.GTE,
-            popularity: 8
+            fields: {
+                popularity: 8
+            }
         }
     ],
     logicalFilters: [{
@@ -168,11 +172,15 @@ const logicalFilter: LogicalFilter <ProductCatalog> = {
         selectorFilters: [
             {
                 op: SelectorFilterOperator.LT,
-                price: 50
+                fields: {
+                    price: 50
+                }
             },
             {
                 op: SelectorFilterOperator.GTE,
-                popularity: 8
+                fields: {
+                    popularity: 8
+                }
             }
         ]
     }],
@@ -202,7 +210,9 @@ catalog.findMany({
         {
             op: SelectorFilterOperator.GT,
             fields: {
-                reviews.ratings: 7
+                reviews: {
+                  ratings: 7
+                }
             }
         }
     ]
